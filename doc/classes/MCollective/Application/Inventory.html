@@ -1,0 +1,798 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: MCollective::Application::Inventory</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">MCollective::Application::Inventory</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/plugins/mcollective/application/inventory_rb.html">
+                plugins/mcollective/application/inventory.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="../Application.html">
+                MCollective::Application
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000303">agents</a>&nbsp;&nbsp;
+      <a href="#M000302">classes</a>&nbsp;&nbsp;
+      <a href="#M000295">collectives_map</a>&nbsp;&nbsp;
+      <a href="#M000296">collectives_report</a>&nbsp;&nbsp;
+      <a href="#M000301">facts</a>&nbsp;&nbsp;
+      <a href="#M000299">fields</a>&nbsp;&nbsp;
+      <a href="#M000298">format</a>&nbsp;&nbsp;
+      <a href="#M000308">formatted_inventory</a>&nbsp;&nbsp;
+      <a href="#M000294">get_collectives</a>&nbsp;&nbsp;
+      <a href="#M000300">identity</a>&nbsp;&nbsp;
+      <a href="#M000307">inventory</a>&nbsp;&nbsp;
+      <a href="#M000309">main</a>&nbsp;&nbsp;
+      <a href="#M000297">node_inventory</a>&nbsp;&nbsp;
+      <a href="#M000306">page_body</a>&nbsp;&nbsp;
+      <a href="#M000305">page_heading</a>&nbsp;&nbsp;
+      <a href="#M000304">page_length</a>&nbsp;&nbsp;
+      <a href="#M000292">post_option_parser</a>&nbsp;&nbsp;
+      <a href="#M000293">validate_configuration</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000303" class="method-detail">
+        <a name="M000303"></a>
+
+        <div class="method-heading">
+          <a href="#M000303" class="method-signature">
+          <span class="method-name">agents</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000303-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000303-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 227</span>
+227:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">agents</span>
+228:         <span class="ruby-ivar">@node</span>[<span class="ruby-identifier">:agents</span>]
+229:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000302" class="method-detail">
+        <a name="M000302"></a>
+
+        <div class="method-heading">
+          <a href="#M000302" class="method-signature">
+          <span class="method-name">classes</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000302-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000302-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 223</span>
+223:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">classes</span>
+224:         <span class="ruby-ivar">@node</span>[<span class="ruby-identifier">:classes</span>]
+225:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000295" class="method-detail">
+        <a name="M000295"></a>
+
+        <div class="method-heading">
+          <a href="#M000295" class="method-signature">
+          <span class="method-name">collectives_map</span><span class="method-args">(file)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Writes a crude DOT graph to a file
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000295-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000295-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 86</span>
+ 86:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collectives_map</span>(<span class="ruby-identifier">file</span>)
+ 87:         <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-value str">&quot;w&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">graph</span><span class="ruby-operator">|</span>
+ 88:             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;Retrieving collective info....&quot;</span>
+ 89:             <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
+ 90: 
+ 91:             <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'graph {'</span>
+ 92: 
+ 93:             <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">:collectives</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+ 94:                 <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'   subgraph &quot;%s&quot; {'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span> ]
+ 95: 
+ 96:                 <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">:collectives</span>][<span class="ruby-identifier">collective</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+ 97:                     <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'      &quot;%s&quot; -- &quot;%s&quot;'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">member</span>, <span class="ruby-identifier">collective</span> ]
+ 98:                 <span class="ruby-keyword kw">end</span>
+ 99: 
+100:                 <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'   }'</span>
+101:             <span class="ruby-keyword kw">end</span>
+102: 
+103:             <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-value str">'}'</span>
+104: 
+105:             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Graph of #{collectives[:total_nodes]} nodes has been written to #{file}&quot;</span>
+106:         <span class="ruby-keyword kw">end</span>
+107:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000296" class="method-detail">
+        <a name="M000296"></a>
+
+        <div class="method-heading">
+          <a href="#M000296" class="method-signature">
+          <span class="method-name">collectives_report</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Prints a report of all known sub collectives
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000296-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000296-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 110</span>
+110:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collectives_report</span>
+111:         <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
+112: 
+113:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-value str">&quot;Collective&quot;</span>, <span class="ruby-value str">&quot;Nodes&quot;</span> ]
+114:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-value str">&quot;==========&quot;</span>, <span class="ruby-value str">&quot;=====&quot;</span> ]
+115: 
+116:         <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">:collectives</span>].<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">count</span><span class="ruby-operator">|</span> <span class="ruby-identifier">count</span>.<span class="ruby-identifier">size</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+117:             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   %-30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">collective</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">size</span> ]
+118:         <span class="ruby-keyword kw">end</span>
+119: 
+120:         <span class="ruby-identifier">puts</span>
+121:         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   %30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-value str">&quot;Total nodes:&quot;</span>, <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">:nodes</span>] ]
+122:         <span class="ruby-identifier">puts</span>
+123:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000301" class="method-detail">
+        <a name="M000301"></a>
+
+        <div class="method-heading">
+          <a href="#M000301" class="method-signature">
+          <span class="method-name">facts</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000301-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000301-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 219</span>
+219:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">facts</span>
+220:         <span class="ruby-ivar">@node</span>[<span class="ruby-identifier">:facts</span>]
+221:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000299" class="method-detail">
+        <a name="M000299"></a>
+
+        <div class="method-heading">
+          <a href="#M000299" class="method-signature">
+          <span class="method-name">fields</span><span class="method-args">(&amp;blk)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000299-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000299-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 211</span>
+211:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">fields</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+212:         <span class="ruby-ivar">@flds</span> = <span class="ruby-identifier">blk</span>
+213:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000298" class="method-detail">
+        <a name="M000298"></a>
+
+        <div class="method-heading">
+          <a href="#M000298" class="method-signature">
+          <span class="method-name">format</span><span class="method-args">(fmt)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Helpers to create a simple DSL for scriptlets
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000298-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000298-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 207</span>
+207:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">format</span>(<span class="ruby-identifier">fmt</span>)
+208:         <span class="ruby-ivar">@fmt</span> = <span class="ruby-identifier">fmt</span>
+209:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000308" class="method-detail">
+        <a name="M000308"></a>
+
+        <div class="method-heading">
+          <a href="#M000308" class="method-signature">
+          <span class="method-name">formatted_inventory</span><span class="method-args">(&amp;blk)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Use the ruby formatr gem to build reports using Perls formats
+</p>
+<p>
+It is kind of ugly but brings a lot of flexibility in report writing
+without building an entire reporting language.
+</p>
+<p>
+You need to have formatr installed to enable reports like:
+</p>
+<pre>
+   formatted_inventory do
+       page_length 20
+
+       page_heading &lt;&lt;TOP
+
+               Node Report @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+                           time
+
+   Hostname:         Customer:     Distribution:
+   -------------------------------------------------------------------------
+   TOP
+
+       page_body &lt;&lt;BODY
+
+   @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+   identity,    facts[&quot;customer&quot;], facts[&quot;lsbdistdescription&quot;]
+                                   @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
+                                   facts[&quot;processor0&quot;]
+   BODY
+   end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000308-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000308-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 299</span>
+299:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">formatted_inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+300:         <span class="ruby-identifier">require</span> <span class="ruby-value str">'formatr'</span>
+301: 
+302:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to give a block to formatted_inventory&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block_given?</span>
+303: 
+304:         <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+305: 
+306:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to define page body format&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@page_body</span>.<span class="ruby-identifier">nil?</span>
+307: 
+308:         <span class="ruby-identifier">body_fmt</span> = <span class="ruby-constant">FormatR</span><span class="ruby-operator">::</span><span class="ruby-constant">Format</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page_heading</span>, <span class="ruby-ivar">@page_body</span>)
+309:         <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">setPageLength</span>(<span class="ruby-ivar">@page_length</span>)
+310:         <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+311: 
+312:         <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-value str">&quot;rpcutil&quot;</span>)
+313:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword kw">false</span>
+314: 
+315:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+316:             <span class="ruby-ivar">@node</span> = {<span class="ruby-identifier">:identity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:sender</span>],
+317:                      <span class="ruby-identifier">:facts</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:facts</span>],
+318:                      <span class="ruby-identifier">:classes</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:classes</span>],
+319:                      <span class="ruby-identifier">:agents</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:agents</span>]}
+320: 
+321:             <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">printFormat</span>(<span class="ruby-identifier">binding</span>)
+322:         <span class="ruby-keyword kw">end</span>
+323:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+324:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not create report: #{e.class}: #{e}&quot;</span>
+325:         <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+326:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000294" class="method-detail">
+        <a name="M000294"></a>
+
+        <div class="method-heading">
+          <a href="#M000294" class="method-signature">
+          <span class="method-name">get_collectives</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Get all the known collectives and nodes that belong to them
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000294-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000294-source">
+<pre>
+    <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 60</span>
+60:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">get_collectives</span>
+61:         <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-value str">&quot;rpcutil&quot;</span>)
+62:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword kw">false</span>
+63: 
+64:         <span class="ruby-identifier">collectives</span> = {}
+65:         <span class="ruby-identifier">nodes</span> = <span class="ruby-value">0</span>
+66:         <span class="ruby-identifier">total</span> = <span class="ruby-value">0</span>
+67: 
+68:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">collective_info</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span>, <span class="ruby-identifier">cinfo</span><span class="ruby-operator">|</span>
+69:             <span class="ruby-keyword kw">begin</span>
+70:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-identifier">:data</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:collectives</span>]
+71:                     <span class="ruby-identifier">cinfo</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:collectives</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+72:                         <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>] <span class="ruby-operator">||=</span> []
+73:                         <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>]  <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-identifier">:sender</span>]
+74:                     <span class="ruby-keyword kw">end</span>
+75: 
+76:                     <span class="ruby-identifier">nodes</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+77:                     <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+78:                 <span class="ruby-keyword kw">end</span>
+79:             <span class="ruby-keyword kw">end</span>
+80:         <span class="ruby-keyword kw">end</span>
+81: 
+82:         {<span class="ruby-identifier">:collectives</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collectives</span>, <span class="ruby-identifier">:nodes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">nodes</span>, <span class="ruby-identifier">:total_nodes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total</span>}
+83:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000300" class="method-detail">
+        <a name="M000300"></a>
+
+        <div class="method-heading">
+          <a href="#M000300" class="method-signature">
+          <span class="method-name">identity</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000300-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000300-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 215</span>
+215:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">identity</span>
+216:         <span class="ruby-ivar">@node</span>[<span class="ruby-identifier">:identity</span>]
+217:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000307" class="method-detail">
+        <a name="M000307"></a>
+
+        <div class="method-heading">
+          <a href="#M000307" class="method-signature">
+          <span class="method-name">inventory</span><span class="method-args">(&amp;blk)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Expects a simple printf style <a href="Inventory.html#M000298">format</a>
+and apply it to each node:
+</p>
+<pre>
+   inventory do
+       format &quot;%s:\t\t%s\t\t%s&quot;
+
+       fields { [ identity, facts[&quot;serialnumber&quot;], facts[&quot;productname&quot;] ] }
+   end
+</pre>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000307-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000307-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 251</span>
+251:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+252:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to give a block to inventory&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">block_given?</span>
+253: 
+254:         <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+255: 
+256:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to define a format&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@fmt</span>.<span class="ruby-identifier">nil?</span>
+257:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to define inventory fields&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">nil?</span>
+258: 
+259:         <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-value str">&quot;rpcutil&quot;</span>)
+260:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword kw">false</span>
+261: 
+262:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+263:             <span class="ruby-ivar">@node</span> = {<span class="ruby-identifier">:identity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:sender</span>],
+264:                      <span class="ruby-identifier">:facts</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:facts</span>],
+265:                      <span class="ruby-identifier">:classes</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:classes</span>],
+266:                      <span class="ruby-identifier">:agents</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>][<span class="ruby-identifier">:agents</span>]}
+267: 
+268:             <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@fmt</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">call</span>
+269:         <span class="ruby-keyword kw">end</span>
+270:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000309" class="method-detail">
+        <a name="M000309"></a>
+
+        <div class="method-heading">
+          <a href="#M000309" class="method-signature">
+          <span class="method-name">main</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000309-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000309-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 334</span>
+334:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">main</span>
+335:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:script</span>]
+336:             <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:script</span>])
+337:                 <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:script</span>]))
+338:             <span class="ruby-keyword kw">else</span>
+339:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find script to run: #{configuration[:script]}&quot;</span>
+340:             <span class="ruby-keyword kw">end</span>
+341: 
+342:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:collectivemap</span>]
+343:             <span class="ruby-identifier">collectives_map</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:collectivemap</span>])
+344: 
+345:         <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:collectives</span>]
+346:             <span class="ruby-identifier">collectives_report</span>
+347: 
+348:         <span class="ruby-keyword kw">else</span>
+349:             <span class="ruby-identifier">node_inventory</span>
+350:         <span class="ruby-keyword kw">end</span>
+351:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000297" class="method-detail">
+        <a name="M000297"></a>
+
+        <div class="method-heading">
+          <a href="#M000297" class="method-signature">
+          <span class="method-name">node_inventory</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000297-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000297-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 125</span>
+125:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">node_inventory</span>
+126:         <span class="ruby-identifier">node</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:node</span>]
+127: 
+128:         <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-value str">&quot;rpcutil&quot;</span>)
+129:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">identity_filter</span> <span class="ruby-identifier">node</span>
+130:         <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword kw">false</span>
+131: 
+132:         <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-value str">&quot;daemon_stats&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-value str">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">first</span>
+133: 
+134:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">nodestats</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+135:             <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve daemon_stats from #{node}: #{nodestats[:statusmsg]}&quot;</span>
+136:         <span class="ruby-keyword kw">else</span>
+137:             <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-value str">&quot;inventory&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-value str">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+138:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+139:                     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve inventory for #{node}: #{resp[:statusmsg]}&quot;</span>
+140:                     <span class="ruby-keyword kw">next</span>
+141:                 <span class="ruby-keyword kw">end</span>
+142: 
+143:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:data</span>]
+144: 
+145:                 <span class="ruby-keyword kw">begin</span>
+146:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Inventory for #{resp[:sender]}:&quot;</span>
+147:                     <span class="ruby-identifier">puts</span>
+148: 
+149:                     <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">nodestats</span>[<span class="ruby-identifier">:data</span>]
+150: 
+151:                     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   Server Statistics:&quot;</span>
+152:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                      Version: #{nodestats[:version]}&quot;</span>
+153:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Start Time: #{Time.at(nodestats[:starttime])}&quot;</span>
+154:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Config File: #{nodestats[:configfile]}&quot;</span>
+155:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Collectives: #{data[:collectives].join(', ')}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:collectives</span>)
+156:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;              Main Collective: #{data[:main_collective]}&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:main_collective</span>)
+157:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Process ID: #{nodestats[:pid]}&quot;</span>
+158:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;               Total Messages: #{nodestats[:total]}&quot;</span>
+159:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      Messages Passed Filters: #{nodestats[:passed]}&quot;</span>
+160:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;            Messages Filtered: #{nodestats[:filtered]}&quot;</span>
+161:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                 Replies Sent: #{nodestats[:replies]}&quot;</span>
+162:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;         Total Processor Time: #{nodestats[:times][:utime]} seconds&quot;</span>
+163:                     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  System Time: #{nodestats[:times][:stime]} seconds&quot;</span>
+164: 
+165:                     <span class="ruby-identifier">puts</span>
+166: 
+167:                     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   Agents:&quot;</span>
+168:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:agents</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+169:                         <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:agents</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">3</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agents</span><span class="ruby-operator">|</span>
+170:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;      %-15s %-15s %-15s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">agents</span>
+171:                         <span class="ruby-keyword kw">end</span>
+172:                     <span class="ruby-keyword kw">else</span>
+173:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;      No agents installed&quot;</span>
+174:                     <span class="ruby-keyword kw">end</span>
+175: 
+176:                     <span class="ruby-identifier">puts</span>
+177: 
+178:                     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   Configuration Management Classes:&quot;</span>
+179:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:classes</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+180:                         <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:classes</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">2</span>, <span class="ruby-value str">&quot;&quot;</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klasses</span><span class="ruby-operator">|</span>
+181:                             <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;      %-30s %-30s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">klasses</span>
+182:                         <span class="ruby-keyword kw">end</span>
+183:                     <span class="ruby-keyword kw">else</span>
+184:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;      No classes applied&quot;</span>
+185:                     <span class="ruby-keyword kw">end</span>
+186: 
+187:                     <span class="ruby-identifier">puts</span>
+188: 
+189:                     <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;   Facts:&quot;</span>
+190:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:facts</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+191:                         <span class="ruby-identifier">data</span>[<span class="ruby-identifier">:facts</span>].<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>[<span class="ruby-value">0</span>]}.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+192:                             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      #{f[0]} =&gt; #{f[1]}&quot;</span>
+193:                         <span class="ruby-keyword kw">end</span>
+194:                     <span class="ruby-keyword kw">else</span>
+195:                         <span class="ruby-identifier">puts</span> <span class="ruby-value str">&quot;      No facts known&quot;</span>
+196:                     <span class="ruby-keyword kw">end</span>
+197: 
+198:                     <span class="ruby-keyword kw">break</span>
+199:                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+200:                     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to display node inventory: #{e.class}: #{e}&quot;</span>
+201:                 <span class="ruby-keyword kw">end</span>
+202:             <span class="ruby-keyword kw">end</span>
+203:         <span class="ruby-keyword kw">end</span>
+204:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000306" class="method-detail">
+        <a name="M000306"></a>
+
+        <div class="method-heading">
+          <a href="#M000306" class="method-signature">
+          <span class="method-name">page_body</span><span class="method-args">(fmt)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000306-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000306-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 239</span>
+239:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_body</span>(<span class="ruby-identifier">fmt</span>)
+240:         <span class="ruby-ivar">@page_body</span> = <span class="ruby-identifier">fmt</span>
+241:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000305" class="method-detail">
+        <a name="M000305"></a>
+
+        <div class="method-heading">
+          <a href="#M000305" class="method-signature">
+          <span class="method-name">page_heading</span><span class="method-args">(fmt)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000305-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000305-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 235</span>
+235:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_heading</span>(<span class="ruby-identifier">fmt</span>)
+236:         <span class="ruby-ivar">@page_heading</span> = <span class="ruby-identifier">fmt</span>
+237:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000304" class="method-detail">
+        <a name="M000304"></a>
+
+        <div class="method-heading">
+          <a href="#M000304" class="method-signature">
+          <span class="method-name">page_length</span><span class="method-args">(len)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000304-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000304-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 231</span>
+231:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">page_length</span>(<span class="ruby-identifier">len</span>)
+232:         <span class="ruby-ivar">@page_length</span> = <span class="ruby-identifier">len</span>
+233:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000292" class="method-detail">
+        <a name="M000292"></a>
+
+        <div class="method-heading">
+          <a href="#M000292" class="method-signature">
+          <span class="method-name">post_option_parser</span><span class="method-args">(configuration)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000292-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000292-source">
+<pre>
+    <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 49</span>
+49:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
+50:         <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:node</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+51:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000293" class="method-detail">
+        <a name="M000293"></a>
+
+        <div class="method-heading">
+          <a href="#M000293" class="method-signature">
+          <span class="method-name">validate_configuration</span><span class="method-args">(configuration)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000293-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000293-source">
+<pre>
+    <span class="ruby-comment cmt"># File plugins/mcollective/application/inventory.rb, line 53</span>
+53:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_configuration</span>(<span class="ruby-identifier">configuration</span>)
+54:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:node</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:script</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:collectives</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">:collectivemap</span>]
+55:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Need to specify either a node name, script to run or other options&quot;</span>
+56:         <span class="ruby-keyword kw">end</span>
+57:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

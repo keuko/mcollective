@@ -1,0 +1,599 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: MCollective::RPC::Helpers</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">MCollective::RPC::Helpers</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/lib/mcollective/rpc/helpers_rb.html">
+                lib/mcollective/rpc/helpers.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="../../Object.html">
+                Object
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Various utilities for the <a href="../RPC.html">RPC</a> system
+</p>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000148">add_simplerpc_options</a>&nbsp;&nbsp;
+      <a href="#M000142">color</a>&nbsp;&nbsp;
+      <a href="#M000143">colorize</a>&nbsp;&nbsp;
+      <a href="#M000140">command_in_path?</a>&nbsp;&nbsp;
+      <a href="#M000147">old_rpcresults</a>&nbsp;&nbsp;
+      <a href="#M000144">rpcresults</a>&nbsp;&nbsp;
+      <a href="#M000141">terminal_dimensions</a>&nbsp;&nbsp;
+      <a href="#M000146">text_for_flattened_result</a>&nbsp;&nbsp;
+      <a href="#M000145">text_for_result</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000148" class="method-detail">
+        <a name="M000148"></a>
+
+        <div class="method-heading">
+          <a href="#M000148" class="method-signature">
+          <span class="method-name">add_simplerpc_options</span><span class="method-args">(parser, options)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Add SimpleRPC common options
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000148-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000148-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 251</span>
+251:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+252:                 <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-value str">&quot;&quot;</span>
+253: 
+254:                 <span class="ruby-comment cmt"># add SimpleRPC specific options to all clients that use our library</span>
+255:                 <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--np'</span>, <span class="ruby-value str">'--no-progress'</span>, <span class="ruby-value str">'Do not show the progress bar'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+256:                     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:progress_bar</span>] = <span class="ruby-keyword kw">false</span>
+257:                 <span class="ruby-keyword kw">end</span>
+258: 
+259:                 <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--one'</span>, <span class="ruby-value str">'-1'</span>, <span class="ruby-value str">'Send request to only one discovered nodes'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+260:                     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:mcollective_limit_targets</span>] = <span class="ruby-value str">&quot;1&quot;</span>
+261:                 <span class="ruby-keyword kw">end</span>
+262: 
+263:                 <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-value str">'--limit-nodes [COUNT]'</span>, <span class="ruby-value str">'--ln [COUNT]'</span>, <span class="ruby-value str">'Send request to only a subset of nodes, can be a percentage'</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+264:                     <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:mcollective_limit_targets</span>] = <span class="ruby-identifier">v</span>
+265:                 <span class="ruby-keyword kw">end</span>
+266:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000142" class="method-detail">
+        <a name="M000142"></a>
+
+        <div class="method-heading">
+          <a href="#M000142" class="method-signature">
+          <span class="method-name">color</span><span class="method-args">(code)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return <a href="Helpers.html#M000142">color</a> codes, if the config color=
+option is false just return a empty string
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000142-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000142-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 38</span>
+38:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">color</span>(<span class="ruby-identifier">code</span>)
+39:                 <span class="ruby-identifier">colorize</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">color</span>
+40: 
+41:                 <span class="ruby-identifier">colors</span> = {<span class="ruby-identifier">:red</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[31m&quot;</span>,
+42:                           <span class="ruby-identifier">:green</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[32m&quot;</span>,
+43:                           <span class="ruby-identifier">:yellow</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[33m&quot;</span>,
+44:                           <span class="ruby-identifier">:cyan</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[36m&quot;</span>,
+45:                           <span class="ruby-identifier">:bold</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[1m&quot;</span>,
+46:                           <span class="ruby-identifier">:reset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;[0m&quot;</span>}
+47: 
+48:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">colorize</span>
+49:                     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">colors</span>[<span class="ruby-identifier">code</span>] <span class="ruby-operator">||</span> <span class="ruby-value str">&quot;&quot;</span>
+50:                 <span class="ruby-keyword kw">else</span>
+51:                     <span class="ruby-keyword kw">return</span> <span class="ruby-value str">&quot;&quot;</span>
+52:                 <span class="ruby-keyword kw">end</span>
+53:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000143" class="method-detail">
+        <a name="M000143"></a>
+
+        <div class="method-heading">
+          <a href="#M000143" class="method-signature">
+          <span class="method-name">colorize</span><span class="method-args">(code, msg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Helper to return a string in specific <a
+href="Helpers.html#M000142">color</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000143-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000143-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 56</span>
+56:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">msg</span>)
+57:                 <span class="ruby-node">&quot;#{self.color(code)}#{msg}#{self.color(:reset)}&quot;</span>
+58:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000140" class="method-detail">
+        <a name="M000140"></a>
+
+        <div class="method-heading">
+          <a href="#M000140" class="method-signature">
+          <span class="method-name">command_in_path?</span><span class="method-args">(command)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks in PATH returns true if the command is found
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000140-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000140-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 6</span>
+ 6:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">command_in_path?</span>(<span class="ruby-identifier">command</span>)
+ 7:                 <span class="ruby-identifier">found</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;PATH&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">PATH_SEPARATOR</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+ 8:                     <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">command</span>))
+ 9:                 <span class="ruby-keyword kw">end</span>
+10: 
+11:                 <span class="ruby-identifier">found</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword kw">true</span>)
+12:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000147" class="method-detail">
+        <a name="M000147"></a>
+
+        <div class="method-heading">
+          <a href="#M000147" class="method-signature">
+          <span class="method-name">old_rpcresults</span><span class="method-args">(result, flags = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Backward compatible display block for results without a <a
+href="DDL.html">DDL</a>
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000147-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000147-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 199</span>
+199:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+200:                 <span class="ruby-identifier">result_text</span> = <span class="ruby-value str">&quot;&quot;</span>
+201: 
+202:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-identifier">:flatten</span>]
+203:                     <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+204:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+205:                             <span class="ruby-identifier">data</span> = <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:data</span>]
+206: 
+207:                             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+208:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">pretty_inspect</span>
+209:                             <span class="ruby-keyword kw">else</span>
+210:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
+211:                             <span class="ruby-keyword kw">end</span>
+212:                         <span class="ruby-keyword kw">else</span>
+213:                             <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">pretty_inspect</span>
+214:                         <span class="ruby-keyword kw">end</span>
+215:                     <span class="ruby-keyword kw">end</span>
+216: 
+217:                     <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;&quot;</span>
+218:                 <span class="ruby-keyword kw">else</span>
+219:                     [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+220: 
+221:                         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-identifier">:verbose</span>]
+222:                             <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;%-40s: %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-identifier">:sender</span>], <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statusmsg</span>]]
+223: 
+224:                             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+225:                                 <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:data</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;    #{m}&quot;</span>}
+226:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n\n&quot;</span>
+227:                             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+228:                                 <span class="ruby-comment cmt"># dont print anything, no useful data to display</span>
+229:                                 <span class="ruby-comment cmt"># past what was already shown</span>
+230:                             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">3</span>
+231:                                 <span class="ruby-comment cmt"># dont print anything, no useful data to display</span>
+232:                                 <span class="ruby-comment cmt"># past what was already shown</span>
+233:                             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+234:                                 <span class="ruby-comment cmt"># dont print anything, no useful data to display</span>
+235:                                 <span class="ruby-comment cmt"># past what was already shown</span>
+236:                             <span class="ruby-keyword kw">else</span>
+237:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    #{r[:statusmsg]}&quot;</span>
+238:                             <span class="ruby-keyword kw">end</span>
+239:                         <span class="ruby-keyword kw">else</span>
+240:                             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+241:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-identifier">:sender</span>], <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:red</span>, <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statusmsg</span>])]
+242:                             <span class="ruby-keyword kw">end</span>
+243:                         <span class="ruby-keyword kw">end</span>
+244:                     <span class="ruby-keyword kw">end</span>
+245:                 <span class="ruby-keyword kw">end</span>
+246: 
+247:                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;&quot;</span>
+248:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000144" class="method-detail">
+        <a name="M000144"></a>
+
+        <div class="method-heading">
+          <a href="#M000144" class="method-signature">
+          <span class="method-name">rpcresults</span><span class="method-args">(result, flags = {})</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns a blob of text representing the results in a standard way
+</p>
+<p>
+It tries hard to do sane things so you often should not need to write your
+own display functions
+</p>
+<p>
+If the agent you are getting results for has a <a href="DDL.html">DDL</a>
+it will use the hints in there to do the right thing specifically it will
+look at the values of display in the <a href="DDL.html">DDL</a> to choose
+when to show results
+</p>
+<p>
+If you do not have a <a href="DDL.html">DDL</a> you can pass these flags:
+</p>
+<pre>
+   printrpc exim.mailq, :flatten =&gt; true
+   printrpc exim.mailq, :verbose =&gt; true
+</pre>
+<p>
+If you&#8216;ve asked it to flatten the result it will not print sender
+hostnames, it will just print the result as if it&#8216;s one huge result,
+handy for things like showing a combined mailq.
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000144-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000144-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 78</span>
+ 78:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+ 79:                 <span class="ruby-identifier">flags</span> = {<span class="ruby-identifier">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">:flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
+ 80: 
+ 81:                 <span class="ruby-identifier">result_text</span> = <span class="ruby-value str">&quot;&quot;</span>
+ 82:                 <span class="ruby-identifier">ddl</span> = <span class="ruby-keyword kw">nil</span>
+ 83: 
+ 84:                 <span class="ruby-comment cmt"># if running in verbose mode, just use the old style print</span>
+ 85:                 <span class="ruby-comment cmt"># no need for all the DDL helpers obfuscating the result</span>
+ 86:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-identifier">:verbose</span>]
+ 87:                     <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
+ 88:                 <span class="ruby-keyword kw">else</span>
+ 89:                     [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+ 90:                         <span class="ruby-keyword kw">begin</span>
+ 91:                             <span class="ruby-identifier">ddl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">agent</span>).<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">action</span>.<span class="ruby-identifier">to_s</span>)
+ 92: 
+ 93:                             <span class="ruby-identifier">sender</span> = <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:sender</span>]
+ 94:                             <span class="ruby-identifier">status</span> = <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statuscode</span>]
+ 95:                             <span class="ruby-identifier">message</span> = <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:statusmsg</span>]
+ 96:                             <span class="ruby-identifier">display</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-identifier">:display</span>]
+ 97:                             <span class="ruby-identifier">result</span> = <span class="ruby-identifier">r</span>[<span class="ruby-identifier">:data</span>]
+ 98: 
+ 99:                             <span class="ruby-comment cmt"># appand the results only according to what the DDL says</span>
+100:                             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">display</span>
+101:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:ok</span>
+102:                                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+103:                                         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+104:                                     <span class="ruby-keyword kw">end</span>
+105: 
+106:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:failed</span>
+107:                                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+108:                                         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+109:                                     <span class="ruby-keyword kw">end</span>
+110: 
+111:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:always</span>
+112:                                     <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+113: 
+114:                                 <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:flatten</span>
+115:                                     <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
+116: 
+117:                             <span class="ruby-keyword kw">end</span>
+118:                         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+119:                             <span class="ruby-comment cmt"># no DDL so just do the old style print unchanged for</span>
+120:                             <span class="ruby-comment cmt"># backward compat</span>
+121:                             <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
+122:                         <span class="ruby-keyword kw">end</span>
+123:                     <span class="ruby-keyword kw">end</span>
+124:                 <span class="ruby-keyword kw">end</span>
+125: 
+126:                 <span class="ruby-identifier">result_text</span>
+127:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000141" class="method-detail">
+        <a name="M000141"></a>
+
+        <div class="method-heading">
+          <a href="#M000141" class="method-signature">
+          <span class="method-name">terminal_dimensions</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Figures out the columns and liens of the current tty
+</p>
+<p>
+Returns [0, 0] if it can&#8216;t figure it out or if you&#8216;re not
+running on a tty
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000141-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000141-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 18</span>
+18:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">terminal_dimensions</span>
+19:                 <span class="ruby-keyword kw">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>] <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">tty?</span>
+20: 
+21:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;COLUMNS&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;LINES&quot;</span>]
+22:                     <span class="ruby-keyword kw">return</span> [<span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;COLUMNS&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;LINES&quot;</span>].<span class="ruby-identifier">to_i</span>]
+23: 
+24:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-constant">ENV</span>[<span class="ruby-value str">&quot;TERM&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-value str">&quot;tput&quot;</span>)
+25:                     <span class="ruby-keyword kw">return</span> [<span class="ruby-value">`tput cols`</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-value">`tput lines`</span>.<span class="ruby-identifier">to_i</span>]
+26: 
+27:                 <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-value str">'stty'</span>)
+28:                     <span class="ruby-keyword kw">return</span> <span class="ruby-value">`stty size`</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp re">/\d+/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> }
+29:                 <span class="ruby-keyword kw">else</span>
+30:                     <span class="ruby-keyword kw">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+31:                 <span class="ruby-keyword kw">end</span>
+32:             <span class="ruby-keyword kw">rescue</span>
+33:                 [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+34:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000146" class="method-detail">
+        <a name="M000146"></a>
+
+        <div class="method-heading">
+          <a href="#M000146" class="method-signature">
+          <span class="method-name">text_for_flattened_result</span><span class="method-args">(status, result)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Returns text representing a flattened result of only good data
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000146-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000146-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 186</span>
+186:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
+187:                 <span class="ruby-identifier">result_text</span> = <span class="ruby-value str">&quot;&quot;</span>
+188: 
+189:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+190:                     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+191:                         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>
+192:                     <span class="ruby-keyword kw">else</span>
+193:                         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>
+194:                     <span class="ruby-keyword kw">end</span>
+195:                 <span class="ruby-keyword kw">end</span>
+196:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000145" class="method-detail">
+        <a name="M000145"></a>
+
+        <div class="method-heading">
+          <a href="#M000145" class="method-signature">
+          <span class="method-name">text_for_result</span><span class="method-args">(sender, status, msg, result, ddl)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Return text representing a result
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000145-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000145-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/helpers.rb, line 130</span>
+130:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+131:                 <span class="ruby-identifier">statusses</span> = [<span class="ruby-value str">&quot;&quot;</span>,
+132:                              <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:red</span>, <span class="ruby-value str">&quot;Request Aborted&quot;</span>),
+133:                              <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:yellow</span>, <span class="ruby-value str">&quot;Unknown Action&quot;</span>),
+134:                              <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:yellow</span>, <span class="ruby-value str">&quot;Missing Request Data&quot;</span>),
+135:                              <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:yellow</span>, <span class="ruby-value str">&quot;Invalid Request Data&quot;</span>),
+136:                              <span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:red</span>, <span class="ruby-value str">&quot;Unknown Request Status&quot;</span>)]
+137: 
+138:                 <span class="ruby-identifier">result_text</span> = <span class="ruby-value str">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">statusses</span>[<span class="ruby-identifier">status</span>]]
+139:                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;   %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">:yellow</span>, <span class="ruby-identifier">msg</span>)] <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;OK&quot;</span>
+140: 
+141:                 <span class="ruby-comment cmt"># only print good data, ignore data that results from failure</span>
+142:                 <span class="ruby-keyword kw">if</span> [<span class="ruby-value">0</span>, <span class="ruby-value">1</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">status</span>)
+143:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+144:                         <span class="ruby-comment cmt"># figure out the lengths of the display as strings, we'll use</span>
+145:                         <span class="ruby-comment cmt"># it later to correctly justify the output</span>
+146:                         <span class="ruby-identifier">lengths</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+147:                             <span class="ruby-keyword kw">begin</span>
+148:                                 <span class="ruby-identifier">ddl</span>[<span class="ruby-identifier">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-identifier">:display_as</span>].<span class="ruby-identifier">size</span>
+149:                             <span class="ruby-keyword kw">rescue</span>
+150:                                 <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+151:                             <span class="ruby-keyword kw">end</span>
+152:                         <span class="ruby-keyword kw">end</span>
+153: 
+154:                         <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+155:                             <span class="ruby-comment cmt"># get all the output fields nicely lined up with a</span>
+156:                             <span class="ruby-comment cmt"># 3 space front padding</span>
+157:                             <span class="ruby-keyword kw">begin</span>
+158:                                 <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-identifier">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-identifier">:display_as</span>]
+159:                             <span class="ruby-keyword kw">rescue</span>
+160:                                 <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>
+161:                             <span class="ruby-keyword kw">end</span>
+162: 
+163:                             <span class="ruby-identifier">display_length</span> = <span class="ruby-identifier">display_as</span>.<span class="ruby-identifier">size</span>
+164:                             <span class="ruby-identifier">padding</span> = <span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">display_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span>
+165:                             <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">padding</span>
+166: 
+167:                             <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{display_as}:&quot;</span>
+168: 
+169:                             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>)
+170:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot; #{result[k]}\n&quot;</span>
+171:                             <span class="ruby-keyword kw">else</span>
+172:                                 <span class="ruby-identifier">padding</span> = <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
+173:                                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot; &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">padding</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+174:                             <span class="ruby-keyword kw">end</span>
+175:                         <span class="ruby-keyword kw">end</span>
+176:                     <span class="ruby-keyword kw">else</span>
+177:                         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t&quot;</span>)
+178:                     <span class="ruby-keyword kw">end</span>
+179:                 <span class="ruby-keyword kw">end</span>
+180: 
+181:                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;\n&quot;</span>
+182:                 <span class="ruby-identifier">result_text</span>
+183:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>

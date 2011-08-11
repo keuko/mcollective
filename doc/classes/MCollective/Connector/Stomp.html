@@ -1,0 +1,488 @@
+<?xml version="1.0" encoding="iso-8859-1"?>
+<!DOCTYPE html 
+     PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+     "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en">
+<head>
+  <title>Class: MCollective::Connector::Stomp</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=iso-8859-1" />
+  <meta http-equiv="Content-Script-Type" content="text/javascript" />
+  <link rel="stylesheet" href="../../.././rdoc-style.css" type="text/css" media="screen" />
+  <script type="text/javascript">
+  // <![CDATA[
+
+  function popupCode( url ) {
+    window.open(url, "Code", "resizable=yes,scrollbars=yes,toolbar=no,status=no,height=150,width=400")
+  }
+
+  function toggleCode( id ) {
+    if ( document.getElementById )
+      elem = document.getElementById( id );
+    else if ( document.all )
+      elem = eval( "document.all." + id );
+    else
+      return false;
+
+    elemStyle = elem.style;
+    
+    if ( elemStyle.display != "block" ) {
+      elemStyle.display = "block"
+    } else {
+      elemStyle.display = "none"
+    }
+
+    return true;
+  }
+  
+  // Make codeblocks hidden by default
+  document.writeln( "<style type=\"text/css\">div.method-source-code { display: none }</style>" )
+  
+  // ]]>
+  </script>
+
+</head>
+<body>
+
+
+
+    <div id="classHeader">
+        <table class="header-table">
+        <tr class="top-aligned-row">
+          <td><strong>Class</strong></td>
+          <td class="class-name-in-header">MCollective::Connector::Stomp</td>
+        </tr>
+        <tr class="top-aligned-row">
+            <td><strong>In:</strong></td>
+            <td>
+                <a href="../../../files/spec/unit/util_spec_rb.html">
+                spec/unit/util_spec.rb
+                </a>
+        <br />
+                <a href="../../../files/plugins/mcollective/connector/stomp_rb.html">
+                plugins/mcollective/connector/stomp.rb
+                </a>
+        <br />
+            </td>
+        </tr>
+
+        <tr class="top-aligned-row">
+            <td><strong>Parent:</strong></td>
+            <td>
+                <a href="Base.html">
+                MCollective::Connector::Base
+               </a>
+            </td>
+        </tr>
+        </table>
+    </div>
+  <!-- banner header -->
+
+  <div id="bodyContent">
+
+
+
+  <div id="contextContent">
+
+    <div id="description">
+      <p>
+Handles sending and receiving messages over the <a
+href="Stomp.html">Stomp</a> protocol
+</p>
+<p>
+This plugin supports version 1.1 or 1.1.6 and newer of the <a
+href="Stomp.html">Stomp</a> rubygem the versions between those had multi
+threading issues.
+</p>
+<p>
+For all versions you can configure it as follows:
+</p>
+<pre>
+   connector = stomp
+   plugin.stomp.host = stomp.your.net
+   plugin.stomp.port = 6163
+   plugin.stomp.user = you
+   plugin.stomp.password = secret
+</pre>
+<p>
+All of these can be overriden per user using environment variables:
+</p>
+<pre>
+   STOMP_SERVER, STOMP_PORT, STOMP_USER, STOMP_PASSWORD
+</pre>
+<p>
+Version 1.1.6 onward support supplying multiple connections and it will do
+failover between these servers, you can configure it as follows:
+</p>
+<pre>
+    connector = stomp
+    plugin.stomp.pool.size = 2
+
+    plugin.stomp.pool.host1 = stomp1.your.net
+    plugin.stomp.pool.port1 = 6163
+    plugin.stomp.pool.user1 = you
+    plugin.stomp.pool.password1 = secret
+    plugin.stomp.pool.ssl1 = true
+
+    plugin.stomp.pool.host2 = stomp2.your.net
+    plugin.stomp.pool.port2 = 6163
+    plugin.stomp.pool.user2 = you
+    plugin.stomp.pool.password2 = secret
+    plugin.stomp.pool.ssl2 = false
+</pre>
+<p>
+Using this method you can supply just STOMP_USER and STOMP_PASSWORD you
+have to supply the hostname for each pool member in the config. The port
+will default to 6163 if not specified.
+</p>
+<p>
+In addition you can set the following options but only when using pooled
+configuration:
+</p>
+<pre>
+    plugin.stomp.pool.initial_reconnect_delay = 0.01
+    plugin.stomp.pool.max_reconnect_delay = 30.0
+    plugin.stomp.pool.use_exponential_back_off = true
+    plugin.stomp.pool.back_off_multiplier = 2
+    plugin.stomp.pool.max_reconnect_attempts = 0
+    plugin.stomp.pool.randomize = false
+    plugin.stomp.pool.timeout = -1
+</pre>
+<p>
+For versions of ActiveMQ that supports message priorities you can set a
+priority, this will cause a &quot;priority&quot; header to be emitted if
+present:
+</p>
+<pre>
+    plugin.stomp.priority = 4
+</pre>
+
+    </div>
+
+
+   </div>
+
+    <div id="method-list">
+      <h3 class="section-bar">Methods</h3>
+
+      <div class="name-list">
+      <a href="#M000032">connect</a>&nbsp;&nbsp;
+      <a href="#M000037">disconnect</a>&nbsp;&nbsp;
+      <a href="#M000031">new</a>&nbsp;&nbsp;
+      <a href="#M000033">receive</a>&nbsp;&nbsp;
+      <a href="#M000034">send</a>&nbsp;&nbsp;
+      <a href="#M000035">subscribe</a>&nbsp;&nbsp;
+      <a href="#M000036">unsubscribe</a>&nbsp;&nbsp;
+      </div>
+    </div>
+
+  </div>
+
+
+    <!-- if includes -->
+
+    <div id="section">
+
+
+
+
+
+    <div id="attribute-list">
+      <h3 class="section-bar">Attributes</h3>
+
+      <div class="name-list">
+        <table>
+        <tr class="top-aligned-row context-row">
+          <td class="context-item-name">connection</td>
+          <td class="context-item-value">&nbsp;[R]&nbsp;</td>
+          <td class="context-item-desc"></td>
+        </tr>
+        </table>
+      </div>
+    </div>
+      
+
+
+    <!-- if method_list -->
+    <div id="methods">
+      <h3 class="section-bar">Public Class methods</h3>
+
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
+
+        <div class="method-heading">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+    <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 64</span>
+64:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+65:                 <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+66:                 <span class="ruby-ivar">@subscriptions</span> = []
+67:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <h3 class="section-bar">Public Instance methods</h3>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">connect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Connects to the <a href="Stomp.html">Stomp</a> middleware
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 70</span>
+ 70:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">connect</span>
+ 71:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connection</span>
+ 72:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Already connection, not re-initializing connection&quot;</span>)
+ 73:                     <span class="ruby-keyword kw">return</span>
+ 74:                 <span class="ruby-keyword kw">end</span>
+ 75: 
+ 76:                 <span class="ruby-keyword kw">begin</span>
+ 77:                     <span class="ruby-identifier">host</span> = <span class="ruby-keyword kw">nil</span>
+ 78:                     <span class="ruby-identifier">port</span> = <span class="ruby-keyword kw">nil</span>
+ 79:                     <span class="ruby-identifier">user</span> = <span class="ruby-keyword kw">nil</span>
+ 80:                     <span class="ruby-identifier">password</span> = <span class="ruby-keyword kw">nil</span>
+ 81:                     <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-value str">&quot;stomp.base64&quot;</span>, <span class="ruby-keyword kw">false</span>)
+ 82:                     <span class="ruby-ivar">@msgpriority</span> = <span class="ruby-identifier">get_option</span>(<span class="ruby-value str">&quot;stomp.priority&quot;</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>
+ 83: 
+ 84:                     <span class="ruby-comment cmt"># Maintain backward compat for older stomps</span>
+ 85:                     <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">&quot;stomp.pool.size&quot;</span>)
+ 86:                         <span class="ruby-identifier">host</span> = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_SERVER&quot;</span>, <span class="ruby-value str">&quot;stomp.host&quot;</span>)
+ 87:                         <span class="ruby-identifier">port</span> = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_PORT&quot;</span>, <span class="ruby-value str">&quot;stomp.port&quot;</span>, <span class="ruby-value">6163</span>).<span class="ruby-identifier">to_i</span>
+ 88:                         <span class="ruby-identifier">user</span> = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_USER&quot;</span>, <span class="ruby-value str">&quot;stomp.user&quot;</span>)
+ 89:                         <span class="ruby-identifier">password</span> = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_PASSWORD&quot;</span>, <span class="ruby-value str">&quot;stomp.password&quot;</span>)
+ 90: 
+ 91:                         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Connecting to #{host}:#{port}&quot;</span>)
+ 92:                         <span class="ruby-ivar">@connection</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">user</span>, <span class="ruby-identifier">password</span>, <span class="ruby-identifier">host</span>, <span class="ruby-identifier">port</span>, <span class="ruby-keyword kw">true</span>)
+ 93:                     <span class="ruby-keyword kw">else</span>
+ 94:                         <span class="ruby-identifier">pools</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-value str">&quot;stomp.pool.size&quot;</span>].<span class="ruby-identifier">to_i</span>
+ 95:                         <span class="ruby-identifier">hosts</span> = []
+ 96: 
+ 97:                         <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">pools</span>) <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">poolnum</span><span class="ruby-operator">|</span>
+ 98:                             <span class="ruby-identifier">host</span> = {}
+ 99: 
+100:                             <span class="ruby-identifier">host</span>[<span class="ruby-identifier">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;stomp.pool.host#{poolnum}&quot;</span>)
+101:                             <span class="ruby-identifier">host</span>[<span class="ruby-identifier">:port</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;stomp.pool.port#{poolnum}&quot;</span>, <span class="ruby-value">6163</span>).<span class="ruby-identifier">to_i</span>
+102:                             <span class="ruby-identifier">host</span>[<span class="ruby-identifier">:login</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_USER&quot;</span>, <span class="ruby-node">&quot;stomp.pool.user#{poolnum}&quot;</span>)
+103:                             <span class="ruby-identifier">host</span>[<span class="ruby-identifier">:passcode</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-value str">&quot;STOMP_PASSWORD&quot;</span>, <span class="ruby-node">&quot;stomp.pool.password#{poolnum}&quot;</span>)
+104:                             <span class="ruby-identifier">host</span>[<span class="ruby-identifier">:ssl</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;stomp.pool.ssl#{poolnum}&quot;</span>, <span class="ruby-keyword kw">false</span>)
+105: 
+106:                             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Adding #{host[:host]}:#{host[:port]} to the connection pool&quot;</span>)
+107:                             <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
+108:                         <span class="ruby-keyword kw">end</span>
+109: 
+110:                         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No hosts found for the STOMP connection pool&quot;</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+111: 
+112:                         <span class="ruby-identifier">connection</span> = {<span class="ruby-identifier">:hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts</span>}
+113: 
+114:                         <span class="ruby-comment cmt"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
+115:                         <span class="ruby-comment cmt"># these can be guessed, the documentation isn't clear</span>
+116:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:initial_reconnect_delay</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-value str">&quot;stomp.pool.initial_reconnect_delay&quot;</span>, <span class="ruby-value">0</span><span class="ruby-value">.01</span>).<span class="ruby-identifier">to_f</span>
+117:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:max_reconnect_delay</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-value str">&quot;stomp.pool.max_reconnect_delay&quot;</span>, <span class="ruby-value">30.0</span>).<span class="ruby-identifier">to_f</span>
+118:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:use_exponential_back_off</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-value str">&quot;stomp.pool.use_exponential_back_off&quot;</span>, <span class="ruby-keyword kw">true</span>)
+119:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:back_off_multiplier</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-value str">&quot;stomp.pool.back_off_multiplier&quot;</span>, <span class="ruby-value">2</span>).<span class="ruby-identifier">to_i</span>
+120:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:max_reconnect_attempts</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-value str">&quot;stomp.pool.max_reconnect_attempts&quot;</span>, <span class="ruby-value">0</span>)
+121:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:randomize</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-value str">&quot;stomp.pool.randomize&quot;</span>, <span class="ruby-keyword kw">false</span>)
+122:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:backup</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-value str">&quot;stomp.pool.backup&quot;</span>, <span class="ruby-keyword kw">false</span>)
+123:                         <span class="ruby-identifier">connection</span>[<span class="ruby-identifier">:timeout</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-value str">&quot;stomp.pool.timeout&quot;</span>, <span class="ruby-value">-1</span>).<span class="ruby-identifier">to_i</span>
+124: 
+125:                         <span class="ruby-ivar">@connection</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">connection</span>)
+126:                     <span class="ruby-keyword kw">end</span>
+127:                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+128:                     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not connect to Stomp Server: #{e}&quot;</span>)
+129:                 <span class="ruby-keyword kw">end</span>
+130:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
+
+        <div class="method-heading">
+          <a href="#M000037" class="method-signature">
+          <span class="method-name">disconnect</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Disconnects from the <a href="Stomp.html">Stomp</a> connection
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 178</span>
+178:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disconnect</span>
+179:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Disconnecting from Stomp&quot;</span>)
+180:                 <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
+181:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
+
+        <div class="method-heading">
+          <a href="#M000033" class="method-signature">
+          <span class="method-name">receive</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Receives a message from the <a href="Stomp.html">Stomp</a> connection
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 133</span>
+133:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">receive</span>
+134:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Waiting for a message from Stomp&quot;</span>)
+135:                 <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
+136: 
+137:                 <span class="ruby-comment cmt"># STOMP puts the payload in the body variable, pass that</span>
+138:                 <span class="ruby-comment cmt"># into the payload of MCollective::Request and discard all the</span>
+139:                 <span class="ruby-comment cmt"># other headers etc that stomp provides</span>
+140:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@base64</span>
+141:                     <span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>))
+142:                 <span class="ruby-keyword kw">else</span>
+143:                     <span class="ruby-constant">Request</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>)
+144:                 <span class="ruby-keyword kw">end</span>
+145:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
+
+        <div class="method-heading">
+          <a href="#M000034" class="method-signature">
+          <span class="method-name">send</span><span class="method-args">(target, msg)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Sends a message to the <a href="Stomp.html">Stomp</a> connection
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 148</span>
+148:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">send</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>)
+149:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a message to Stomp target '#{target}'&quot;</span>)
+150: 
+151:                 <span class="ruby-identifier">msg</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">msg</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@base64</span>
+152: 
+153:                 <span class="ruby-comment cmt"># deal with deprecation warnings in newer stomp gems</span>
+154:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">&quot;publish&quot;</span>)
+155:                     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">msgheaders</span>)
+156:                 <span class="ruby-keyword kw">else</span>
+157:                     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">msgheaders</span>)
+158:                 <span class="ruby-keyword kw">end</span>
+159:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
+
+        <div class="method-heading">
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">subscribe</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Subscribe to a topic or queue
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 162</span>
+162:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">source</span>)
+163:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">source</span>)
+164:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{source}&quot;</span>)
+165:                     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">source</span>)
+166:                     <span class="ruby-ivar">@subscriptions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source</span>
+167:                 <span class="ruby-keyword kw">end</span>
+168:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
+
+        <div class="method-heading">
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">unsubscribe</span><span class="method-args">(source)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Subscribe to a topic or queue
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
+<pre>
+     <span class="ruby-comment cmt"># File plugins/mcollective/connector/stomp.rb, line 171</span>
+171:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">source</span>)
+172:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unsubscribing from #{source}&quot;</span>)
+173:                 <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">source</span>)
+174:                 <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">source</span>)
+175:             <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+
+  </div>
+
+
+<div id="validator-badges">
+  <p><small><a href="http://validator.w3.org/check/referer">[Validate]</a></small></p>
+</div>
+
+</body>
+</html>
