@@ -1,0 +1,31 @@
+Template: mcollective/security_psk
+Type: string
+Default: unset
+_Description: Security PSK key for all MCollective instances:
+ Please specify the psk for security within your MCollective
+ instances
+
+Template: mcollective/stomp_host
+Type: string
+Default: localhost
+_Description: Hostname of your ActiveMQ host:
+ Please specify the hostname/ip address of your Message Queue
+ server (Apache ActiceMQ).
+
+Template: mcollective/stomp_port
+Type: string
+Default: 6163
+_Description: Port of your ActiveMQ instance:
+ Please specify the port of your Message Queue server (Apache ActiveMQ).
+
+Template: mcollective/stomp_user
+Type: string
+Default: mcollective
+_Description: STOMP user from your ActiveMQ instance:
+ Please specify the username of your Message Queue server (Apache ActiveMQ).
+
+Template: mcollective/stomp_password
+Type: password
+Default: marionette
+_Description: STOMP password from your ActiveMQ instance:
+ Please specify the password of your Message Queue server (Apache ActiveMQ).

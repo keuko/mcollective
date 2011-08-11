@@ -1,0 +1,13 @@
+Format-Specification: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=135
+Maintainer: R.I.Pienaar <rip@devco.net>
+Source: http://downloads.puppetlabs.com/mcollective/
+Name: Mcollective
+
+Files: *
+Copyright: 2010 - 2011 Puppet Labs
+License: Apache
+
+Files: debian/*
+Copyright: 2010 - 2011, Riccardo Setti <giskard@debian.org>
+ 2011, Jonas Genannt <jonas.genannt@capi2name.de>
+License: Apache

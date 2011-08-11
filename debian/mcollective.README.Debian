@@ -1,0 +1,18 @@
+MCollective in Debian
+---------------------
+
+For an working MCollective support, you need one ActiveMQ Instance running in
+your network.
+
+In Debian you can simply install `activemq` package. You can find an working
+configuration for activemq in the examples directory.
+
+Please choose an new password for the MCollective and Admin user in the
+activemq configuration.
+
+This mcollective user and passwords needs to be configured in all your
+MCollective servers. (client.cfg and server.cfg).
+
+You need also to set an PSK in your MCollective configuration.
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Mon 25 Jul 2011 20:36:23 +0200

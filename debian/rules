@@ -1,0 +1,13 @@
+#!/usr/bin/make -f
+
+%:
+	dh $@
+
+override_dh_auto_install:
+	make -f ext/Makefile -C . install DESTDIR=$(CURDIR)/debian/tmp
+	mv $(CURDIR)/debian/tmp/etc/mcollective/server.cfg.dist $(CURDIR)/debian/tmp/etc/mcollective/server.cfg
+	mv $(CURDIR)/debian/tmp/etc/mcollective/client.cfg.dist $(CURDIR)/debian/tmp/etc/mcollective/client.cfg
+	mv $(CURDIR)/debian/tmp/etc/mcollective/facts.yaml.dist $(CURDIR)/debian/tmp/etc/mcollective/facts.yaml
+
+override_dh_installinit:
+	dh_installinit --error-handler=true

@@ -1,0 +1,45 @@
+Source: mcollective
+Section: utils
+Priority: optional
+Maintainer: Puppet Package Maintainers <pkg-puppet-devel@lists.alioth.debian.org>
+Uploaders: Jonas Genannt <jonas.genannt@capi2name.de>
+Build-Depends: debhelper (>= 8)
+Standards-Version: 3.9.2
+Homepage: http://projects.puppetlabs.com/projects/mcollective
+Vcs-Git: git://git.debian.org/git/pkg-puppet/mcollective.git
+Vcs-Browser: http://git.debian.org/?p=pkg-puppet/mcollective.git
+
+
+Package: mcollective
+Architecture: all
+Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
+Suggests: activemq
+Description: build server orchestration or parallel job execution systems
+ The Marionette Collective aka. mcollective is a framework
+ to build server orchestration or parallel job execution systems.
+
+Package: mcollective-client
+Architecture: all
+Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
+Description: build server orchestration or parallel job execution systems
+ The Marionette Collective aka. mcollective is a framework
+ to build server orchestration or parallel job execution system
+
+Package: mcollective-common
+Architecture: all
+Depends: ${misc:Depends}, ruby | ruby-interpreter, rubygems, libstomp-ruby, libsystemu-ruby, ruby-json
+Description: build server orchestration or parallel job execution systems
+ The Marionette Collective aka. mcollective is a framework
+ to build server orchestration or parallel job execution systems.
+ .
+ Common files for mcollective packages.
+
+Package: mcollective-doc
+Architecture: all
+Section: doc
+Depends: ${misc:Depends}
+Description: Documentation for mcollective
+ The Marionette Collective aka. mcollective is a framework
+ to build server orchestration or parallel job execution systems.
+ .
+ Documentation package.

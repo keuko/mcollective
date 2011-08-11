@@ -1,0 +1,82 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
+"POT-Creation-Date: 2011-07-26 23:26+0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:1001
+msgid "Security PSK key for all MCollective instances:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:1001
+msgid "Please specify the psk for security within your MCollective instances"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid "Hostname of your ActiveMQ host:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid ""
+"Please specify the hostname/ip address of your Message Queue server (Apache "
+"ActiceMQ)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid "Port of your ActiveMQ instance:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid "Please specify the port of your Message Queue server (Apache ActiveMQ)."
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid "STOMP user from your ActiveMQ instance:"
+msgstr ""
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid ""
+"Please specify the username of your Message Queue server (Apache ActiveMQ)."
+msgstr ""
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:5001
+msgid "STOMP password from your ActiveMQ instance:"
+msgstr ""
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:5001
+msgid ""
+"Please specify the password of your Message Queue server (Apache ActiveMQ)."
+msgstr ""
