@@ -27,6 +27,7 @@ Description: build server orchestration or parallel job execution systems
 
 Package: mcollective-common
 Architecture: all
+Suggests: mcollective-doc
 Depends: ${misc:Depends}, ruby | ruby-interpreter, rubygems, libstomp-ruby, libsystemu-ruby, ruby-json
 Description: build server orchestration or parallel job execution systems
  The Marionette Collective aka. mcollective is a framework
