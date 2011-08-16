@@ -1,4 +1,3 @@
 usr/sbin/mcollectived usr/sbin
 etc/mcollective/server.cfg usr/share/mcollective
-etc/mcollective/rpc-help.erb etc/mcollective
 etc/mcollective/ssl

@@ -9,21 +9,34 @@ Homepage: http://projects.puppetlabs.com/projects/mcollective
 Vcs-Git: git://git.debian.org/git/pkg-puppet/mcollective.git
 Vcs-Browser: http://git.debian.org/?p=pkg-puppet/mcollective.git
 
-
 Package: mcollective
 Architecture: all
 Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
-Suggests: activemq
+Recommends: mcollective-client
 Description: build server orchestration or parallel job execution systems
  The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution systems.
+ .
+ This package contains the MCollective daemon.
 
 Package: mcollective-client
 Architecture: all
+Suggests: mcollective
 Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
 Description: build server orchestration or parallel job execution systems
  The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution system
+ .
+ This package contains the MCollective client stuff:
+  - mco
+  - mc
+  - mc-rpc
+  - mc-facts
+  - mc-find-hosts
+  - mc-ping
+  - mc-call-agent
+  - mc-controller
+  - mc-inventory
 
 Package: mcollective-common
 Architecture: all

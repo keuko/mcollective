@@ -1,0 +1,60 @@
+#!/bin/sh
+
+set -e
+
+. /usr/share/debconf/confmodule
+
+MCOLLECTIVE_SERVER_CFG="/etc/mcollective/server.cfg"
+
+case "$1" in
+	configure)
+		db_version 2.0
+
+		if [ ! -e "$MCOLLECTIVE_SERVER_CFG" ]; then
+			cp /usr/share/mcollective/server.cfg $MCOLLECTIVE_SERVER_CFG
+		fi
+
+		db_get mcollective/start_on_boot
+		MC_START_ONBOOT=${RET:-no}
+		if [ "$MC_START_ONBOOT" = "true" ]; then
+			MC_START_ONBOOT=yes
+		else
+			MC_START_ONBOOT=no
+		fi
+
+		db_get mcollective/security_psk
+		MC_SECURITY_PSK=${RET:-}
+
+		db_get mcollective/stomp_host
+		MC_STOMP_HOST=${RET:-}
+
+		db_get mcollective/stomp_port
+		MC_STOMP_PORT=${RET:-}
+
+		db_get mcollective/stomp_user
+		MC_STOMP_USER=${RET:-}
+
+		db_get mcollective/stomp_password
+		MC_STOMP_PASSWORD=${RET:-}
+
+		sed -i "s@^plugin.psk.*@plugin.psk = $MC_SECURITY_PSK@" $MCOLLECTIVE_SERVER_CFG
+		sed -i "s@^plugin.stomp.host.*@plugin.stomp.host= $MC_STOMP_HOST@" $MCOLLECTIVE_SERVER_CFG
+		sed -i "s@^plugin.stomp.port.*@plugin.stomp.port= $MC_STOMP_PORT@" $MCOLLECTIVE_SERVER_CFG
+		sed -i "s@^plugin.stomp.user.*@plugin.stomp.user= $MC_STOMP_USER@" $MCOLLECTIVE_SERVER_CFG
+		sed -i "s@^plugin.stomp.password.*@plugin.stomp.password= $MC_STOMP_PASSWORD@" $MCOLLECTIVE_SERVER_CFG
+
+		sed -i "s@^RUN.*@RUN=$MC_START_ONBOOT@" /etc/default/mcollective
+
+		db_stop
+	;;
+	abort-upgrade|abort-remove|abort-deconfigure)
+	;;
+	*)
+		echo "postinst called with unknown argument \`${1}'" >&2
+		exit 1
+	;;
+esac
+
+#DEBHELPER#
+
+exit 0

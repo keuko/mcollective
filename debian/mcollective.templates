@@ -1,0 +1,5 @@
+Template: mcollective/start_on_boot
+Type: boolean
+Default: false
+_Description: Should MCollective started onboot?
+ Start MCollective daemon onboot.

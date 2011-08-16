@@ -1,2 +1,2 @@
-# Comment out to run the mcollective init script
-#RUN=yes
+# Change to yes, to enable Mcollective on boot
+RUN=no

@@ -1,9 +1,5 @@
 mcollective (1.2.1+dfsg-1) UNRELEASED; urgency=low
 
-  [TODO]
-    debconf and maintainer scripts
-    copyright stuff
-
   * Initial release. (Closes: #563951)
   * package based on Ubuntu package
     - initial done by Riccardo Setti <giskard@debian.org>

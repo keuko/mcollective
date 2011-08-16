@@ -20,6 +20,7 @@ PIDFILE=/var/run/$NAME.pid
 LOCKFILE="/var/lock/mcollective"
 DAEMON_ARGS="--config=/etc/mcollective/server.cfg --pid=$PIDFILE"
 SCRIPTNAME=/etc/init.d/$NAME
+RUN=no
 
 # Exit if the package is not installed
 [ -x "$DAEMON" ] || exit 0
@@ -29,6 +30,11 @@ SCRIPTNAME=/etc/init.d/$NAME
 . /lib/init/vars.sh
 
 . /lib/lsb/init-functions
+
+if [ "$RUN" != "yes" ] ; then
+	echo "mcollective disabled in /etc/default/mcollective"
+	exit 0
+fi
 
 do_start()
 {

@@ -2,7 +2,8 @@
 
 set -e
 
-#DEBHELPER#
-
 . /usr/share/debconf/confmodule
 
+#DEBHELPER#
+
+exit 0
