@@ -12,6 +12,7 @@ Vcs-Browser: http://git.debian.org/?p=pkg-puppet/mcollective.git
 Package: mcollective
 Architecture: all
 Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
+Suggests: activemq
 Recommends: mcollective-client
 Description: build server orchestration or parallel job execution systems
  The Marionette Collective aka. mcollective is a framework
