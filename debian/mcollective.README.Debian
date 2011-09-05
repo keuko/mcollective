@@ -23,4 +23,28 @@ You can also use 'preseeding' to configure MCollective on installation. See
 default pressed file
 /usr/share/doc/mcollective-common/examples/mcollective.preseed.
 
+
+ActiveMQ Configuration step by step:
+-----------------------------------
+
+Create an new ActiveMQ instance:
+
+ # mkdir /etc/activemq/instances-available/mcollective
+
+Copy default configuration into ActiveMQ configuration directory:
+
+ # cp /usr/share/doc/mcollective/examples/activemq.xml \
+   /etc/activemq/instances-available/mcollective/
+
+Edit configuration, setup new password and username.
+
+Register new ActiveMQ instance:
+
+ # ln -s /etc/activemq/instances-available/mcollective \
+   /etc/activemq/instances-enabled/mcollective
+
+Start ActiveMQ:
+
+ # invoke-rc.d activemq start
+
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Mon 25 Jul 2011 20:36:23 +0200
