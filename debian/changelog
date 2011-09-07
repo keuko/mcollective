@@ -1,4 +1,4 @@
-mcollective (1.2.1+dfsg-1) UNRELEASED; urgency=low
+mcollective (1.2.1+dfsg-1) unstable; urgency=low
 
   * Initial release. (Closes: #563951)
   * package based on Ubuntu package
