@@ -30,7 +30,6 @@ Description: build server orchestration or parallel job execution systems
  .
  This package contains the MCollective client stuff:
   - mco
-  - mc
   - mc-rpc
   - mc-facts
   - mc-find-hosts
