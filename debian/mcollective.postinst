@@ -14,6 +14,8 @@ case "$1" in
 			cp /usr/share/mcollective/server.cfg $MCOLLECTIVE_SERVER_CFG
 		fi
 
+		chmod 600 $MCOLLECTIVE_SERVER_CFG
+
 		db_get mcollective/start_on_boot
 		MC_START_ONBOOT=${RET:-no}
 		if [ "$MC_START_ONBOOT" = "true" ]; then

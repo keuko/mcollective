@@ -14,6 +14,8 @@ case "$1" in
 			cp /usr/share/mcollective-client/client.cfg $MCOLLECTIVE_CLIENT_CFG
 		fi
 
+		chmod 600 $MCOLLECTIVE_CLIENT_CFG
+
 		db_get mcollective/security_psk
 		MC_SECURITY_PSK=${RET:-}
 

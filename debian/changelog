@@ -1,3 +1,9 @@
+mcollective (1.2.1+dfsg-2) UNRELEASED; urgency=low
+
+  * configuration files: chmod 600, prevent world-readable (Closes: #643624)
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Sun, 02 Oct 2011 14:45:22 +0200
+
 mcollective (1.2.1+dfsg-1) unstable; urgency=low
 
   * Initial release. (Closes: #563951)
