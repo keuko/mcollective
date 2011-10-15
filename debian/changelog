@@ -1,6 +1,9 @@
 mcollective (1.2.1+dfsg-2) UNRELEASED; urgency=low
 
   * configuration files: chmod 600, prevent world-readable (Closes: #643624)
+  * d/control: Changed Depends:
+   - libstomp-ruby -> ruby-stomp
+   - libsystemu-ruby -> ruby-systemu
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Sun, 02 Oct 2011 14:45:22 +0200
 
