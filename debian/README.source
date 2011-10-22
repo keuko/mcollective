@@ -3,7 +3,7 @@ MCollective source for Debian
 
 This source is created by pre-stripping the embedded systemu and json library
 from the upstream tarball. The Debian package of mcollective depends on
-libsystemu-ruby and ruby-json Debian packages.
+ruby-systemu and ruby-json Debian packages.
 
 Also ext/activemq/wlcg-patch.tgz and ext/activemq/apache-activemq.spec was
 removed from Debian source tarball. It contains stuff from the ActiveMQ
