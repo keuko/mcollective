@@ -4,6 +4,7 @@ Priority: optional
 Maintainer: Puppet Package Maintainers <pkg-puppet-devel@lists.alioth.debian.org>
 Uploaders: Jonas Genannt <jonas.genannt@capi2name.de>, Micah Anderson <micah@debian.org>
 Build-Depends: debhelper (>= 8)
+DM-Upload-Allowed: yes
 Standards-Version: 3.9.2
 Homepage: http://projects.puppetlabs.com/projects/mcollective
 Vcs-Git: git://git.debian.org/git/pkg-puppet/mcollective.git
@@ -14,9 +15,9 @@ Architecture: all
 Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
 Suggests: activemq
 Recommends: mcollective-client
-Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework
- to build server orchestration or parallel job execution systems.
+Description: Marionette Collective clustering framework - server
+ The Marionette Collective is a framework for building server
+ orchestration and parallel job execution systems.
  .
  This package contains the MCollective daemon.
 
@@ -24,36 +25,36 @@ Package: mcollective-client
 Architecture: all
 Suggests: mcollective
 Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
-Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework
- to build server orchestration or parallel job execution system
+Description: Marionette Collective clustering framework - clients
+ The Marionette Collective is a framework for building server
+ orchestration and parallel job execution systems.
  .
- This package contains the MCollective client stuff:
-  - mco
-  - mc-rpc
-  - mc-facts
-  - mc-find-hosts
-  - mc-ping
-  - mc-call-agent
-  - mc-controller
-  - mc-inventory
+ This package provides the MCollective client utilities:
+  * mco
+  * mc-rpc
+  * mc-facts
+  * mc-find-hosts
+  * mc-ping
+  * mc-call-agent
+  * mc-controller
+  * mc-inventory
 
 Package: mcollective-common
 Architecture: all
 Suggests: mcollective-doc
 Depends: ${misc:Depends}, ruby | ruby-interpreter, rubygems, ruby-stomp, ruby-systemu, ruby-json
-Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework
- to build server orchestration or parallel job execution systems.
+Description: Marionette Collective clustering framework - common files
+ The Marionette Collective is a framework for building server
+ orchestration and parallel job execution systems.
  .
- Common files for mcollective packages.
+ This package provides common files for MCollective.
 
 Package: mcollective-doc
 Architecture: all
 Section: doc
 Depends: ${misc:Depends}
-Description: Documentation for mcollective
- The Marionette Collective aka. mcollective is a framework
- to build server orchestration or parallel job execution systems.
+Description: Marionette Collective clustering framework - documentation
+ The Marionette Collective is a framework for building server
+ orchestration and parallel job execution systems.
  .
- Documentation package.
+ This package provides documentation for MCollective.

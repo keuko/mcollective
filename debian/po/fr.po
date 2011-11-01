@@ -1,27 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Translation of mcollective debconf templates to French.
+# Copyright (C) 2011 French l10n team <debian-l10n-french@lists.debian.org>
+# This file is distributed under the same license as the mcollective package.
+# Julien Patriarca <patriarcaj@gmail.com>, 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: mcollective\n"
 "Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
 "POT-Creation-Date: 2011-10-10 07:09+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2011-10-10 13:56+0100\n"
+"Last-Translator: Julien Patriarca <patriarcaj@gmail.com>\n"
+"Language-Team: French <debian-l10n-french@lists.debian.org>\n"
+"Language: fr\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:2001
 msgid "MCollective PSK:"
-msgstr ""
+msgstr "Clé prépartagée pour MCollective :"
 
 #. Type: string
 #. Description
@@ -30,12 +29,14 @@ msgid ""
 "Please specify the Pre-Shared Key that should be used between MCollective "
 "instances."
 msgstr ""
+"Veuillez indiquer la clé prépartagée à utiliser entre les sessions "
+"MCollective."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:3001
 msgid "Message Queue server host:"
-msgstr ""
+msgstr "Hôte du serveur de file d'attente des messages :"
 
 #. Type: string
 #. Description
@@ -44,24 +45,27 @@ msgid ""
 "Please specify the hostname or IP address of the Message Queue server for "
 "MCollective."
 msgstr ""
+"Veuillez indiquer le nom d'hôte ou l'adresse IP du serveur de file d'attente "
+"des messages pour MCollective (« Message Queue Server »)."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Message Queue server port:"
-msgstr ""
+msgstr "Port pour la file d'attente des messages :"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Please specify the listening port of the Message Queue server."
 msgstr ""
+"Veuillez indiquer le port d'écoute du serveur de file d'attente des messages."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:5001
 msgid "Message Queue server username:"
-msgstr ""
+msgstr "Identifiant du serveur de file d'attente des messages :"
 
 #. Type: string
 #. Description
@@ -70,12 +74,14 @@ msgid ""
 "Please specify the STOMP username that should be used with the Message Queue "
 "server."
 msgstr ""
+"Veuillez indiquer l'identifiant STOMP à utiliser pour le serveur de file "
+"d'attente des messages."
 
 #. Type: password
 #. Description
 #: ../mcollective-common.templates:6001
 msgid "Message Queue server password:"
-msgstr ""
+msgstr "Mot de passe pour le serveur de file d'attente des messages :"
 
 #. Type: password
 #. Description
@@ -84,12 +90,14 @@ msgid ""
 "Please specify the STOMP password that should be used with the Message Queue "
 "server."
 msgstr ""
+"Veuillez indiquer le mot de passe STOMP qui devra être utilisé sur le "
+"serveur de file d'attente des messages."
 
 #. Type: boolean
 #. Description
 #: ../mcollective.templates:2001
 msgid "Start MCollective on boot?"
-msgstr ""
+msgstr "Faut-il lancer automatiquement MCollective au démarrage ?"
 
 #. Type: boolean
 #. Description
@@ -98,3 +106,5 @@ msgid ""
 "Please choose whether the MCollective daemon should be started when booting "
 "this machine."
 msgstr ""
+"Veuillez choisir si le démon MCollective doit être lancé au démarrage de la "
+"machine."

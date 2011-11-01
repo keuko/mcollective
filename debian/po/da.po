@@ -1,27 +1,26 @@
-# SOME DESCRIPTIVE TITLE.
-# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# Danish translation for mcollective.
+# Copyright (C) 2010 mcollective og nedenstående oversættere.
+# This file is distributed under the same license as the mcollective package.
+# Joe Hansen (joedalton2@yahoo.dk), 2011.
 #
-#, fuzzy
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: mcollective\n"
 "Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
 "POT-Creation-Date: 2011-10-10 07:09+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
-"Language: \n"
+"PO-Revision-Date: 2011-10-18 19:25+0200\n"
+"Last-Translator: Joe Hansen <joedalton2@yahoo.dk>\n"
+"Language-Team: Danish <debian-l10n-danish@lists.debian.org>\n"
+"Language: da\n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:2001
 msgid "MCollective PSK:"
-msgstr ""
+msgstr "MCollective PSK:"
 
 #. Type: string
 #. Description
@@ -30,12 +29,14 @@ msgid ""
 "Please specify the Pre-Shared Key that should be used between MCollective "
 "instances."
 msgstr ""
+"Angiv venligst den Pre-Shared Key (prædelte nøgle) som skal bruges mellem "
+"MCollective-instanser."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:3001
 msgid "Message Queue server host:"
-msgstr ""
+msgstr "Vært for beskedkøserveren:"
 
 #. Type: string
 #. Description
@@ -44,24 +45,26 @@ msgid ""
 "Please specify the hostname or IP address of the Message Queue server for "
 "MCollective."
 msgstr ""
+"Angiv venligst værtsnavnet eller IP-adressen for beskedkøserveren for "
+"MCollective."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Message Queue server port:"
-msgstr ""
+msgstr "Port for beskedkøserveren:"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Please specify the listening port of the Message Queue server."
-msgstr ""
+msgstr "Angiv venligst lytteporten for beskedkøserveren."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:5001
 msgid "Message Queue server username:"
-msgstr ""
+msgstr "Brugernavn for beskedkøserveren:"
 
 #. Type: string
 #. Description
@@ -70,12 +73,13 @@ msgid ""
 "Please specify the STOMP username that should be used with the Message Queue "
 "server."
 msgstr ""
+"Angiv venligst STOMP-brugernavnet som skal bruges med beskedkøserveren."
 
 #. Type: password
 #. Description
 #: ../mcollective-common.templates:6001
 msgid "Message Queue server password:"
-msgstr ""
+msgstr "Adgangskode for beskedkøserveren:"
 
 #. Type: password
 #. Description
@@ -84,12 +88,13 @@ msgid ""
 "Please specify the STOMP password that should be used with the Message Queue "
 "server."
 msgstr ""
+"Angiv venligst STOMP-adgangskoden som skal bruges med beskedkøserveren."
 
 #. Type: boolean
 #. Description
 #: ../mcollective.templates:2001
 msgid "Start MCollective on boot?"
-msgstr ""
+msgstr "Igangsæt MCollective ved opstart?"
 
 #. Type: boolean
 #. Description
@@ -98,3 +103,5 @@ msgid ""
 "Please choose whether the MCollective daemon should be started when booting "
 "this machine."
 msgstr ""
+"Vælg venligst hvorvidt MCollective-dæmonen skal igangsættes ved opstart af "
+"denne maskine."

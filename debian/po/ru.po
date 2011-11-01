@@ -1,27 +1,28 @@
-# SOME DESCRIPTIVE TITLE.
 # Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
-# This file is distributed under the same license as the PACKAGE package.
-# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+# This file is distributed under the same license as the mcollective package.
 #
-#, fuzzy
+# Yuri Kozlov <yuray@komyakino.ru>, 2011.
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: mcollective 1.2.1+dfsg-2\n"
 "Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
 "POT-Creation-Date: 2011-10-10 07:09+0200\n"
-"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
-"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <LL@li.org>\n"
+"PO-Revision-Date: 2011-10-16 10:56+0400\n"
+"Last-Translator: Yuri Kozlov <yuray@komyakino.ru>\n"
+"Language-Team: Russian <debian-l10n-russian@lists.debian.org>\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
-"Content-Type: text/plain; charset=CHARSET\n"
+"Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Lokalize 1.0\n"
+"Plural-Forms: nplurals=3; plural=(n%10==1 && n%100!=11 ? 0 : n%10>=2 && n"
+"%10<=4 && (n%100<10 || n%100>=20) ? 1 : 2);\n"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:2001
 msgid "MCollective PSK:"
-msgstr ""
+msgstr "MCollective PSK:"
 
 #. Type: string
 #. Description
@@ -30,12 +31,14 @@ msgid ""
 "Please specify the Pre-Shared Key that should be used between MCollective "
 "instances."
 msgstr ""
+"Укажите общий ключ (Pre-Shared Key), который должен использоваться при "
+"обмене данными между экземплярами MCollective."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:3001
 msgid "Message Queue server host:"
-msgstr ""
+msgstr "Узел с сервером Message Queue:"
 
 #. Type: string
 #. Description
@@ -43,25 +46,25 @@ msgstr ""
 msgid ""
 "Please specify the hostname or IP address of the Message Queue server for "
 "MCollective."
-msgstr ""
+msgstr "Укажите имя узла или IP-адрес сервера Message Queue для MCollective."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Message Queue server port:"
-msgstr ""
+msgstr "Порт сервера Message Queue:"
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:4001
 msgid "Please specify the listening port of the Message Queue server."
-msgstr ""
+msgstr "Укажите порт, прослушиваемый сервером Message Queue."
 
 #. Type: string
 #. Description
 #: ../mcollective-common.templates:5001
 msgid "Message Queue server username:"
-msgstr ""
+msgstr "Имя пользователя для сервера Message Queue:"
 
 #. Type: string
 #. Description
@@ -70,12 +73,14 @@ msgid ""
 "Please specify the STOMP username that should be used with the Message Queue "
 "server."
 msgstr ""
+"Укажите имя пользователя в STOMP, которое должно использоваться для сервера "
+"Message Queue."
 
 #. Type: password
 #. Description
 #: ../mcollective-common.templates:6001
 msgid "Message Queue server password:"
-msgstr ""
+msgstr "Пароль сервера Message Queue:"
 
 #. Type: password
 #. Description
@@ -84,12 +89,14 @@ msgid ""
 "Please specify the STOMP password that should be used with the Message Queue "
 "server."
 msgstr ""
+"Укажите пароль в STOMP, который должен использоваться для сервера Message "
+"Queue."
 
 #. Type: boolean
 #. Description
 #: ../mcollective.templates:2001
 msgid "Start MCollective on boot?"
-msgstr ""
+msgstr "Запускать MCollective при загрузке операционной системы?"
 
 #. Type: boolean
 #. Description
@@ -98,3 +105,4 @@ msgid ""
 "Please choose whether the MCollective daemon should be started when booting "
 "this machine."
 msgstr ""
+"Выберите, нужно ли запускать службу MCollective при включении данной машины."

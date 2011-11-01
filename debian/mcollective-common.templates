@@ -1,31 +1,42 @@
+# These templates have been reviewed by the debian-l10n-english
+# team
+#
+# If modifications/additions/rewording are needed, please ask
+# debian-l10n-english@lists.debian.org for advice.
+#
+# Even minor modifications require translation updates and such
+# changes should be coordinated with translators and reviewers.
+
 Template: mcollective/security_psk
 Type: string
 Default: unset
-_Description: Security PSK key for all MCollective instances:
- Please specify the psk for security within your MCollective
- instances
+_Description: MCollective PSK:
+ Please specify the Pre-Shared Key that should be used between
+ MCollective instances.
 
 Template: mcollective/stomp_host
 Type: string
 Default: localhost
-_Description: Hostname of your ActiveMQ host:
- Please specify the hostname/ip address of your Message Queue
- server (Apache ActiceMQ).
+_Description: Message Queue server host:
+ Please specify the hostname or IP address of the Message Queue server
+ for MCollective.
 
 Template: mcollective/stomp_port
 Type: string
 Default: 6163
-_Description: Port of your ActiveMQ instance:
- Please specify the port of your Message Queue server (Apache ActiveMQ).
+_Description: Message Queue server port:
+ Please specify the listening port of the Message Queue server.
 
 Template: mcollective/stomp_user
 Type: string
 Default: mcollective
-_Description: STOMP user from your ActiveMQ instance:
- Please specify the username of your Message Queue server (Apache ActiveMQ).
+_Description: Message Queue server username:
+ Please specify the STOMP username that should be used with the
+ Message Queue server.
 
 Template: mcollective/stomp_password
 Type: password
 Default: marionette
-_Description: STOMP password from your ActiveMQ instance:
- Please specify the password of your Message Queue server (Apache ActiveMQ).
+_Description: Message Queue server password:
+ Please specify the STOMP password that should be used with the
+ Message Queue server.

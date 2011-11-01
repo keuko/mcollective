@@ -1,0 +1,134 @@
+# mcollective po-debconf translation to Spanish
+# Copyright (C) 2011 Software in the Public Interest
+# This file is distributed under the same license as the mcollective package.
+#
+# Changes:
+#   - Initial translation
+#       Francisco Javier Cuadrado <fcocuadrado@gmail.com>, 2011
+#
+#   - Updates
+#
+#
+# Traductores, si no conocen el formato PO, merece la pena leer la
+# documentación de gettext, especialmente las secciones dedicadas a este
+# formato, por ejemplo ejecutando:
+#       info -n '(gettext)PO Files'
+#       info -n '(gettext)Header Entry'
+#
+# Equipo de traducción al español, por favor lean antes de traducir
+# los siguientes documentos:
+#
+#   - El proyecto de traducción de Debian al español
+#     http://www.debian.org/intl/spanish/
+#     especialmente las notas y normas de traducción en
+#     http://www.debian.org/intl/spanish/notas
+#
+#   - La guía de traducción de po's de debconf:
+#     /usr/share/doc/po-debconf/README-trans
+#     o http://www.debian.org/intl/l10n/po-debconf/README-trans
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mcollective 1.2.1+dfsg-2\n"
+"Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
+"POT-Creation-Date: 2011-10-10 07:09+0200\n"
+"PO-Revision-Date: 2011-10-16 18:14+0100\n"
+"Last-Translator: Francisco Javier Cuadrado <fcocuadrado@gmail.com>\n"
+"Language-Team: Debian l10n Spanish <debian-l10n-spanish@lists.debian.org>\n"
+"Language: es\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid "MCollective PSK:"
+msgstr "Clave Pre-Compartida (PSK) de MCollective:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid ""
+"Please specify the Pre-Shared Key that should be used between MCollective "
+"instances."
+msgstr ""
+"Indique la Clave Pre-Compartida que deberían utilizar las instancias de "
+"MCollective."
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid "Message Queue server host:"
+msgstr "Máquina del servidor de la cola de mensajes:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid ""
+"Please specify the hostname or IP address of the Message Queue server for "
+"MCollective."
+msgstr ""
+"Indique el nombre de la máquina o la dirección IP del servidor de la cola de "
+"mensajes de MCollective."
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid "Message Queue server port:"
+msgstr "Puerto del servidor de la cola de mensajes:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid "Please specify the listening port of the Message Queue server."
+msgstr ""
+"Indique el puerto en el que escuchará el servidor de la cola de mensajes."
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:5001
+msgid "Message Queue server username:"
+msgstr "Nombre del usuario del servidor de la cola de mensajes:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:5001
+msgid ""
+"Please specify the STOMP username that should be used with the Message Queue "
+"server."
+msgstr ""
+"Indique el nombre de usuario de STOMP que se debería utilizar en el servidor "
+"de la cola de mensajes."
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:6001
+msgid "Message Queue server password:"
+msgstr "Contraseña del servidor de la cola de mensajes:"
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:6001
+msgid ""
+"Please specify the STOMP password that should be used with the Message Queue "
+"server."
+msgstr ""
+"Indique la contraseña de STOMP que se debería utilizar en el servidor de la "
+"cola de mensajes."
+
+#. Type: boolean
+#. Description
+#: ../mcollective.templates:2001
+msgid "Start MCollective on boot?"
+msgstr "¿Desea ejecutar MCollective al arrancar?"
+
+#. Type: boolean
+#. Description
+#: ../mcollective.templates:2001
+msgid ""
+"Please choose whether the MCollective daemon should be started when booting "
+"this machine."
+msgstr ""
+"Escoja si el demonio de MCollective se debería ejecutar al arrancar el "
+"sistema."

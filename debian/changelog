@@ -1,11 +1,23 @@
-mcollective (1.2.1+dfsg-2) UNRELEASED; urgency=low
+mcollective (1.2.1+dfsg-2) unstable; urgency=low
 
   * configuration files: chmod 600, prevent world-readable (Closes: #643624)
   * d/control: Changed Depends:
    - libstomp-ruby -> ruby-stomp
    - libsystemu-ruby -> ruby-systemu
+  * d/control: Added DM-Upload
+  * Debconf templates and debian/control reviewed by the debian-l10n-
+    english team as part of the Smith review project. Closes: #644464
+  * [Debconf translation updates]
+    - Czech (Michal Simunek).  Closes: #644911
+    - Swedish (Martin Bagge / brother).  Closes: #644922
+    - Russian (Yuri Kozlov).  Closes: #645478
+    - German (Chris Leick).  Closes: #645676
+    - Danish (Joe Hansen).  Closes: #645819
+    - French (Julien Patriarca).  Closes: #646098
+    - Spanish; (Francisco Javier Cuadrado).  Closes: #646358
+    - Portuguese (Miguel Figueiredo).  Closes: #646752
 
- -- Jonas Genannt <jonas.genannt@capi2name.de>  Sun, 02 Oct 2011 14:45:22 +0200
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Tue, 01 Nov 2011 12:35:17 +0100
 
 mcollective (1.2.1+dfsg-1) unstable; urgency=low
 
