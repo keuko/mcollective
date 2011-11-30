@@ -38,6 +38,11 @@ Copy default configuration into ActiveMQ configuration directory:
 
 Edit configuration, setup new password and username.
 
+In case you need logging:
+
+ # cp /etc/activemq/instances-available/main/log4j.properties \
+   /etc/activemq/instances-available/mcollective/
+
 Register new ActiveMQ instance:
 
  # ln -s /etc/activemq/instances-available/mcollective \
@@ -46,5 +51,13 @@ Register new ActiveMQ instance:
 Start ActiveMQ:
 
  # invoke-rc.d activemq start
+
+
+ActiveMQ Log configuration:
+--------------------------
+
+By default ActiveMQ does not log. To enabled logging you need to copy
+the file /etc/activemq/instances-available/main/log4j.properties into
+your MCollective instance configuration directory. Than restart your ActiveMQ.
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Mon 25 Jul 2011 20:36:23 +0200
