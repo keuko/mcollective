@@ -1,4 +1,4 @@
-mcollective (1.2.1+dfsg-3) unstable; urgency=low
+mcollective (1.2.1+dfsg-3) UNRELEASED; urgency=low
 
   * d/mcollective.README.Debian: added note about the log feature
    of ActiveMQ. Thanks to R.I.Pienaar for the advice.
