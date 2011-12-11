@@ -1,0 +1,27 @@
+#!/bin/sh -e
+
+# We give precedence to activemq config
+if hash activemq > /dev/null 2>&1; then
+	if [ -h /etc/activemq/instances-enabled/mcollective ]; then
+		rm -f /etc/activemq/instances-enabled/mcollective
+	fi
+	if [ -f /etc/activemq/instances-available/mcollective/activemq.xml ]; then
+		rm -f /etc/activemq/instances-available/mcollective/activemq.xml
+	fi
+	if [ -d /etc/activemq/instances-available/mcollective ]; then
+		rmdir --ignore-fail-on-non-empty /etc/activemq/instances-available/mcollective
+	fi
+	invoke-rc.d activemq stop || :
+	invoke-rc.d activemq start
+fi
+if hash rabbitmqctl >/dev/null 2>&1; then
+	# Remove the 'mcollective' user
+	if [ "$(rabbitmqctl list_users | grep -c mcollective)" != "0" ]; then
+		rabbitmqctl delete_user mcollective || true
+		rabbitmqctl clear_permissions mcollective || true
+	else
+		true
+	fi
+fi
+
+#DEBHELPER#

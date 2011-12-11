@@ -49,6 +49,16 @@ Description: Marionette Collective clustering framework - common files
  .
  This package provides common files for MCollective.
 
+Package: mcollective-middleware
+Architecture: all
+Depends: ${misc:Depends}, activemq, mcollective
+Description: Marionette Collective clustering framework - middleware
+ The Marionette Collective is a framework for building server
+ orchestration and parallel job execution systems.
+ .
+ This meta package installs and preconfigures the STOMP server needed
+ for an working MCollective installation.
+
 Package: mcollective-doc
 Architecture: all
 Section: doc

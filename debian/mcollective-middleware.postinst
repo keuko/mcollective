@@ -1,0 +1,28 @@
+#!/bin/sh -e
+
+
+# We give precedence to activemq config
+if hash activemq > /dev/null 2>&1; then
+	if [ ! -d /etc/activemq/instances-available/mcollective ]; then
+		mkdir -p /etc/activemq/instances-available/mcollective
+	fi
+	if [ ! -f /etc/activemq/instances-available/mcollective/activemq.xml ]; then
+		cp -p /usr/share/mcollective-middleware/activemq.xml /etc/activemq/instances-available/mcollective
+	fi
+	if [ ! -h /etc/activemq/instances-enabled/mcollective ]; then
+		ln -sf /etc/activemq/instances-available/mcollective /etc/activemq/instances-enabled/mcollective
+	fi
+	invoke-rc.d activemq stop || :
+	invoke-rc.d activemq start
+
+elif hash rabbitmqctl >/dev/null 2>&1; then
+	# Add the 'mcollective' user, with password, 'marionette', if none exists
+	if [ "$(rabbitmqctl list_users | grep -c mcollective)" = "0" ]; then
+		rabbitmqctl add_user mcollective marionette
+		rabbitmqctl set_permissions mcollective \.\* \.\* \.\*
+	else
+		true
+	fi
+fi
+
+#DEBHELPER#
