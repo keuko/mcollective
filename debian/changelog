@@ -2,6 +2,7 @@ mcollective (1.2.1+dfsg-3) UNRELEASED; urgency=low
 
   * d/mcollective.README.Debian: added note about the log feature
    of ActiveMQ. Thanks to R.I.Pienaar for the advice.
+  * d/mcollective.triggers: Merged from Ubuntu package
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Wed, 30 Nov 2011 19:20:29 +0100
 
