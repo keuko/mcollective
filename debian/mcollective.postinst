@@ -2,6 +2,12 @@
 
 set -e
 
+if [  "$1" = "triggered" ]; then
+	invoke-rc.d mcollective stop || :
+	invoke-rc.d mcollective start
+	exit
+fi
+
 . /usr/share/debconf/confmodule
 
 MCOLLECTIVE_SERVER_CFG="/etc/mcollective/server.cfg"
