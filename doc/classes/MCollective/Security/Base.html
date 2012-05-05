@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -91,18 +89,18 @@ To create your own security plugin you should provide a plugin that
 inherits from this and provides the following methods:
 </p>
 <p>
-<a href="Base.html#M000072">decodemsg</a> - Decodes a message that was
-received from the middleware <a href="Base.html#M000071">encodereply</a> -
+<a href="Base.html#M000037">decodemsg</a> - Decodes a message that was
+received from the middleware <a href="Base.html#M000036">encodereply</a> -
 Encodes a reply message to a previous request message <a
-href="Base.html#M000070">encoderequest</a> - Encodes a <a
-href="Base.html#M000064">new</a> request message <a
-href="Base.html#M000069">validrequest?</a> - Validates a request received
+href="Base.html#M000035">encoderequest</a> - Encodes a <a
+href="Base.html#M000027">new</a> request message <a
+href="Base.html#M000034">validrequest?</a> - Validates a request received
 from the middleware
 </p>
 <p>
 Optionally if you are identifying users by some other means like
 certificate name you can provide your own <a
-href="Base.html#M000068">callerid</a> method that can provide the rest of
+href="Base.html#M000033">callerid</a> method that can provide the rest of
 the system with an id, and you would see this id being usable in SimpleRPC
 authorization methods
 </p>
@@ -128,16 +126,18 @@ MCollective::Security::PSK plugin.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000068">callerid</a>&nbsp;&nbsp;
-      <a href="#M000066">create_reply</a>&nbsp;&nbsp;
-      <a href="#M000067">create_request</a>&nbsp;&nbsp;
-      <a href="#M000072">decodemsg</a>&nbsp;&nbsp;
-      <a href="#M000071">encodereply</a>&nbsp;&nbsp;
-      <a href="#M000070">encoderequest</a>&nbsp;&nbsp;
-      <a href="#M000063">inherited</a>&nbsp;&nbsp;
-      <a href="#M000064">new</a>&nbsp;&nbsp;
-      <a href="#M000065">validate_filter?</a>&nbsp;&nbsp;
-      <a href="#M000069">validrequest?</a>&nbsp;&nbsp;
+      <a href="#M000033">callerid</a>&nbsp;&nbsp;
+      <a href="#M000029">create_reply</a>&nbsp;&nbsp;
+      <a href="#M000030">create_request</a>&nbsp;&nbsp;
+      <a href="#M000037">decodemsg</a>&nbsp;&nbsp;
+      <a href="#M000036">encodereply</a>&nbsp;&nbsp;
+      <a href="#M000035">encoderequest</a>&nbsp;&nbsp;
+      <a href="#M000026">inherited</a>&nbsp;&nbsp;
+      <a href="#M000027">new</a>&nbsp;&nbsp;
+      <a href="#M000031">should_process_msg?</a>&nbsp;&nbsp;
+      <a href="#M000032">valid_callerid?</a>&nbsp;&nbsp;
+      <a href="#M000028">validate_filter?</a>&nbsp;&nbsp;
+      <a href="#M000034">validrequest?</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -177,11 +177,11 @@ MCollective::Security::PSK plugin.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000063" class="method-detail">
-        <a name="M000063"></a>
+      <div id="method-M000026" class="method-detail">
+        <a name="M000026"></a>
 
         <div class="method-heading">
-          <a href="#M000063" class="method-signature">
+          <a href="#M000026" class="method-signature">
           <span class="method-name">inherited</span><span class="method-args">(klass)</span>
           </a>
         </div>
@@ -191,23 +191,23 @@ MCollective::Security::PSK plugin.
 Register plugins that inherits base
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000063-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000063-source">
+            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000026-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 32</span>
-32:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-33:                 <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;security_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
-34:             <span class="ruby-keyword kw">end</span>
+32:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
+33:         <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;security_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
+34:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000064" class="method-detail">
-        <a name="M000064"></a>
+      <div id="method-M000027" class="method-detail">
+        <a name="M000027"></a>
 
         <div class="method-heading">
-          <a href="#M000064" class="method-signature">
+          <a href="#M000027" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
@@ -216,19 +216,18 @@ Register plugins that inherits base
           <p>
 Initializes configuration and logging as well as prepare a zero&#8216;d
 hash of stats various security methods and filter validators should
-increment stats, see <a href="Psk.html">MCollective::Security::Psk</a> for
-a sample
+increment stats, see MCollective::Security::Psk for a sample
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000064-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000064-source">
+            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000027-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 38</span>
-38:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
-39:                 <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-40:                 <span class="ruby-ivar">@log</span> = <span class="ruby-constant">Log</span>
-41:                 <span class="ruby-ivar">@stats</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;global_stats&quot;</span>]
-42:             <span class="ruby-keyword kw">end</span>
+38:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+39:         <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+40:         <span class="ruby-ivar">@log</span> = <span class="ruby-constant">Log</span>
+41:         <span class="ruby-ivar">@stats</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;global_stats&quot;</span>]
+42:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -236,11 +235,11 @@ a sample
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000068" class="method-detail">
-        <a name="M000068"></a>
+      <div id="method-M000033" class="method-detail">
+        <a name="M000033"></a>
 
         <div class="method-heading">
-          <a href="#M000068" class="method-signature">
+          <a href="#M000033" class="method-signature">
           <span class="method-name">callerid</span><span class="method-args">()</span>
           </a>
         </div>
@@ -251,94 +250,85 @@ Returns a unique id for the caller, by default we just use the unix user
 id, security plugins can provide their own means of doing ids.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000068-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000068-source">
+            onclick="toggleCode('M000033-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000033-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 212</span>
+212:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">callerid</span>
+213:         <span class="ruby-node">&quot;uid=#{Process.uid}&quot;</span>
+214:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000029" class="method-detail">
+        <a name="M000029"></a>
+
+        <div class="method-heading">
+          <a href="#M000029" class="method-signature">
+          <span class="method-name">create_reply</span><span class="method-args">(reqid, agent, body)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000029-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 160</span>
-160:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">callerid</span>
-161:                 <span class="ruby-node">&quot;uid=#{Process.uid}&quot;</span>
-162:             <span class="ruby-keyword kw">end</span>
+160:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_reply</span>(<span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">body</span>)
+161:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoded a message for request #{reqid}&quot;</span>)
+162: 
+163:         {<span class="ruby-identifier">:senderid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>,
+164:           <span class="ruby-identifier">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reqid</span>,
+165:           <span class="ruby-identifier">:senderagent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>,
+166:           <span class="ruby-identifier">:msgtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span>,
+167:           <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>}
+168:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000066" class="method-detail">
-        <a name="M000066"></a>
+      <div id="method-M000030" class="method-detail">
+        <a name="M000030"></a>
 
         <div class="method-heading">
-          <a href="#M000066" class="method-signature">
-          <span class="method-name">create_reply</span><span class="method-args">(reqid, agent, target, body)</span>
+          <a href="#M000030" class="method-signature">
+          <span class="method-name">create_request</span><span class="method-args">(reqid, filter, msg, initiated_by, target_agent, target_collective, ttl=60)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000066-source">
+            onclick="toggleCode('M000030-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000030-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 125</span>
-125:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_reply</span>(<span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">body</span>)
-126:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoded a message for request #{reqid}&quot;</span>)
-127: 
-128:                 {<span class="ruby-identifier">:senderid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>,
-129:                  <span class="ruby-identifier">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reqid</span>,
-130:                  <span class="ruby-identifier">:senderagent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>,
-131:                  <span class="ruby-identifier">:msgtarget</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>,
-132:                  <span class="ruby-identifier">:msgtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>,
-133:                  <span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>}
-134:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 170</span>
+170:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">initiated_by</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">60</span>)
+171:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoding a request for agent '#{target_agent}' in collective #{target_collective} with request id #{reqid}&quot;</span>)
+172: 
+173:         {<span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>,
+174:           <span class="ruby-identifier">:senderid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>,
+175:           <span class="ruby-identifier">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reqid</span>,
+176:           <span class="ruby-identifier">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter</span>,
+177:           <span class="ruby-identifier">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target_collective</span>,
+178:           <span class="ruby-identifier">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target_agent</span>,
+179:           <span class="ruby-identifier">:callerid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">callerid</span>,
+180:           <span class="ruby-identifier">:ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>,
+181:           <span class="ruby-identifier">:msgtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span>}
+182:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000067" class="method-detail">
-        <a name="M000067"></a>
+      <div id="method-M000037" class="method-detail">
+        <a name="M000037"></a>
 
         <div class="method-heading">
-          <a href="#M000067" class="method-signature">
-          <span class="method-name">create_request</span><span class="method-args">(reqid, target, filter, msg, initiated_by, target_agent=nil, target_collective=nil)</span>
-          </a>
-        </div>
-      
-        <div class="method-description">
-          <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000067-source">
-<pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 136</span>
-136:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">initiated_by</span>, <span class="ruby-identifier">target_agent</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">target_collective</span>=<span class="ruby-keyword kw">nil</span>)
-137:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoding a request for '#{target}' with request id #{reqid}&quot;</span>)
-138: 
-139:                 <span class="ruby-comment cmt"># for backward compat with &lt;= 1.1.4 security plugins we parse the</span>
-140:                 <span class="ruby-comment cmt"># msgtarget to figure out the agent and collective</span>
-141:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">target_agent</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">target_collective</span>
-142:                     <span class="ruby-identifier">parsed_target</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">parse_msgtarget</span>(<span class="ruby-identifier">target</span>)
-143:                     <span class="ruby-identifier">target_agent</span> = <span class="ruby-identifier">parsed_target</span>[<span class="ruby-identifier">:agent</span>]
-144:                     <span class="ruby-identifier">target_collective</span> = <span class="ruby-identifier">parsed_target</span>[<span class="ruby-identifier">:collective</span>]
-145:                 <span class="ruby-keyword kw">end</span>
-146: 
-147:                 {<span class="ruby-identifier">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>,
-148:                  <span class="ruby-identifier">:senderid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>,
-149:                  <span class="ruby-identifier">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reqid</span>,
-150:                  <span class="ruby-identifier">:msgtarget</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target</span>,
-151:                  <span class="ruby-identifier">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter</span>,
-152:                  <span class="ruby-identifier">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target_collective</span>,
-153:                  <span class="ruby-identifier">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target_agent</span>,
-154:                  <span class="ruby-identifier">:callerid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">callerid</span>,
-155:                  <span class="ruby-identifier">:msgtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>}
-156:             <span class="ruby-keyword kw">end</span>
-</pre>
-          </div>
-        </div>
-      </div>
-
-      <div id="method-M000072" class="method-detail">
-        <a name="M000072"></a>
-
-        <div class="method-heading">
-          <a href="#M000072" class="method-signature">
+          <a href="#M000037" class="method-signature">
           <span class="method-name">decodemsg</span><span class="method-args">(msg)</span>
           </a>
         </div>
@@ -346,80 +336,152 @@ id, security plugins can provide their own means of doing ids.
         <div class="method-description">
           <p>
 <a href="../Security.html">Security</a> providers should provide this, see
-<a href="Psk.html">MCollective::Security::Psk</a>
+MCollective::Security::Psk
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000072-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000072-source">
+            onclick="toggleCode('M000037-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000037-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 180</span>
-180:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decodemsg</span>(<span class="ruby-identifier">msg</span>)
-181:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;decodemsg is not implimented in #{self.class}&quot;</span>)
-182:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 232</span>
+232:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decodemsg</span>(<span class="ruby-identifier">msg</span>)
+233:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;decodemsg is not implimented in #{self.class}&quot;</span>)
+234:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000071" class="method-detail">
-        <a name="M000071"></a>
+      <div id="method-M000036" class="method-detail">
+        <a name="M000036"></a>
 
         <div class="method-heading">
-          <a href="#M000071" class="method-signature">
-          <span class="method-name">encodereply</span><span class="method-args">(sender, target, msg, requestcallerid=nil)</span>
+          <a href="#M000036" class="method-signature">
+          <span class="method-name">encodereply</span><span class="method-args">(sender, msg, requestcallerid=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
 <a href="../Security.html">Security</a> providers should provide this, see
-<a href="Psk.html">MCollective::Security::Psk</a>
+MCollective::Security::Psk
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000071-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000071-source">
+            onclick="toggleCode('M000036-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000036-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 175</span>
-175:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestcallerid</span>=<span class="ruby-keyword kw">nil</span>)
-176:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;encodereply is not implimented in #{self.class}&quot;</span>)
-177:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 227</span>
+227:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestcallerid</span>=<span class="ruby-keyword kw">nil</span>)
+228:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;encodereply is not implimented in #{self.class}&quot;</span>)
+229:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000070" class="method-detail">
-        <a name="M000070"></a>
+      <div id="method-M000035" class="method-detail">
+        <a name="M000035"></a>
 
         <div class="method-heading">
-          <a href="#M000070" class="method-signature">
-          <span class="method-name">encoderequest</span><span class="method-args">(sender, target, msg, filter={})</span>
+          <a href="#M000035" class="method-signature">
+          <span class="method-name">encoderequest</span><span class="method-args">(sender, msg, filter={})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
 <a href="../Security.html">Security</a> providers should provide this, see
-<a href="Psk.html">MCollective::Security::Psk</a>
+MCollective::Security::Psk
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000070-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000070-source">
+            onclick="toggleCode('M000035-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000035-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 170</span>
-170:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encoderequest</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">filter</span>={})
-171:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;encoderequest is not implimented in #{self.class}&quot;</span>)
-172:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 222</span>
+222:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encoderequest</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">filter</span>={})
+223:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;encoderequest is not implimented in #{self.class}&quot;</span>)
+224:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000065" class="method-detail">
-        <a name="M000065"></a>
+      <div id="method-M000031" class="method-detail">
+        <a name="M000031"></a>
 
         <div class="method-heading">
-          <a href="#M000065" class="method-signature">
+          <a href="#M000031" class="method-signature">
+          <span class="method-name">should_process_msg?</span><span class="method-args">(msg, msgid)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Give a MC::Message instance and a message id this will figure out if you
+the incoming message id matches the one the <a
+href="../Message.html">Message</a> object is expecting and raise if its not
+</p>
+<p>
+Mostly used by security plugins to figure out if they should do the hard
+work of decrypting etc messages that would only later on be ignored
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000031-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000031-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 189</span>
+189:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">should_process_msg?</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">msgid</span>)
+190:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">expected_msgid</span>
+191:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">expected_msgid</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">msgid</span>
+192:             <span class="ruby-identifier">msgtext</span> = <span class="ruby-value str">&quot;Got a message with id %s but was expecting %s, ignoring message&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">msgid</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">expected_msgid</span>]
+193:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-identifier">msgtext</span>
+194:             <span class="ruby-identifier">raise</span> <span class="ruby-constant">MsgDoesNotMatchRequestID</span>, <span class="ruby-identifier">msgtext</span>
+195:           <span class="ruby-keyword kw">end</span>
+196:         <span class="ruby-keyword kw">end</span>
+197: 
+198:         <span class="ruby-keyword kw">true</span>
+199:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000032" class="method-detail">
+        <a name="M000032"></a>
+
+        <div class="method-heading">
+          <a href="#M000032" class="method-signature">
+          <span class="method-name">valid_callerid?</span><span class="method-args">(id)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Validates a <a href="Base.html#M000033">callerid</a>. We do not want to
+allow things like \ and / in callerids since other plugins make assumptions
+that these are safe strings.
+</p>
+<p>
+callerids are generally in the form uid=123 or cert=foo etc so we do that
+here but security plugins could override this for some complex uses
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000032-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000032-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 206</span>
+206:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">id</span>)
+207:         <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">id</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^[\w]+=[\w\.\-]+$/</span>)
+208:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000028" class="method-detail">
+        <a name="M000028"></a>
+
+        <div class="method-heading">
+          <a href="#M000028" class="method-signature">
           <span class="method-name">validate_filter?</span><span class="method-args">(filter)</span>
           </a>
         </div>
@@ -453,89 +515,124 @@ agent with a supplied name
 TODO: Support REGEX and/or multiple filter keys to be AND&#8216;d
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000065-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000065-source">
+            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000028-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 55</span>
- 55:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_filter?</span>(<span class="ruby-identifier">filter</span>)
- 56:                 <span class="ruby-identifier">failed</span> = <span class="ruby-value">0</span>
- 57:                 <span class="ruby-identifier">passed</span> = <span class="ruby-value">0</span>
+ 55:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_filter?</span>(<span class="ruby-identifier">filter</span>)
+ 56:         <span class="ruby-identifier">failed</span> = <span class="ruby-value">0</span>
+ 57:         <span class="ruby-identifier">passed</span> = <span class="ruby-value">0</span>
  58: 
- 59:                 <span class="ruby-identifier">passed</span> = <span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">filter</span>)
+ 59:         <span class="ruby-identifier">passed</span> = <span class="ruby-value">1</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">filter</span>)
  60: 
- 61:                 <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
- 62:                     <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">key</span>
- 63:                         <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/puppet_class|cf_class/</span>
- 64:                             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
- 65:                                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Checking for class #{f}&quot;</span>)
- 66:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_cf_class?</span>(<span class="ruby-identifier">f</span>) <span class="ruby-keyword kw">then</span>
- 67:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on configuration management class #{f}&quot;</span>)
- 68:                                     <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 69:                                 <span class="ruby-keyword kw">else</span>
- 70:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on configuration management class #{f}&quot;</span>)
- 71:                                     <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 72:                                 <span class="ruby-keyword kw">end</span>
- 73:                             <span class="ruby-keyword kw">end</span>
+ 61:         <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+ 62:           <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">key</span>
+ 63:           <span class="ruby-keyword kw">when</span> <span class="ruby-regexp re">/puppet_class|cf_class/</span>
+ 64:             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+ 65:               <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Checking for class #{f}&quot;</span>)
+ 66:               <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_cf_class?</span>(<span class="ruby-identifier">f</span>) <span class="ruby-keyword kw">then</span>
+ 67:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on configuration management class #{f}&quot;</span>)
+ 68:                 <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 69:               <span class="ruby-keyword kw">else</span>
+ 70:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on configuration management class #{f}&quot;</span>)
+ 71:                 <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+ 72:               <span class="ruby-keyword kw">end</span>
+ 73:             <span class="ruby-keyword kw">end</span>
  74: 
- 75:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;agent&quot;</span>
- 76:                             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
- 77:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_agent?</span>(<span class="ruby-identifier">f</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;mcollective&quot;</span>
- 78:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on agent #{f}&quot;</span>)
- 79:                                     <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 80:                                 <span class="ruby-keyword kw">else</span>
- 81:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on agent #{f}&quot;</span>)
- 82:                                     <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 83:                                 <span class="ruby-keyword kw">end</span>
- 84:                             <span class="ruby-keyword kw">end</span>
- 85: 
- 86:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;fact&quot;</span>
- 87:                             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
- 88:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">f</span>[<span class="ruby-identifier">:fact</span>], <span class="ruby-identifier">f</span>[<span class="ruby-identifier">:value</span>], <span class="ruby-identifier">f</span>[<span class="ruby-identifier">:operator</span>])
- 89:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on fact #{f[:fact]} #{f[:operator]} #{f[:value]}&quot;</span>)
- 90:                                     <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 91:                                 <span class="ruby-keyword kw">else</span>
- 92:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on fact #{f[:fact]} #{f[:operator]} #{f[:value]}&quot;</span>)
- 93:                                     <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
- 94:                                 <span class="ruby-keyword kw">end</span>
- 95:                             <span class="ruby-keyword kw">end</span>
- 96: 
- 97:                         <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;identity&quot;</span>
- 98:                             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
- 99:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_identity?</span>(<span class="ruby-identifier">f</span>)
-100:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on identity = #{f}&quot;</span>)
-101:                                     <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-102:                                 <span class="ruby-keyword kw">else</span>
-103:                                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failed based on identity = #{f}&quot;</span>)
-104:                                     <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-105:                                 <span class="ruby-keyword kw">end</span>
-106:                             <span class="ruby-keyword kw">end</span>
-107:                     <span class="ruby-keyword kw">end</span>
-108:                 <span class="ruby-keyword kw">end</span>
-109: 
-110:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">failed</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">passed</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-111:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Message passed the filter checks&quot;</span>)
-112: 
-113:                     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">passed</span>
-114: 
-115:                     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-116:                 <span class="ruby-keyword kw">else</span>
-117:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Message failed the filter checks&quot;</span>)
-118: 
-119:                     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">filtered</span>
-120: 
-121:                     <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
-122:                 <span class="ruby-keyword kw">end</span>
-123:             <span class="ruby-keyword kw">end</span>
+ 75:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;compound&quot;</span>
+ 76:             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">compound</span><span class="ruby-operator">|</span>
+ 77:               <span class="ruby-identifier">result</span> = []
+ 78: 
+ 79:               <span class="ruby-identifier">compound</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">expression</span><span class="ruby-operator">|</span>
+ 80:                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span>
+ 81:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;statement&quot;</span>
+ 82:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">eval_compound_statement</span>(<span class="ruby-identifier">expression</span>).<span class="ruby-identifier">to_s</span>
+ 83:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;and&quot;</span>
+ 84:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;&amp;&amp;&quot;</span>
+ 85:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;or&quot;</span>
+ 86:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;||&quot;</span>
+ 87:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;(&quot;</span>
+ 88:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;(&quot;</span>
+ 89:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;)&quot;</span>
+ 90:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;)&quot;</span>
+ 91:                 <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;not&quot;</span>
+ 92:                   <span class="ruby-identifier">result</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-value str">&quot;!&quot;</span>
+ 93:                 <span class="ruby-keyword kw">end</span>
+ 94:               <span class="ruby-keyword kw">end</span>
+ 95: 
+ 96:               <span class="ruby-identifier">result</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-identifier">result</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot; &quot;</span>))
+ 97: 
+ 98:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">result</span>
+ 99:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Passing based on class and fact composition&quot;</span>)
+100:                 <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+101:               <span class="ruby-keyword kw">else</span>
+102:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Failing based on class and fact composition&quot;</span>)
+103:                 <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span><span class="ruby-value">1</span>
+104:               <span class="ruby-keyword kw">end</span>
+105:             <span class="ruby-keyword kw">end</span>
+106: 
+107:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;agent&quot;</span>
+108:             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+109:               <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_agent?</span>(<span class="ruby-identifier">f</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">f</span> <span class="ruby-operator">==</span> <span class="ruby-value str">&quot;mcollective&quot;</span>
+110:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on agent #{f}&quot;</span>)
+111:                 <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+112:               <span class="ruby-keyword kw">else</span>
+113:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on agent #{f}&quot;</span>)
+114:                 <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+115:               <span class="ruby-keyword kw">end</span>
+116:             <span class="ruby-keyword kw">end</span>
+117: 
+118:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;fact&quot;</span>
+119:             <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+120:               <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">f</span>[<span class="ruby-identifier">:fact</span>], <span class="ruby-identifier">f</span>[<span class="ruby-identifier">:value</span>], <span class="ruby-identifier">f</span>[<span class="ruby-identifier">:operator</span>])
+121:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Passing based on fact #{f[:fact]} #{f[:operator]} #{f[:value]}&quot;</span>)
+122:                 <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+123:               <span class="ruby-keyword kw">else</span>
+124:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Failing based on fact #{f[:fact]} #{f[:operator]} #{f[:value]}&quot;</span>)
+125:                 <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+126:               <span class="ruby-keyword kw">end</span>
+127:             <span class="ruby-keyword kw">end</span>
+128: 
+129:           <span class="ruby-keyword kw">when</span> <span class="ruby-value str">&quot;identity&quot;</span>
+130:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">empty?</span>
+131:               <span class="ruby-comment cmt"># Identity filters should not be 'and' but 'or' as each node can only have one identity</span>
+132:               <span class="ruby-identifier">matched</span> = <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_identity?</span>(<span class="ruby-identifier">f</span>)}.<span class="ruby-identifier">size</span>
+133: 
+134:               <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">matched</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+135:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Passing based on identity&quot;</span>)
+136:                 <span class="ruby-identifier">passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+137:               <span class="ruby-keyword kw">else</span>
+138:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Failed based on identity&quot;</span>)
+139:                 <span class="ruby-identifier">failed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+140:               <span class="ruby-keyword kw">end</span>
+141:             <span class="ruby-keyword kw">end</span>
+142:           <span class="ruby-keyword kw">end</span>
+143:         <span class="ruby-keyword kw">end</span>
+144: 
+145:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">failed</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">passed</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+146:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Message passed the filter checks&quot;</span>)
+147: 
+148:           <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">passed</span>
+149: 
+150:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+151:         <span class="ruby-keyword kw">else</span>
+152:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Message failed the filter checks&quot;</span>)
+153: 
+154:           <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">filtered</span>
+155: 
+156:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+157:         <span class="ruby-keyword kw">end</span>
+158:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000069" class="method-detail">
-        <a name="M000069"></a>
+      <div id="method-M000034" class="method-detail">
+        <a name="M000034"></a>
 
         <div class="method-heading">
-          <a href="#M000069" class="method-signature">
+          <a href="#M000034" class="method-signature">
           <span class="method-name">validrequest?</span><span class="method-args">(req)</span>
           </a>
         </div>
@@ -543,16 +640,16 @@ TODO: Support REGEX and/or multiple filter keys to be AND&#8216;d
         <div class="method-description">
           <p>
 <a href="../Security.html">Security</a> providers should provide this, see
-<a href="Psk.html">MCollective::Security::Psk</a>
+MCollective::Security::Psk
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000069-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000069-source">
+            onclick="toggleCode('M000034-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000034-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 165</span>
-165:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validrequest?</span>(<span class="ruby-identifier">req</span>)
-166:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;validrequest? is not implimented in #{self.class}&quot;</span>)
-167:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/security/base.rb, line 217</span>
+217:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validrequest?</span>(<span class="ruby-identifier">req</span>)
+218:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;validrequest? is not implimented in #{self.class}&quot;</span>)
+219:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -100,10 +98,11 @@ associate results to a <a href="DDL.html">DDL</a>
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000167">[]</a>&nbsp;&nbsp;
-      <a href="#M000168">[]=</a>&nbsp;&nbsp;
-      <a href="#M000169">each</a>&nbsp;&nbsp;
-      <a href="#M000166">new</a>&nbsp;&nbsp;
+      <a href="#M000160">[]</a>&nbsp;&nbsp;
+      <a href="#M000161">[]=</a>&nbsp;&nbsp;
+      <a href="#M000162">each</a>&nbsp;&nbsp;
+      <a href="#M000159">new</a>&nbsp;&nbsp;
+      <a href="#M000163">to_json</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -155,26 +154,26 @@ associate results to a <a href="DDL.html">DDL</a>
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000166" class="method-detail">
-        <a name="M000166"></a>
+      <div id="method-M000159" class="method-detail">
+        <a name="M000159"></a>
 
         <div class="method-heading">
-          <a href="#M000166" class="method-signature">
+          <a href="#M000159" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(agent, action, result={})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000166-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000166-source">
+            onclick="toggleCode('M000159-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000159-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/result.rb, line 13</span>
-13:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">result</span>={})
-14:                 <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">agent</span>
-15:                 <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span>
-16:                 <span class="ruby-ivar">@results</span> = <span class="ruby-identifier">result</span>
-17:             <span class="ruby-keyword kw">end</span>
+13:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">result</span>={})
+14:         <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">agent</span>
+15:         <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span>
+16:         <span class="ruby-ivar">@results</span> = <span class="ruby-identifier">result</span>
+17:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -182,70 +181,98 @@ associate results to a <a href="DDL.html">DDL</a>
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000167" class="method-detail">
-        <a name="M000167"></a>
+      <div id="method-M000160" class="method-detail">
+        <a name="M000160"></a>
 
         <div class="method-heading">
-          <a href="#M000167" class="method-signature">
+          <a href="#M000160" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(idx)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000167-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000167-source">
+            onclick="toggleCode('M000160-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000160-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/result.rb, line 19</span>
-19:             <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">idx</span>)
-20:                 <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">idx</span>]
-21:             <span class="ruby-keyword kw">end</span>
+19:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">idx</span>)
+20:         <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">idx</span>]
+21:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000168" class="method-detail">
-        <a name="M000168"></a>
+      <div id="method-M000161" class="method-detail">
+        <a name="M000161"></a>
 
         <div class="method-heading">
-          <a href="#M000168" class="method-signature">
+          <a href="#M000161" class="method-signature">
           <span class="method-name">[]=</span><span class="method-args">(idx, item)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000168-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000168-source">
+            onclick="toggleCode('M000161-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000161-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/result.rb, line 23</span>
-23:             <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">idx</span>, <span class="ruby-identifier">item</span>)
-24:                 <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">idx</span>] = <span class="ruby-identifier">item</span>
-25:             <span class="ruby-keyword kw">end</span>
+23:       <span class="ruby-keyword kw">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">idx</span>, <span class="ruby-identifier">item</span>)
+24:         <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">idx</span>] = <span class="ruby-identifier">item</span>
+25:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000169" class="method-detail">
-        <a name="M000169"></a>
+      <div id="method-M000162" class="method-detail">
+        <a name="M000162"></a>
 
         <div class="method-heading">
-          <a href="#M000169" class="method-signature">
+          <a href="#M000162" class="method-signature">
           <span class="method-name">each</span><span class="method-args">() {|k,v| ...}</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000169-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000169-source">
+            onclick="toggleCode('M000162-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000162-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/result.rb, line 27</span>
-27:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>
-28:                 <span class="ruby-ivar">@results</span>.<span class="ruby-identifier">each_pair</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span>) }
-29:             <span class="ruby-keyword kw">end</span>
+27:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">each</span>
+28:         <span class="ruby-ivar">@results</span>.<span class="ruby-identifier">each_pair</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span>) }
+29:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000163" class="method-detail">
+        <a name="M000163"></a>
+
+        <div class="method-heading">
+          <a href="#M000163" class="method-signature">
+          <span class="method-name">to_json</span><span class="method-args">(*a)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000163-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000163-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/result.rb, line 31</span>
+31:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_json</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">a</span>)
+32:         {<span class="ruby-identifier">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@agent</span>,
+33:           <span class="ruby-identifier">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@action</span>,
+34:           <span class="ruby-identifier">:sender</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">:sender</span>],
+35:           <span class="ruby-identifier">:statuscode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">:statuscode</span>],
+36:           <span class="ruby-identifier">:statusmsg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">:statusmsg</span>],
+37:           <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@results</span>[<span class="ruby-identifier">:data</span>]}.<span class="ruby-identifier">to_json</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">a</span>)
+38:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

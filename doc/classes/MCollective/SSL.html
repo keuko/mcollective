@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -108,7 +106,7 @@ This will result in a hash of data like:
 <p>
 The key and data will all be base 64 encoded already by default you can
 pass a 2nd parameter as false to <a
-href="SSL.html#M000210">encrypt_with_private</a> and counterparts that will
+href="SSL.html#M000225">encrypt_with_private</a> and counterparts that will
 prevent the base 64 encoding
 </p>
 <p>
@@ -129,22 +127,26 @@ decrypted using a private key
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000218">aes_decrypt</a>&nbsp;&nbsp;
-      <a href="#M000217">aes_encrypt</a>&nbsp;&nbsp;
-      <a href="#M000221">base64_decode</a>&nbsp;&nbsp;
-      <a href="#M000222">base64_decode</a>&nbsp;&nbsp;
-      <a href="#M000220">base64_encode</a>&nbsp;&nbsp;
-      <a href="#M000219">base64_encode</a>&nbsp;&nbsp;
-      <a href="#M000211">decrypt_with_private</a>&nbsp;&nbsp;
-      <a href="#M000212">decrypt_with_public</a>&nbsp;&nbsp;
-      <a href="#M000210">encrypt_with_private</a>&nbsp;&nbsp;
-      <a href="#M000209">encrypt_with_public</a>&nbsp;&nbsp;
-      <a href="#M000208">new</a>&nbsp;&nbsp;
-      <a href="#M000223">read_key</a>&nbsp;&nbsp;
-      <a href="#M000214">rsa_decrypt_with_private</a>&nbsp;&nbsp;
-      <a href="#M000216">rsa_decrypt_with_public</a>&nbsp;&nbsp;
-      <a href="#M000215">rsa_encrypt_with_private</a>&nbsp;&nbsp;
-      <a href="#M000213">rsa_encrypt_with_public</a>&nbsp;&nbsp;
+      <a href="#M000233">aes_decrypt</a>&nbsp;&nbsp;
+      <a href="#M000232">aes_encrypt</a>&nbsp;&nbsp;
+      <a href="#M000239">base64_decode</a>&nbsp;&nbsp;
+      <a href="#M000238">base64_decode</a>&nbsp;&nbsp;
+      <a href="#M000237">base64_encode</a>&nbsp;&nbsp;
+      <a href="#M000236">base64_encode</a>&nbsp;&nbsp;
+      <a href="#M000226">decrypt_with_private</a>&nbsp;&nbsp;
+      <a href="#M000227">decrypt_with_public</a>&nbsp;&nbsp;
+      <a href="#M000225">encrypt_with_private</a>&nbsp;&nbsp;
+      <a href="#M000224">encrypt_with_public</a>&nbsp;&nbsp;
+      <a href="#M000241">md5</a>&nbsp;&nbsp;
+      <a href="#M000240">md5</a>&nbsp;&nbsp;
+      <a href="#M000223">new</a>&nbsp;&nbsp;
+      <a href="#M000242">read_key</a>&nbsp;&nbsp;
+      <a href="#M000229">rsa_decrypt_with_private</a>&nbsp;&nbsp;
+      <a href="#M000231">rsa_decrypt_with_public</a>&nbsp;&nbsp;
+      <a href="#M000230">rsa_encrypt_with_private</a>&nbsp;&nbsp;
+      <a href="#M000228">rsa_encrypt_with_public</a>&nbsp;&nbsp;
+      <a href="#M000234">sign</a>&nbsp;&nbsp;
+      <a href="#M000235">verify_signature</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -189,80 +191,103 @@ decrypted using a private key
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000222" class="method-detail">
-        <a name="M000222"></a>
+      <div id="method-M000239" class="method-detail">
+        <a name="M000239"></a>
 
         <div class="method-heading">
-          <a href="#M000222" class="method-signature">
+          <a href="#M000239" class="method-signature">
           <span class="method-name">base64_decode</span><span class="method-args">(string)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000222-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000222-source">
+            onclick="toggleCode('M000239-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000239-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 180</span>
-180:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-181:             <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
-182:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 195</span>
+195:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
+196:       <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
+197:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000220" class="method-detail">
-        <a name="M000220"></a>
+      <div id="method-M000237" class="method-detail">
+        <a name="M000237"></a>
 
         <div class="method-heading">
-          <a href="#M000220" class="method-signature">
+          <a href="#M000237" class="method-signature">
           <span class="method-name">base64_encode</span><span class="method-args">(string)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000220-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000220-source">
+            onclick="toggleCode('M000237-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000237-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 171</span>
-171:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-172:             <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">string</span>)
-173:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 186</span>
+186:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
+187:       <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">string</span>)
+188:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000208" class="method-detail">
-        <a name="M000208"></a>
+      <div id="method-M000241" class="method-detail">
+        <a name="M000241"></a>
 
         <div class="method-heading">
-          <a href="#M000208" class="method-signature">
+          <a href="#M000241" class="method-signature">
+          <span class="method-name">md5</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000241-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000241-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 203</span>
+203:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
+204:       <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">string</span>)
+205:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000223" class="method-detail">
+        <a name="M000223"></a>
+
+        <div class="method-heading">
+          <a href="#M000223" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(pubkey=nil, privkey=nil, passphrase=nil, cipher=nil)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000208-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000208-source">
+            onclick="toggleCode('M000223-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000223-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 36</span>
-36:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">pubkey</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">privkey</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">cipher</span>=<span class="ruby-keyword kw">nil</span>)
-37:             <span class="ruby-ivar">@public_key_file</span> = <span class="ruby-identifier">pubkey</span>
-38:             <span class="ruby-ivar">@private_key_file</span> = <span class="ruby-identifier">privkey</span>
-39: 
-40:             <span class="ruby-ivar">@public_key</span>  = <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">:public</span>, <span class="ruby-identifier">pubkey</span>)
-41:             <span class="ruby-ivar">@private_key</span> = <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">:private</span>, <span class="ruby-identifier">privkey</span>, <span class="ruby-identifier">passphrase</span>)
-42: 
-43:             <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-value str">&quot;aes-256-cbc&quot;</span>
-44:             <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span>
-45:             <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-identifier">cipher</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cipher</span>
-46: 
-47:             <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher '#{@ssl_cipher}' is not supported&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
-48:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">pubkey</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">privkey</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">cipher</span>=<span class="ruby-keyword kw">nil</span>)
+38:       <span class="ruby-ivar">@public_key_file</span> = <span class="ruby-identifier">pubkey</span>
+39:       <span class="ruby-ivar">@private_key_file</span> = <span class="ruby-identifier">privkey</span>
+40: 
+41:       <span class="ruby-ivar">@public_key</span>  = <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">:public</span>, <span class="ruby-identifier">pubkey</span>)
+42:       <span class="ruby-ivar">@private_key</span> = <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">:private</span>, <span class="ruby-identifier">privkey</span>, <span class="ruby-identifier">passphrase</span>)
+43: 
+44:       <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-value str">&quot;aes-256-cbc&quot;</span>
+45:       <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span>
+46:       <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-identifier">cipher</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">cipher</span>
+47: 
+48:       <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher '#{@ssl_cipher}' is not supported&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
+49:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -270,11 +295,11 @@ decrypted using a private key
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000218" class="method-detail">
-        <a name="M000218"></a>
+      <div id="method-M000233" class="method-detail">
+        <a name="M000233"></a>
 
         <div class="method-heading">
-          <a href="#M000218" class="method-signature">
+          <a href="#M000233" class="method-signature">
           <span class="method-name">aes_decrypt</span><span class="method-args">(key, crypt_string)</span>
           </a>
         </div>
@@ -284,28 +309,28 @@ decrypted using a private key
 decrypts a string given key, iv and data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000218-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000218-source">
+            onclick="toggleCode('M000233-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000233-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 157</span>
-157:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypt_string</span>)
-158:             <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
-159: 
-160:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">decrypt</span>
-161:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
-162:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
-163:             <span class="ruby-identifier">decrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">crypt_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
-164:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 158</span>
+158:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypt_string</span>)
+159:       <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+160: 
+161:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">decrypt</span>
+162:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
+163:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
+164:       <span class="ruby-identifier">decrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">crypt_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
+165:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000217" class="method-detail">
-        <a name="M000217"></a>
+      <div id="method-M000232" class="method-detail">
+        <a name="M000232"></a>
 
         <div class="method-heading">
-          <a href="#M000217" class="method-signature">
+          <a href="#M000232" class="method-signature">
           <span class="method-name">aes_encrypt</span><span class="method-args">(plain_string)</span>
           </a>
         </div>
@@ -315,32 +340,32 @@ decrypts a string given key, iv and data
 encrypts a string, returns a hash of key, iv and data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000217-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000217-source">
+            onclick="toggleCode('M000232-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000232-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 143</span>
-143:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-144:             <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
-145:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">encrypt</span>
-146: 
-147:             <span class="ruby-identifier">key</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">random_key</span>
-148: 
-149:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
-150:             <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
-151:             <span class="ruby-identifier">encrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">plain_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
-152: 
-153:             {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">encrypted_data</span>}
-154:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 144</span>
+144:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+145:       <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+146:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">encrypt</span>
+147: 
+148:       <span class="ruby-identifier">key</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">random_key</span>
+149: 
+150:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
+151:       <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
+152:       <span class="ruby-identifier">encrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">plain_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
+153: 
+154:       {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">encrypted_data</span>}
+155:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000221" class="method-detail">
-        <a name="M000221"></a>
+      <div id="method-M000238" class="method-detail">
+        <a name="M000238"></a>
 
         <div class="method-heading">
-          <a href="#M000221" class="method-signature">
+          <a href="#M000238" class="method-signature">
           <span class="method-name">base64_decode</span><span class="method-args">(string)</span>
           </a>
         </div>
@@ -350,23 +375,23 @@ encrypts a string, returns a hash of key, iv and data
 base 64 decode a string
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000221-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000221-source">
+            onclick="toggleCode('M000238-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000238-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 176</span>
-176:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-177:             <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-178:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 191</span>
+191:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
+192:       <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
+193:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000219" class="method-detail">
-        <a name="M000219"></a>
+      <div id="method-M000236" class="method-detail">
+        <a name="M000236"></a>
 
         <div class="method-heading">
-          <a href="#M000219" class="method-signature">
+          <a href="#M000236" class="method-signature">
           <span class="method-name">base64_encode</span><span class="method-args">(string)</span>
           </a>
         </div>
@@ -376,23 +401,23 @@ base 64 decode a string
 base 64 encode a string
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000219-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000219-source">
+            onclick="toggleCode('M000236-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000236-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 167</span>
-167:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-168:             <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-169:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 182</span>
+182:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
+183:       <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
+184:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000211" class="method-detail">
-        <a name="M000211"></a>
+      <div id="method-M000226" class="method-detail">
+        <a name="M000226"></a>
 
         <div class="method-heading">
-          <a href="#M000211" class="method-signature">
+          <a href="#M000226" class="method-signature">
           <span class="method-name">decrypt_with_private</span><span class="method-args">(crypted, base64=true)</span>
           </a>
         </div>
@@ -402,32 +427,32 @@ base 64 encode a string
 Decrypts data, expects a hash as create with crypt_with_public
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000211-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000211-source">
+            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000226-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 87</span>
-87:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
-88:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:key</span>)
-89:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:data</span>)
-90: 
-91:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
-92:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
-93:                 <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]))
-94:             <span class="ruby-keyword kw">else</span>
-95:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
-96:                 <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
-97:             <span class="ruby-keyword kw">end</span>
-98:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 88</span>
+88:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
+89:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:key</span>)
+90:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:data</span>)
+91: 
+92:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
+93:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
+94:         <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]))
+95:       <span class="ruby-keyword kw">else</span>
+96:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
+97:         <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
+98:       <span class="ruby-keyword kw">end</span>
+99:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000212" class="method-detail">
-        <a name="M000212"></a>
+      <div id="method-M000227" class="method-detail">
+        <a name="M000227"></a>
 
         <div class="method-heading">
-          <a href="#M000212" class="method-signature">
+          <a href="#M000227" class="method-signature">
           <span class="method-name">decrypt_with_public</span><span class="method-args">(crypted, base64=true)</span>
           </a>
         </div>
@@ -437,32 +462,32 @@ Decrypts data, expects a hash as create with crypt_with_public
 Decrypts data, expects a hash as create with crypt_with_private
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000212-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000212-source">
+            onclick="toggleCode('M000227-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000227-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 101</span>
-101:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
-102:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:key</span>)
-103:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:data</span>)
-104: 
-105:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
-106:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
-107:                 <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]))
-108:             <span class="ruby-keyword kw">else</span>
-109:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
-110:                 <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
-111:             <span class="ruby-keyword kw">end</span>
-112:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 102</span>
+102:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
+103:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:key</span>)
+104:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:data</span>)
+105: 
+106:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
+107:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
+108:         <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]))
+109:       <span class="ruby-keyword kw">else</span>
+110:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
+111:         <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
+112:       <span class="ruby-keyword kw">end</span>
+113:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000210" class="method-detail">
-        <a name="M000210"></a>
+      <div id="method-M000225" class="method-detail">
+        <a name="M000225"></a>
 
         <div class="method-heading">
-          <a href="#M000210" class="method-signature">
+          <a href="#M000225" class="method-signature">
           <span class="method-name">encrypt_with_private</span><span class="method-args">(plain_text, base64=true)</span>
           </a>
         </div>
@@ -475,33 +500,33 @@ Encrypts supplied data using AES and then encrypts using RSA the key and IV
 Return a hash with everything optionally base 64 encoded
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000210-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000210-source">
+            onclick="toggleCode('M000225-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000225-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 72</span>
-72:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
-73:             <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
-74: 
-75:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
-76:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
-77:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
-78:             <span class="ruby-keyword kw">else</span>
-79:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
-80:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]
-81:             <span class="ruby-keyword kw">end</span>
-82: 
-83:             {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
-84:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
+74:       <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
+75: 
+76:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
+77:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
+78:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
+79:       <span class="ruby-keyword kw">else</span>
+80:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
+81:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]
+82:       <span class="ruby-keyword kw">end</span>
+83: 
+84:       {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
+85:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000209" class="method-detail">
-        <a name="M000209"></a>
+      <div id="method-M000224" class="method-detail">
+        <a name="M000224"></a>
 
         <div class="method-heading">
-          <a href="#M000209" class="method-signature">
+          <a href="#M000224" class="method-signature">
           <span class="method-name">encrypt_with_public</span><span class="method-args">(plain_text, base64=true)</span>
           </a>
         </div>
@@ -514,33 +539,56 @@ Encrypts supplied data using AES and then encrypts using RSA the key and IV
 Return a hash with everything optionally base 64 encoded
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000209-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000209-source">
+            onclick="toggleCode('M000224-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000224-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 54</span>
-54:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_with_public</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
-55:             <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
-56: 
-57:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
-58:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
-59:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
-60:             <span class="ruby-keyword kw">else</span>
-61:                 <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
-62:                 <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]
-63:             <span class="ruby-keyword kw">end</span>
-64: 
-65:             {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
-66:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 55</span>
+55:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">encrypt_with_public</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">true</span>)
+56:       <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
+57: 
+58:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
+59:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>]))
+60:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>])
+61:       <span class="ruby-keyword kw">else</span>
+62:         <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:key</span>])
+63:         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-identifier">:data</span>]
+64:       <span class="ruby-keyword kw">end</span>
+65: 
+66:       {<span class="ruby-identifier">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-identifier">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
+67:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000223" class="method-detail">
-        <a name="M000223"></a>
+      <div id="method-M000240" class="method-detail">
+        <a name="M000240"></a>
 
         <div class="method-heading">
-          <a href="#M000223" class="method-signature">
+          <a href="#M000240" class="method-signature">
+          <span class="method-name">md5</span><span class="method-args">(string)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000240-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000240-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 199</span>
+199:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
+200:       <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
+201:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000242" class="method-detail">
+        <a name="M000242"></a>
+
+        <div class="method-heading">
+          <a href="#M000242" class="method-signature">
           <span class="method-name">read_key</span><span class="method-args">(type, key=nil, passphrase=nil)</span>
           </a>
         </div>
@@ -551,33 +599,55 @@ Reads either a :public or :private key from disk, uses an optional
 passphrase to read the private key
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000223-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000223-source">
+            onclick="toggleCode('M000242-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000242-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 186</span>
-186:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword kw">nil</span>)
-187:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
-188: 
-189:             <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find key #{key}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">key</span>)
-190: 
-191:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:public</span>
-192:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>))
-193:             <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:private</span>
-194:                 <span class="ruby-keyword kw">return</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">passphrase</span>)
-195:             <span class="ruby-keyword kw">else</span>
-196:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Can only load :public or :private keys&quot;</span>
-197:             <span class="ruby-keyword kw">end</span>
-198:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 209</span>
+209:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword kw">nil</span>)
+210:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
+211: 
+212:       <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find key #{key}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">key</span>)
+213: 
+214:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:public</span>
+215:         <span class="ruby-keyword kw">begin</span>
+216:           <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>))
+217:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSAError</span>
+218:           <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>)).<span class="ruby-identifier">public_key</span>
+219:         <span class="ruby-keyword kw">end</span>
+220: 
+221:         <span class="ruby-comment cmt"># Ruby &lt; 1.9.3 had a bug where it does not correctly clear the</span>
+222:         <span class="ruby-comment cmt"># queue of errors while reading a key.  It tries various ways</span>
+223:         <span class="ruby-comment cmt"># to read the key and each failing attempt pushes an error onto</span>
+224:         <span class="ruby-comment cmt"># the queue.  With pubkeys only the 3rd attempt pass leaving 2</span>
+225:         <span class="ruby-comment cmt"># stale errors on the error queue.</span>
+226:         <span class="ruby-comment cmt">#</span>
+227:         <span class="ruby-comment cmt"># In 1.9.3 they fixed this by simply discarding the errors after</span>
+228:         <span class="ruby-comment cmt"># every attempt.  So we simulate this fix here for older rubies</span>
+229:         <span class="ruby-comment cmt"># as without it we get SSL_read errors from the Stomp+TLS sessions</span>
+230:         <span class="ruby-comment cmt">#</span>
+231:         <span class="ruby-comment cmt"># We do this only on 1.8 relying on 1.9.3 to do the right thing</span>
+232:         <span class="ruby-comment cmt"># and we do not support 1.9 less than 1.9.3</span>
+233:         <span class="ruby-comment cmt">#</span>
+234:         <span class="ruby-comment cmt"># See  http://bugs.ruby-lang.org/issues/4550</span>
+235:         <span class="ruby-constant">OpenSSL</span>.<span class="ruby-identifier">errors</span> <span class="ruby-keyword kw">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">ruby_version</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^1.8/</span>
+236: 
+237:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">key</span>
+238:       <span class="ruby-keyword kw">elsif</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">:private</span>
+239:         <span class="ruby-keyword kw">return</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">passphrase</span>)
+240:       <span class="ruby-keyword kw">else</span>
+241:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Can only load :public or :private keys&quot;</span>
+242:       <span class="ruby-keyword kw">end</span>
+243:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000214" class="method-detail">
-        <a name="M000214"></a>
+      <div id="method-M000229" class="method-detail">
+        <a name="M000229"></a>
 
         <div class="method-heading">
-          <a href="#M000214" class="method-signature">
+          <a href="#M000229" class="method-signature">
           <span class="method-name">rsa_decrypt_with_private</span><span class="method-args">(crypt_string)</span>
           </a>
         </div>
@@ -587,25 +657,25 @@ passphrase to read the private key
 Use the private key to RSA decrypt data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000214-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000214-source">
+            onclick="toggleCode('M000229-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000229-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 122</span>
-122:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypt_string</span>)
-123:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No private key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@private_key</span>
-124: 
-125:             <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
-126:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 123</span>
+123:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypt_string</span>)
+124:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No private key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@private_key</span>
+125: 
+126:       <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
+127:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000216" class="method-detail">
-        <a name="M000216"></a>
+      <div id="method-M000231" class="method-detail">
+        <a name="M000231"></a>
 
         <div class="method-heading">
-          <a href="#M000216" class="method-signature">
+          <a href="#M000231" class="method-signature">
           <span class="method-name">rsa_decrypt_with_public</span><span class="method-args">(crypt_string)</span>
           </a>
         </div>
@@ -615,25 +685,25 @@ Use the private key to RSA decrypt data
 Use the public key to RSA decrypt data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000216-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000216-source">
+            onclick="toggleCode('M000231-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000231-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 136</span>
-136:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypt_string</span>)
-137:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No public key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@public_key</span>
-138: 
-139:             <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
-140:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 137</span>
+137:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypt_string</span>)
+138:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No public key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@public_key</span>
+139: 
+140:       <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
+141:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000215" class="method-detail">
-        <a name="M000215"></a>
+      <div id="method-M000230" class="method-detail">
+        <a name="M000230"></a>
 
         <div class="method-heading">
-          <a href="#M000215" class="method-signature">
+          <a href="#M000230" class="method-signature">
           <span class="method-name">rsa_encrypt_with_private</span><span class="method-args">(plain_string)</span>
           </a>
         </div>
@@ -643,25 +713,25 @@ Use the public key to RSA decrypt data
 Use the private key to RSA encrypt data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000215-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000215-source">
+            onclick="toggleCode('M000230-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000230-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 129</span>
-129:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">plain_string</span>)
-130:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No private key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@private_key</span>
-131: 
-132:             <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-133:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 130</span>
+130:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">plain_string</span>)
+131:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No private key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@private_key</span>
+132: 
+133:       <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+134:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000213" class="method-detail">
-        <a name="M000213"></a>
+      <div id="method-M000228" class="method-detail">
+        <a name="M000228"></a>
 
         <div class="method-heading">
-          <a href="#M000213" class="method-signature">
+          <a href="#M000228" class="method-signature">
           <span class="method-name">rsa_encrypt_with_public</span><span class="method-args">(plain_string)</span>
           </a>
         </div>
@@ -671,15 +741,72 @@ Use the private key to RSA encrypt data
 Use the public key to RSA encrypt data
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000213-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000213-source">
+            onclick="toggleCode('M000228-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000228-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 115</span>
-115:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">plain_string</span>)
-116:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No public key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@public_key</span>
-117: 
-118:             <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-119:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 116</span>
+116:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">plain_string</span>)
+117:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;No public key set&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@public_key</span>
+118: 
+119:       <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+120:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000234" class="method-detail">
+        <a name="M000234"></a>
+
+        <div class="method-heading">
+          <a href="#M000234" class="method-signature">
+          <span class="method-name">sign</span><span class="method-args">(string, base64=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Signs a string using the private key
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000234-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000234-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 168</span>
+168:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sign</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">false</span>)
+169:       <span class="ruby-identifier">sig</span> = <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">sign</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">string</span>)
+170: 
+171:       <span class="ruby-identifier">base64</span> <span class="ruby-value">? </span><span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">sig</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">sig</span>
+172:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000235" class="method-detail">
+        <a name="M000235"></a>
+
+        <div class="method-heading">
+          <a href="#M000235" class="method-signature">
+          <span class="method-name">verify_signature</span><span class="method-args">(signature, string, base64=false)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Using the public key verifies that a string was signed using the private
+key
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000235-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000235-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/ssl.rb, line 175</span>
+175:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">verify_signature</span>(<span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword kw">false</span>)
+176:       <span class="ruby-identifier">signature</span> = <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">signature</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">base64</span>
+177: 
+178:       <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>)
+179:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

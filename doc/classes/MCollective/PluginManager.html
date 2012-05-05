@@ -87,15 +87,17 @@ idea is that we can only have one security provider, one connector etc.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000021">&lt;&lt;</a>&nbsp;&nbsp;
-      <a href="#M000026">[]</a>&nbsp;&nbsp;
-      <a href="#M000025">clear</a>&nbsp;&nbsp;
-      <a href="#M000027">create_instance</a>&nbsp;&nbsp;
-      <a href="#M000022">delete</a>&nbsp;&nbsp;
-      <a href="#M000029">grep</a>&nbsp;&nbsp;
-      <a href="#M000023">include?</a>&nbsp;&nbsp;
-      <a href="#M000028">loadclass</a>&nbsp;&nbsp;
-      <a href="#M000024">pluginlist</a>&nbsp;&nbsp;
+      <a href="#M000057">&lt;&lt;</a>&nbsp;&nbsp;
+      <a href="#M000062">[]</a>&nbsp;&nbsp;
+      <a href="#M000061">clear</a>&nbsp;&nbsp;
+      <a href="#M000063">create_instance</a>&nbsp;&nbsp;
+      <a href="#M000058">delete</a>&nbsp;&nbsp;
+      <a href="#M000064">find</a>&nbsp;&nbsp;
+      <a href="#M000065">find_and_load</a>&nbsp;&nbsp;
+      <a href="#M000067">grep</a>&nbsp;&nbsp;
+      <a href="#M000059">include?</a>&nbsp;&nbsp;
+      <a href="#M000066">loadclass</a>&nbsp;&nbsp;
+      <a href="#M000060">pluginlist</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -117,11 +119,11 @@ idea is that we can only have one security provider, one connector etc.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000021" class="method-detail">
-        <a name="M000021"></a>
+      <div id="method-M000057" class="method-detail">
+        <a name="M000057"></a>
 
         <div class="method-heading">
-          <a href="#M000021" class="method-signature">
+          <a href="#M000057" class="method-signature">
           <span class="method-name">&lt;&lt;</span><span class="method-args">(plugin)</span>
           </a>
         </div>
@@ -163,40 +165,40 @@ false when calling this to instruct it to always return a new instance when
 a copy is requested. This only works with sending a String for :class.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000021-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000021-source">
+            onclick="toggleCode('M000057-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000057-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 30</span>
-30:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">plugin</span>)
-31:             <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:single_instance</span>] = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:single_instance</span>)
+30:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">plugin</span>)
+31:       <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:single_instance</span>] = <span class="ruby-keyword kw">true</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:single_instance</span>)
 32: 
-33:             <span class="ruby-identifier">type</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:type</span>]
-34:             <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:class</span>]
-35:             <span class="ruby-identifier">single</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:single_instance</span>]
+33:       <span class="ruby-identifier">type</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:type</span>]
+34:       <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:class</span>]
+35:       <span class="ruby-identifier">single</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-identifier">:single_instance</span>]
 36: 
-37:             <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+37:       <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
 38: 
 39: 
-40:             <span class="ruby-comment cmt"># If we get a string then store 'nil' as the instance, signalling that we'll</span>
-41:             <span class="ruby-comment cmt"># create the class later on demand.</span>
-42:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-43:                 <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-identifier">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single</span>}
-44:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass} single_instance: #{single}&quot;</span>)
-45:             <span class="ruby-keyword kw">else</span>
-46:                 <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-identifier">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class</span>, <span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}
-47:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass.class} single_instance: true&quot;</span>)
-48:             <span class="ruby-keyword kw">end</span>
-49:         <span class="ruby-keyword kw">end</span>
+40:       <span class="ruby-comment cmt"># If we get a string then store 'nil' as the instance, signalling that we'll</span>
+41:       <span class="ruby-comment cmt"># create the class later on demand.</span>
+42:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+43:         <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-identifier">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single</span>}
+44:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass} single_instance: #{single}&quot;</span>)
+45:       <span class="ruby-keyword kw">else</span>
+46:         <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-identifier">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class</span>, <span class="ruby-identifier">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-identifier">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword kw">true</span>}
+47:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass.class} single_instance: true&quot;</span>)
+48:       <span class="ruby-keyword kw">end</span>
+49:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000026" class="method-detail">
-        <a name="M000026"></a>
+      <div id="method-M000062" class="method-detail">
+        <a name="M000062"></a>
 
         <div class="method-heading">
-          <a href="#M000026" class="method-signature">
+          <a href="#M000062" class="method-signature">
           <span class="method-name">[]</span><span class="method-args">(plugin)</span>
           </a>
         </div>
@@ -206,40 +208,40 @@ a copy is requested. This only works with sending a String for :class.
 Gets a plugin by type
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000026-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000026-source">
+            onclick="toggleCode('M000062-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000062-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 72</span>
-72:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">plugin</span>)
-73:             <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin #{plugin} defined&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+72:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">plugin</span>)
+73:       <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin #{plugin} defined&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
 74: 
-75:             <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:class</span>]
+75:       <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:class</span>]
 76: 
-77:             <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:single</span>]
-78:                 <span class="ruby-comment cmt"># Create an instance of the class if one hasn't been done before</span>
-79:                 <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
-80:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
-81:                     <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
-82:                 <span class="ruby-keyword kw">else</span>
-83:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning cached plugin #{plugin} with class #{klass}&quot;</span>)
-84:                 <span class="ruby-keyword kw">end</span>
+77:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:single</span>]
+78:         <span class="ruby-comment cmt"># Create an instance of the class if one hasn't been done before</span>
+79:         <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
+80:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+81:           <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+82:         <span class="ruby-keyword kw">else</span>
+83:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning cached plugin #{plugin} with class #{klass}&quot;</span>)
+84:         <span class="ruby-keyword kw">end</span>
 85: 
-86:                 <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>]
-87:             <span class="ruby-keyword kw">else</span>
-88:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
-89:                 <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
-90:             <span class="ruby-keyword kw">end</span>
-91:         <span class="ruby-keyword kw">end</span>
+86:         <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-identifier">:instance</span>]
+87:       <span class="ruby-keyword kw">else</span>
+88:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+89:         <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+90:       <span class="ruby-keyword kw">end</span>
+91:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000025" class="method-detail">
-        <a name="M000025"></a>
+      <div id="method-M000061" class="method-detail">
+        <a name="M000061"></a>
 
         <div class="method-heading">
-          <a href="#M000025" class="method-signature">
+          <a href="#M000061" class="method-signature">
           <span class="method-name">clear</span><span class="method-args">()</span>
           </a>
         </div>
@@ -249,23 +251,23 @@ Gets a plugin by type
 deletes all registered plugins
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000025-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000025-source">
+            onclick="toggleCode('M000061-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000061-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 67</span>
-67:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">clear</span>
-68:             <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">clear</span>
-69:         <span class="ruby-keyword kw">end</span>
+67:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">clear</span>
+68:       <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">clear</span>
+69:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000027" class="method-detail">
-        <a name="M000027"></a>
+      <div id="method-M000063" class="method-detail">
+        <a name="M000063"></a>
 
         <div class="method-heading">
-          <a href="#M000027" class="method-signature">
+          <a href="#M000063" class="method-signature">
           <span class="method-name">create_instance</span><span class="method-args">(klass)</span>
           </a>
         </div>
@@ -275,27 +277,27 @@ deletes all registered plugins
 use eval to create an instance of a class
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000027-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000027-source">
+            onclick="toggleCode('M000063-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000063-source">
 <pre>
      <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 94</span>
- 94:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
- 95:             <span class="ruby-keyword kw">begin</span>
- 96:                 <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{klass}.new&quot;</span>)
- 97:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
- 98:                 <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not create instance of plugin #{klass}: #{e}&quot;</span>)
- 99:             <span class="ruby-keyword kw">end</span>
-100:         <span class="ruby-keyword kw">end</span>
+ 94:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+ 95:       <span class="ruby-keyword kw">begin</span>
+ 96:         <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{klass}.new&quot;</span>)
+ 97:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+ 98:         <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not create instance of plugin #{klass}: #{e}&quot;</span>)
+ 99:       <span class="ruby-keyword kw">end</span>
+100:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000022" class="method-detail">
-        <a name="M000022"></a>
+      <div id="method-M000058" class="method-detail">
+        <a name="M000058"></a>
 
         <div class="method-heading">
-          <a href="#M000022" class="method-signature">
+          <a href="#M000058" class="method-signature">
           <span class="method-name">delete</span><span class="method-args">(plugin)</span>
           </a>
         </div>
@@ -305,23 +307,138 @@ use eval to create an instance of a class
 Removes a plugim the list
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000022-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000022-source">
+            onclick="toggleCode('M000058-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000058-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 52</span>
-52:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>)
-53:             <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-54:         <span class="ruby-keyword kw">end</span>
+52:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>)
+53:       <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+54:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000029" class="method-detail">
-        <a name="M000029"></a>
+      <div id="method-M000064" class="method-detail">
+        <a name="M000064"></a>
 
         <div class="method-heading">
-          <a href="#M000029" class="method-signature">
+          <a href="#M000064" class="method-signature">
+          <span class="method-name">find</span><span class="method-args">(type, extension=&quot;rb&quot;)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds plugins in all configured libdirs
+</p>
+<pre>
+  find(&quot;agent&quot;)
+</pre>
+<p>
+will return an array of just agent names, for example:
+</p>
+<pre>
+  [&quot;puppetd&quot;, &quot;package&quot;]
+</pre>
+<p>
+Can also be used to <a href="PluginManager.html#M000064">find</a> files of
+other extensions:
+</p>
+<pre>
+  find(&quot;agent&quot;, &quot;ddl&quot;)
+</pre>
+<p>
+Will return the same list but only of files with extension .ddl in the
+agent subdirectory
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000064-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000064-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 116</span>
+116:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-value str">&quot;rb&quot;</span>)
+117:       <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^\./</span>)
+118: 
+119:       <span class="ruby-identifier">plugins</span> = []
+120: 
+121:       <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+122:         <span class="ruby-identifier">plugdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-value str">&quot;mcollective&quot;</span>, <span class="ruby-identifier">type</span>])
+123:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">plugdir</span>)
+124: 
+125:         <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-node">/#{extension}$/</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+126:           <span class="ruby-identifier">plugins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">extension</span>)
+127:         <span class="ruby-keyword kw">end</span>
+128:       <span class="ruby-keyword kw">end</span>
+129: 
+130:       <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>
+131:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000065" class="method-detail">
+        <a name="M000065"></a>
+
+        <div class="method-heading">
+          <a href="#M000065" class="method-signature">
+          <span class="method-name">find_and_load</span><span class="method-args">(type, extension=&quot;rb&quot;) {|plugin| ...}</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Finds and loads from disk all plugins from all libdirs that match certain
+criteria.
+</p>
+<pre>
+   find_and_load(&quot;pluginpackager&quot;)
+</pre>
+<p>
+Will <a href="PluginManager.html#M000064">find</a> all .rb files in the
+libdir/mcollective/pluginpackager/ directory in all libdirs and load them
+from disk.
+</p>
+<p>
+You can influence what plugins get loaded using a block notation:
+</p>
+<pre>
+   find_and_load(&quot;pluginpackager&quot;) do |plugin|
+      plugin.match(/puppet/)
+   end
+</pre>
+<p>
+This will load only plugins matching /puppet/
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000065-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000065-source">
+<pre>
+     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 148</span>
+148:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-value str">&quot;rb&quot;</span>)
+149:       <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp re">/^\./</span>)
+150: 
+151:       <span class="ruby-identifier">klasses</span> = <span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+152:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+153:           <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">plugin</span>)
+154:         <span class="ruby-keyword kw">end</span>
+155: 
+156:         <span class="ruby-value str">&quot;%s::%s::%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-value str">&quot;MCollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">capitalize</span> ]
+157:       <span class="ruby-keyword kw">end</span>.<span class="ruby-identifier">compact</span>
+158: 
+159:       <span class="ruby-identifier">klasses</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-keyword kw">true</span>)}
+160:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000067" class="method-detail">
+        <a name="M000067"></a>
+
+        <div class="method-heading">
+          <a href="#M000067" class="method-signature">
           <span class="method-name">grep</span><span class="method-args">(regex)</span>
           </a>
         </div>
@@ -331,23 +448,23 @@ Removes a plugim the list
 Grep&#8216;s over the plugin list and returns the list found
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000029-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000029-source">
+            onclick="toggleCode('M000067-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000067-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 115</span>
-115:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
-116:             <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">grep</span> <span class="ruby-identifier">regex</span>
-117:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 176</span>
+176:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
+177:       <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">grep</span> <span class="ruby-identifier">regex</span>
+178:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000023" class="method-detail">
-        <a name="M000023"></a>
+      <div id="method-M000059" class="method-detail">
+        <a name="M000059"></a>
 
         <div class="method-heading">
-          <a href="#M000023" class="method-signature">
+          <a href="#M000059" class="method-signature">
           <span class="method-name">include?</span><span class="method-args">(plugin)</span>
           </a>
         </div>
@@ -357,24 +474,24 @@ Grep&#8216;s over the plugin list and returns the list found
 Finds out if we have a plugin with the given name
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000023-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000023-source">
+            onclick="toggleCode('M000059-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000059-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 57</span>
-57:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-58:             <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-59:         <span class="ruby-keyword kw">end</span>
+57:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+58:       <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+59:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000028" class="method-detail">
-        <a name="M000028"></a>
+      <div id="method-M000066" class="method-detail">
+        <a name="M000066"></a>
 
         <div class="method-heading">
-          <a href="#M000028" class="method-signature">
-          <span class="method-name">loadclass</span><span class="method-args">(klass)</span>
+          <a href="#M000066" class="method-signature">
+          <span class="method-name">loadclass</span><span class="method-args">(klass, squash_failures=false)</span>
           </a>
         </div>
       
@@ -384,29 +501,30 @@ Loads a class from file by doing some simple search/replace on class names
 and then doing a require.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000028-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000028-source">
+            onclick="toggleCode('M000066-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000066-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 104</span>
-104:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>)
-105:             <span class="ruby-identifier">fname</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;::&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.rb&quot;</span>
-106: 
-107:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Loading #{klass} from #{fname}&quot;</span>)
-108: 
-109:             <span class="ruby-identifier">load</span> <span class="ruby-identifier">fname</span>
-110:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-111:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load #{klass}: #{e}&quot;</span>)
-112:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 164</span>
+164:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">squash_failures</span>=<span class="ruby-keyword kw">false</span>)
+165:       <span class="ruby-identifier">fname</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-value str">&quot;::&quot;</span>, <span class="ruby-value str">&quot;/&quot;</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-value str">&quot;.rb&quot;</span>
+166: 
+167:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Loading #{klass} from #{fname}&quot;</span>)
+168: 
+169:       <span class="ruby-identifier">load</span> <span class="ruby-identifier">fname</span>
+170:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+171:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load #{klass}: #{e}&quot;</span>)
+172:       <span class="ruby-identifier">raise</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">squash_failures</span>
+173:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000024" class="method-detail">
-        <a name="M000024"></a>
+      <div id="method-M000060" class="method-detail">
+        <a name="M000060"></a>
 
         <div class="method-heading">
-          <a href="#M000024" class="method-signature">
+          <a href="#M000060" class="method-signature">
           <span class="method-name">pluginlist</span><span class="method-args">()</span>
           </a>
         </div>
@@ -416,13 +534,13 @@ and then doing a require.
 Provides a list of plugins we know about
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000024-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000024-source">
+            onclick="toggleCode('M000060-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000060-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/pluginmanager.rb, line 62</span>
-62:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pluginlist</span>
-63:             <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>
-64:         <span class="ruby-keyword kw">end</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">pluginlist</span>
+63:       <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>
+64:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
