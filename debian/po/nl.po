@@ -1,0 +1,109 @@
+# Dutch translation of mcollective debconf templates.
+# Copyright (C) 2012 THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the mcollective package.
+# Jeroen Schot <schot@a-eskwadraat.nl>, 2012.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: mcollective 1.2.1+dfsg-2\n"
+"Report-Msgid-Bugs-To: mcollective@packages.debian.org\n"
+"POT-Creation-Date: 2011-10-10 07:09+0200\n"
+"PO-Revision-Date: 2012-05-03 09:27+0200\n"
+"Last-Translator: Jeroen Schot <schot@a-eskwadraat.nl>\n"
+"Language-Team: Debian l10n Dutch <debian-l10n-dutch@lists.debian.org>\n"
+"Language: nl\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid "MCollective PSK:"
+msgstr "MCollective PSK:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:2001
+msgid ""
+"Please specify the Pre-Shared Key that should be used between MCollective "
+"instances."
+msgstr ""
+"Geef de vooraf gedeelde sleutel (PSK) die gebruikt moet worden tussen de "
+"verschillende MCollective-instanties."
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid "Message Queue server host:"
+msgstr "Message-Qeueu-server:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:3001
+msgid ""
+"Please specify the hostname or IP address of the Message Queue server for "
+"MCollective."
+msgstr ""
+"Wat is de computernaam of het IP-adres van de Message-Queue-server voor "
+"MCollective?"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid "Message Queue server port:"
+msgstr "Message-Queue-serverpoort:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:4001
+msgid "Please specify the listening port of the Message Queue server."
+msgstr "Op welke poort moet de Message-Queue-server luisteren?"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:5001
+msgid "Message Queue server username:"
+msgstr "Message Queue-servergebruikersnaam:"
+
+#. Type: string
+#. Description
+#: ../mcollective-common.templates:5001
+msgid ""
+"Please specify the STOMP username that should be used with the Message Queue "
+"server."
+msgstr ""
+"Welke STOMP-gebruikersnaam moet er worden gebruikt met de Message-Queue-"
+"server?"
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:6001
+msgid "Message Queue server password:"
+msgstr "Message-Queue-serverwachtwoord:"
+
+#. Type: password
+#. Description
+#: ../mcollective-common.templates:6001
+msgid ""
+"Please specify the STOMP password that should be used with the Message Queue "
+"server."
+msgstr ""
+"Wat is het STOMP-wachtwoord dat moet worden gebruikt met de Message-Queue-"
+"server?"
+
+#. Type: boolean
+#. Description
+#: ../mcollective.templates:2001
+msgid "Start MCollective on boot?"
+msgstr "Mcollective opstarten bij de systeemstart?"
+
+#. Type: boolean
+#. Description
+#: ../mcollective.templates:2001
+msgid ""
+"Please choose whether the MCollective daemon should be started when booting "
+"this machine."
+msgstr ""
+"Geef aan of de MCollective-achtergronddienst moet worden opgestart bij het "
+"starten van deze computer."
