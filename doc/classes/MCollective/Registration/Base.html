@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -100,8 +98,13 @@ background in a thread.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000176">inherited</a>&nbsp;&nbsp;
-      <a href="#M000177">run</a>&nbsp;&nbsp;
+      <a href="#M000174">config</a>&nbsp;&nbsp;
+      <a href="#M000172">inherited</a>&nbsp;&nbsp;
+      <a href="#M000177">interval</a>&nbsp;&nbsp;
+      <a href="#M000175">msg_filter</a>&nbsp;&nbsp;
+      <a href="#M000178">publish</a>&nbsp;&nbsp;
+      <a href="#M000173">run</a>&nbsp;&nbsp;
+      <a href="#M000176">target_collective</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -123,11 +126,11 @@ background in a thread.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000176" class="method-detail">
-        <a name="M000176"></a>
+      <div id="method-M000172" class="method-detail">
+        <a name="M000172"></a>
 
         <div class="method-heading">
-          <a href="#M000176" class="method-signature">
+          <a href="#M000172" class="method-signature">
           <span class="method-name">inherited</span><span class="method-args">(klass)</span>
           </a>
         </div>
@@ -137,13 +140,13 @@ background in a thread.
 Register plugins that inherits base
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000176-source">
+            onclick="toggleCode('M000172-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000172-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 11</span>
-11:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-12:                 <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;registration_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
-13:             <span class="ruby-keyword kw">end</span>
+11:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
+12:         <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;registration_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
+13:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -151,11 +154,112 @@ Register plugins that inherits base
 
       <h3 class="section-bar">Public Instance methods</h3>
 
+      <div id="method-M000174" class="method-detail">
+        <a name="M000174"></a>
+
+        <div class="method-heading">
+          <a href="#M000174" class="method-signature">
+          <span class="method-name">config</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000174-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000174-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 36</span>
+36:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">config</span>
+37:         <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+38:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
       <div id="method-M000177" class="method-detail">
         <a name="M000177"></a>
 
         <div class="method-heading">
           <a href="#M000177" class="method-signature">
+          <span class="method-name">interval</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000177-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000177-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 57</span>
+57:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">interval</span>
+58:         <span class="ruby-identifier">config</span>.<span class="ruby-identifier">registerinterval</span>
+59:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000175" class="method-detail">
+        <a name="M000175"></a>
+
+        <div class="method-heading">
+          <a href="#M000175" class="method-signature">
+          <span class="method-name">msg_filter</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000175-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000175-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 40</span>
+40:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">msg_filter</span>
+41:         {<span class="ruby-value str">&quot;agent&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;registration&quot;</span>}
+42:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000178" class="method-detail">
+        <a name="M000178"></a>
+
+        <div class="method-heading">
+          <a href="#M000178" class="method-signature">
+          <span class="method-name">publish</span><span class="method-args">(message)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000178-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000178-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 61</span>
+61:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">publish</span>(<span class="ruby-identifier">message</span>)
+62:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">message</span>
+63:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Skipping registration due to nil body&quot;</span>)
+64:         <span class="ruby-keyword kw">else</span>
+65:           <span class="ruby-identifier">req</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">message</span>, <span class="ruby-keyword kw">nil</span>, {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:request</span>, <span class="ruby-identifier">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;registration&quot;</span>, <span class="ruby-identifier">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg_filter</span>})
+66:           <span class="ruby-identifier">req</span>.<span class="ruby-identifier">encode!</span>
+67: 
+68:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending registration #{req.requestid} to collective #{req.collective}&quot;</span>)
+69: 
+70:           <span class="ruby-identifier">req</span>.<span class="ruby-identifier">publish</span>
+71:         <span class="ruby-keyword kw">end</span>
+72:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000173" class="method-detail">
+        <a name="M000173"></a>
+
+        <div class="method-heading">
+          <a href="#M000173" class="method-signature">
           <span class="method-name">run</span><span class="method-args">(connection)</span>
           </a>
         </div>
@@ -169,40 +273,58 @@ The actual registration notices comes from the &#8216;body&#8217; method of
 the registration plugins.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000177-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000177-source">
+            onclick="toggleCode('M000173-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000173-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 19</span>
-19:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">connection</span>)
-20:                 <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-21:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">registerinterval</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-22: 
-23:                 <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
-24:                     <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
-25:                         <span class="ruby-keyword kw">begin</span>
-26:                             <span class="ruby-identifier">target</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_target</span>(<span class="ruby-value str">&quot;registration&quot;</span>, <span class="ruby-identifier">:command</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">main_collective</span>)
-27:                             <span class="ruby-identifier">reqid</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;#{config.identity}-#{Time.now.to_f.to_s}-#{target}&quot;</span>)
-28:                             <span class="ruby-identifier">filter</span> = {<span class="ruby-value str">&quot;agent&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;registration&quot;</span>}
-29: 
-30:                             <span class="ruby-identifier">registration_message</span> = <span class="ruby-identifier">body</span>
-31: 
-32:                             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">registration_message</span>.<span class="ruby-identifier">nil?</span>
-33:                                 <span class="ruby-identifier">req</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encoderequest</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">registration_message</span>, <span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">filter</span>)
-34: 
-35:                                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending registration #{reqid} to #{target}&quot;</span>)
-36:                                 <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">req</span>)
-37:                             <span class="ruby-keyword kw">else</span>
-38:                                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Skipping registration due to nil body&quot;</span>)
-39:                             <span class="ruby-keyword kw">end</span>
-40: 
-41:                             <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">registerinterval</span>
-42:                         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-43:                             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Sending registration message failed: #{e}&quot;</span>)
-44:                             <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">registerinterval</span>
-45:                         <span class="ruby-keyword kw">end</span>
-46:                     <span class="ruby-keyword kw">end</span>
-47:                 <span class="ruby-keyword kw">end</span>
-48:             <span class="ruby-keyword kw">end</span>
+19:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">run</span>(<span class="ruby-identifier">connection</span>)
+20:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">interval</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+21: 
+22:         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
+23:           <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+24:             <span class="ruby-keyword kw">begin</span>
+25:               <span class="ruby-identifier">publish</span>(<span class="ruby-identifier">body</span>)
+26: 
+27:               <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">interval</span>
+28:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+29:               <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Sending registration message failed: #{e}&quot;</span>)
+30:               <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">interval</span>
+31:             <span class="ruby-keyword kw">end</span>
+32:           <span class="ruby-keyword kw">end</span>
+33:         <span class="ruby-keyword kw">end</span>
+34:       <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000176" class="method-detail">
+        <a name="M000176"></a>
+
+        <div class="method-heading">
+          <a href="#M000176" class="method-signature">
+          <span class="method-name">target_collective</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000176-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000176-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/registration/base.rb, line 44</span>
+44:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">target_collective</span>
+45:         <span class="ruby-identifier">main_collective</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">main_collective</span>
+46: 
+47:         <span class="ruby-identifier">collective</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">registration_collective</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">main_collective</span>
+48: 
+49:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+50:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Sending registration to #{main_collective}: #{collective} is not a valid collective&quot;</span>)
+51:           <span class="ruby-identifier">collective</span> = <span class="ruby-identifier">main_collective</span>
+52:         <span class="ruby-keyword kw">end</span>
+53: 
+54:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">collective</span>
+55:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

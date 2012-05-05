@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -83,13 +81,13 @@
     <div id="description">
       <p>
 A class that helps creating data description language files for agents. You
-can define meta data, <a href="DDL.html#M000118">actions</a>, <a
-href="DDL.html#M000114">input</a> and <a href="DDL.html#M000115">output</a>
+can define meta data, <a href="DDL.html#M000100">actions</a>, <a
+href="DDL.html#M000096">input</a> and <a href="DDL.html#M000097">output</a>
 describing the behavior of your agent.
 </p>
 <p>
 Later you can access this information to assist with creating of user
-interfaces or online <a href="DDL.html#M000117">help</a>
+interfaces or online <a href="DDL.html#M000099">help</a>
 </p>
 <p>
 A sample <a href="DDL.html">DDL</a> can be seen below, you&#8216;d put this
@@ -130,17 +128,17 @@ in your agent dir as &lt;agent name&gt;.ddl
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000113">action</a>&nbsp;&nbsp;
-      <a href="#M000119">action_interface</a>&nbsp;&nbsp;
-      <a href="#M000118">actions</a>&nbsp;&nbsp;
-      <a href="#M000116">display</a>&nbsp;&nbsp;
-      <a href="#M000111">findddlfile</a>&nbsp;&nbsp;
-      <a href="#M000117">help</a>&nbsp;&nbsp;
-      <a href="#M000114">input</a>&nbsp;&nbsp;
-      <a href="#M000112">metadata</a>&nbsp;&nbsp;
-      <a href="#M000110">new</a>&nbsp;&nbsp;
-      <a href="#M000115">output</a>&nbsp;&nbsp;
-      <a href="#M000120">validate_request</a>&nbsp;&nbsp;
+      <a href="#M000095">action</a>&nbsp;&nbsp;
+      <a href="#M000101">action_interface</a>&nbsp;&nbsp;
+      <a href="#M000100">actions</a>&nbsp;&nbsp;
+      <a href="#M000098">display</a>&nbsp;&nbsp;
+      <a href="#M000093">findddlfile</a>&nbsp;&nbsp;
+      <a href="#M000099">help</a>&nbsp;&nbsp;
+      <a href="#M000096">input</a>&nbsp;&nbsp;
+      <a href="#M000094">metadata</a>&nbsp;&nbsp;
+      <a href="#M000092">new</a>&nbsp;&nbsp;
+      <a href="#M000097">output</a>&nbsp;&nbsp;
+      <a href="#M000102">validate_request</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -175,33 +173,35 @@ in your agent dir as &lt;agent name&gt;.ddl
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000110" class="method-detail">
-        <a name="M000110"></a>
+      <div id="method-M000092" class="method-detail">
+        <a name="M000092"></a>
 
         <div class="method-heading">
-          <a href="#M000110" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">(agent)</span>
+          <a href="#M000092" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(agent, loadddl=true)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000110-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000110-source">
+            onclick="toggleCode('M000092-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000092-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 39</span>
-39:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agent</span>)
-40:                 <span class="ruby-ivar">@actions</span> = {}
-41:                 <span class="ruby-ivar">@meta</span> = {}
-42:                 <span class="ruby-ivar">@config</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-43:                 <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">agent</span>
+39:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">loadddl</span>=<span class="ruby-keyword kw">true</span>)
+40:         <span class="ruby-ivar">@actions</span> = {}
+41:         <span class="ruby-ivar">@meta</span> = {}
+42:         <span class="ruby-ivar">@config</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+43:         <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">agent</span>
 44: 
-45:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ddlfile</span> = <span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">agent</span>)
-46:                     <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">ddlfile</span>))
-47:                 <span class="ruby-keyword kw">else</span>
-48:                     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can't find DDL for agent '#{agent}'&quot;</span>)
-49:                 <span class="ruby-keyword kw">end</span>
-50:             <span class="ruby-keyword kw">end</span>
+45:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">loadddl</span>
+46:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">ddlfile</span> = <span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">agent</span>)
+47:             <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">ddlfile</span>))
+48:           <span class="ruby-keyword kw">else</span>
+49:             <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can't find DDL for agent '#{agent}'&quot;</span>)
+50:           <span class="ruby-keyword kw">end</span>
+51:         <span class="ruby-keyword kw">end</span>
+52:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -209,21 +209,21 @@ in your agent dir as &lt;agent name&gt;.ddl
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000113" class="method-detail">
-        <a name="M000113"></a>
+      <div id="method-M000095" class="method-detail">
+        <a name="M000095"></a>
 
         <div class="method-heading">
-          <a href="#M000113" class="method-signature">
+          <a href="#M000095" class="method-signature">
           <span class="method-name">action</span><span class="method-args">(name, input, &amp;block)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Creates the definition for an <a href="DDL.html#M000113">action</a>, you
-can nest <a href="DDL.html#M000114">input</a> definitions inside the <a
-href="DDL.html#M000113">action</a> to attach inputs and validation to the
-<a href="DDL.html#M000118">actions</a>
+Creates the definition for an <a href="DDL.html#M000095">action</a>, you
+can nest <a href="DDL.html#M000096">input</a> definitions inside the <a
+href="DDL.html#M000095">action</a> to attach inputs and validation to the
+<a href="DDL.html#M000100">actions</a>
 </p>
 <pre>
    action &quot;status&quot;, :description =&gt; &quot;Restarts a Service&quot; do
@@ -242,245 +242,246 @@ href="DDL.html#M000113">action</a> to attach inputs and validation to the
    end
 </pre>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000113-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000113-source">
+            onclick="toggleCode('M000095-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000095-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 89</span>
- 89:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
- 90:                 <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Action needs a :description&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:description</span>)
- 91: 
- 92:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
- 93:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>] = {}
- 94:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:action</span>] = <span class="ruby-identifier">name</span>
- 95:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:input</span>] = {}
- 96:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:output</span>] = {}
- 97:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:display</span>] = <span class="ruby-identifier">:failed</span>
- 98:                     <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:description</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">:description</span>]
- 99:                 <span class="ruby-keyword kw">end</span>
-100: 
-101:                 <span class="ruby-comment cmt"># if a block is passed it might be creating input methods, call it</span>
-102:                 <span class="ruby-comment cmt"># we set @current_action so the input block can know what its talking</span>
-103:                 <span class="ruby-comment cmt"># to, this is probably an epic hack, need to improve.</span>
-104:                 <span class="ruby-ivar">@current_action</span> = <span class="ruby-identifier">name</span>
-105:                 <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
-106:                 <span class="ruby-ivar">@current_action</span> = <span class="ruby-keyword kw">nil</span>
-107:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 92</span>
+ 92:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+ 93:         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Action needs a :description&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:description</span>)
+ 94: 
+ 95:         <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
+ 96:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>] = {}
+ 97:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:action</span>] = <span class="ruby-identifier">name</span>
+ 98:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:input</span>] = {}
+ 99:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:output</span>] = {}
+100:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:display</span>] = <span class="ruby-identifier">:failed</span>
+101:           <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>][<span class="ruby-identifier">:description</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">:description</span>]
+102:         <span class="ruby-keyword kw">end</span>
+103: 
+104:         <span class="ruby-comment cmt"># if a block is passed it might be creating input methods, call it</span>
+105:         <span class="ruby-comment cmt"># we set @current_action so the input block can know what its talking</span>
+106:         <span class="ruby-comment cmt"># to, this is probably an epic hack, need to improve.</span>
+107:         <span class="ruby-ivar">@current_action</span> = <span class="ruby-identifier">name</span>
+108:         <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">block_given?</span>
+109:         <span class="ruby-ivar">@current_action</span> = <span class="ruby-keyword kw">nil</span>
+110:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000119" class="method-detail">
-        <a name="M000119"></a>
+      <div id="method-M000101" class="method-detail">
+        <a name="M000101"></a>
 
         <div class="method-heading">
-          <a href="#M000119" class="method-signature">
+          <a href="#M000101" class="method-signature">
           <span class="method-name">action_interface</span><span class="method-args">(name)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the interface for a specific <a href="DDL.html#M000113">action</a>
+Returns the interface for a specific <a href="DDL.html#M000095">action</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000119-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000119-source">
+            onclick="toggleCode('M000101-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000101-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 184</span>
-184:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">name</span>)
-185:                 <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> {}
-186:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 187</span>
+187:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">name</span>)
+188:         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> {}
+189:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000118" class="method-detail">
-        <a name="M000118"></a>
+      <div id="method-M000100" class="method-detail">
+        <a name="M000100"></a>
 
         <div class="method-heading">
-          <a href="#M000118" class="method-signature">
+          <a href="#M000100" class="method-signature">
           <span class="method-name">actions</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns an array of <a href="DDL.html#M000118">actions</a> this agent
+Returns an array of <a href="DDL.html#M000100">actions</a> this agent
 support
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000118-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000118-source">
+            onclick="toggleCode('M000100-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000100-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 179</span>
-179:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">actions</span>
-180:                 <span class="ruby-ivar">@actions</span>.<span class="ruby-identifier">keys</span>
-181:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 182</span>
+182:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">actions</span>
+183:         <span class="ruby-ivar">@actions</span>.<span class="ruby-identifier">keys</span>
+184:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000116" class="method-detail">
-        <a name="M000116"></a>
+      <div id="method-M000098" class="method-detail">
+        <a name="M000098"></a>
 
         <div class="method-heading">
-          <a href="#M000116" class="method-signature">
+          <a href="#M000098" class="method-signature">
           <span class="method-name">display</span><span class="method-args">(pref)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Sets the <a href="DDL.html#M000116">display</a> preference to either :ok,
+Sets the <a href="DDL.html#M000098">display</a> preference to either :ok,
 :failed, :flatten or :always operates on <a
-href="DDL.html#M000113">action</a> level
+href="DDL.html#M000095">action</a> level
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000116-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000116-source">
+            onclick="toggleCode('M000098-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000098-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 157</span>
-157:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display</span>(<span class="ruby-identifier">pref</span>)
-158:                 <span class="ruby-comment cmt"># defaults to old behavior, complain if its supplied and invalid</span>
-159:                 <span class="ruby-keyword kw">unless</span> [<span class="ruby-identifier">:ok</span>, <span class="ruby-identifier">:failed</span>, <span class="ruby-identifier">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">pref</span>)
-160:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Display preference #{pref} :ok, :failed, :flatten or :always&quot;</span>
-161:                 <span class="ruby-keyword kw">end</span>
-162: 
-163:                 <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
-164:                 <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:display</span>] = <span class="ruby-identifier">pref</span>
-165:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 160</span>
+160:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display</span>(<span class="ruby-identifier">pref</span>)
+161:         <span class="ruby-comment cmt"># defaults to old behavior, complain if its supplied and invalid</span>
+162:         <span class="ruby-keyword kw">unless</span> [<span class="ruby-identifier">:ok</span>, <span class="ruby-identifier">:failed</span>, <span class="ruby-identifier">:flatten</span>, <span class="ruby-identifier">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">pref</span>)
+163:           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Display preference #{pref} is not valid, should be :ok, :failed, :flatten or :always&quot;</span>
+164:         <span class="ruby-keyword kw">end</span>
+165: 
+166:         <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
+167:         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:display</span>] = <span class="ruby-identifier">pref</span>
+168:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000111" class="method-detail">
-        <a name="M000111"></a>
+      <div id="method-M000093" class="method-detail">
+        <a name="M000093"></a>
 
         <div class="method-heading">
-          <a href="#M000111" class="method-signature">
+          <a href="#M000093" class="method-signature">
           <span class="method-name">findddlfile</span><span class="method-args">(agent)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000111-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000111-source">
+            onclick="toggleCode('M000093-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000093-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 52</span>
-52:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">agent</span>)
-53:                 <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-54:                     <span class="ruby-identifier">ddlfile</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent/#{agent}.ddl&quot;</span>
-55:                     <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ddlfile</span>)
-56:                         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agent} ddl at #{ddlfile}&quot;</span>)
-57:                         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ddlfile</span>
-58:                     <span class="ruby-keyword kw">end</span>
-59:                 <span class="ruby-keyword kw">end</span>
-60:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
-61:             <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 54</span>
+54:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">agent</span>)
+55:         <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+56:           <span class="ruby-identifier">ddlfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-value str">&quot;mcollective&quot;</span>, <span class="ruby-value str">&quot;agent&quot;</span>, <span class="ruby-node">&quot;#{agent}.ddl&quot;</span>])
+57: 
+58:           <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ddlfile</span>)
+59:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agent} ddl at #{ddlfile}&quot;</span>)
+60:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">ddlfile</span>
+61:           <span class="ruby-keyword kw">end</span>
+62:         <span class="ruby-keyword kw">end</span>
+63:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+64:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000117" class="method-detail">
-        <a name="M000117"></a>
+      <div id="method-M000099" class="method-detail">
+        <a name="M000099"></a>
 
         <div class="method-heading">
-          <a href="#M000117" class="method-signature">
+          <a href="#M000099" class="method-signature">
           <span class="method-name">help</span><span class="method-args">(template)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Generates <a href="DDL.html#M000117">help</a> using the template based on
-the data created with <a href="DDL.html#M000112">metadata</a> and <a
-href="DDL.html#M000114">input</a>
+Generates <a href="DDL.html#M000099">help</a> using the template based on
+the data created with <a href="DDL.html#M000094">metadata</a> and <a
+href="DDL.html#M000096">input</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000117-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000117-source">
+            onclick="toggleCode('M000099-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000099-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 169</span>
-169:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">template</span>)
-170:                 <span class="ruby-identifier">template</span> = <span class="ruby-constant">IO</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">template</span>).<span class="ruby-identifier">join</span>
-171:                 <span class="ruby-identifier">meta</span> = <span class="ruby-ivar">@meta</span>
-172:                 <span class="ruby-identifier">actions</span> = <span class="ruby-ivar">@actions</span>
-173: 
-174:                 <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-value str">'%'</span>)
-175:                 <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-176:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 172</span>
+172:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">template</span>)
+173:         <span class="ruby-identifier">template</span> = <span class="ruby-constant">IO</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">template</span>)
+174:         <span class="ruby-identifier">meta</span> = <span class="ruby-ivar">@meta</span>
+175:         <span class="ruby-identifier">actions</span> = <span class="ruby-ivar">@actions</span>
+176: 
+177:         <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-value str">'%'</span>)
+178:         <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+179:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000114" class="method-detail">
-        <a name="M000114"></a>
+      <div id="method-M000096" class="method-detail">
+        <a name="M000096"></a>
 
         <div class="method-heading">
-          <a href="#M000114" class="method-signature">
+          <a href="#M000096" class="method-signature">
           <span class="method-name">input</span><span class="method-args">(argument, properties)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Registers an <a href="DDL.html#M000114">input</a> argument for a given <a
-href="DDL.html#M000113">action</a>
+Registers an <a href="DDL.html#M000096">input</a> argument for a given <a
+href="DDL.html#M000095">action</a>
 </p>
 <p>
-See the documentation for <a href="DDL.html#M000113">action</a> for how to
+See the documentation for <a href="DDL.html#M000095">action</a> for how to
 use this
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000114-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000114-source">
+            onclick="toggleCode('M000096-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000096-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 112</span>
-112:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-113:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_action</span>
-114: 
-115:                 <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
-116: 
-117:                 [<span class="ruby-identifier">:prompt</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:type</span>, <span class="ruby-identifier">:optional</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-118:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Input needs a :#{arg}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
-119:                 <span class="ruby-keyword kw">end</span>
-120: 
-121:                 <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-identifier">:prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:prompt</span>],
-122:                                                       <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:description</span>],
-123:                                                       <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:type</span>],
-124:                                                       <span class="ruby-identifier">:optional</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:optional</span>]}
-125: 
-126:                 <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:type</span>]
-127:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>
-128:                         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Input type :string needs a :validation&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:validation</span>)
-129:                         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;String inputs need a :maxlength&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:validation</span>)
-130: 
-131:                         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:validation</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:validation</span>]
-132:                         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:maxlength</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:maxlength</span>]
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 115</span>
+115:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+116:         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_action</span>
+117: 
+118:         <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
+119: 
+120:         [<span class="ruby-identifier">:prompt</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:type</span>, <span class="ruby-identifier">:optional</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+121:           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Input needs a :#{arg}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
+122:         <span class="ruby-keyword kw">end</span>
+123: 
+124:         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-identifier">:prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:prompt</span>],
+125:                                               <span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:description</span>],
+126:                                               <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:type</span>],
+127:                                               <span class="ruby-identifier">:optional</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:optional</span>]}
+128: 
+129:         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:type</span>]
+130:           <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>
+131:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Input type :string needs a :validation argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:validation</span>)
+132:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Input type :string needs a :maxlength argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:maxlength</span>)
 133: 
-134:                     <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:list</span>
-135:                         <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Input type :list needs a :list argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:list</span>)
+134:             <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:validation</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:validation</span>]
+135:             <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:maxlength</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:maxlength</span>]
 136: 
-137:                         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:list</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:list</span>]
-138:                 <span class="ruby-keyword kw">end</span>
-139:             <span class="ruby-keyword kw">end</span>
+137:           <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:list</span>
+138:             <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Input type :list needs a :list argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:list</span>)
+139: 
+140:             <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-identifier">:list</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:list</span>]
+141:         <span class="ruby-keyword kw">end</span>
+142:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000112" class="method-detail">
-        <a name="M000112"></a>
+      <div id="method-M000094" class="method-detail">
+        <a name="M000094"></a>
 
         <div class="method-heading">
-          <a href="#M000112" class="method-signature">
+          <a href="#M000094" class="method-signature">
           <span class="method-name">metadata</span><span class="method-args">(meta)</span>
           </a>
         </div>
@@ -490,65 +491,65 @@ use this
 Registers meta data for the introspection hash
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000112-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000112-source">
+            onclick="toggleCode('M000094-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000094-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 64</span>
-64:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">metadata</span>(<span class="ruby-identifier">meta</span>)
-65:                 [<span class="ruby-identifier">:name</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:author</span>, <span class="ruby-identifier">:license</span>, <span class="ruby-identifier">:version</span>, <span class="ruby-identifier">:url</span>, <span class="ruby-identifier">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-66:                     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Metadata needs a :#{arg}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
-67:                 <span class="ruby-keyword kw">end</span>
-68: 
-69:                 <span class="ruby-ivar">@meta</span> = <span class="ruby-identifier">meta</span>
-70:             <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 67</span>
+67:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">metadata</span>(<span class="ruby-identifier">meta</span>)
+68:         [<span class="ruby-identifier">:name</span>, <span class="ruby-identifier">:description</span>, <span class="ruby-identifier">:author</span>, <span class="ruby-identifier">:license</span>, <span class="ruby-identifier">:version</span>, <span class="ruby-identifier">:url</span>, <span class="ruby-identifier">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+69:           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Metadata needs a :#{arg}&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
+70:         <span class="ruby-keyword kw">end</span>
+71: 
+72:         <span class="ruby-ivar">@meta</span> = <span class="ruby-identifier">meta</span>
+73:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000115" class="method-detail">
-        <a name="M000115"></a>
+      <div id="method-M000097" class="method-detail">
+        <a name="M000097"></a>
 
         <div class="method-heading">
-          <a href="#M000115" class="method-signature">
+          <a href="#M000097" class="method-signature">
           <span class="method-name">output</span><span class="method-args">(argument, properties)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Registers an <a href="DDL.html#M000115">output</a> argument for a given <a
-href="DDL.html#M000113">action</a>
+Registers an <a href="DDL.html#M000097">output</a> argument for a given <a
+href="DDL.html#M000095">action</a>
 </p>
 <p>
-See the documentation for <a href="DDL.html#M000113">action</a> for how to
+See the documentation for <a href="DDL.html#M000095">action</a> for how to
 use this
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000115-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000115-source">
+            onclick="toggleCode('M000097-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000097-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 144</span>
-144:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-145:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_action</span>
-146:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a description&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:description</span>)
-147:                 <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a description&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:display_as</span>)
-148: 
-149:                 <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
-150: 
-151:                 <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:output</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:description</span>],
-152:                                                        <span class="ruby-identifier">:display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:display_as</span>]}
-153:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 147</span>
+147:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">output</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+148:         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@current_action</span>
+149:         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a description argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:description</span>)
+150:         <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a display_as argument&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">:display_as</span>)
+151: 
+152:         <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_action</span>
+153: 
+154:         <span class="ruby-ivar">@actions</span>[<span class="ruby-identifier">action</span>][<span class="ruby-identifier">:output</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-identifier">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:description</span>],
+155:                                                <span class="ruby-identifier">:display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-identifier">:display_as</span>]}
+156:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000120" class="method-detail">
-        <a name="M000120"></a>
+      <div id="method-M000102" class="method-detail">
+        <a name="M000102"></a>
 
         <div class="method-heading">
-          <a href="#M000120" class="method-signature">
+          <a href="#M000102" class="method-signature">
           <span class="method-name">validate_request</span><span class="method-args">(action, arguments)</span>
           </a>
         </div>
@@ -556,66 +557,77 @@ use this
         <div class="method-description">
           <p>
 Helper to use the <a href="DDL.html">DDL</a> to figure out if the remote
-call should be allowed based on <a href="DDL.html#M000113">action</a> name
+call should be allowed based on <a href="DDL.html#M000095">action</a> name
 and inputs.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000120-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000120-source">
+            onclick="toggleCode('M000102-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000102-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 190</span>
-190:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
-191:                 <span class="ruby-comment cmt"># is the action known?</span>
-192:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
-193:                     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@agent} but it's not declared in the DDL&quot;</span>
-194:                 <span class="ruby-keyword kw">end</span>
-195: 
-196:                 <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-identifier">:input</span>]
-197: 
-198:                 <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-199:                     <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:optional</span>]
-200:                         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-201:                             <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Action #{action} needs a #{key} argument&quot;</span>
-202:                         <span class="ruby-keyword kw">end</span>
-203:                     <span class="ruby-keyword kw">end</span>
-204: 
-205:                     <span class="ruby-comment cmt"># validate strings, lists and booleans, we'll add more types of validators when</span>
-206:                     <span class="ruby-comment cmt"># all the use cases are clear</span>
-207:                     <span class="ruby-comment cmt">#</span>
-208:                     <span class="ruby-comment cmt"># only does validation for arguments actually given, since some might</span>
-209:                     <span class="ruby-comment cmt"># be optional.  We validate the presense of the argument earlier so</span>
-210:                     <span class="ruby-comment cmt"># this is a safe assumption, just to skip them.</span>
-211:                     <span class="ruby-comment cmt">#</span>
-212:                     <span class="ruby-comment cmt"># :string can have maxlength and regex.  A maxlength of 0 will bypasss checks</span>
-213:                     <span class="ruby-comment cmt"># :list has a array of valid values</span>
-214:                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-215:                         <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:type</span>]
-216:                             <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>
-217:                                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a string&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-218: 
-219:                                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:maxlength</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-220:                                     <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:maxlength</span>].<span class="ruby-identifier">to_i</span>
-221:                                         <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} is longer than #{input[key][:maxlength]}&quot;</span>
-222:                                     <span class="ruby-keyword kw">end</span>
-223:                                 <span class="ruby-keyword kw">end</span>
-224: 
-225:                                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">match</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:validation</span>]))
-226:                                     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} does not match validation regex #{input[key][:validation]}&quot;</span>
-227:                                 <span class="ruby-keyword kw">end</span>
-228: 
-229:                             <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:list</span>
-230:                                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:list</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>])
-231:                                     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} doesn't match list #{input[key][:list].join(', ')}&quot;</span>
-232:                                 <span class="ruby-keyword kw">end</span>
-233: 
-234:                             <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:boolean</span>
-235:                                 <span class="ruby-keyword kw">unless</span> [<span class="ruby-constant">TrueClass</span>, <span class="ruby-constant">FalseClass</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">class</span>)
-236:                                     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a boolean&quot;</span>
-237:                                 <span class="ruby-keyword kw">end</span>
-238:                         <span class="ruby-keyword kw">end</span>
-239:                     <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/rpc/ddl.rb, line 193</span>
+193:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
+194:         <span class="ruby-comment cmt"># is the action known?</span>
+195:         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
+196:           <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@agent} but it's not declared in the DDL&quot;</span>
+197:         <span class="ruby-keyword kw">end</span>
+198: 
+199:         <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-identifier">:input</span>]
+200: 
+201:         <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+202:           <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:optional</span>]
+203:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+204:               <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Action #{action} needs a #{key} argument&quot;</span>
+205:             <span class="ruby-keyword kw">end</span>
+206:           <span class="ruby-keyword kw">end</span>
+207: 
+208:           <span class="ruby-comment cmt"># validate strings, lists and booleans, we'll add more types of validators when</span>
+209:           <span class="ruby-comment cmt"># all the use cases are clear</span>
+210:           <span class="ruby-comment cmt">#</span>
+211:           <span class="ruby-comment cmt"># only does validation for arguments actually given, since some might</span>
+212:           <span class="ruby-comment cmt"># be optional.  We validate the presense of the argument earlier so</span>
+213:           <span class="ruby-comment cmt"># this is a safe assumption, just to skip them.</span>
+214:           <span class="ruby-comment cmt">#</span>
+215:           <span class="ruby-comment cmt"># :string can have maxlength and regex.  A maxlength of 0 will bypasss checks</span>
+216:           <span class="ruby-comment cmt"># :list has a array of valid values</span>
+217:           <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+218:             <span class="ruby-keyword kw">case</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:type</span>]
+219:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:string</span>
+220:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a string&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+221: 
+222:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:maxlength</span>].<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+223:                   <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:maxlength</span>].<span class="ruby-identifier">to_i</span>
+224:                     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} is longer than #{input[key][:maxlength]} character(s)&quot;</span>
+225:                   <span class="ruby-keyword kw">end</span>
+226:                 <span class="ruby-keyword kw">end</span>
+227: 
+228:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">match</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:validation</span>]))
+229:                   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} does not match validation regex #{input[key][:validation]}&quot;</span>
+230:                 <span class="ruby-keyword kw">end</span>
+231: 
+232:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:list</span>
+233:                 <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-identifier">:list</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>])
+234:                   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} doesn't match list #{input[key][:list].join(', ')}&quot;</span>
+235:                 <span class="ruby-keyword kw">end</span>
+236: 
+237:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:boolean</span>
+238:                 <span class="ruby-keyword kw">unless</span> [<span class="ruby-constant">TrueClass</span>, <span class="ruby-constant">FalseClass</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">class</span>)
+239:                   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a boolean&quot;</span>
 240:                 <span class="ruby-keyword kw">end</span>
-241:             <span class="ruby-keyword kw">end</span>
+241: 
+242:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:integer</span>
+243:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a integer&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Fixnum</span>)
+244: 
+245:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:float</span>
+246:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a floating point number&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Float</span>)
+247: 
+248:               <span class="ruby-keyword kw">when</span> <span class="ruby-identifier">:number</span>
+249:                 <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Input #{key} should be a number&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Numeric</span>)
+250:             <span class="ruby-keyword kw">end</span>
+251:           <span class="ruby-keyword kw">end</span>
+252:         <span class="ruby-keyword kw">end</span>
+253: 
+254:         <span class="ruby-keyword kw">true</span>
+255:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

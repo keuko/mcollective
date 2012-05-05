@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -97,11 +95,12 @@ of it and return the stats to callers
 
       <div class="name-list">
       <a href="#M000322">filtered</a>&nbsp;&nbsp;
-      <a href="#M000320">new</a>&nbsp;&nbsp;
+      <a href="#M000319">new</a>&nbsp;&nbsp;
       <a href="#M000321">passed</a>&nbsp;&nbsp;
       <a href="#M000325">received</a>&nbsp;&nbsp;
       <a href="#M000326">sent</a>&nbsp;&nbsp;
       <a href="#M000327">to_hash</a>&nbsp;&nbsp;
+      <a href="#M000320">ttlexpired</a>&nbsp;&nbsp;
       <a href="#M000324">unvalidated</a>&nbsp;&nbsp;
       <a href="#M000323">validated</a>&nbsp;&nbsp;
       </div>
@@ -125,32 +124,33 @@ of it and return the stats to callers
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000320" class="method-detail">
-        <a name="M000320"></a>
+      <div id="method-M000319" class="method-detail">
+        <a name="M000319"></a>
 
         <div class="method-heading">
-          <a href="#M000320" class="method-signature">
+          <a href="#M000319" class="method-signature">
           <span class="method-name">new</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000320-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000320-source">
+            onclick="toggleCode('M000319-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000319-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 5</span>
- 5:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
- 6:             <span class="ruby-ivar">@starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
- 7:             <span class="ruby-ivar">@validated</span> = <span class="ruby-value">0</span>
- 8:             <span class="ruby-ivar">@unvalidated</span> = <span class="ruby-value">0</span>
- 9:             <span class="ruby-ivar">@filtered</span> = <span class="ruby-value">0</span>
-10:             <span class="ruby-ivar">@passed</span> = <span class="ruby-value">0</span>
-11:             <span class="ruby-ivar">@total</span> = <span class="ruby-value">0</span>
-12:             <span class="ruby-ivar">@replies</span> = <span class="ruby-value">0</span>
-13: 
-14:             <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
-15:         <span class="ruby-keyword kw">end</span>
+ 5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
+ 6:       <span class="ruby-ivar">@starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+ 7:       <span class="ruby-ivar">@validated</span> = <span class="ruby-value">0</span>
+ 8:       <span class="ruby-ivar">@unvalidated</span> = <span class="ruby-value">0</span>
+ 9:       <span class="ruby-ivar">@filtered</span> = <span class="ruby-value">0</span>
+10:       <span class="ruby-ivar">@passed</span> = <span class="ruby-value">0</span>
+11:       <span class="ruby-ivar">@total</span> = <span class="ruby-value">0</span>
+12:       <span class="ruby-ivar">@replies</span> = <span class="ruby-value">0</span>
+13:       <span class="ruby-ivar">@ttlexpired</span> = <span class="ruby-value">0</span>
+14: 
+15:       <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+16:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -175,11 +175,11 @@ Records a message that didnt pass the filters
             onclick="toggleCode('M000322-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000322-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 24</span>
-24:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filtered</span>
-25:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing filtered stat&quot;</span>)
-26:             <span class="ruby-ivar">@filtered</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-27:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">filtered</span>
+32:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing filtered stat&quot;</span>)
+33:       <span class="ruby-ivar">@filtered</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+34:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -203,11 +203,11 @@ filters
             onclick="toggleCode('M000321-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000321-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 18</span>
-18:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">passed</span>
-19:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing passed stat&quot;</span>)
-20:             <span class="ruby-ivar">@passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-21:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 25</span>
+25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">passed</span>
+26:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing passed stat&quot;</span>)
+27:       <span class="ruby-ivar">@passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+28:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -230,11 +230,11 @@ Records receipt of a message
             onclick="toggleCode('M000325-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000325-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 41</span>
-41:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">received</span>
-42:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing total stat&quot;</span>)
-43:             <span class="ruby-ivar">@total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-44:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 48</span>
+48:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">received</span>
+49:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing total stat&quot;</span>)
+50:       <span class="ruby-ivar">@total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+51:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -257,13 +257,13 @@ Records sending a message
             onclick="toggleCode('M000326-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000326-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 47</span>
-47:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sent</span>
-48:             <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword kw">do</span>
-49:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing replies stat&quot;</span>)
-50:                 <span class="ruby-ivar">@replies</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-51:             <span class="ruby-keyword kw">end</span>
-52:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 54</span>
+54:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sent</span>
+55:       <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword kw">do</span>
+56:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing replies stat&quot;</span>)
+57:         <span class="ruby-ivar">@replies</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+58:       <span class="ruby-keyword kw">end</span>
+59:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -286,33 +286,61 @@ Returns a hash with all stats
             onclick="toggleCode('M000327-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000327-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 55</span>
-55:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hash</span>
-56:             <span class="ruby-identifier">stats</span> = {<span class="ruby-identifier">:validated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@validated</span>,
-57:                      <span class="ruby-identifier">:unvalidated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@unvalidated</span>,
-58:                      <span class="ruby-identifier">:passed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@passed</span>,
-59:                      <span class="ruby-identifier">:filtered</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@filtered</span>,
-60:                      <span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@starttime</span>,
-61:                      <span class="ruby-identifier">:total</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@total</span>,
-62:                      <span class="ruby-identifier">:replies</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@replies</span>}
-63: 
-64:             <span class="ruby-identifier">reply</span> = {<span class="ruby-identifier">:stats</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stats</span>,
-65:                      <span class="ruby-identifier">:threads</span> =<span class="ruby-operator">&gt;</span> [],
-66:                      <span class="ruby-identifier">:pid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>,
-67:                      <span class="ruby-identifier">:times</span> =<span class="ruby-operator">&gt;</span> {} }
-68: 
-69:             <span class="ruby-operator">::</span><span class="ruby-constant">Process</span>.<span class="ruby-identifier">times</span>.<span class="ruby-identifier">each_pair</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-70:                <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
-71:                <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:times</span>][<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
-72:             }
-73: 
-74:             <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-75:                 <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:threads</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{t.inspect}&quot;</span>
-76:             <span class="ruby-keyword kw">end</span>
-77: 
-78:             <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:agents</span>] = <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>
-79:             <span class="ruby-identifier">reply</span>
-80:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 62</span>
+62:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">to_hash</span>
+63:       <span class="ruby-identifier">stats</span> = {<span class="ruby-identifier">:validated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@validated</span>,
+64:         <span class="ruby-identifier">:unvalidated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@unvalidated</span>,
+65:         <span class="ruby-identifier">:passed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@passed</span>,
+66:         <span class="ruby-identifier">:filtered</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@filtered</span>,
+67:         <span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@starttime</span>,
+68:         <span class="ruby-identifier">:total</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@total</span>,
+69:         <span class="ruby-identifier">:ttlexpired</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@ttlexpired</span>,
+70:         <span class="ruby-identifier">:replies</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@replies</span>}
+71: 
+72:       <span class="ruby-identifier">reply</span> = {<span class="ruby-identifier">:stats</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stats</span>,
+73:         <span class="ruby-identifier">:threads</span> =<span class="ruby-operator">&gt;</span> [],
+74:         <span class="ruby-identifier">:pid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>,
+75:         <span class="ruby-identifier">:times</span> =<span class="ruby-operator">&gt;</span> {} }
+76: 
+77:       <span class="ruby-operator">::</span><span class="ruby-constant">Process</span>.<span class="ruby-identifier">times</span>.<span class="ruby-identifier">each_pair</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+78:         <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
+79:         <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:times</span>][<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+80:       }
+81: 
+82:       <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+83:         <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:threads</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{t.inspect}&quot;</span>
+84:       <span class="ruby-keyword kw">end</span>
+85: 
+86:       <span class="ruby-identifier">reply</span>[<span class="ruby-identifier">:agents</span>] = <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>
+87:       <span class="ruby-identifier">reply</span>
+88:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000320" class="method-detail">
+        <a name="M000320"></a>
+
+        <div class="method-heading">
+          <a href="#M000320" class="method-signature">
+          <span class="method-name">ttlexpired</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Records a message that failed TTL checks
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000320-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000320-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 19</span>
+19:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">ttlexpired</span>
+20:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing ttl expired stat&quot;</span>)
+21:       <span class="ruby-ivar">@ttlexpired</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+22:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -332,11 +360,11 @@ Returns a hash with all stats
             onclick="toggleCode('M000324-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000324-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 35</span>
-35:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unvalidated</span>
-36:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing unvalidated stat&quot;</span>)
-37:             <span class="ruby-ivar">@unvalidated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-38:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unvalidated</span>
+43:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing unvalidated stat&quot;</span>)
+44:       <span class="ruby-ivar">@unvalidated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+45:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -359,11 +387,11 @@ Records a message that <a href="RunnerStats.html#M000323">validated</a> ok
             onclick="toggleCode('M000323-source');return false;">[Source]</a></p>
           <div class="method-source-code" id="M000323-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 30</span>
-30:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validated</span>
-31:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing validated stat&quot;</span>)
-32:             <span class="ruby-ivar">@validated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-33:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/runnerstats.rb, line 37</span>
+37:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">validated</span>
+38:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Incrementing validated stat&quot;</span>)
+39:       <span class="ruby-ivar">@validated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+40:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

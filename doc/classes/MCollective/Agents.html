@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -96,14 +94,17 @@ load and manage instances of plugins.
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000266">agentlist</a>&nbsp;&nbsp;
-      <a href="#M000265">dispatch</a>&nbsp;&nbsp;
-      <a href="#M000262">findagentfile</a>&nbsp;&nbsp;
-      <a href="#M000264">help</a>&nbsp;&nbsp;
-      <a href="#M000263">include?</a>&nbsp;&nbsp;
-      <a href="#M000261">loadagent</a>&nbsp;&nbsp;
-      <a href="#M000260">loadagents</a>&nbsp;&nbsp;
-      <a href="#M000259">new</a>&nbsp;&nbsp;
+      <a href="#M000313">activate_agent?</a>&nbsp;&nbsp;
+      <a href="#M000318">agentlist</a>&nbsp;&nbsp;
+      <a href="#M000312">class_for_agent</a>&nbsp;&nbsp;
+      <a href="#M000309">clear!</a>&nbsp;&nbsp;
+      <a href="#M000317">dispatch</a>&nbsp;&nbsp;
+      <a href="#M000314">findagentfile</a>&nbsp;&nbsp;
+      <a href="#M000316">help</a>&nbsp;&nbsp;
+      <a href="#M000315">include?</a>&nbsp;&nbsp;
+      <a href="#M000311">loadagent</a>&nbsp;&nbsp;
+      <a href="#M000310">loadagents</a>&nbsp;&nbsp;
+      <a href="#M000308">new</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -125,11 +126,11 @@ load and manage instances of plugins.
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000266" class="method-detail">
-        <a name="M000266"></a>
+      <div id="method-M000318" class="method-detail">
+        <a name="M000318"></a>
 
         <div class="method-heading">
-          <a href="#M000266" class="method-signature">
+          <a href="#M000318" class="method-signature">
           <span class="method-name">agentlist</span><span class="method-args">()</span>
           </a>
         </div>
@@ -139,41 +140,41 @@ load and manage instances of plugins.
 Get a list of agents that we have
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000266-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000266-source">
+            onclick="toggleCode('M000318-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000318-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 123</span>
-123:         <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">agentlist</span>
-124:             <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">keys</span>
-125:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 156</span>
+156:     <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">agentlist</span>
+157:       <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">keys</span>
+158:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000259" class="method-detail">
-        <a name="M000259"></a>
+      <div id="method-M000308" class="method-detail">
+        <a name="M000308"></a>
 
         <div class="method-heading">
-          <a href="#M000259" class="method-signature">
-          <span class="method-name">new</span><span class="method-args">()</span>
+          <a href="#M000308" class="method-signature">
+          <span class="method-name">new</span><span class="method-args">(agents = {})</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000259-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000259-source">
+            onclick="toggleCode('M000308-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000308-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 5</span>
- 5:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>
- 6:             <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
- 7:             <span class="ruby-identifier">raise</span> (<span class="ruby-value str">&quot;Configuration has not been loaded, can't load agents&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+ 5:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agents</span> = {})
+ 6:       <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+ 7:       <span class="ruby-identifier">raise</span> (<span class="ruby-value str">&quot;Configuration has not been loaded, can't load agents&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
  8: 
- 9:             <span class="ruby-ivar">@@agents</span> = {}
+ 9:       <span class="ruby-ivar">@@agents</span> = <span class="ruby-identifier">agents</span>
 10: 
-11:             <span class="ruby-identifier">loadagents</span>
-12:         <span class="ruby-keyword kw">end</span>
+11:       <span class="ruby-identifier">loadagents</span>
+12:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -181,12 +182,106 @@ Get a list of agents that we have
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000265" class="method-detail">
-        <a name="M000265"></a>
+      <div id="method-M000313" class="method-detail">
+        <a name="M000313"></a>
 
         <div class="method-heading">
-          <a href="#M000265" class="method-signature">
-          <span class="method-name">dispatch</span><span class="method-args">(msg, target, connection) {|replies| ...}</span>
+          <a href="#M000313" class="method-signature">
+          <span class="method-name">activate_agent?</span><span class="method-args">(agent)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Checks if a plugin should be activated by calling activate? on it if it
+responds to that method else always activate it
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000313-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000313-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 80</span>
+80:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agent</span>)
+81:       <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-value str">&quot;MCollective&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-value str">&quot;Agent&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">capitalize</span>)
+82: 
+83:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-value str">&quot;activate?&quot;</span>)
+84:         <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">activate?</span>
+85:       <span class="ruby-keyword kw">else</span>
+86:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{klass} does not have an activate? method, activating as default&quot;</span>)
+87:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+88:       <span class="ruby-keyword kw">end</span>
+89:     <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+90:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Agent activation check for #{agent} failed: #{e.class}: #{e}&quot;</span>)
+91:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+92:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000312" class="method-detail">
+        <a name="M000312"></a>
+
+        <div class="method-heading">
+          <a href="#M000312" class="method-signature">
+          <span class="method-name">class_for_agent</span><span class="method-args">(agent)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Builds a class name string given a Agent name
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000312-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000312-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 73</span>
+73:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agent</span>)
+74:       <span class="ruby-node">&quot;MCollective::Agent::#{agent.capitalize}&quot;</span>
+75:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000309" class="method-detail">
+        <a name="M000309"></a>
+
+        <div class="method-heading">
+          <a href="#M000309" class="method-signature">
+          <span class="method-name">clear!</span><span class="method-args">()</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p>
+Deletes all agents
+</p>
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000309-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000309-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 15</span>
+15:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">clear!</span>
+16:       <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+17:         <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span> <span class="ruby-node">&quot;#{agent}_agent&quot;</span>
+18:         <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:broadcast</span>))
+19:       <span class="ruby-keyword kw">end</span>
+20: 
+21:       <span class="ruby-ivar">@@agents</span> = {}
+22:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000317" class="method-detail">
+        <a name="M000317"></a>
+
+        <div class="method-heading">
+          <a href="#M000317" class="method-signature">
+          <span class="method-name">dispatch</span><span class="method-args">(request, connection) {|replies| ...}</span>
           </a>
         </div>
       
@@ -196,45 +291,45 @@ Dispatches a message to an agent, accepts a block that will get run if
 there are any replies to process from the agent
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000265-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000265-source">
+            onclick="toggleCode('M000317-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000317-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 96</span>
- 96:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dispatch</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">connection</span>)
- 97:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Dispatching a message to agent #{target}&quot;</span>)
- 98: 
- 99:             <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
-100:                 <span class="ruby-keyword kw">begin</span>
-101:                     <span class="ruby-identifier">agent</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{target}_agent&quot;</span>]
-102: 
-103:                     <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
-104:                         <span class="ruby-identifier">replies</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">connection</span>)
-105: 
-106:                         <span class="ruby-comment cmt"># Agents can decide if they wish to reply or not,</span>
-107:                         <span class="ruby-comment cmt"># returning nil will mean nothing goes back to the</span>
-108:                         <span class="ruby-comment cmt"># requestor</span>
-109:                         <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">replies</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
-110:                             <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">replies</span>)
-111:                         <span class="ruby-keyword kw">end</span>
-112:                     <span class="ruby-keyword kw">end</span>
-113:                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-114:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Timeout while handling message for #{target}&quot;</span>)
-115:                 <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-116:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Execution of #{target} failed: #{e}&quot;</span>)
-117:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t\t&quot;</span>))
-118:                 <span class="ruby-keyword kw">end</span>
-119:             <span class="ruby-keyword kw">end</span>
-120:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 129</span>
+129:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">dispatch</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+130:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Dispatching a message to agent #{request.agent}&quot;</span>)
+131: 
+132:       <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword kw">do</span>
+133:         <span class="ruby-keyword kw">begin</span>
+134:           <span class="ruby-identifier">agent</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{request.agent}_agent&quot;</span>]
+135: 
+136:           <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
+137:             <span class="ruby-identifier">replies</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">connection</span>)
+138: 
+139:             <span class="ruby-comment cmt"># Agents can decide if they wish to reply or not,</span>
+140:             <span class="ruby-comment cmt"># returning nil will mean nothing goes back to the</span>
+141:             <span class="ruby-comment cmt"># requestor</span>
+142:             <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">replies</span> <span class="ruby-operator">==</span> <span class="ruby-keyword kw">nil</span>
+143:               <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">replies</span>)
+144:             <span class="ruby-keyword kw">end</span>
+145:           <span class="ruby-keyword kw">end</span>
+146:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+147:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Timeout while handling message for #{request.agent}&quot;</span>)
+148:         <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+149:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Execution of #{request.agent} failed: #{e}&quot;</span>)
+150:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n\t\t&quot;</span>))
+151:         <span class="ruby-keyword kw">end</span>
+152:       <span class="ruby-keyword kw">end</span>
+153:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000262" class="method-detail">
-        <a name="M000262"></a>
+      <div id="method-M000314" class="method-detail">
+        <a name="M000314"></a>
 
         <div class="method-heading">
-          <a href="#M000262" class="method-signature">
+          <a href="#M000314" class="method-signature">
           <span class="method-name">findagentfile</span><span class="method-args">(agentname)</span>
           </a>
         </div>
@@ -244,67 +339,67 @@ there are any replies to process from the agent
 searches the libdirs for agents
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000262-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000262-source">
+            onclick="toggleCode('M000314-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000314-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 62</span>
-62:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
-63:             <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-64:                 <span class="ruby-identifier">agentfile</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent/#{agentname}.rb&quot;</span>
-65:                 <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">agentfile</span>)
-66:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agentname} at #{agentfile}&quot;</span>)
-67:                     <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">agentfile</span>
-68:                 <span class="ruby-keyword kw">end</span>
-69:             <span class="ruby-keyword kw">end</span>
-70:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
-71:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 95</span>
+ 95:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+ 96:       <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+ 97:         <span class="ruby-identifier">agentfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-value str">&quot;mcollective&quot;</span>, <span class="ruby-value str">&quot;agent&quot;</span>, <span class="ruby-node">&quot;#{agentname}.rb&quot;</span>])
+ 98:         <span class="ruby-keyword kw">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">agentfile</span>)
+ 99:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agentname} at #{agentfile}&quot;</span>)
+100:           <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">agentfile</span>
+101:         <span class="ruby-keyword kw">end</span>
+102:       <span class="ruby-keyword kw">end</span>
+103:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+104:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000264" class="method-detail">
-        <a name="M000264"></a>
+      <div id="method-M000316" class="method-detail">
+        <a name="M000316"></a>
 
         <div class="method-heading">
-          <a href="#M000264" class="method-signature">
+          <a href="#M000316" class="method-signature">
           <span class="method-name">help</span><span class="method-args">(agentname)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the <a href="Agents.html#M000264">help</a> for an agent after first
+Returns the <a href="Agents.html#M000316">help</a> for an agent after first
 trying to get rid of some indentation infront
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000264-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000264-source">
+            onclick="toggleCode('M000316-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000316-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 80</span>
-80:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">agentname</span>)
-81:             <span class="ruby-identifier">raise</span>(<span class="ruby-value str">&quot;No such agent&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-82: 
-83:             <span class="ruby-identifier">body</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>].<span class="ruby-identifier">help</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
-84: 
-85:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s+)\S/</span>
-86:                 <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">$1</span>
-87: 
-88:                 <span class="ruby-identifier">body</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/^#{indent}/</span>, <span class="ruby-value str">&quot;&quot;</span>)}
-89:             <span class="ruby-keyword kw">end</span>
-90: 
-91:             <span class="ruby-identifier">body</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
-92:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 113</span>
+113:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">agentname</span>)
+114:       <span class="ruby-identifier">raise</span>(<span class="ruby-value str">&quot;No such agent&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+115: 
+116:       <span class="ruby-identifier">body</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>].<span class="ruby-identifier">help</span>.<span class="ruby-identifier">split</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+117: 
+118:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp re">/^(\s+)\S/</span>
+119:         <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">$1</span>
+120: 
+121:         <span class="ruby-identifier">body</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/^#{indent}/</span>, <span class="ruby-value str">&quot;&quot;</span>)}
+122:       <span class="ruby-keyword kw">end</span>
+123: 
+124:       <span class="ruby-identifier">body</span>.<span class="ruby-identifier">join</span>(<span class="ruby-value str">&quot;\n&quot;</span>)
+125:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000263" class="method-detail">
-        <a name="M000263"></a>
+      <div id="method-M000315" class="method-detail">
+        <a name="M000315"></a>
 
         <div class="method-heading">
-          <a href="#M000263" class="method-signature">
+          <a href="#M000315" class="method-signature">
           <span class="method-name">include?</span><span class="method-args">(agentname)</span>
           </a>
         </div>
@@ -314,23 +409,23 @@ trying to get rid of some indentation infront
 Determines if we have an agent with a certain name
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000263-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000263-source">
+            onclick="toggleCode('M000315-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000315-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 74</span>
-74:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-75:             <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-76:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 107</span>
+107:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+108:       <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+109:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000261" class="method-detail">
-        <a name="M000261"></a>
+      <div id="method-M000311" class="method-detail">
+        <a name="M000311"></a>
 
         <div class="method-heading">
-          <a href="#M000261" class="method-signature">
+          <a href="#M000311" class="method-signature">
           <span class="method-name">loadagent</span><span class="method-args">(agentname)</span>
           </a>
         </div>
@@ -340,42 +435,49 @@ Determines if we have an agent with a certain name
 Loads a specified agent from disk if available
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000261-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000261-source">
+            onclick="toggleCode('M000311-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000311-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 38</span>
-38:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>)
-39:             <span class="ruby-identifier">agentfile</span> = <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
-40:             <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">agentfile</span>
-41:             <span class="ruby-identifier">classname</span> = <span class="ruby-node">&quot;MCollective::Agent::#{agentname.capitalize}&quot;</span>
-42: 
-43:             <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-44: 
-45:             <span class="ruby-keyword kw">begin</span>
-46:                 <span class="ruby-identifier">single_instance</span> = [<span class="ruby-value str">&quot;registration&quot;</span>, <span class="ruby-value str">&quot;discovery&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-47: 
-48:                 <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">classname</span>)
-49:                 <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{agentname}_agent&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">classname</span>, <span class="ruby-identifier">:single_instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single_instance</span>}
-50: 
-51:                 <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agentname</span>, <span class="ruby-identifier">:command</span>)) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-52: 
-53:                 <span class="ruby-ivar">@@agents</span>[<span class="ruby-identifier">agentname</span>] = {<span class="ruby-identifier">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agentfile</span>}
-54:                 <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
-55:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-56:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Loading agent #{agentname} failed: #{e}&quot;</span>)
-57:                 <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-58:             <span class="ruby-keyword kw">end</span>
-59:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 42</span>
+42:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>)
+43:       <span class="ruby-identifier">agentfile</span> = <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+44:       <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">agentfile</span>
+45:       <span class="ruby-identifier">classname</span> = <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agentname</span>)
+46: 
+47:       <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+48: 
+49:       <span class="ruby-keyword kw">begin</span>
+50:         <span class="ruby-identifier">single_instance</span> = [<span class="ruby-value str">&quot;registration&quot;</span>, <span class="ruby-value str">&quot;discovery&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+51: 
+52:         <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">classname</span>)
+53: 
+54:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agentname</span>)
+55:           <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{agentname}_agent&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">classname</span>, <span class="ruby-identifier">:single_instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single_instance</span>}
+56: 
+57:           <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agentname</span>, <span class="ruby-identifier">:broadcast</span>)) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+58: 
+59:           <span class="ruby-ivar">@@agents</span>[<span class="ruby-identifier">agentname</span>] = {<span class="ruby-identifier">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agentfile</span>}
+60:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">true</span>
+61:         <span class="ruby-keyword kw">else</span>
+62:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Not activating agent #{agentname} due to agent policy in activate? method&quot;</span>)
+63:           <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+64:         <span class="ruby-keyword kw">end</span>
+65:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+66:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Loading agent #{agentname} failed: #{e}&quot;</span>)
+67:         <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+68:         <span class="ruby-keyword kw">return</span> <span class="ruby-keyword kw">false</span>
+69:       <span class="ruby-keyword kw">end</span>
+70:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000260" class="method-detail">
-        <a name="M000260"></a>
+      <div id="method-M000310" class="method-detail">
+        <a name="M000310"></a>
 
         <div class="method-heading">
-          <a href="#M000260" class="method-signature">
+          <a href="#M000310" class="method-signature">
           <span class="method-name">loadagents</span><span class="method-args">()</span>
           </a>
         </div>
@@ -385,31 +487,25 @@ Loads a specified agent from disk if available
 Loads all agents from disk
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000260-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000260-source">
+            onclick="toggleCode('M000310-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000310-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 15</span>
-15:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loadagents</span>
-16:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Reloading all agents from disk&quot;</span>)
-17: 
-18:             <span class="ruby-comment cmt"># We're loading all agents so just nuke all the old agents and unsubscribe</span>
-19:             <span class="ruby-ivar">@@agents</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
-20:                 <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span> <span class="ruby-node">&quot;#{agent}_agent&quot;</span>
-21:                 <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:command</span>))
-22:             <span class="ruby-keyword kw">end</span>
-23: 
-24:             <span class="ruby-ivar">@@agents</span> = {}
-25: 
-26:             <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-27:                 <span class="ruby-identifier">agentdir</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent&quot;</span>
-28:                 <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">agentdir</span>)
+    <span class="ruby-comment cmt"># File lib/mcollective/agents.rb, line 25</span>
+25:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">loadagents</span>
+26:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Reloading all agents from disk&quot;</span>)
+27: 
+28:       <span class="ruby-identifier">clear!</span>
 29: 
-30:                 <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agentdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp re">/\.rb$/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
-31:                     <span class="ruby-identifier">agentname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value str">&quot;.rb&quot;</span>)
-32:                     <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-33:                 <span class="ruby-keyword kw">end</span>
-34:             <span class="ruby-keyword kw">end</span>
-35:         <span class="ruby-keyword kw">end</span>
+30:       <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+31:         <span class="ruby-identifier">agentdir</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent&quot;</span>
+32:         <span class="ruby-keyword kw">next</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">agentdir</span>)
+33: 
+34:         <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agentdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp re">/\.rb$/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+35:           <span class="ruby-identifier">agentname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value str">&quot;.rb&quot;</span>)
+36:           <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+37:         <span class="ruby-keyword kw">end</span>
+38:       <span class="ruby-keyword kw">end</span>
+39:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

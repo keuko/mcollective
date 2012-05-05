@@ -102,10 +102,10 @@ To configure you should set:
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000195">log</a>&nbsp;&nbsp;
-      <a href="#M000193">set_logging_level</a>&nbsp;&nbsp;
-      <a href="#M000192">start</a>&nbsp;&nbsp;
-      <a href="#M000194">valid_levels</a>&nbsp;&nbsp;
+      <a href="#M000205">log</a>&nbsp;&nbsp;
+      <a href="#M000203">set_logging_level</a>&nbsp;&nbsp;
+      <a href="#M000202">start</a>&nbsp;&nbsp;
+      <a href="#M000204">valid_levels</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -127,109 +127,109 @@ To configure you should set:
     <div id="methods">
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000195" class="method-detail">
-        <a name="M000195"></a>
+      <div id="method-M000205" class="method-detail">
+        <a name="M000205"></a>
 
         <div class="method-heading">
-          <a href="#M000195" class="method-signature">
+          <a href="#M000205" class="method-signature">
           <span class="method-name">log</span><span class="method-args">(level, from, msg)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000195-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000195-source">
+            onclick="toggleCode('M000205-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000205-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/logger/file_logger.rb, line 37</span>
-37:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
-38:                 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)) { <span class="ruby-node">&quot;#{from} #{msg}&quot;</span> }
-39:             <span class="ruby-keyword kw">rescue</span>
-40:                 <span class="ruby-comment cmt"># if this fails we probably cant show the user output at all,</span>
-41:                 <span class="ruby-comment cmt"># STDERR it as last resort</span>
-42:                 <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
-43:             <span class="ruby-keyword kw">end</span>
+37:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
+38:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)) { <span class="ruby-node">&quot;#{from} #{msg}&quot;</span> }
+39:       <span class="ruby-keyword kw">rescue</span>
+40:         <span class="ruby-comment cmt"># if this fails we probably cant show the user output at all,</span>
+41:         <span class="ruby-comment cmt"># STDERR it as last resort</span>
+42:         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
+43:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000193" class="method-detail">
-        <a name="M000193"></a>
+      <div id="method-M000203" class="method-detail">
+        <a name="M000203"></a>
 
         <div class="method-heading">
-          <a href="#M000193" class="method-signature">
+          <a href="#M000203" class="method-signature">
           <span class="method-name">set_logging_level</span><span class="method-args">(level)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000193-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000193-source">
+            onclick="toggleCode('M000203-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000203-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/logger/file_logger.rb, line 22</span>
-22:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_logging_level</span>(<span class="ruby-identifier">level</span>)
-23:                 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)
-24:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-25:                 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>
-26:                 <span class="ruby-identifier">log</span>(<span class="ruby-identifier">:error</span>, <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-node">&quot;Could not set logging to #{level} using debug instead: #{e.class} #{e}&quot;</span>)
-27:             <span class="ruby-keyword kw">end</span>
+22:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">set_logging_level</span>(<span class="ruby-identifier">level</span>)
+23:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)
+24:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+25:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>
+26:         <span class="ruby-identifier">log</span>(<span class="ruby-identifier">:error</span>, <span class="ruby-value str">&quot;&quot;</span>, <span class="ruby-node">&quot;Could not set logging to #{level} using debug instead: #{e.class} #{e}&quot;</span>)
+27:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000192" class="method-detail">
-        <a name="M000192"></a>
+      <div id="method-M000202" class="method-detail">
+        <a name="M000202"></a>
 
         <div class="method-heading">
-          <a href="#M000192" class="method-signature">
+          <a href="#M000202" class="method-signature">
           <span class="method-name">start</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000192-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000192-source">
+            onclick="toggleCode('M000202-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000202-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/logger/file_logger.rb, line 13</span>
-13:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>
-14:                 <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+13:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">start</span>
+14:         <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
 15: 
-16:                 <span class="ruby-ivar">@logger</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfile</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">keeplogs</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">max_log_size</span>)
-17:                 <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">Formatter</span>.<span class="ruby-identifier">new</span>
+16:         <span class="ruby-ivar">@logger</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfile</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">keeplogs</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">max_log_size</span>)
+17:         <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">Formatter</span>.<span class="ruby-identifier">new</span>
 18: 
-19:                 <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>)
-20:             <span class="ruby-keyword kw">end</span>
+19:         <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>)
+20:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000194" class="method-detail">
-        <a name="M000194"></a>
+      <div id="method-M000204" class="method-detail">
+        <a name="M000204"></a>
 
         <div class="method-heading">
-          <a href="#M000194" class="method-signature">
+          <a href="#M000204" class="method-signature">
           <span class="method-name">valid_levels</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000194-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000194-source">
+            onclick="toggleCode('M000204-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000204-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/logger/file_logger.rb, line 29</span>
-29:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid_levels</span>
-30:                 {<span class="ruby-identifier">:info</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">INFO</span>,
-31:                  <span class="ruby-identifier">:warn</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>,
-32:                  <span class="ruby-identifier">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>,
-33:                  <span class="ruby-identifier">:fatal</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">FATAL</span>,
-34:                  <span class="ruby-identifier">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">ERROR</span>}
-35:             <span class="ruby-keyword kw">end</span>
+29:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">valid_levels</span>
+30:         {<span class="ruby-identifier">:info</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">INFO</span>,
+31:           <span class="ruby-identifier">:warn</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>,
+32:           <span class="ruby-identifier">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>,
+33:           <span class="ruby-identifier">:fatal</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">FATAL</span>,
+34:           <span class="ruby-identifier">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">ERROR</span>}
+35:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

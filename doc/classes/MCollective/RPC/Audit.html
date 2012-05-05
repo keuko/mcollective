@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -107,7 +105,7 @@ href="Request.html">MCollective::RPC::Request</a>
 To enable auditing you should set:
 </p>
 <p>
-rpcaudit = 1 rpcauditprovider = <a href="Logfile.html">Logfile</a>
+rpcaudit = 1 rpcauditprovider = Logfile
 </p>
 <p>
 in the config file this will enable logging using the
@@ -165,9 +163,9 @@ and takes care of registering them with the plugin manager
           <div class="method-source-code" id="M000164-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/audit.rb, line 29</span>
-29:             <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-30:                 <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;rpcaudit_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
-31:             <span class="ruby-keyword kw">end</span>
+29:       <span class="ruby-keyword kw">def</span> <span class="ruby-keyword kw">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
+30:         <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value str">&quot;rpcaudit_plugin&quot;</span>, <span class="ruby-identifier">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
+31:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -190,9 +188,9 @@ and takes care of registering them with the plugin manager
           <div class="method-source-code" id="M000165-source">
 <pre>
     <span class="ruby-comment cmt"># File lib/mcollective/rpc/audit.rb, line 33</span>
-33:             <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
-34:                 <span class="ruby-ivar">@log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;audit_request is not implimented in #{this.class}&quot;</span>)
-35:             <span class="ruby-keyword kw">end</span>
+33:       <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+34:         <span class="ruby-ivar">@log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;audit_request is not implimented in #{this.class}&quot;</span>)
+35:       <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>

@@ -65,9 +65,7 @@
         <tr class="top-aligned-row">
             <td><strong>Parent:</strong></td>
             <td>
-                <a href="../Object.html">
                 Object
-               </a>
             </td>
         </tr>
         </table>
@@ -95,15 +93,17 @@ forth
       <h3 class="section-bar">Methods</h3>
 
       <div class="name-list">
-      <a href="#M000225">collective</a>&nbsp;&nbsp;
-      <a href="#M000226">disconnect</a>&nbsp;&nbsp;
-      <a href="#M000229">discover</a>&nbsp;&nbsp;
-      <a href="#M000231">discovered_req</a>&nbsp;&nbsp;
-      <a href="#M000232">display_stats</a>&nbsp;&nbsp;
-      <a href="#M000224">new</a>&nbsp;&nbsp;
-      <a href="#M000228">receive</a>&nbsp;&nbsp;
-      <a href="#M000230">req</a>&nbsp;&nbsp;
-      <a href="#M000227">sendreq</a>&nbsp;&nbsp;
+      <a href="#M000244">collective</a>&nbsp;&nbsp;
+      <a href="#M000245">disconnect</a>&nbsp;&nbsp;
+      <a href="#M000250">discover</a>&nbsp;&nbsp;
+      <a href="#M000252">discovered_req</a>&nbsp;&nbsp;
+      <a href="#M000253">display_stats</a>&nbsp;&nbsp;
+      <a href="#M000243">new</a>&nbsp;&nbsp;
+      <a href="#M000249">receive</a>&nbsp;&nbsp;
+      <a href="#M000251">req</a>&nbsp;&nbsp;
+      <a href="#M000246">sendreq</a>&nbsp;&nbsp;
+      <a href="#M000247">subscribe</a>&nbsp;&nbsp;
+      <a href="#M000248">unsubscribe</a>&nbsp;&nbsp;
       </div>
     </div>
 
@@ -143,34 +143,34 @@ forth
     <div id="methods">
       <h3 class="section-bar">Public Class methods</h3>
 
-      <div id="method-M000224" class="method-detail">
-        <a name="M000224"></a>
+      <div id="method-M000243" class="method-detail">
+        <a name="M000243"></a>
 
         <div class="method-heading">
-          <a href="#M000224" class="method-signature">
+          <a href="#M000243" class="method-signature">
           <span class="method-name">new</span><span class="method-args">(configfile)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000224-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000224-source">
+            onclick="toggleCode('M000243-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000243-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 8</span>
- 8:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">configfile</span>)
- 9:             <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-10:             <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
-11: 
-12:             <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;connector_plugin&quot;</span>]
-13:             <span class="ruby-ivar">@security</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;security_plugin&quot;</span>]
-14: 
-15:             <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">initiated_by</span> = <span class="ruby-identifier">:client</span>
-16:             <span class="ruby-ivar">@options</span> = <span class="ruby-keyword kw">nil</span>
-17:             <span class="ruby-ivar">@subscriptions</span> = {}
-18: 
-19:             <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connect</span>
-20:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 6</span>
+ 6:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">configfile</span>)
+ 7:       <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+ 8:       <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+ 9: 
+10:       <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;connector_plugin&quot;</span>]
+11:       <span class="ruby-ivar">@security</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-value str">&quot;security_plugin&quot;</span>]
+12: 
+13:       <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">initiated_by</span> = <span class="ruby-identifier">:client</span>
+14:       <span class="ruby-ivar">@options</span> = <span class="ruby-keyword kw">nil</span>
+15:       <span class="ruby-ivar">@subscriptions</span> = {}
+16: 
+17:       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">connect</span>
+18:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
@@ -178,43 +178,43 @@ forth
 
       <h3 class="section-bar">Public Instance methods</h3>
 
-      <div id="method-M000225" class="method-detail">
-        <a name="M000225"></a>
+      <div id="method-M000244" class="method-detail">
+        <a name="M000244"></a>
 
         <div class="method-heading">
-          <a href="#M000225" class="method-signature">
+          <a href="#M000244" class="method-signature">
           <span class="method-name">collective</span><span class="method-args">()</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Returns the configured main <a href="Client.html#M000225">collective</a> if
-no specific <a href="Client.html#M000225">collective</a> is specified as
+Returns the configured main <a href="Client.html#M000244">collective</a> if
+no specific <a href="Client.html#M000244">collective</a> is specified as
 options
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000225-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000225-source">
+            onclick="toggleCode('M000244-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000244-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 24</span>
-24:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collective</span>
-25:             <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:collective</span>].<span class="ruby-identifier">nil?</span>
-26:                 <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">main_collective</span>
-27:             <span class="ruby-keyword kw">else</span>
-28:                 <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:collective</span>]
-29:             <span class="ruby-keyword kw">end</span>
-30:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 22</span>
+22:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">collective</span>
+23:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:collective</span>].<span class="ruby-identifier">nil?</span>
+24:         <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">main_collective</span>
+25:       <span class="ruby-keyword kw">else</span>
+26:         <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:collective</span>]
+27:       <span class="ruby-keyword kw">end</span>
+28:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000226" class="method-detail">
-        <a name="M000226"></a>
+      <div id="method-M000245" class="method-detail">
+        <a name="M000245"></a>
 
         <div class="method-heading">
-          <a href="#M000226" class="method-signature">
+          <a href="#M000245" class="method-signature">
           <span class="method-name">disconnect</span><span class="method-args">()</span>
           </a>
         </div>
@@ -224,25 +224,25 @@ options
 Disconnects cleanly from the middleware
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000226-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000226-source">
+            onclick="toggleCode('M000245-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000245-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 33</span>
-33:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disconnect</span>
-34:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Disconnecting from the middleware&quot;</span>)
-35:             <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
-36:         <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 31</span>
+31:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">disconnect</span>
+32:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Disconnecting from the middleware&quot;</span>)
+33:       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
+34:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000229" class="method-detail">
-        <a name="M000229"></a>
+      <div id="method-M000250" class="method-detail">
+        <a name="M000250"></a>
 
         <div class="method-heading">
-          <a href="#M000229" class="method-signature">
-          <span class="method-name">discover</span><span class="method-args">(filter, timeout)</span>
+          <a href="#M000250" class="method-signature">
+          <span class="method-name">discover</span><span class="method-args">(filter, timeout, limit=0)</span>
           </a>
         </div>
       
@@ -251,41 +251,52 @@ Disconnects cleanly from the middleware
 Performs a discovery of nodes matching the filter passed returns an array
 of nodes
 </p>
+<p>
+An integer limit can be supplied this will have the effect of the discovery
+being cancelled soon as it reached the requested limit of hosts
+</p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000229-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000229-source">
+            onclick="toggleCode('M000250-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000250-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 101</span>
-101:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>)
-102:             <span class="ruby-keyword kw">begin</span>
-103:                 <span class="ruby-identifier">hosts</span> = []
-104:                 <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
-105:                     <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-value str">&quot;ping&quot;</span>, <span class="ruby-value str">&quot;discovery&quot;</span>, <span class="ruby-identifier">filter</span>)
-106:                     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Waiting #{timeout} seconds for discovery replies to request #{reqid}&quot;</span>)
-107: 
-108:                     <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
-109:                         <span class="ruby-identifier">msg</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
-110:                         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Got discovery reply from #{msg[:senderid]}&quot;</span>)
-111:                         <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">:senderid</span>]
-112:                     <span class="ruby-keyword kw">end</span>
-113:                 <span class="ruby-keyword kw">end</span>
-114:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-115:                 <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">sort</span>
-116:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-117:                 <span class="ruby-identifier">raise</span>
-118:             <span class="ruby-keyword kw">end</span>
-119:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 114</span>
+114:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>=<span class="ruby-value">0</span>)
+115:       <span class="ruby-identifier">raise</span> <span class="ruby-value str">&quot;Limit has to be an integer&quot;</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">limit</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Fixnum</span>)
+116: 
+117:       <span class="ruby-keyword kw">begin</span>
+118:         <span class="ruby-identifier">hosts</span> = []
+119:         <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword kw">do</span>
+120:           <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-value str">&quot;ping&quot;</span>, <span class="ruby-value str">&quot;discovery&quot;</span>, <span class="ruby-identifier">filter</span>)
+121:           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Waiting #{timeout} seconds for discovery replies to request #{reqid}&quot;</span>)
+122: 
+123:           <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+124:             <span class="ruby-identifier">reply</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
+125:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Got discovery reply from #{reply.payload[:senderid]}&quot;</span>)
+126:             <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>]
+127: 
+128:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">hosts</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">limit</span>
+129:           <span class="ruby-keyword kw">end</span>
+130:         <span class="ruby-keyword kw">end</span>
+131:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+132:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+133:         <span class="ruby-identifier">raise</span>
+134:       <span class="ruby-keyword kw">ensure</span>
+135:         <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-value str">&quot;discovery&quot;</span>, <span class="ruby-identifier">:reply</span>)
+136:       <span class="ruby-keyword kw">end</span>
+137: 
+138:       <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">sort</span>
+139:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000231" class="method-detail">
-        <a name="M000231"></a>
+      <div id="method-M000252" class="method-detail">
+        <a name="M000252"></a>
 
         <div class="method-heading">
-          <a href="#M000231" class="method-signature">
-          <span class="method-name">discovered_req</span><span class="method-args">(body, agent, options=false) {|resp| ...}</span>
+          <a href="#M000252" class="method-signature">
+          <span class="method-name">discovered_req</span><span class="method-args">(body, agent, options=false) {|resp.payload| ...}</span>
           </a>
         </div>
       
@@ -305,132 +316,132 @@ taken from the options hash which in turn is generally built using <a
 href="Optionparser.html">MCollective::Optionparser</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000231-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000231-source">
+            onclick="toggleCode('M000252-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000252-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 173</span>
-173:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discovered_req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>)
-174:             <span class="ruby-identifier">stat</span> = {<span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">:discoverytime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:blocktime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:totaltime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}
-175: 
-176:             <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
-177: 
-178:             <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">sync</span> = <span class="ruby-keyword kw">true</span>
-179: 
-180:             <span class="ruby-identifier">print</span>(<span class="ruby-node">&quot;Determining the amount of hosts matching filter for #{options[:disctimeout]} seconds .... &quot;</span>)
-181: 
-182:             <span class="ruby-keyword kw">begin</span>
-183:                 <span class="ruby-identifier">discovered_hosts</span> = <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>], <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:disctimeout</span>])
-184:                 <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">size</span>
-185:                 <span class="ruby-identifier">hosts_responded</span> = []
-186:                 <span class="ruby-identifier">hosts_not_responded</span> = <span class="ruby-identifier">discovered_hosts</span>
-187: 
-188:                 <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
-189: 
-190:                 <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{discovered}\n\n&quot;</span>)
-191:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span>
-192:                 <span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;Discovery interrupted.&quot;</span>)
-193:                 <span class="ruby-identifier">exit!</span>
-194:             <span class="ruby-keyword kw">end</span>
-195: 
-196:             <span class="ruby-identifier">raise</span>(<span class="ruby-value str">&quot;No matching clients found&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">discovered</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-197: 
-198:             <span class="ruby-keyword kw">begin</span>
-199:                 <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:timeout</span>]) <span class="ruby-keyword kw">do</span>
-200:                     <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>])
-201: 
-202:                     (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">discovered</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
-203:                         <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
-204: 
-205:                         <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:senderid</span>]
-206:                         <span class="ruby-identifier">hosts_not_responded</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:senderid</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hosts_not_responded</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">resp</span>[<span class="ruby-identifier">:senderid</span>])
+     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 201</span>
+201:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">discovered_req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>)
+202:       <span class="ruby-identifier">stat</span> = {<span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">:discoverytime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:blocktime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:totaltime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}
+203: 
+204:       <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
+205: 
+206:       <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">sync</span> = <span class="ruby-keyword kw">true</span>
 207: 
-208:                         <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">resp</span>)
-209:                     <span class="ruby-keyword kw">end</span>
-210:                 <span class="ruby-keyword kw">end</span>
-211:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-212:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-213:             <span class="ruby-keyword kw">end</span>
-214: 
-215:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
-216:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:blocktime</span>] = <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>]
-217:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responses</span>] = <span class="ruby-identifier">hosts_responded</span>.<span class="ruby-identifier">size</span>
-218:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responsesfrom</span>] = <span class="ruby-identifier">hosts_responded</span>
-219:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:noresponsefrom</span>] = <span class="ruby-identifier">hosts_not_responded</span>
-220:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discovered</span>] = <span class="ruby-identifier">discovered</span>
-221: 
-222:             <span class="ruby-ivar">@stats</span> = <span class="ruby-identifier">stat</span>
-223:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">stat</span>
-224:         <span class="ruby-keyword kw">end</span>
+208:       <span class="ruby-identifier">print</span>(<span class="ruby-node">&quot;Determining the amount of hosts matching filter for #{options[:disctimeout]} seconds .... &quot;</span>)
+209: 
+210:       <span class="ruby-keyword kw">begin</span>
+211:         <span class="ruby-identifier">discovered_hosts</span> = <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>], <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:disctimeout</span>])
+212:         <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">size</span>
+213:         <span class="ruby-identifier">hosts_responded</span> = []
+214:         <span class="ruby-identifier">hosts_not_responded</span> = <span class="ruby-identifier">discovered_hosts</span>
+215: 
+216:         <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
+217: 
+218:         <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{discovered}\n\n&quot;</span>)
+219:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span>
+220:         <span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;Discovery interrupted.&quot;</span>)
+221:         <span class="ruby-identifier">exit!</span>
+222:       <span class="ruby-keyword kw">end</span>
+223: 
+224:       <span class="ruby-identifier">raise</span>(<span class="ruby-value str">&quot;No matching clients found&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">discovered</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+225: 
+226:       <span class="ruby-keyword kw">begin</span>
+227:         <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:timeout</span>]) <span class="ruby-keyword kw">do</span>
+228:           <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>])
+229: 
+230:           (<span class="ruby-value">1</span><span class="ruby-operator">..</span><span class="ruby-identifier">discovered</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+231:             <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
+232: 
+233:             <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">resp</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>]
+234:             <span class="ruby-identifier">hosts_not_responded</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">hosts_not_responded</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>])
+235: 
+236:             <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">payload</span>)
+237:           <span class="ruby-keyword kw">end</span>
+238:         <span class="ruby-keyword kw">end</span>
+239:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+240:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+241:       <span class="ruby-keyword kw">end</span>
+242: 
+243:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
+244:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:blocktime</span>] = <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>]
+245:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responses</span>] = <span class="ruby-identifier">hosts_responded</span>.<span class="ruby-identifier">size</span>
+246:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responsesfrom</span>] = <span class="ruby-identifier">hosts_responded</span>
+247:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:noresponsefrom</span>] = <span class="ruby-identifier">hosts_not_responded</span>
+248:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discovered</span>] = <span class="ruby-identifier">discovered</span>
+249: 
+250:       <span class="ruby-ivar">@stats</span> = <span class="ruby-identifier">stat</span>
+251:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">stat</span>
+252:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000232" class="method-detail">
-        <a name="M000232"></a>
+      <div id="method-M000253" class="method-detail">
+        <a name="M000253"></a>
 
         <div class="method-heading">
-          <a href="#M000232" class="method-signature">
+          <a href="#M000253" class="method-signature">
           <span class="method-name">display_stats</span><span class="method-args">(stats, options=false, caption=&quot;stomp call summary&quot;)</span>
           </a>
         </div>
       
         <div class="method-description">
           <p>
-Prints out the stats returns from <a href="Client.html#M000230">req</a> and
-<a href="Client.html#M000231">discovered_req</a> in a nice way
+Prints out the stats returns from <a href="Client.html#M000251">req</a> and
+<a href="Client.html#M000252">discovered_req</a> in a nice way
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000232-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000232-source">
+            onclick="toggleCode('M000253-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000253-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 227</span>
-227:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_stats</span>(<span class="ruby-identifier">stats</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">caption</span>=<span class="ruby-value str">&quot;stomp call summary&quot;</span>)
-228:             <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
-229: 
-230:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:verbose</span>]
-231:                 <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;\n---- #{caption} ----&quot;</span>)
-232: 
-233:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>]
-234:                     <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;           Nodes: #{stats[:discovered]} / #{stats[:responses]}&quot;</span>)
-235:                 <span class="ruby-keyword kw">else</span>
-236:                     <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;           Nodes: #{stats[:responses]}&quot;</span>)
-237:                 <span class="ruby-keyword kw">end</span>
-238: 
-239:                 <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Start Time: %s\n&quot;</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:starttime</span>]))
-240:                 <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;  Discovery Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discoverytime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
-241:                 <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Agent Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
-242:                 <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Total Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
-243: 
-244:             <span class="ruby-keyword kw">else</span>
-245:                 <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>]
-246:                     <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;\nFinished processing %d / %d hosts in %.2f ms\n\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:responses</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
-247:                 <span class="ruby-keyword kw">else</span>
-248:                     <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;\nFinished processing %d hosts in %.2f ms\n\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:responses</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
-249:                 <span class="ruby-keyword kw">end</span>
-250:             <span class="ruby-keyword kw">end</span>
-251: 
-252:             <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:noresponsefrom</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-253:                 <span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;\nNo response from:\n&quot;</span>)
-254: 
-255:                 <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:noresponsefrom</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
-256:                     <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-257:                     <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;%30s&quot;</span>, <span class="ruby-identifier">c</span>)
-258:                 <span class="ruby-keyword kw">end</span>
-259: 
-260:                 <span class="ruby-identifier">puts</span>
-261:             <span class="ruby-keyword kw">end</span>
-262:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 255</span>
+255:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">display_stats</span>(<span class="ruby-identifier">stats</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">caption</span>=<span class="ruby-value str">&quot;stomp call summary&quot;</span>)
+256:       <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
+257: 
+258:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:verbose</span>]
+259:         <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;\n---- #{caption} ----&quot;</span>)
+260: 
+261:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>]
+262:           <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;           Nodes: #{stats[:discovered]} / #{stats[:responses]}&quot;</span>)
+263:         <span class="ruby-keyword kw">else</span>
+264:           <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;           Nodes: #{stats[:responses]}&quot;</span>)
+265:         <span class="ruby-keyword kw">end</span>
+266: 
+267:         <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Start Time: %s\n&quot;</span>, <span class="ruby-constant">Time</span>.<span class="ruby-identifier">at</span>(<span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:starttime</span>]))
+268:         <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;  Discovery Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discoverytime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
+269:         <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Agent Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
+270:         <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;      Total Time: %.2fms\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
+271: 
+272:       <span class="ruby-keyword kw">else</span>
+273:         <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>]
+274:           <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;\nFinished processing %d / %d hosts in %.2f ms\n\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:responses</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:discovered</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
+275:         <span class="ruby-keyword kw">else</span>
+276:           <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;\nFinished processing %d hosts in %.2f ms\n\n&quot;</span>, <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:responses</span>], <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:blocktime</span>] <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>)
+277:         <span class="ruby-keyword kw">end</span>
+278:       <span class="ruby-keyword kw">end</span>
+279: 
+280:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:noresponsefrom</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+281:         <span class="ruby-identifier">puts</span>(<span class="ruby-value str">&quot;\nNo response from:\n&quot;</span>)
+282: 
+283:         <span class="ruby-identifier">stats</span>[<span class="ruby-identifier">:noresponsefrom</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword kw">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+284:           <span class="ruby-identifier">puts</span> <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">c</span> <span class="ruby-operator">%</span> <span class="ruby-value">4</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+285:           <span class="ruby-identifier">printf</span>(<span class="ruby-value str">&quot;%30s&quot;</span>, <span class="ruby-identifier">c</span>)
+286:         <span class="ruby-keyword kw">end</span>
+287: 
+288:         <span class="ruby-identifier">puts</span>
+289:       <span class="ruby-keyword kw">end</span>
+290:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000228" class="method-detail">
-        <a name="M000228"></a>
+      <div id="method-M000249" class="method-detail">
+        <a name="M000249"></a>
 
         <div class="method-heading">
-          <a href="#M000228" class="method-signature">
+          <a href="#M000249" class="method-signature">
           <span class="method-name">receive</span><span class="method-args">(requestid = nil)</span>
           </a>
         </div>
@@ -446,42 +457,44 @@ that case the current connection will just ignore all messages not directed
 at it and keep waiting for more till it finds a matching message.
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000228-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000228-source">
+            onclick="toggleCode('M000249-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000249-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 77</span>
-77:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">requestid</span> = <span class="ruby-keyword kw">nil</span>)
-78:             <span class="ruby-identifier">msg</span> = <span class="ruby-keyword kw">nil</span>
-79: 
-80:             <span class="ruby-keyword kw">begin</span>
-81:                 <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
-82: 
-83:                 <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">decodemsg</span>(<span class="ruby-identifier">msg</span>)
-84: 
-85:                 <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">:senderid</span>] = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">msg</span>[<span class="ruby-identifier">:senderid</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">&quot;MCOLLECTIVE_ANON&quot;</span>)
-86: 
-87:                 <span class="ruby-identifier">raise</span>(<span class="ruby-constant">MsgDoesNotMatchRequestID</span>, <span class="ruby-node">&quot;Message reqid #{requestid} does not match our reqid #{msg[:requestid]}&quot;</span>) <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">:requestid</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">requestid</span>
-88:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SecurityValidationFailed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-89:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-value str">&quot;Ignoring a message that did not pass security validations&quot;</span>)
-90:                 <span class="ruby-keyword kw">retry</span>
-91:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">MsgDoesNotMatchRequestID</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-92:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Ignoring a message for some other client&quot;</span>)
-93:                 <span class="ruby-keyword kw">retry</span>
-94:             <span class="ruby-keyword kw">end</span>
-95: 
-96:             <span class="ruby-identifier">msg</span>
-97:         <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 84</span>
+ 84:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">requestid</span> = <span class="ruby-keyword kw">nil</span>)
+ 85:       <span class="ruby-identifier">reply</span> = <span class="ruby-keyword kw">nil</span>
+ 86: 
+ 87:       <span class="ruby-keyword kw">begin</span>
+ 88:         <span class="ruby-identifier">reply</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
+ 89:         <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">type</span> = <span class="ruby-identifier">:reply</span>
+ 90:         <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">expected_msgid</span> = <span class="ruby-identifier">requestid</span>
+ 91: 
+ 92:         <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">decode!</span>
+ 93: 
+ 94:         <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>] = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">reply</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-identifier">:senderid</span>]) <span class="ruby-keyword kw">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value str">&quot;MCOLLECTIVE_ANON&quot;</span>)
+ 95: 
+ 96:         <span class="ruby-identifier">raise</span>(<span class="ruby-constant">MsgDoesNotMatchRequestID</span>, <span class="ruby-node">&quot;Message reqid #{requestid} does not match our reqid #{reply.requestid}&quot;</span>) <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">reply</span>.<span class="ruby-identifier">requestid</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">requestid</span>
+ 97:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">SecurityValidationFailed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+ 98:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-value str">&quot;Ignoring a message that did not pass security validations&quot;</span>)
+ 99:         <span class="ruby-keyword kw">retry</span>
+100:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">MsgDoesNotMatchRequestID</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+101:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-value str">&quot;Ignoring a message for some other client&quot;</span>)
+102:         <span class="ruby-keyword kw">retry</span>
+103:       <span class="ruby-keyword kw">end</span>
+104: 
+105:       <span class="ruby-identifier">reply</span>
+106:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000230" class="method-detail">
-        <a name="M000230"></a>
+      <div id="method-M000251" class="method-detail">
+        <a name="M000251"></a>
 
         <div class="method-heading">
-          <a href="#M000230" class="method-signature">
-          <span class="method-name">req</span><span class="method-args">(body, agent, options=false, waitfor=0) {|resp| ...}</span>
+          <a href="#M000251" class="method-signature">
+          <span class="method-name">req</span><span class="method-args">(body, agent=nil, options=false, waitfor=0) {|resp.payload| ...}</span>
           </a>
         </div>
       
@@ -490,7 +503,7 @@ at it and keep waiting for more till it finds a matching message.
 Send a request, performs the passed block for each response
 </p>
 <p>
-times = <a href="Client.html#M000230">req</a>(&quot;status&quot;,
+times = <a href="Client.html#M000251">req</a>(&quot;status&quot;,
 &quot;mcollectived&quot;, options, client) {|resp|
 </p>
 <pre>
@@ -505,55 +518,63 @@ taken from the options hash which in turn is generally built using <a
 href="Optionparser.html">MCollective::Optionparser</a>
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000230-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000230-source">
+            onclick="toggleCode('M000251-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000251-source">
 <pre>
-     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 129</span>
-129:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">waitfor</span>=<span class="ruby-value">0</span>)
-130:             <span class="ruby-identifier">stat</span> = {<span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">:discoverytime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:blocktime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:totaltime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}
-131: 
-132:             <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
-133: 
-134:             <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">sync</span> = <span class="ruby-keyword kw">true</span>
-135: 
-136:             <span class="ruby-identifier">hosts_responded</span> = <span class="ruby-value">0</span>
-137: 
-138:             <span class="ruby-keyword kw">begin</span>
-139:                 <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:timeout</span>]) <span class="ruby-keyword kw">do</span>
-140:                     <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>])
-141: 
-142:                     <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
-143:                         <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
-144: 
-145:                         <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-146: 
-147:                         <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">resp</span>)
-148: 
-149:                         <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">waitfor</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">waitfor</span>)
-150:                     <span class="ruby-keyword kw">end</span>
-151:                 <span class="ruby-keyword kw">end</span>
-152:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-153:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-154:             <span class="ruby-keyword kw">end</span>
+     <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 149</span>
+149:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>=<span class="ruby-keyword kw">nil</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword kw">false</span>, <span class="ruby-identifier">waitfor</span>=<span class="ruby-value">0</span>)
+150:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Message</span>)
+151:         <span class="ruby-identifier">agent</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">agent</span>
+152:         <span class="ruby-identifier">options</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">options</span>
+153:         <span class="ruby-identifier">waitfor</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+154:       <span class="ruby-keyword kw">end</span>
 155: 
-156:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
-157:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:blocktime</span>] = <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>]
-158:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responses</span>] = <span class="ruby-identifier">hosts_responded</span>
-159:             <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:noresponsefrom</span>] = []
-160: 
-161:             <span class="ruby-ivar">@stats</span> = <span class="ruby-identifier">stat</span>
-162:             <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">stat</span>
-163:         <span class="ruby-keyword kw">end</span>
+156:       <span class="ruby-identifier">stat</span> = {<span class="ruby-identifier">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>, <span class="ruby-identifier">:discoverytime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:blocktime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>, <span class="ruby-identifier">:totaltime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>}
+157: 
+158:       <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword kw">unless</span> <span class="ruby-identifier">options</span>
+159: 
+160:       <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">sync</span> = <span class="ruby-keyword kw">true</span>
+161: 
+162:       <span class="ruby-identifier">hosts_responded</span> = <span class="ruby-value">0</span>
+163: 
+164:       <span class="ruby-keyword kw">begin</span>
+165:         <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">options</span>[<span class="ruby-identifier">:timeout</span>]) <span class="ruby-keyword kw">do</span>
+166:           <span class="ruby-identifier">reqid</span> = <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>[<span class="ruby-identifier">:filter</span>])
+167: 
+168:           <span class="ruby-identifier">loop</span> <span class="ruby-keyword kw">do</span>
+169:             <span class="ruby-identifier">resp</span> = <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">reqid</span>)
+170: 
+171:             <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+172: 
+173:             <span class="ruby-keyword kw">yield</span>(<span class="ruby-identifier">resp</span>.<span class="ruby-identifier">payload</span>)
+174: 
+175:             <span class="ruby-keyword kw">break</span> <span class="ruby-keyword kw">if</span> (<span class="ruby-identifier">waitfor</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hosts_responded</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">waitfor</span>)
+176:           <span class="ruby-keyword kw">end</span>
+177:         <span class="ruby-keyword kw">end</span>
+178:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Interrupt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+179:       <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+180:       <span class="ruby-keyword kw">ensure</span>
+181:         <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:reply</span>)
+182:       <span class="ruby-keyword kw">end</span>
+183: 
+184:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:starttime</span>]
+185:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:blocktime</span>] = <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:totaltime</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:discoverytime</span>]
+186:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:responses</span>] = <span class="ruby-identifier">hosts_responded</span>
+187:       <span class="ruby-identifier">stat</span>[<span class="ruby-identifier">:noresponsefrom</span>] = []
+188: 
+189:       <span class="ruby-ivar">@stats</span> = <span class="ruby-identifier">stat</span>
+190:       <span class="ruby-keyword kw">return</span> <span class="ruby-identifier">stat</span>
+191:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
       </div>
 
-      <div id="method-M000227" class="method-detail">
-        <a name="M000227"></a>
+      <div id="method-M000246" class="method-detail">
+        <a name="M000246"></a>
 
         <div class="method-heading">
-          <a href="#M000227" class="method-signature">
+          <a href="#M000246" class="method-signature">
           <span class="method-name">sendreq</span><span class="method-args">(msg, agent, filter = {})</span>
           </a>
         </div>
@@ -565,40 +586,88 @@ for responses and doesn&#8216;t execute any passed in code blocks for
 responses
 </p>
           <p><a class="source-toggle" href="#"
-            onclick="toggleCode('M000227-source');return false;">[Source]</a></p>
-          <div class="method-source-code" id="M000227-source">
+            onclick="toggleCode('M000246-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000246-source">
 <pre>
-    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 40</span>
-40:         <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">filter</span> = {})
-41:             <span class="ruby-identifier">target</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:command</span>, <span class="ruby-identifier">collective</span>)
-42: 
-43:             <span class="ruby-identifier">reqid</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-node">&quot;#{@config.identity}-#{Time.now.to_f.to_s}-#{target}&quot;</span>)
-44: 
-45:             <span class="ruby-comment cmt"># Security plugins now accept an agent and collective, ones written for &lt;= 1.1.4 dont</span>
-46:             <span class="ruby-comment cmt"># but we still want to support them, try to call them in a compatible way if they</span>
-47:             <span class="ruby-comment cmt"># dont support the new arguments</span>
-48:             <span class="ruby-keyword kw">begin</span>
-49:                 <span class="ruby-identifier">req</span> = <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">encoderequest</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">collective</span>)
-50:             <span class="ruby-keyword kw">rescue</span> <span class="ruby-constant">ArgumentError</span>
-51:                 <span class="ruby-identifier">req</span> = <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">encoderequest</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">filter</span>)
-52:             <span class="ruby-keyword kw">end</span>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 38</span>
+38:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">filter</span> = {})
+39:       <span class="ruby-keyword kw">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Message</span>)
+40:         <span class="ruby-identifier">request</span> = <span class="ruby-identifier">msg</span>
+41:         <span class="ruby-identifier">agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
+42:       <span class="ruby-keyword kw">else</span>
+43:         <span class="ruby-identifier">ttl</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:ttl</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">ttl</span>
+44:         <span class="ruby-identifier">request</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-keyword kw">nil</span>, {<span class="ruby-identifier">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">:request</span>, <span class="ruby-identifier">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">:ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>})
+45:         <span class="ruby-identifier">request</span>.<span class="ruby-identifier">reply_to</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:reply_to</span>] <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-identifier">:reply_to</span>]
+46:       <span class="ruby-keyword kw">end</span>
+47: 
+48:       <span class="ruby-identifier">request</span>.<span class="ruby-identifier">encode!</span>
+49: 
+50:       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}&quot;</span>)
+51: 
+52:       <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:reply</span>)
 53: 
-54:             <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending request #{reqid} to #{target}&quot;</span>)
+54:       <span class="ruby-identifier">request</span>.<span class="ruby-identifier">publish</span>
 55: 
-56:             <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
-57:                 <span class="ruby-identifier">topic</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">:reply</span>, <span class="ruby-identifier">collective</span>)
-58:                 <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{topic}&quot;</span>)
-59: 
-60:                 <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">topic</span>)
-61:                 <span class="ruby-ivar">@subscriptions</span>[<span class="ruby-identifier">agent</span>] = <span class="ruby-value">1</span>
-62:             <span class="ruby-keyword kw">end</span>
+56:       <span class="ruby-identifier">request</span>.<span class="ruby-identifier">requestid</span>
+57:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000247" class="method-detail">
+        <a name="M000247"></a>
+
+        <div class="method-heading">
+          <a href="#M000247" class="method-signature">
+          <span class="method-name">subscribe</span><span class="method-args">(agent, type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000247-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000247-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 59</span>
+59:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>)
+60:       <span class="ruby-keyword kw">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
+61:         <span class="ruby-identifier">subscription</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+62:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{type} target for agent #{agent}&quot;</span>)
 63: 
-64:             <span class="ruby-constant">Timeout</span>.<span class="ruby-identifier">timeout</span>(<span class="ruby-value">2</span>) <span class="ruby-keyword kw">do</span>
-65:                 <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">req</span>)
-66:             <span class="ruby-keyword kw">end</span>
-67: 
-68:             <span class="ruby-identifier">reqid</span>
-69:         <span class="ruby-keyword kw">end</span>
+64:         <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">subscription</span>)
+65:         <span class="ruby-ivar">@subscriptions</span>[<span class="ruby-identifier">agent</span>] = <span class="ruby-value">1</span>
+66:       <span class="ruby-keyword kw">end</span>
+67:     <span class="ruby-keyword kw">end</span>
+</pre>
+          </div>
+        </div>
+      </div>
+
+      <div id="method-M000248" class="method-detail">
+        <a name="M000248"></a>
+
+        <div class="method-heading">
+          <a href="#M000248" class="method-signature">
+          <span class="method-name">unsubscribe</span><span class="method-args">(agent, type)</span>
+          </a>
+        </div>
+      
+        <div class="method-description">
+          <p><a class="source-toggle" href="#"
+            onclick="toggleCode('M000248-source');return false;">[Source]</a></p>
+          <div class="method-source-code" id="M000248-source">
+<pre>
+    <span class="ruby-comment cmt"># File lib/mcollective/client.rb, line 69</span>
+69:     <span class="ruby-keyword kw">def</span> <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>)
+70:       <span class="ruby-keyword kw">if</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
+71:         <span class="ruby-identifier">subscription</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+72:         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unsubscribing #{type} target for #{agent}&quot;</span>)
+73: 
+74:         <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">subscription</span>)
+75:         <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">agent</span>)
+76:       <span class="ruby-keyword kw">end</span>
+77:     <span class="ruby-keyword kw">end</span>
 </pre>
           </div>
         </div>
