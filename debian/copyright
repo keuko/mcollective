@@ -1,10 +1,10 @@
-Format-Specification: http://anonscm.debian.org/viewvc/dep/web/deps/dep5.mdwn?revision=135
-Maintainer: R.I.Pienaar <rip@devco.net>
+Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Upstream-Contact: R.I.Pienaar <rip@devco.net>
 Source: http://downloads.puppetlabs.com/mcollective/
-Name: Mcollective
+Upstream-Name: Mcollective
 
 Files: *
-Copyright: 2010 - 2011 Puppet Labs
+Copyright: 2010-2011 Puppet Labs
 License: Apache
 
 Files: ext/stompclient
@@ -12,12 +12,12 @@ Copyright: R.I.Pienaar <rip@devco.net>
 License: Apache
 
 Files: ext/action_helpers/perl/lib/MCollective/Action.pm
-Copyright: 2011, Richard Clamp
+Copyright: 2011 Richard Clamp <richardc@unixbeard.net>
 License: Artistic or GPL-1
 
 Files: debian/*
-Copyright: 2010 - 2011, Riccardo Setti <giskard@debian.org>
- 2011, Jonas Genannt <jonas.genannt@capi2name.de>
+Copyright: 2010-2011 Riccardo Setti <giskard@debian.org>
+           2011 Jonas Genannt <jonas.genannt@capi2name.de>
 License: Apache
 
 License: Apache

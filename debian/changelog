@@ -5,6 +5,7 @@ mcollective (1.2.1+dfsg-3) UNRELEASED; urgency=low
   * d/mcollective.triggers: Merged from Ubuntu package
   * Adding initial Dutch debconf translation from
     Jeroen Schot <schot@A-Eskwadraat.nl> (Closes: #671301)
+  * d/copyright: updated to version 1.0
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Wed, 30 Nov 2011 19:20:29 +0100
 
