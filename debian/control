@@ -31,13 +31,7 @@ Description: Marionette Collective clustering framework - clients
  .
  This package provides the MCollective client utilities:
   * mco
-  * mc-rpc
-  * mc-facts
-  * mc-find-hosts
-  * mc-ping
   * mc-call-agent
-  * mc-controller
-  * mc-inventory
 
 Package: mcollective-common
 Architecture: all
