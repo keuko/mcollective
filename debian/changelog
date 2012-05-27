@@ -1,5 +1,6 @@
-mcollective (1.2.1+dfsg-3) UNRELEASED; urgency=low
+mcollective (2.0.0+dfsg-1) unstable; urgency=low
 
+  * New Upstream Release
   * d/mcollective.README.Debian: added note about the log feature
    of ActiveMQ. Thanks to R.I.Pienaar for the advice.
   * d/mcollective.triggers: Merged from Ubuntu package
@@ -7,8 +8,9 @@ mcollective (1.2.1+dfsg-3) UNRELEASED; urgency=low
     Jeroen Schot <schot@A-Eskwadraat.nl> (Closes: #671301)
   * d/copyright: updated to version 1.0
   * d/control: updated standards version
+  * d/control: updated binary list of mcollective-client
 
- -- Jonas Genannt <jonas.genannt@capi2name.de>  Wed, 30 Nov 2011 19:20:29 +0100
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Sun, 27 May 2012 16:53:56 +0200
 
 mcollective (1.2.1+dfsg-2) unstable; urgency=low
 
