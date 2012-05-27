@@ -1,0 +1,10 @@
+mcollective (2.0.0+dfsg-1) unstable; urgency=low
+
+   This release is not compatible with older versions. Client scripts and agents
+   written for older versions will continue to work but a network hosting both
+   2.0.0 clients and older one will effectively be split into 2 networks. While
+   planning your upgrade you should plan to have machines running the client for
+   both versions to retain full control during upgrade. The upgrade is best done
+   in an scheduled window where all machines are updated together.
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Sun, 27 May 2012 16:53:56 +0200
