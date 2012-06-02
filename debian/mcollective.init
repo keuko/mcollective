@@ -17,7 +17,6 @@ DESC="Marionette Collective daemon"
 NAME=mcollective
 DAEMON=/usr/sbin/mcollectived
 PIDFILE=/run/$NAME.pid
-LOCKFILE="/var/lock/mcollective"
 DAEMON_ARGS="--config=/etc/mcollective/server.cfg --pid=$PIDFILE"
 SCRIPTNAME=/etc/init.d/$NAME
 RUN=no
@@ -31,22 +30,15 @@ RUN=no
 
 . /lib/lsb/init-functions
 
-if [ "$RUN" != "yes" ] ; then
-	echo "mcollective disabled in /etc/default/mcollective"
-	exit 0
-fi
 
 do_start()
 {
-	if [ -f ${LOCKFILE} ]; then
-		# we were not shut down correctly
-		if [ -s ${PIDFILE} ]; then
-			kill `cat ${PIDFILE}` >/dev/null 2>&1
-		fi
-		rm -f ${LOCKFILE}
-		sleep 2
+	if [ "$RUN" != "yes" ] ; then
+		log_progress_msg "(disabled)"
+		log_end_msg 0
+
+		exit 0
 	fi
-	rm -f ${PIDFILE}
 	start-stop-daemon --start --quiet --pidfile $PIDFILE \
 		--startas $DAEMON -- $DAEMON_ARGS \
 		|| return 2
@@ -58,7 +50,6 @@ do_stop()
 		kill `cat ${PIDFILE}` >/dev/null 2>&1
 	fi
 	rm -f $PIDFILE
-	rm -f $LOCKFILE
 	return "0"
 }
 

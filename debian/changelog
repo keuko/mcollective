@@ -1,6 +1,10 @@
 mcollective (2.0.0+dfsg-2) unstable; urgency=low
 
   * moved pid file to /run, added dependency of initscripts
+  * d/mcollective.init Solved problem that caused multiple MCollective
+    daemons could be started.
+  * d/mcollecitve.init Now able to stop MCollective if it's disabled at
+    etc/default/mcollective
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Sat, 02 Jun 2012 16:04:03 +0200
 
