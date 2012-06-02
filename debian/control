@@ -12,7 +12,10 @@ Vcs-Browser: http://git.debian.org/?p=pkg-puppet/mcollective.git
 
 Package: mcollective
 Architecture: all
-Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
+Depends: ${misc:Depends},
+ ruby | ruby-interpreter,
+ mcollective-common (>= ${source:Version}),
+ initscripts (>= 2.88dsf-13.3)
 Suggests: activemq
 Recommends: mcollective-client
 Description: Marionette Collective clustering framework - server

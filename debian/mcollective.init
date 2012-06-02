@@ -16,7 +16,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Marionette Collective daemon"
 NAME=mcollective
 DAEMON=/usr/sbin/mcollectived
-PIDFILE=/var/run/$NAME.pid
+PIDFILE=/run/$NAME.pid
 LOCKFILE="/var/lock/mcollective"
 DAEMON_ARGS="--config=/etc/mcollective/server.cfg --pid=$PIDFILE"
 SCRIPTNAME=/etc/init.d/$NAME
@@ -95,7 +95,7 @@ case "$1" in
 		esac
 		;;
 	  *)
-	  	# Failed to stop
+		# Failed to stop
 		log_end_msg 1
 		;;
 	esac

@@ -1,3 +1,9 @@
+mcollective (2.0.0+dfsg-2) unstable; urgency=low
+
+  * moved pid file to /run, added dependency of initscripts
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Sat, 02 Jun 2012 16:04:03 +0200
+
 mcollective (2.0.0+dfsg-1) unstable; urgency=low
 
   * New Upstream Release
