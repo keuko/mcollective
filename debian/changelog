@@ -1,4 +1,4 @@
-mcollective (2.0.0+dfsg-2) unstable; urgency=low
+mcollective (2.0.0+dfsg-2) UNRELEASED; urgency=low
 
   * moved pid file to /run, added dependency of initscripts
   * d/mcollective.init Solved problem that caused multiple MCollective
