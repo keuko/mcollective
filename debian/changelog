@@ -5,6 +5,7 @@ mcollective (2.0.0+dfsg-2) UNRELEASED; urgency=low
     daemons could be started.
   * d/mcollecitve.init Now able to stop MCollective if it's disabled at
     etc/default/mcollective
+  * d/watch: updated uversionmangle version to new development version 2.1.x
 
  -- Jonas Genannt <jonas.genannt@capi2name.de>  Sat, 02 Jun 2012 16:04:03 +0200
 
