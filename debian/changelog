@@ -8,7 +8,7 @@ mcollective (2.0.0+dfsg-2) unstable; urgency=low
   * d/control: added gemdeb, MCollective Debian package supports now
     ruby 1.8 and ruby 1.9.3
 
- -- Jonas Genannt <jonas.genannt@capi2name.de>  Sat, 02 Jun 2012 16:04:03 +0200
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Sat, 30 Jun 2012 20:11:19 +0200
 
 mcollective (2.0.0+dfsg-1) unstable; urgency=low
 
