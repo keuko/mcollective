@@ -16,7 +16,7 @@ PATH=/usr/local/sbin:/usr/local/bin:/sbin:/bin:/usr/sbin:/usr/bin
 DESC="Marionette Collective daemon"
 NAME=mcollective
 DAEMON=/usr/sbin/mcollectived
-PIDFILE=/run/$NAME.pid
+PIDFILE=/var/run/$NAME.pid
 DAEMON_ARGS="--config=/etc/mcollective/server.cfg --pid=$PIDFILE"
 SCRIPTNAME=/etc/init.d/$NAME
 RUN=no

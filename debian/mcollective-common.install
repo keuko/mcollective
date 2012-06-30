@@ -1,4 +1,4 @@
-usr/lib/ruby/1.8/* usr/lib/ruby/1.8/
+usr/lib/ruby/1.8/* usr/lib/ruby/vendor_ruby/
 etc/mcollective/facts.yaml etc/mcollective
 etc/mcollective/rpc-help.erb etc/mcollective
 usr/share/mcollective/plugins usr/share/mcollective
