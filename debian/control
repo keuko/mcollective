@@ -7,8 +7,8 @@ Build-Depends: debhelper (>= 8), gem2deb (>= 0.3.0~)
 DM-Upload-Allowed: yes
 Standards-Version: 3.9.3
 Homepage: http://projects.puppetlabs.com/projects/mcollective
-Vcs-Git: git://git.debian.org/git/pkg-puppet/mcollective.git
-Vcs-Browser: http://git.debian.org/?p=pkg-puppet/mcollective.git
+Vcs-Git: git://anonscm.debian.org/pkg-puppet/mcollective.git
+Vcs-Browser: http://anonscm.debian.org/gitweb/?p=pkg-puppet/mcollective.git
 XS-Ruby-Versions: all
 
 Package: mcollective
