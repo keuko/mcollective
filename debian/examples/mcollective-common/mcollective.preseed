@@ -5,6 +5,6 @@ mcollective-common	mcollective/stomp_password	password	mypassword
 mcollective-common	mcollective/security_psk	string	unset
 mcollective-common	mcollective/stomp_host	string	localhost
 mcollective-common	mcollective/stomp_user	string	mcollective
-mcollective-common	mcollective/stomp_port	string	6163
+mcollective-common	mcollective/stomp_port	string	61613
 
 ###############################################################################

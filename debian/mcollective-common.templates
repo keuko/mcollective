@@ -23,7 +23,7 @@ _Description: Message Queue server host:
 
 Template: mcollective/stomp_port
 Type: string
-Default: 6163
+Default: 61613
 _Description: Message Queue server port:
  Please specify the listening port of the Message Queue server.
 
