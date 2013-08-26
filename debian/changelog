@@ -1,3 +1,18 @@
+mcollective (2.0.0+dfsg-3) unstable; urgency=low
+
+  * d/control: removed DM-Upload allow
+  * Adding initial Japanese debconf translation from
+    victory <victory.deb@gmail.com> (Closes: #692045)
+  * changed activemq port to 61613
+    (Thanks Michael Prokop <mika@debian.org>) (Closes: #701088)
+  * d/control: bumped standards version
+  * fixed wrong port 6163 => 61613 (templates / preseed) files
+  * mcollective: activemq configuration example includes broken queue setting
+    (Thanks Michael Prokop <mika@debian.org> ) (Closes: #701079)
+  * added Systemd Service file
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Mon, 26 Aug 2013 10:41:54 +0200
+
 mcollective (2.0.0+dfsg-2) unstable; urgency=low
 
   * d/mcollective.init Solved problem that caused multiple MCollective
