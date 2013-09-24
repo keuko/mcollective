@@ -1,3 +1,9 @@
+mcollective (2.0.0+dfsg-4) unstable; urgency=low
+
+  * d/control: removed rubygems dependency (Closes: #724317)
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Tue, 24 Sep 2013 20:42:18 +0200
+
 mcollective (2.0.0+dfsg-3) unstable; urgency=low
 
   * d/control: removed DM-Upload allow
