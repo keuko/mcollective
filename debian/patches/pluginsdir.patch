@@ -2,12 +2,9 @@ Description: Move plugins dir
 Author: <marc.cluet@ubuntu.com>
 Upstream: no
 
-diff --git a/etc/client.cfg.dist b/etc/client.cfg.dist
-index 3ad4203..dfb6530 100644
 --- a/etc/client.cfg.dist
 +++ b/etc/client.cfg.dist
-@@ -1,7 +1,7 @@
- topicprefix = /topic/
+@@ -1,6 +1,6 @@
  main_collective = mcollective
  collectives = mcollective
 -libdir = /usr/libexec/mcollective
@@ -15,12 +12,9 @@ index 3ad4203..dfb6530 100644
  logger_type = console
  loglevel = warn
  
-diff --git a/etc/server.cfg.dist b/etc/server.cfg.dist
-index 4fec901..487f64e 100644
 --- a/etc/server.cfg.dist
 +++ b/etc/server.cfg.dist
-@@ -1,7 +1,7 @@
- topicprefix = /topic/
+@@ -1,6 +1,6 @@
  main_collective = mcollective
  collectives = mcollective
 -libdir = /usr/libexec/mcollective
