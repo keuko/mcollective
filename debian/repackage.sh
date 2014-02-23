@@ -15,7 +15,7 @@ fi
 
 TEMP_DIR=$(mktemp -d)
 
-MC_VERSION=$(echo ${TARARCHIVE} | sed -e 's@.*-@@' -e 's@.tgz@@')
+MC_VERSION=$(echo ${TARARCHIVE} | sed -e 's@.*-@@' -e 's@.tar.gz@@')
 
 echo "Found Mcollective Version ${MC_VERSION}"
 
@@ -30,6 +30,9 @@ rm -rf ${TEMP_DIR}/mcollective-${MC_VERSION}/lib/mcollective/vendor/load_systemu
 # strip included stuff to build ActiveMQ rpm package
 rm -rf ${TEMP_DIR}/mcollective-${MC_VERSION}/ext/activemq/wlcg-patch.tgz
 rm -rf ${TEMP_DIR}/mcollective-${MC_VERSION}/ext/activemq/apache-activemq.spec
+
+# strip includes javascript files
+rm -rf ${TEMP_DIR}/mcollective-${MC_VERSION}/doc/js
 
 cd ${TEMP_DIR}
 tar cvz mcollective-${MC_VERSION} -f ${CURDIR}/mcollective_${MC_VERSION}+dfsg.orig.tar.gz
