@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class MCollective::Message - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/message.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-base64-3F">#base64?</a>
+    
+    <li ><a href="#method-i-base64_decode-21">#base64_decode!</a>
+    
+    <li ><a href="#method-i-base64_encode-21">#base64_encode!</a>
+    
+    <li ><a href="#method-i-create_reqid">#create_reqid</a>
+    
+    <li ><a href="#method-i-decode-21">#decode!</a>
+    
+    <li ><a href="#method-i-encode-21">#encode!</a>
+    
+    <li ><a href="#method-i-expected_msgid-3D">#expected_msgid=</a>
+    
+    <li ><a href="#method-i-publish">#publish</a>
+    
+    <li ><a href="#method-i-reply_to-3D">#reply_to=</a>
+    
+    <li ><a href="#method-i-type-3D">#type=</a>
+    
+    <li ><a href="#method-i-validate">#validate</a>
+    
+    <li ><a href="#method-i-validate_compound_filter">#validate_compound_filter</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MCollective::Message</h1>
+
+  <div id="description" class="description">
+    
+<p>container for a message, its headers, agent, collective and other meta data</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="VALIDTYPES">VALIDTYPES
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-agent" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">agent</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-collective" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">collective</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-discovered_hosts" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">discovered_hosts</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-expected_msgid" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">expected_msgid</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-filter" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">filter</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-headers" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">headers</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-message" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">message</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-msgtime" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">msgtime</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-options" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">options</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-payload" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">payload</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-reply_to" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">reply_to</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-request" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">request</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-requestid" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">requestid</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-ttl" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">ttl</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-type" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">type</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-validated" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">validated</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(payload, message, options = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>payload                  - the message body without headers etc, just the
+text message                  - the original message received from the
+middleware <a href="http://:base64">options</a>         - if the body
+base64 encoded? <a href="http://:agent">options</a>          - the agent
+the message is for/from <a href="http://:collective">options</a>     - the
+collective its for/from <a href="http://:headers">options</a>        - the
+message headers <a href="http://:type">options</a>           - an indicator
+about the type of message, :message, :request, :direct_request or :reply <a
+href="http://:request">options</a>        - if this is a reply this should
+old the message we are replying to <a href="http://:filter">options</a>    
+- for requests, the filter to encode into the message <a
+href="http://:options">options</a>        - the normal client options hash
+<a href="http://:ttl">options</a>            - the maximum amount of
+seconds this message can be valid for <a
+href="http://:expected_msgid">options</a> - in the case of replies this is
+the msgid it is expecting in the replies <a
+href="http://:requestid">options</a>      - specific request id to use else
+one will be generated</p>
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">options</span> = {})
+  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+             <span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+             <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {},
+             <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:message</span>,
+             <span class="ruby-value">:request</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+             <span class="ruby-value">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>,
+             <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> {},
+             <span class="ruby-value">:ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">60</span>,
+             <span class="ruby-value">:expected_msgid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+             <span class="ruby-value">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+             <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+
+  <span class="ruby-ivar">@payload</span> = <span class="ruby-identifier">payload</span>
+  <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">message</span>
+  <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:requestid</span>]
+  <span class="ruby-ivar">@discovered_hosts</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@reply_to</span> = <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:type</span>]
+  <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:headers</span>]
+  <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:base64</span>]
+  <span class="ruby-ivar">@filter</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>]
+  <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:expected_msgid</span>]
+  <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:options</span>]
+
+  <span class="ruby-ivar">@ttl</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:ttl</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ttl</span>
+  <span class="ruby-ivar">@msgtime</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">false</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
+    <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
+    <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
+    <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">collective</span>
+    <span class="ruby-ivar">@type</span> = <span class="ruby-value">:reply</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:agent</span>]
+    <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:collective</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">base64_decode!</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-base64-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base64?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base64-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64?</span>
+  <span class="ruby-ivar">@base64</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- base64-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- base64-3F-method -->
+
+    
+      <div id="method-i-base64_decode-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base64_decode!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base64_decode-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_decode!</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@base64</span>
+
+  <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-ivar">@payload</span>)
+  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- base64_decode-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- base64_decode-21-method -->
+
+    
+      <div id="method-i-base64_encode-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">base64_encode!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="base64_encode-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 122</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_encode!</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
+
+  <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-ivar">@payload</span>)
+  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- base64_encode-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- base64_encode-21-method -->
+
+    
+      <div id="method-i-create_reqid" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_reqid</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_reqid-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 226</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_reqid</span>
+  <span class="ruby-comment"># we gsub out the -s so that the format of the id does not</span>
+  <span class="ruby-comment"># change from previous versions, these should just be more</span>
+  <span class="ruby-comment"># unique than previous ones</span>
+  <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;-&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_reqid-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_reqid-method -->
+
+    
+      <div id="method-i-decode-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">decode!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="decode-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">decode!</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot decode message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:reply</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+
+  <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">decodemsg</span>(<span class="ruby-keyword">self</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+  <span class="ruby-keyword">end</span>
+
+  [<span class="ruby-value">:collective</span>, <span class="ruby-value">:agent</span>, <span class="ruby-value">:filter</span>, <span class="ruby-value">:requestid</span>, <span class="ruby-value">:ttl</span>, <span class="ruby-value">:msgtime</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{prop}&quot;</span>, <span class="ruby-identifier">payload</span>[<span class="ruby-identifier">prop</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">prop</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- decode-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- decode-21-method -->
+
+    
+      <div id="method-i-encode-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encode!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="encode-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 133</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encode!</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot encode a reply message if no request has been associated with it&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">request</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in original request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+
+      <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:requestid</span>]
+      <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>
+      <span class="ruby-identifier">validate_compound_filter</span>(<span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
+
+      <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">create_reqid</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@requestid</span>
+      <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encoderequest</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">ttl</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot encode #{type} messages&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- encode-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- encode-21-method -->
+
+    
+      <div id="method-i-expected_msgid-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">expected_msgid=</span><span
+            class="method-args">(msgid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>in the case of reply messages we are expecting replies to a previously
+created message.  This stores a hint to that previously sent message id and
+can be used by other classes like the security plugins as a means of
+optimizing their behavior like by ignoring messages not directed at us.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="expected_msgid-3D-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">expected_msgid=</span>(<span class="ruby-identifier">msgid</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only store the expected msgid for reply messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+  <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">msgid</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- expected_msgid-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- expected_msgid-3D-method -->
+
+    
+      <div id="method-i-publish" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">publish</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>publish a reply message by creating a target name and sending it</p>
+          
+          
+
+          
+          <div class="method-source-code" id="publish-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 213</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>
+  <span class="ruby-comment"># If we&#39;ve been specificaly told about hosts that were discovered</span>
+  <span class="ruby-comment"># use that information to do P2P calls if appropriate else just</span>
+  <span class="ruby-comment"># send it as is.</span>
+  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing_threshold</span>)
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">type</span> = <span class="ruby-value">:direct_request</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Handling #{requestid} as a direct request&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&#39;connector_plugin&#39;</span>].<span class="ruby-identifier">publish</span>(<span class="ruby-keyword">self</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- publish-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- publish-method -->
+
+    
+      <div id="method-i-reply_to-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reply_to=</span><span
+            class="method-args">(target)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Sets a custom reply-to target for requests.  The connector plugin should
+inspect this when constructing requests and set this header ensuring
+replies will go to the custom target otherwise the connector should just do
+what it usually does</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reply_to-3D-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reply_to=</span>(<span class="ruby-identifier">target</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Custom reply targets can only be set on requests&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@type</span>)
+
+  <span class="ruby-ivar">@reply_to</span> = <span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reply_to-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reply_to-3D-method -->
+
+    
+      <div id="method-i-type-3D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">type=</span><span
+            class="method-args">(type)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Sets the message type to one of the known types.  In the case of
+:direct_request the list of hosts to communicate with should have been set
+with <a
+href="Message.html#attribute-i-discovered_hosts">discovered_hosts</a> else
+an exception will be raised.  This is for extra security, we never
+accidentally want to send a direct request without a list of hosts or
+something weird like that as it might result in a filterless broadcast
+being sent.</p>
+
+<p>Additionally you simply cannot set :direct_request if direct_addressing was
+not enabled this is to force a workflow that doesnt not yield in a mistake
+when someone might assume direct_addressing is enabled when its not.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="type-3D-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">type=</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">VALIDTYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Direct requests is not enabled using the direct_addressing config option&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">empty?</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set type to :direct_request if discovered_hosts have been set&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># clear out the filter, custom discovery sources might interpret the filters</span>
+    <span class="ruby-comment"># different than the remote mcollectived and in directed mode really the only</span>
+    <span class="ruby-comment"># filter that matters is the agent filter</span>
+    <span class="ruby-ivar">@filter</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>
+    <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@agent</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">type</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- type-3D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- type-3D-method -->
+
+    
+      <div id="method-i-validate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Perform validation against the message by checking filters and ttl</p>
+          
+          
+
+          
+          <div class="method-source-code" id="validate-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 190</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only validate request messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
+
+  <span class="ruby-identifier">msg_age</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">msgtime</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg_age</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>
+    <span class="ruby-identifier">cid</span> = <span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;@&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:callerid</span>)
+    <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:senderid</span>]
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg_age</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>
+      <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;global_stats&quot;</span>].<span class="ruby-identifier">ttlexpired</span>
+
+      <span class="ruby-identifier">raise</span>(<span class="ruby-constant">MsgTTLExpired</span>, <span class="ruby-node">&quot;message #{requestid} from #{cid} created at #{msgtime} is #{msg_age} seconds old, TTL is #{ttl}&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">NotTargettedAtUs</span>, <span class="ruby-string">&quot;Received message is not targetted to us&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">validate_filter?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:filter</span>])
+
+  <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate-method -->
+
+    
+      <div id="method-i-validate_compound_filter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_compound_filter</span><span
+            class="method-args">(compound_filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_compound_filter-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_compound_filter</span>(<span class="ruby-identifier">compound_filter</span>)
+  <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">statement</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>]
+        <span class="ruby-identifier">functionname</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;name&quot;</span>]
+        <span class="ruby-identifier">pluginname</span> = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">pluginname</span>(<span class="ruby-identifier">functionname</span>)
+        <span class="ruby-identifier">value</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;value&quot;</span>]
+
+        <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pluginname</span>, <span class="ruby-value">:data</span>)
+
+        <span class="ruby-comment"># parses numbers and booleans entered as strings into proper</span>
+        <span class="ruby-comment"># types of data so that DDL validation will pass</span>
+        <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_transform_input</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
+
+        <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_validate</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
+
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_has_output?</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">value</span>)
+          <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">validation_fail!</span>(<span class="ruby-value">:PLMC41</span>, <span class="ruby-string">&quot;Data plugin &#39;%{functionname}()&#39; does not return a &#39;%{value}&#39; value&quot;</span>, <span class="ruby-value">:error</span>, {<span class="ruby-value">:functionname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">functionname</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>})
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- validate_compound_filter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- validate_compound_filter-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

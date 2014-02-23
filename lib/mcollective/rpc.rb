@@ -5,17 +5,16 @@ module MCollective
   # an RPC metaphor, standard compliant agents will make it easier
   # to create generic clients like web interfaces etc
   module RPC
-    autoload :Client, "mcollective/rpc/client"
+    autoload :ActionRunner, "mcollective/rpc/actionrunner"
     autoload :Agent, "mcollective/rpc/agent"
+    autoload :Audit, "mcollective/rpc/audit"
+    autoload :Client, "mcollective/rpc/client"
+    autoload :Helpers, "mcollective/rpc/helpers"
+    autoload :Progress, "mcollective/rpc/progress"
     autoload :Reply, "mcollective/rpc/reply"
     autoload :Request, "mcollective/rpc/request"
-    autoload :Audit, "mcollective/rpc/audit"
-    autoload :Progress, "mcollective/rpc/progress"
-    autoload :Stats, "mcollective/rpc/stats"
-    autoload :DDL, "mcollective/rpc/ddl"
     autoload :Result, "mcollective/rpc/result"
-    autoload :Helpers, "mcollective/rpc/helpers"
-    autoload :ActionRunner, "mcollective/rpc/actionrunner"
+    autoload :Stats, "mcollective/rpc/stats"
 
     # Creates a standard options hash, pass in a block to add extra headings etc
     # see Optionparser
@@ -115,18 +114,18 @@ module MCollective
     # If you've passed -v on the command line a detailed stat block
     # will be printed, else just a one liner.
     #
-    # You can pass flags into it, at the moment only one flag is
-    # supported:
+    # You can pass flags into it:
     #
-    # printrpcstats :caption => "Foo"
+    #   printrpcstats :caption => "Foo", :summarize => true
     #
     # This will use "Foo" as the caption to the stats in verbose
-    # mode
+    # mode and print out any aggregate summary information if present
     def printrpcstats(flags={})
       return unless @options[:output_format] == :console
 
+      flags = {:summarize => false, :caption => "rpc stats"}.merge(flags)
+
       verbose = @options[:verbose] rescue verbose = false
-      caption = flags[:caption] || "rpc stats"
 
       begin
         stats = @@stats
@@ -135,8 +134,7 @@ module MCollective
         return
       end
 
-      puts
-      puts stats.report(caption, verbose)
+      puts stats.report(flags[:caption], flags[:summarize], verbose)
     end
 
     # Prints the result of an RPC call.
@@ -150,8 +148,9 @@ module MCollective
       verbose = flags[:verbose] || verbose
       flatten = flags[:flatten] || false
       format = @options[:output_format]
+      forced_mode = @options[:force_display_mode] || false
 
-      result_text =  Helpers.rpcresults(result, {:verbose => verbose, :flatten => flatten, :format => format})
+      result_text =  Helpers.rpcresults(result, {:verbose => verbose, :flatten => flatten, :format => format, :force_display_mode => forced_mode})
 
       if result.is_a?(Array) && format == :console
         puts "\n%s\n" % [ result_text ]
@@ -173,16 +172,11 @@ module MCollective
       end
     end
 
-    # Factory for RPC::Request messages, only really here to make agents
-    # a bit easier to understand
-    def self.request(msg)
-      RPC::Request.new(msg)
-    end
+    def self.const_missing(const_name)
+      super unless const_name == :DDL
 
-    # Factory for RPC::Reply messages, only really here to make agents
-    # a bit easier to understand
-    def self.reply
-      RPC::Reply.new
+      Log.warn("MCollective::RPC::DDL is deprecatd, please use MCollective::DDL instead")
+      MCollective::DDL
     end
   end
 end

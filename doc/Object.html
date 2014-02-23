@@ -1,0 +1,847 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class Object - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>bin/mco
+    <li>install.rb
+    <li>lib/mcollective/monkey_patches.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link">BasicObject
+  
+</nav>
+
+    <!-- Included Modules -->
+<nav id="includes-section" class="section">
+  <h3 class="section-header">Included Modules</h3>
+
+  <ul class="link-list">
+  
+  
+    <li><span class="include">FileUtils</span>
+  
+  
+  </ul>
+</nav>
+
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-i-build_rdoc">#build_rdoc</a>
+    
+    <li ><a href="#method-i-check_prereqs">#check_prereqs</a>
+    
+    <li ><a href="#method-i-do_bins">#do_bins</a>
+    
+    <li ><a href="#method-i-do_configs">#do_configs</a>
+    
+    <li ><a href="#method-i-do_libs">#do_libs</a>
+    
+    <li ><a href="#method-i-glob">#glob</a>
+    
+    <li ><a href="#method-i-install_binfile">#install_binfile</a>
+    
+    <li ><a href="#method-i-prepare_installation">#prepare_installation</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="./etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="./etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="./etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="./etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="./mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Array.html">Array</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="./MCollective.html">MCollective</a>
+  
+    <li><a href="./MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="./MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="./MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="./MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="./MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="./MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="./MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="./MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="./MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="./MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="./MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="./MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="./MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="./MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="./MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="./MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="./MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="./MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="./MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="./MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="./MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="./MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="./MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="./MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="./MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="./MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="./MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="./MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="./MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="./MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="./MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="./MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="./MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="./MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="./MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="./MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="./MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="./MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="./MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="./MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="./MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="./MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="./MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="./MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="./MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="./MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="./MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="./MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="./MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="./MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="./MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="./MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="./MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="./MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="./MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="./MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="./MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="./MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="./MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="./MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="./MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="./MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="./MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="./MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="./MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="./MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="./MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="./MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="./MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="./MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="./MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="./MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="./MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="./MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="./MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="./MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="./MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="./MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./String.html">String</a>
+  
+    <li><a href="./Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class Object</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="InstallOptions">InstallOptions
+        
+        <dd class="description">
+        
+      
+        <dt id="PREREQS">PREREQS
+        
+        <dd class="description">
+        
+      
+        <dt id="RbConfig">RbConfig
+        
+        <dd class="description">
+        
+      
+        <dt id="Version">Version
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-build_rdoc" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">build_rdoc</span><span
+            class="method-args">(files)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Build the rdoc documentation.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="build_rdoc-source">
+            <pre><span class="ruby-comment"># File install.rb, line 248</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_rdoc</span>(<span class="ruby-identifier">files</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$haverdoc</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">r</span> = <span class="ruby-constant">RDoc</span><span class="ruby-operator">::</span><span class="ruby-constant">RDoc</span>.<span class="ruby-identifier">new</span>
+    <span class="ruby-identifier">r</span>.<span class="ruby-identifier">document</span>([<span class="ruby-string">&quot;--main&quot;</span>, <span class="ruby-string">&quot;MCollective&quot;</span>, <span class="ruby-string">&quot;--line-numbers&quot;</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">files</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">RDoc</span><span class="ruby-operator">::</span><span class="ruby-constant">RDocError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Couldn&#39;t build RDoc documentation\n#{e.message}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- build_rdoc-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- build_rdoc-method -->
+
+    
+      <div id="method-i-check_prereqs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_prereqs</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="check_prereqs-source">
+            <pre><span class="ruby-comment"># File install.rb, line 65</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_prereqs</span>
+  <span class="ruby-constant">PREREQS</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pre</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">require</span> <span class="ruby-identifier">pre</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">LoadError</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not load #{pre} Ruby library; cannot install&quot;</span>
+      <span class="ruby-identifier">exit</span>(<span class="ruby-value">-1</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- check_prereqs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- check_prereqs-method -->
+
+    
+      <div id="method-i-do_bins" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_bins</span><span
+            class="method-args">(bins, target, strip = 's?bin/')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="do_bins-source">
+            <pre><span class="ruby-comment"># File install.rb, line 86</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">do_bins</span>(<span class="ruby-identifier">bins</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">strip</span> = <span class="ruby-string">&#39;s?bin/&#39;</span>)
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">target</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-identifier">target</span>
+  <span class="ruby-identifier">bins</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">bf</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">obf</span> = <span class="ruby-identifier">bf</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/#{strip}/</span>, <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-identifier">install_binfile</span>(<span class="ruby-identifier">bf</span>, <span class="ruby-identifier">obf</span>, <span class="ruby-identifier">target</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- do_bins-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- do_bins-method -->
+
+    
+      <div id="method-i-do_configs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_configs</span><span
+            class="method-args">(configs, target, strip = 'etc/')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="do_configs-source">
+            <pre><span class="ruby-comment"># File install.rb, line 76</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">do_configs</span>(<span class="ruby-identifier">configs</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">strip</span> = <span class="ruby-string">&#39;etc/&#39;</span>)
+  <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-identifier">target</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-identifier">target</span>
+  <span class="ruby-identifier">configs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cf</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">ocf</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">cf</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">strip</span>), <span class="ruby-string">&#39;&#39;</span>))
+    <span class="ruby-identifier">oc</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">ocf</span>)
+    <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">oc</span>, {<span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0755</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>})
+    <span class="ruby-identifier">install</span>(<span class="ruby-identifier">cf</span>, <span class="ruby-identifier">ocf</span>, {<span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0644</span>, <span class="ruby-value">:preserve</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>})
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- do_configs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- do_configs-method -->
+
+    
+      <div id="method-i-do_libs" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">do_libs</span><span
+            class="method-args">(libs, target, strip = 'lib/')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="do_libs-source">
+            <pre><span class="ruby-comment"># File install.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">do_libs</span>(<span class="ruby-identifier">libs</span>, <span class="ruby-identifier">target</span>, <span class="ruby-identifier">strip</span> = <span class="ruby-string">&#39;lib/&#39;</span>)
+  <span class="ruby-identifier">libs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">lf</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">olf</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">lf</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-node">/^#{strip}/</span>, <span class="ruby-string">&#39;&#39;</span>))
+    <span class="ruby-identifier">op</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-identifier">olf</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">lf</span>)
+      <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">olf</span>, {<span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0755</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>})
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">op</span>, {<span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0755</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>})
+      <span class="ruby-identifier">install</span>(<span class="ruby-identifier">lf</span>, <span class="ruby-identifier">olf</span>, {<span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0644</span>, <span class="ruby-value">:preserve</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>})
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- do_libs-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- do_libs-method -->
+
+    
+      <div id="method-i-glob" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">glob</span><span
+            class="method-args">(list)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="glob-source">
+            <pre><span class="ruby-comment"># File install.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">glob</span>(<span class="ruby-identifier">list</span>)
+  <span class="ruby-identifier">g</span> = <span class="ruby-identifier">list</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-identifier">i</span>) }
+  <span class="ruby-identifier">g</span>.<span class="ruby-identifier">flatten!</span>
+  <span class="ruby-identifier">g</span>.<span class="ruby-identifier">compact!</span>
+  <span class="ruby-identifier">g</span>.<span class="ruby-identifier">uniq!</span>
+  <span class="ruby-identifier">g</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- glob-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- glob-method -->
+
+    
+      <div id="method-i-install_binfile" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">install_binfile</span><span
+            class="method-args">(from, op_file, target)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Install file(s) from ./bin to <a
+href="http://'bindir'">RbConfig::CONFIG</a>. Patch it on the way to insert
+a #! line; on a Unix install, the command is named as expected</p>
+          
+          
+
+          
+          <div class="method-source-code" id="install_binfile-source">
+            <pre><span class="ruby-comment"># File install.rb, line 263</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">install_binfile</span>(<span class="ruby-identifier">from</span>, <span class="ruby-identifier">op_file</span>, <span class="ruby-identifier">target</span>)
+  <span class="ruby-identifier">tmp_file</span> = <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&#39;mcollective-binfile&#39;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">ruby</span>
+    <span class="ruby-identifier">ruby</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">ruby</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">ruby</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;bindir&#39;</span>], <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;ruby_install_name&#39;</span>])
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">from</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ip</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">tmp_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">op</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">op</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;#!#{ruby}&quot;</span>
+      <span class="ruby-identifier">contents</span> = <span class="ruby-identifier">ip</span>.<span class="ruby-identifier">readlines</span>
+      <span class="ruby-identifier">contents</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">contents</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">=~</span> <span class="ruby-node">/^#!/</span>
+      <span class="ruby-identifier">op</span>.<span class="ruby-identifier">write</span> <span class="ruby-identifier">contents</span>.<span class="ruby-identifier">join</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">install</span>(<span class="ruby-identifier">tmp_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-identifier">op_file</span>), <span class="ruby-value">:mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">0755</span>, <span class="ruby-value">:preserve</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>)
+  <span class="ruby-identifier">tmp_file</span>.<span class="ruby-identifier">unlink</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- install_binfile-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- install_binfile-method -->
+
+    
+      <div id="method-i-prepare_installation" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">prepare_installation</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Prepare the file installation.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="prepare_installation-source">
+            <pre><span class="ruby-comment"># File install.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">prepare_installation</span>
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configs</span> = <span class="ruby-keyword">true</span>
+
+  <span class="ruby-comment"># Only try to do docs if we&#39;re sure they have rdoc</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">$haverdoc</span>
+    <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">rdoc</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">rdoc</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+
+  <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">options</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">opts</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-node">&quot;Usage: #{File.basename($0)} [options]&quot;</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--[no-]rdoc&#39;</span>, <span class="ruby-string">&#39;Creation of RDoc output.&#39;</span>, <span class="ruby-string">&#39;Default is create rdoc.&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">onrdoc</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">rdoc</span> = <span class="ruby-identifier">onrdoc</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--[no-]configs&#39;</span>, <span class="ruby-string">&#39;Installation of config files&#39;</span>, <span class="ruby-string">&#39;Default is install configs.&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">onconfigs</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configs</span> = <span class="ruby-identifier">onconfigs</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--destdir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation prefix for all targets&#39;</span>, <span class="ruby-string">&#39;Default essentially /&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">destdir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">destdir</span> = <span class="ruby-identifier">destdir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--configdir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation directory for config files&#39;</span>, <span class="ruby-string">&#39;Default /etc/mcollective&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">configdir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configdir</span> = <span class="ruby-identifier">configdir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--bindir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation directory for binaries&#39;</span>, <span class="ruby-string">&#39;overrides RbConfig::CONFIG[&quot;bindir&quot;]&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">bindir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">bindir</span> = <span class="ruby-identifier">bindir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--sbindir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation directory for system binaries&#39;</span>, <span class="ruby-string">&#39;overrides RbConfig::CONFIG[&quot;sbindir&quot;]&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sbindir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sbindir</span> = <span class="ruby-identifier">sbindir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--ruby[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Ruby interpreter to use with installation&#39;</span>, <span class="ruby-string">&#39;overrides ruby used to call install.rb&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ruby</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">ruby</span> = <span class="ruby-identifier">ruby</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--sitelibdir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation directory for libraries&#39;</span>, <span class="ruby-string">&#39;overrides RbConfig::CONFIG[&quot;sitelibdir&quot;]&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">sitelibdir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sitelibdir</span> = <span class="ruby-identifier">sitelibdir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--plugindir[=OPTIONAL]&#39;</span>, <span class="ruby-string">&#39;Installation directory for plugins&#39;</span>, <span class="ruby-string">&#39;Default /usr/libexec/mcollective&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugindir</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">plugindir</span> = <span class="ruby-identifier">plugindir</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--quick&#39;</span>, <span class="ruby-string">&#39;Performs a quick installation. Only the&#39;</span>, <span class="ruby-string">&#39;installation is done.&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">quick</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">rdoc</span>    = <span class="ruby-keyword">false</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">ri</span>      = <span class="ruby-keyword">false</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configs</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--full&#39;</span>, <span class="ruby-string">&#39;Performs a full installation. All&#39;</span>, <span class="ruby-string">&#39;optional installation steps are run.&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">full</span><span class="ruby-operator">|</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">rdoc</span>    = <span class="ruby-keyword">true</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">ri</span>      = <span class="ruby-keyword">true</span>
+      <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configs</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">separator</span>(<span class="ruby-string">&quot;&quot;</span>)
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">on_tail</span>(<span class="ruby-string">&#39;--help&#39;</span>, <span class="ruby-string">&quot;Shows this help text.&quot;</span>) <span class="ruby-keyword">do</span>
+      <span class="ruby-identifier">$stderr</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">opts</span>
+      <span class="ruby-identifier">exit</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">opts</span>.<span class="ruby-identifier">parse!</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">version</span> = [<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&quot;MAJOR&quot;</span>], <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&quot;MINOR&quot;</span>]].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+  <span class="ruby-identifier">libdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&quot;libdir&quot;</span>], <span class="ruby-string">&quot;ruby&quot;</span>, <span class="ruby-identifier">version</span>)
+
+  <span class="ruby-comment"># Mac OS X 10.5 and higher declare bindir</span>
+  <span class="ruby-comment"># /System/Library/Frameworks/Ruby.framework/Versions/1.8/usr/bin</span>
+  <span class="ruby-comment"># which is not generally where people expect executables to be installed</span>
+  <span class="ruby-comment"># These settings are appropriate defaults for all OS X versions.</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_PLATFORM</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^universal-darwin[\d\.]+$/</span>
+    <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;bindir&#39;</span>] = <span class="ruby-string">&quot;/usr/bin&quot;</span>
+    <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;sbindir&#39;</span>] = <span class="ruby-string">&quot;/usr/sbin&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configdir</span>
+    <span class="ruby-identifier">configdir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configdir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">configdir</span> = <span class="ruby-string">&quot;/etc/mcollective&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">bindir</span>
+    <span class="ruby-identifier">bindir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">bindir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">bindir</span> = <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;bindir&#39;</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sbindir</span>
+    <span class="ruby-identifier">sbindir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sbindir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">sbindir</span> = <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;sbindir&#39;</span>]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sitelibdir</span>
+    <span class="ruby-identifier">sitelibdir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sitelibdir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">sitelibdir</span> = <span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&quot;sitelibdir&quot;</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">sitelibdir</span>.<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">sitelibdir</span> = <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">find</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/site_ruby/</span> }
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">sitelibdir</span>.<span class="ruby-identifier">nil?</span>
+        <span class="ruby-identifier">sitelibdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;site_ruby&quot;</span>)
+      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">sitelibdir</span> <span class="ruby-operator">!~</span> <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">quote</span>(<span class="ruby-identifier">version</span>)
+        <span class="ruby-identifier">sitelibdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">sitelibdir</span>, <span class="ruby-identifier">version</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">plugindir</span>
+    <span class="ruby-identifier">plugindir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">plugindir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">plugindir</span> = <span class="ruby-string">&quot;/usr/libexec/mcollective&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">destdir</span>
+    <span class="ruby-identifier">destdir</span> = <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">destdir</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">destdir</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">configdir</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">destdir</span>, <span class="ruby-identifier">configdir</span>)
+  <span class="ruby-identifier">bindir</span>      = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">destdir</span>, <span class="ruby-identifier">bindir</span>)
+  <span class="ruby-identifier">sbindir</span>     = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">destdir</span>, <span class="ruby-identifier">sbindir</span>)
+  <span class="ruby-identifier">sitelibdir</span>  = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">destdir</span>, <span class="ruby-identifier">sitelibdir</span>)
+  <span class="ruby-identifier">plugindir</span>   = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">destdir</span>, <span class="ruby-identifier">plugindir</span>)
+
+  <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">configdir</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configs</span>
+  <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">bindir</span>)
+  <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">sbindir</span>)
+  <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">sitelibdir</span>)
+  <span class="ruby-identifier">makedirs</span>(<span class="ruby-identifier">plugindir</span>)
+
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sitelibdir</span> = <span class="ruby-identifier">sitelibdir</span>
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">configdir</span> = <span class="ruby-identifier">configdir</span>
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">bindir</span>  = <span class="ruby-identifier">bindir</span>
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">sbindir</span>  = <span class="ruby-identifier">sbindir</span>
+  <span class="ruby-constant">InstallOptions</span>.<span class="ruby-identifier">plugindir</span>  = <span class="ruby-identifier">plugindir</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- prepare_installation-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- prepare_installation-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

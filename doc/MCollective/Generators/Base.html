@@ -1,0 +1,552 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class MCollective::Generators::Base - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/generators/base.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-create_metadata_string">#create_metadata_string</a>
+    
+    <li ><a href="#method-i-create_plugin_string">#create_plugin_string</a>
+    
+    <li ><a href="#method-i-write_plugins">#write_plugins</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../../README.html">README</a>
+  
+    <li class="file"><a href="../../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../Array.html">Array</a>
+  
+    <li><a href="../../Dir.html">Dir</a>
+  
+    <li><a href="../../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../../MCollective.html">MCollective</a>
+  
+    <li><a href="../../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../../Object.html">Object</a>
+  
+    <li><a href="../../String.html">String</a>
+  
+    <li><a href="../../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MCollective::Generators::Base</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-meta" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">meta</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-mod_name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">mod_name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-plugin_name" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">plugin_name</span><span
+            class="attribute-access-type">[RW]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(name, description, author, license, version, url, timeout)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">description</span>, <span class="ruby-identifier">author</span>, <span class="ruby-identifier">license</span>, <span class="ruby-identifier">version</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">timeout</span>)
+  <span class="ruby-ivar">@meta</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>,
+           <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">description</span>,
+           <span class="ruby-value">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">author</span>,
+           <span class="ruby-value">:license</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">license</span>,
+           <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">version</span>,
+           <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">url</span>,
+           <span class="ruby-value">:timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">timeout</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-create_metadata_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_metadata_string</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_metadata_string-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_metadata_string</span>
+  <span class="ruby-identifier">ddl_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;ddl.erb&quot;</span>))
+  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ddl_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_metadata_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_metadata_string-method -->
+
+    
+      <div id="method-i-create_plugin_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_plugin_string</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="create_plugin_string-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 20</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_plugin_string</span>
+  <span class="ruby-identifier">plugin_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;plugin.erb&quot;</span>))
+  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_plugin_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_plugin_string-method -->
+
+    
+      <div id="method-i-write_plugins" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write_plugins</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write_plugins-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_plugins</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-ivar">@plugin_name</span>
+    <span class="ruby-identifier">dirname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@plugin_name</span>, <span class="ruby-ivar">@mod_name</span>.<span class="ruby-identifier">downcase</span>)
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-identifier">dirname</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created plugin directory : #{@plugin_name}&quot;</span>
+
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.ddl&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@ddl</span>}
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created DDL file : #{File.join(dirname, &quot;#{@plugin_name}.ddl&quot;)}&quot;</span>
+
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.rb&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@plugin</span>}
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created #{@mod_name} file : #{File.join(dirname, &quot;#{@plugin_name}.rb&quot;)}&quot;</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate &#39;#{@plugin_name}&#39; : plugin directory already exists.&quot;</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span>(<span class="ruby-ivar">@plugin_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-ivar">@plugin_name</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate plugin - #{e}&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write_plugins-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write_plugins-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

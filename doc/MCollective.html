@@ -1,0 +1,461 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "./";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="./js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="./js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="./index.html">Home</a>
+    <a href="./table_of_contents.html#classes">Classes</a>
+    <a href="./table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>bin/mc-call-agent
+    <li>bin/mco
+    <li>bin/mcollectived
+    <li>lib/mcollective.rb
+    <li>lib/mcollective/agent.rb
+    <li>lib/mcollective/agents.rb
+    <li>lib/mcollective/aggregate.rb
+    <li>lib/mcollective/aggregate/base.rb
+    <li>lib/mcollective/aggregate/result.rb
+    <li>lib/mcollective/aggregate/result/base.rb
+    <li>lib/mcollective/aggregate/result/collection_result.rb
+    <li>lib/mcollective/aggregate/result/numeric_result.rb
+    <li>lib/mcollective/application.rb
+    <li>lib/mcollective/applications.rb
+    <li>lib/mcollective/cache.rb
+    <li>lib/mcollective/client.rb
+    <li>lib/mcollective/config.rb
+    <li>lib/mcollective/connector.rb
+    <li>lib/mcollective/connector/base.rb
+    <li>lib/mcollective/data.rb
+    <li>lib/mcollective/data/base.rb
+    <li>lib/mcollective/data/result.rb
+    <li>lib/mcollective/ddl.rb
+    <li>lib/mcollective/ddl/agentddl.rb
+    <li>lib/mcollective/ddl/base.rb
+    <li>lib/mcollective/ddl/dataddl.rb
+    <li>lib/mcollective/ddl/discoveryddl.rb
+    <li>lib/mcollective/ddl/validatorddl.rb
+    <li>lib/mcollective/discovery.rb
+    <li>lib/mcollective/facts.rb
+    <li>lib/mcollective/facts/base.rb
+    <li>lib/mcollective/generators.rb
+    <li>lib/mcollective/generators/agent_generator.rb
+    <li>lib/mcollective/generators/base.rb
+    <li>lib/mcollective/generators/data_generator.rb
+    <li>lib/mcollective/log.rb
+    <li>lib/mcollective/logger.rb
+    <li>lib/mcollective/logger/base.rb
+    <li>lib/mcollective/logger/console_logger.rb
+    <li>lib/mcollective/logger/file_logger.rb
+    <li>lib/mcollective/logger/syslog_logger.rb
+    <li>lib/mcollective/matcher.rb
+    <li>lib/mcollective/matcher/parser.rb
+    <li>lib/mcollective/matcher/scanner.rb
+    <li>lib/mcollective/message.rb
+    <li>lib/mcollective/optionparser.rb
+    <li>lib/mcollective/pluginmanager.rb
+    <li>lib/mcollective/pluginpackager.rb
+    <li>lib/mcollective/pluginpackager/agent_definition.rb
+    <li>lib/mcollective/pluginpackager/standard_definition.rb
+    <li>lib/mcollective/registration.rb
+    <li>lib/mcollective/registration/base.rb
+    <li>lib/mcollective/rpc.rb
+    <li>lib/mcollective/rpc/actionrunner.rb
+    <li>lib/mcollective/rpc/agent.rb
+    <li>lib/mcollective/rpc/audit.rb
+    <li>lib/mcollective/rpc/client.rb
+    <li>lib/mcollective/rpc/helpers.rb
+    <li>lib/mcollective/rpc/progress.rb
+    <li>lib/mcollective/rpc/reply.rb
+    <li>lib/mcollective/rpc/request.rb
+    <li>lib/mcollective/rpc/result.rb
+    <li>lib/mcollective/rpc/stats.rb
+    <li>lib/mcollective/runner.rb
+    <li>lib/mcollective/runnerstats.rb
+    <li>lib/mcollective/security.rb
+    <li>lib/mcollective/security/base.rb
+    <li>lib/mcollective/shell.rb
+    <li>lib/mcollective/ssl.rb
+    <li>lib/mcollective/unix_daemon.rb
+    <li>lib/mcollective/util.rb
+    <li>lib/mcollective/validator.rb
+    <li>lib/mcollective/windows_daemon.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-version">::version</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="./COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="./Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="./README.html">README</a>
+  
+    <li class="file"><a href="./Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="./doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="./etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="./etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="./etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="./etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="./etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="./mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="./Array.html">Array</a>
+  
+    <li><a href="./Dir.html">Dir</a>
+  
+    <li><a href="./GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="./MCollective.html">MCollective</a>
+  
+    <li><a href="./MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="./MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="./MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="./MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="./MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="./MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="./MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="./MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="./MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="./MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="./MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="./MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="./MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="./MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="./MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="./MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="./MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="./MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="./MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="./MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="./MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="./MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="./MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="./MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="./MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="./MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="./MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="./MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="./MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="./MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="./MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="./MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="./MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="./MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="./MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="./MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="./MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="./MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="./MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="./MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="./MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="./MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="./MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="./MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="./MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="./MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="./MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="./MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="./MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="./MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="./MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="./MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="./MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="./MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="./MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="./MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="./MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="./MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="./MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="./MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="./MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="./MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="./MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="./MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="./MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="./MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="./MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="./MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="./MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="./MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="./MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="./MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="./MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="./MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="./MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="./MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="./MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="./MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="./MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="./Object.html">Object</a>
+  
+    <li><a href="./String.html">String</a>
+  
+    <li><a href="./Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective</h1>
+
+  <div id="description" class="description">
+    
+<h2 id="label-The+Marionette+Collective">The Marionette Collective<span><a href="#label-The+Marionette+Collective">&para;</a> <a href="#documentation">&uarr;</a></span></h2>
+
+<p>Framework to build and run Systems Administration agents running on a
+publish/subscribe middleware system.  The system allows you to treat your
+network as the only true source of the state of your platform via discovery
+agents and allow you to run agents matching discovery criteria.</p>
+
+<p>For an overview of the idea behind this and what it enables please see:</p>
+
+<pre>http://www.devco.net/archives/2009/10/18/middleware_for_systems_administration.php</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+    <!-- Constants -->
+    <section id="constants-list" class="section">
+      <h3 class="section-header">Constants</h3>
+      <dl>
+      
+        <dt id="VERSION">VERSION
+        
+        <dd class="description">
+        
+      
+      </dl>
+    </section>
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="version-source">
+            <pre><span class="ruby-comment"># File lib/mcollective.rb, line 77</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">version</span>
+  <span class="ruby-constant">VERSION</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- version-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- version-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

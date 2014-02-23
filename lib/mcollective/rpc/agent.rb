@@ -10,24 +10,17 @@ module MCollective
     # usage would be:
     #
     #    module MCollective
-    #       module Agent
-    #          class Helloworld<RPC::Agent
-    #             matadata :name        => "Test SimpleRPC Agent",
-    #                      :description => "A simple test",
-    #                      :author      => "You",
-    #                      :license     => "1.1",
-    #                      :url         => "http://your.com/,
-    #                      :timeout     => 60
-    #
-    #             action "hello" do
-    #                 reply[:msg] = "Hello #{request[:name]}"
-    #             end
-    #
-    #             action "foo" do
-    #                 implemented_by "/some/script.sh"
-    #             end
+    #      module Agent
+    #        class Helloworld<RPC::Agent
+    #          action "hello" do
+    #            reply[:msg] = "Hello #{request[:name]}"
     #          end
-    #       end
+    #
+    #          action "foo" do
+    #            implemented_by "/some/script.sh"
+    #          end
+    #        end
+    #      end
     #    end
     #
     # If you wish to implement the logic for an action using an external script use the
@@ -38,32 +31,16 @@ module MCollective
     #
     # We also currently have the validation code in here, this will be moved to plugins soon.
     class Agent
-      attr_accessor :meta, :reply, :request
-      attr_reader :logger, :config, :timeout, :ddl
+      attr_accessor :reply, :request, :agent_name
+      attr_reader :logger, :config, :timeout, :ddl, :meta
 
       def initialize
-        # Default meta data unset
-        @meta = {:timeout     => 10,
-                 :name        => "Unknown",
-                 :description => "Unknown",
-                 :author      => "Unknown",
-                 :license     => "Unknown",
-                 :version     => "Unknown",
-                 :url         => "Unknown"}
-
-        @timeout = meta[:timeout] || 10
-        @logger = Log.instance
-        @config = Config.instance
         @agent_name = self.class.to_s.split("::").last.downcase
 
-        # Loads the DDL so we can later use it for validation
-        # and help generation
-        begin
-          @ddl = DDL.new(@agent_name)
-        rescue Exception => e
-          Log.debug("Failed to load DDL for agent: #{e.class}: #{e}")
-          @ddl = nil
-        end
+        load_ddl
+
+        @logger = Log.instance
+        @config = Config.instance
 
         # if we have a global authorization provider enable it
         # plugins can still override it per plugin
@@ -72,16 +49,31 @@ module MCollective
         startup_hook
       end
 
+      def load_ddl
+        @ddl = DDL.new(@agent_name, :agent)
+        @meta = @ddl.meta
+        @timeout = @meta[:timeout] || 10
+
+      rescue Exception => e
+        Log.error("Failed to load DDL for the '%s' agent, DDLs are required: %s: %s" % [@agent_name, e.class, e.to_s])
+        raise DDLValidationError
+      end
+
       def handlemsg(msg, connection)
-        @request = RPC.request(msg)
-        @reply = RPC.reply
+        @request = RPC::Request.new(msg, @ddl)
+        @reply = RPC::Reply.new(@request.action, @ddl)
 
         begin
+          # Incoming requests need to be validated against the DDL thus reusing
+          # all the work users put into creating DDLs and creating a consistent
+          # quality of input validation everywhere with the a simple once off
+          # investment of writing a DDL
+          @request.validate!
+
           # Calls the authorization plugin if any is defined
           # if this raises an exception we wil just skip processing this
           # message
           authorization_hook(@request) if respond_to?("authorization_hook")
-
 
           # Audits the request, currently continues processing the message
           # we should make this a configurable so that an audit failure means
@@ -93,7 +85,7 @@ module MCollective
           if respond_to?("#{@request.action}_action")
             send("#{@request.action}_action")
           else
-            raise UnknownRPCAction, "Unknown action: #{@request.action}"
+            raise UnknownRPCAction, "Unknown action '#{@request.action}' for agent '#{@request.agent}'"
           end
         rescue RPCAborted => e
           @reply.fail e.to_s, 1
@@ -104,13 +96,17 @@ module MCollective
         rescue MissingRPCData => e
           @reply.fail e.to_s, 3
 
-        rescue InvalidRPCData => e
+        rescue InvalidRPCData, DDLValidationError => e
           @reply.fail e.to_s, 4
 
         rescue UnknownRPCError => e
+          Log.error("%s#%s failed: %s: %s" % [@agent_name, @request.action, e.class, e.to_s])
+          Log.error(e.backtrace.join("\n\t"))
           @reply.fail e.to_s, 5
 
         rescue Exception => e
+          Log.error("%s#%s failed: %s: %s" % [@agent_name, @request.action, e.class, e.to_s])
+          Log.error(e.backtrace.join("\n\t"))
           @reply.fail e.to_s, 5
 
         end
@@ -145,31 +141,13 @@ module MCollective
 
         Log.debug("Starting default activation checks for #{agent_name}")
 
-        should_activate = Config.instance.pluginconf["#{agent_name}.activate_agent"]
+        should_activate = Util.str_to_bool(Config.instance.pluginconf.fetch("#{agent_name}.activate_agent", true))
 
-        if should_activate
-          Log.debug("Found plugin config #{agent_name}.activate_agent with value #{should_activate}")
-          unless should_activate =~ /^1|y|true$/
-            return false
-          end
+        unless should_activate
+          Log.debug("Found plugin configuration '#{agent_name}.activate_agent' with value '#{should_activate}'")
         end
 
-        return true
-      end
-
-      # Generates help using the template based on the data
-      # created with metadata and input
-      def self.help(template)
-        if @ddl
-          @ddl.help(template)
-        else
-          "No DDL defined"
-        end
-      end
-
-      # to auto generate help
-      def help
-        self.help("#{@config[:configdir]}/rpc-help.erb")
+        return should_activate
       end
 
       # Returns an array of actions this agent support
@@ -178,7 +156,6 @@ module MCollective
           $1 if method =~ /(.+)_action$/
         end
       end
-
 
       private
       # Runs a command via the MC::Shell wrapper, options are as per MC::Shell
@@ -235,7 +212,7 @@ module MCollective
           end
         end
 
-        [:stdin, :cwd, :environment].each do |k|
+        [:stdin, :cwd, :environment, :timeout].each do |k|
           if options.include?(k)
             shellopts[k] = options[k]
           end
@@ -255,20 +232,9 @@ module MCollective
 
       # Registers meta data for the introspection hash
       def self.metadata(data)
-        [:name, :description, :author, :license, :version, :url, :timeout].each do |arg|
-          raise "Metadata needs a :#{arg}" unless data.include?(arg)
-        end
+        agent = File.basename(caller.first).split(":").first
 
-        # Our old style agents were able to do all sorts of things to the meta
-        # data during startup_hook etc, don't really want that but also want
-        # backward compat.
-        #
-        # Here if you're using the new metadata way this replaces the getter
-        # with one that always return the same data, setter will still work but
-        # wont actually do anything of note.
-        define_method("meta") {
-          data
-        }
+        Log.warn("Setting metadata in agents has been deprecated, DDL files are now being used for this information.  Please update the '#{agent}' agent")
       end
 
       # Creates the needed activate? class in a manner similar to the other
@@ -327,51 +293,12 @@ module MCollective
       # validate :command, ["start", "stop"]
       #
       # It will raise appropriate exceptions that the RPC system understand
-      #
-      # TODO: this should be plugins, 1 per validatin method so users can add their own
-      #       at the moment i have it here just to proof the point really
       def validate(key, validation)
         raise MissingRPCData, "please supply a #{key} argument" unless @request.include?(key)
 
-        if validation.is_a?(Regexp)
-          raise InvalidRPCData, "#{key} should match #{validation}" unless @request[key].match(validation)
-
-        elsif validation.is_a?(Symbol)
-          case validation
-          when :shellsafe
-            raise InvalidRPCData, "#{key} should be a String" unless @request[key].is_a?(String)
-
-            ['`', '$', ';', '|', '&&', '>', '<'].each do |chr|
-              raise InvalidRPCData, "#{key} should not have #{chr} in it" if @request[key].match(Regexp.escape(chr))
-            end
-
-          when :ipv6address
-            begin
-              require 'ipaddr'
-              ip = IPAddr.new(@request[key])
-              raise InvalidRPCData, "#{key} should be an ipv6 address" unless ip.ipv6?
-            rescue
-              raise InvalidRPCData, "#{key} should be an ipv6 address"
-            end
-
-          when :ipv4address
-            begin
-              require 'ipaddr'
-              ip = IPAddr.new(@request[key])
-              raise InvalidRPCData, "#{key} should be an ipv4 address" unless ip.ipv4?
-            rescue
-              raise InvalidRPCData, "#{key} should be an ipv4 address"
-            end
-
-          when :boolean
-            raise InvalidRPCData, "#{key} should be boolean" unless [TrueClass, FalseClass].include?(@request[key].class)
-          end
-        elsif validation.is_a?(Array)
-          raise InvalidRPCData, "#{key} should be one of %s" % [ validation.join(", ") ] unless validation.include?(@request[key])
-
-        else
-          raise InvalidRPCData, "#{key} should be a #{validation}" unless  @request[key].is_a?(validation)
-        end
+        Validator.validate(@request[key], validation)
+      rescue ValidatorError => e
+        raise InvalidRPCData, "Input %s did not pass validation: %s" % [ key, e.message ]
       end
 
       # convenience wrapper around Util#shellescape

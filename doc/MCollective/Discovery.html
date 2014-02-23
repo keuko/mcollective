@@ -1,0 +1,853 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class MCollective::Discovery - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/discovery.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-check_capabilities">#check_capabilities</a>
+    
+    <li ><a href="#method-i-ddl">#ddl</a>
+    
+    <li ><a href="#method-i-discover">#discover</a>
+    
+    <li ><a href="#method-i-discovery_class">#discovery_class</a>
+    
+    <li ><a href="#method-i-discovery_method">#discovery_method</a>
+    
+    <li ><a href="#method-i-discovery_timeout">#discovery_timeout</a>
+    
+    <li ><a href="#method-i-find_known_methods">#find_known_methods</a>
+    
+    <li ><a href="#method-i-force_direct_mode-3F">#force_direct_mode?</a>
+    
+    <li ><a href="#method-i-force_discovery_method_by_filter">#force_discovery_method_by_filter</a>
+    
+    <li ><a href="#method-i-has_method-3F">#has_method?</a>
+    
+    <li ><a href="#method-i-timeout_for_compound_filter">#timeout_for_compound_filter</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MCollective::Discovery</h1>
+
+  <div id="description" class="description">
+    
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(client)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 3</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">client</span>)
+  <span class="ruby-ivar">@known_methods</span> = <span class="ruby-identifier">find_known_methods</span>
+  <span class="ruby-ivar">@default_method</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">default_discovery_method</span>
+  <span class="ruby-ivar">@client</span> = <span class="ruby-identifier">client</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-check_capabilities" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">check_capabilities</span><span
+            class="method-args">(filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="Agent.html">Agent</a> filters are always present no matter what,
+so we cant raise an error if the capabilities suggest the discovery method
+cant do agents we just have to rely on the discovery plugin to not do
+stupid things in the presense of a agent filter</p>
+          
+          
+
+          
+          <div class="method-source-code" id="check_capabilities-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">check_capabilities</span>(<span class="ruby-identifier">filter</span>)
+  <span class="ruby-identifier">capabilities</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">discovery_interface</span>[<span class="ruby-value">:capabilities</span>]
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:classes</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use class filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:facts</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use fact filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;fact&quot;</span>].<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:identity</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use identity filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:compound</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use compound filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- check_capabilities-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- check_capabilities-method -->
+
+    
+      <div id="method-i-ddl" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ddl</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ddl-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 47</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ddl</span>
+  <span class="ruby-ivar">@ddl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">discovery_method</span>, <span class="ruby-value">:discovery</span>)
+
+  <span class="ruby-comment"># if the discovery method got changed we might have an old DDL cached</span>
+  <span class="ruby-comment"># this will detect that and reread the correct DDL from disk</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:name</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">discovery_method</span>
+    <span class="ruby-ivar">@ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">discovery_method</span>, <span class="ruby-value">:discovery</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@ddl</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ddl-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ddl-method -->
+
+    
+      <div id="method-i-discover" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">discover</span><span
+            class="method-args">(filter, timeout, limit)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="discover-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 127</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Limit has to be an integer&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">limit</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Fixnum</span>)
+
+  <span class="ruby-identifier">force_discovery_method_by_filter</span>(<span class="ruby-identifier">filter</span>)
+
+  <span class="ruby-identifier">check_capabilities</span>(<span class="ruby-identifier">filter</span>)
+
+  <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">discovery_class</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">discovery_timeout</span>(<span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">filter</span>), <span class="ruby-identifier">limit</span>, <span class="ruby-ivar">@client</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">discovered</span>[<span class="ruby-value">0</span>,<span class="ruby-identifier">limit</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">discovered</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- discover-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- discover-method -->
+
+    
+      <div id="method-i-discovery_class" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">discovery_class</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="discovery_class-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_class</span>
+  <span class="ruby-identifier">method</span> = <span class="ruby-identifier">discovery_method</span>.<span class="ruby-identifier">capitalize</span>
+
+  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-node">&quot;MCollective::Discovery::#{method}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">method</span>)
+
+  <span class="ruby-keyword">self</span>.<span class="ruby-identifier">class</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">method</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- discovery_class-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- discovery_class-method -->
+
+    
+      <div id="method-i-discovery_method" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">discovery_method</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="discovery_method-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_method</span>
+  <span class="ruby-identifier">method</span> = <span class="ruby-string">&quot;mc&quot;</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_method</span>]
+    <span class="ruby-identifier">method</span> = <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_method</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">method</span> = <span class="ruby-ivar">@default_method</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Unknown discovery method %s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">has_method?</span>(<span class="ruby-identifier">method</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">method</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;mc&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Custom discovery methods require direct addressing mode&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">method</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- discovery_method-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- discovery_method-method -->
+
+    
+      <div id="method-i-discovery_timeout" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">discovery_timeout</span><span
+            class="method-args">(timeout, filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="discovery_timeout-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_timeout</span>(<span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">filter</span>)
+  <span class="ruby-identifier">timeout</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:timeout</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">timeout</span>
+
+  <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>)
+    <span class="ruby-identifier">timeout</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">timeout_for_compound_filter</span>(<span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">timeout</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- discovery_timeout-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- discovery_timeout-method -->
+
+    
+      <div id="method-i-find_known_methods" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_known_methods</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="find_known_methods-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">find_known_methods</span>
+  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-string">&quot;discovery&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_known_methods-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_known_methods-method -->
+
+    
+      <div id="method-i-force_direct_mode-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">force_direct_mode?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="force_direct_mode-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">force_direct_mode?</span>
+  <span class="ruby-identifier">discovery_method</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;mc&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- force_direct_mode-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- force_direct_mode-3F-method -->
+
+    
+      <div id="method-i-force_discovery_method_by_filter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">force_discovery_method_by_filter</span><span
+            class="method-args">(filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>checks if compound filters are used and then forces the &#39;mc&#39;
+discovery plugin</p>
+          
+          
+
+          
+          <div class="method-source-code" id="force_discovery_method_by_filter-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 83</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">force_discovery_method_by_filter</span>(<span class="ruby-identifier">filter</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;mc&quot;</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span> <span class="ruby-string">&quot;Switching to mc discovery method because compound filters are used&quot;</span>
+      <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_method</span>] = <span class="ruby-string">&quot;mc&quot;</span>
+
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- force_discovery_method_by_filter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- force_discovery_method_by_filter-method -->
+
+    
+      <div id="method-i-has_method-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_method?</span><span
+            class="method-args">(method)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_method-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 13</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_method?</span>(<span class="ruby-identifier">method</span>)
+  <span class="ruby-ivar">@known_methods</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_method-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_method-3F-method -->
+
+    
+      <div id="method-i-timeout_for_compound_filter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">timeout_for_compound_filter</span><span
+            class="method-args">(compound_filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>if a compound filter is specified and it has any function then we read the
+<a href="DDL.html">DDL</a> for each of those plugins and sum up the timeout
+declared in the <a href="DDL.html">DDL</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="timeout_for_compound_filter-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/discovery.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">timeout_for_compound_filter</span>(<span class="ruby-identifier">compound_filter</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">nil?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">timeout</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">statement</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>]
+        <span class="ruby-identifier">pluginname</span> = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">pluginname</span>(<span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;name&quot;</span>])
+        <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pluginname</span>, <span class="ruby-value">:data</span>)
+        <span class="ruby-identifier">timeout</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:timeout</span>]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">timeout</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- timeout_for_compound_filter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- timeout_for_compound_filter-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

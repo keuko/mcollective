@@ -1,0 +1,790 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class MCollective::Agents - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/agents.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../Object.html">Object</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-agentlist">::agentlist</a>
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-activate_agent-3F">#activate_agent?</a>
+    
+    <li ><a href="#method-i-class_for_agent">#class_for_agent</a>
+    
+    <li ><a href="#method-i-clear-21">#clear!</a>
+    
+    <li ><a href="#method-i-dispatch">#dispatch</a>
+    
+    <li ><a href="#method-i-findagentfile">#findagentfile</a>
+    
+    <li ><a href="#method-i-include-3F">#include?</a>
+    
+    <li ><a href="#method-i-loadagent">#loadagent</a>
+    
+    <li ><a href="#method-i-loadagents">#loadagents</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MCollective::Agents</h1>
+
+  <div id="description" class="description">
+    
+<p>A collection of agents, loads them, reloads them and dispatches messages to
+them. It uses the <a href="PluginManager.html">PluginManager</a> to store,
+load and manage instances of plugins.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-agentlist" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">agentlist</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Get a list of agents that we have</p>
+          
+          
+
+          
+          <div class="method-source-code" id="agentlist-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 145</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">agentlist</span>
+  <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">keys</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- agentlist-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- agentlist-method -->
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(agents = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 5</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agents</span> = {})
+  <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;Configuration has not been loaded, can&#39;t load agents&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+
+  <span class="ruby-identifier">@@agents</span> = <span class="ruby-identifier">agents</span>
+
+  <span class="ruby-identifier">loadagents</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-activate_agent-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">activate_agent?</span><span
+            class="method-args">(agent)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks if a plugin should be activated by calling activate? on it if it
+responds to that method else always activate it</p>
+          
+          
+
+          
+          <div class="method-source-code" id="activate_agent-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agent</span>)
+  <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;MCollective&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;Agent&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">capitalize</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;activate?&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">activate?</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{klass} does not have an activate? method, activating as default&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Agent activation check for #{agent} failed: #{e.class}: #{e}&quot;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- activate_agent-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- activate_agent-3F-method -->
+
+    
+      <div id="method-i-class_for_agent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">class_for_agent</span><span
+            class="method-args">(agent)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Builds a class name string given a <a href="Agent.html">Agent</a> name</p>
+          
+          
+
+          
+          <div class="method-source-code" id="class_for_agent-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agent</span>)
+  <span class="ruby-node">&quot;MCollective::Agent::#{agent.capitalize}&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- class_for_agent-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- class_for_agent-method -->
+
+    
+      <div id="method-i-clear-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clear!</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Deletes all agents</p>
+          
+          
+
+          
+          <div class="method-source-code" id="clear-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 15</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">clear!</span>
+  <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span> <span class="ruby-node">&quot;#{agent}_agent&quot;</span>
+    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:broadcast</span>))
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">@@agents</span> = {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clear-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clear-21-method -->
+
+    
+      <div id="method-i-dispatch" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">dispatch</span><span
+            class="method-args">(request, connection) { |replies| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Dispatches a message to an agent, accepts a block that will get run if
+there are any replies to process from the agent</p>
+          
+          
+
+          
+          <div class="method-source-code" id="dispatch-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 118</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">dispatch</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Dispatching a message to agent #{request.agent}&quot;</span>)
+
+  <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">agent</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{request.agent}_agent&quot;</span>]
+
+      <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword">do</span>
+        <span class="ruby-identifier">replies</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">connection</span>)
+
+        <span class="ruby-comment"># Agents can decide if they wish to reply or not,</span>
+        <span class="ruby-comment"># returning nil will mean nothing goes back to the</span>
+        <span class="ruby-comment"># requestor</span>
+        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">replies</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+          <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">replies</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Timeout while handling message for #{request.agent}&quot;</span>)
+    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Execution of #{request.agent} failed: #{e}&quot;</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t\t&quot;</span>))
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- dispatch-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- dispatch-method -->
+
+    
+      <div id="method-i-findagentfile" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">findagentfile</span><span
+            class="method-args">(agentname)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>searches the libdirs for agents</p>
+          
+          
+
+          
+          <div class="method-source-code" id="findagentfile-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 100</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">agentfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-node">&quot;#{agentname}.rb&quot;</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">agentfile</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agentname} at #{agentfile}&quot;</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">agentfile</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- findagentfile-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- findagentfile-method -->
+
+    
+      <div id="method-i-include-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include?</span><span
+            class="method-args">(agentname)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Determines if we have an agent with a certain name</p>
+          
+          
+
+          
+          <div class="method-source-code" id="include-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include-3F-method -->
+
+    
+      <div id="method-i-loadagent" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadagent</span><span
+            class="method-args">(agentname)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads a specified agent from disk if available</p>
+          
+          
+
+          
+          <div class="method-source-code" id="loadagent-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 42</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>)
+  <span class="ruby-identifier">agentfile</span> = <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">agentfile</span>
+  <span class="ruby-identifier">classname</span> = <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agentname</span>)
+
+  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">single_instance</span> = [<span class="ruby-string">&quot;registration&quot;</span>, <span class="ruby-string">&quot;discovery&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+
+    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">classname</span>)
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agentname</span>)
+      <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{agentname}_agent&quot;</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">classname</span>, <span class="ruby-value">:single_instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single_instance</span>}
+
+      <span class="ruby-comment"># Attempt to instantiate the agent once so any validation and hooks get run</span>
+      <span class="ruby-comment"># this does a basic sanity check on the agent as a whole, if this fails it</span>
+      <span class="ruby-comment"># will be removed from the plugin list</span>
+      <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>]
+
+      <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agentname</span>, <span class="ruby-value">:broadcast</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+
+      <span class="ruby-identifier">@@agents</span>[<span class="ruby-identifier">agentname</span>] = {<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agentfile</span>}
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Not activating agent #{agentname} due to agent policy in activate? method&quot;</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Loading agent #{agentname} failed: #{e}&quot;</span>)
+    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- loadagent-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- loadagent-method -->
+
+    
+      <div id="method-i-loadagents" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadagents</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads all agents from disk</p>
+          
+          
+
+          
+          <div class="method-source-code" id="loadagents-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 25</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadagents</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Reloading all agents from disk&quot;</span>)
+
+  <span class="ruby-identifier">clear!</span>
+
+  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">agentdir</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent&quot;</span>
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">agentdir</span>)
+
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agentdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp">/\.rb$/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">agentname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">&quot;.rb&quot;</span>)
+      <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- loadagents-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- loadagents-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

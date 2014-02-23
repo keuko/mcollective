@@ -74,26 +74,33 @@ module MCollective
 
           when "compound"
             filter[key].each do |compound|
-              result = []
+              result = false
+              truth_values = []
 
-              compound.each do |expression|
-                case expression.keys.first
-                when "statement"
-                  result << Util.eval_compound_statement(expression).to_s
-                when "and"
-                  result << "&&"
-                when "or"
-                  result << "||"
-                when "("
-                  result << "("
-                when ")"
-                  result << ")"
-                when "not"
-                  result << "!"
+              begin
+                compound.each do |expression|
+                  case expression.keys.first
+                    when "statement"
+                      truth_values << Matcher.eval_compound_statement(expression).to_s
+                    when "fstatement"
+                      truth_values << Matcher.eval_compound_fstatement(expression.values.first)
+                    when "and"
+                      truth_values << "&&"
+                    when "or"
+                      truth_values << "||"
+                    when "("
+                      truth_values << "("
+                    when ")"
+                      truth_values << ")"
+                    when "not"
+                      truth_values << "!"
+                  end
                 end
-              end
 
-              result = eval(result.join(" "))
+                result = eval(truth_values.join(" "))
+              rescue DDLValidationError
+                result = false
+              end
 
               if result
                 Log.debug("Passing based on class and fact composition")
@@ -161,24 +168,24 @@ module MCollective
         Log.debug("Encoded a message for request #{reqid}")
 
         {:senderid => @config.identity,
-          :requestid => reqid,
-          :senderagent => agent,
-          :msgtime => Time.now.utc.to_i,
-          :body => body}
+         :requestid => reqid,
+         :senderagent => agent,
+         :msgtime => Time.now.utc.to_i,
+         :body => body}
       end
 
       def create_request(reqid, filter, msg, initiated_by, target_agent, target_collective, ttl=60)
         Log.debug("Encoding a request for agent '#{target_agent}' in collective #{target_collective} with request id #{reqid}")
 
         {:body => msg,
-          :senderid => @config.identity,
-          :requestid => reqid,
-          :filter => filter,
-          :collective => target_collective,
-          :agent => target_agent,
-          :callerid => callerid,
-          :ttl => ttl,
-          :msgtime => Time.now.utc.to_i}
+         :senderid => @config.identity,
+         :requestid => reqid,
+         :filter => filter,
+         :collective => target_collective,
+         :agent => target_agent,
+         :callerid => callerid,
+         :ttl => ttl,
+         :msgtime => Time.now.utc.to_i}
       end
 
       # Give a MC::Message instance and a message id this will figure out if you the incoming
@@ -215,22 +222,22 @@ module MCollective
 
       # Security providers should provide this, see MCollective::Security::Psk
       def validrequest?(req)
-        Log.error("validrequest? is not implimented in #{self.class}")
+        Log.error("validrequest? is not implemented in #{self.class}")
       end
 
       # Security providers should provide this, see MCollective::Security::Psk
       def encoderequest(sender, msg, filter={})
-        Log.error("encoderequest is not implimented in #{self.class}")
+        Log.error("encoderequest is not implemented in #{self.class}")
       end
 
       # Security providers should provide this, see MCollective::Security::Psk
       def encodereply(sender, msg, requestcallerid=nil)
-        Log.error("encodereply is not implimented in #{self.class}")
+        Log.error("encodereply is not implemented in #{self.class}")
       end
 
       # Security providers should provide this, see MCollective::Security::Psk
       def decodemsg(msg)
-        Log.error("decodemsg is not implimented in #{self.class}")
+        Log.error("decodemsg is not implemented in #{self.class}")
       end
     end
   end

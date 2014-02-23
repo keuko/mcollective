@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective::Cache - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/cache.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-delete-21">::delete!</a>
+    
+    <li ><a href="#method-c-has_cache-3F">::has_cache?</a>
+    
+    <li ><a href="#method-c-invalidate-21">::invalidate!</a>
+    
+    <li ><a href="#method-c-read">::read</a>
+    
+    <li ><a href="#method-c-setup">::setup</a>
+    
+    <li ><a href="#method-c-synchronize">::synchronize</a>
+    
+    <li ><a href="#method-c-ttl">::ttl</a>
+    
+    <li ><a href="#method-c-write">::write</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective::Cache</h1>
+
+  <div id="description" class="description">
+    
+<p>A class to manage a number of named caches.  Each cache can have a unique
+timeout for keys in it and each cache has an independent Mutex protecting
+access to it.</p>
+
+<p>This cache is setup early in the process of loading the mcollective
+libraries, before any threads are created etc making it suitable as a cross
+thread cache or just a store for Mutexes you need to use across threads
+like in an <a href="Agent.html">Agent</a> or something.</p>
+
+<pre class="ruby"><span class="ruby-comment"># sets up a new cache, noop if it already exist</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">setup</span>(:<span class="ruby-identifier">ddl</span>, <span class="ruby-value">600</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+
+<span class="ruby-comment"># writes an item to the :ddl cache, this item will</span>
+<span class="ruby-comment"># be valid on the cache for 600 seconds</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">write</span>(:<span class="ruby-identifier">ddl</span>, :<span class="ruby-identifier">something</span>, <span class="ruby-string">&quot;value&quot;</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;value&quot;</span>
+
+<span class="ruby-comment"># reads from the cache, read failures due to non existing</span>
+<span class="ruby-comment"># data or expired data will raise an exception</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">read</span>(:<span class="ruby-identifier">ddl</span>, :<span class="ruby-identifier">something</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;value&quot;</span>
+
+<span class="ruby-comment"># time left till expiry, raises if nothing is found</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">ttl</span>(:<span class="ruby-identifier">ddl</span>, :<span class="ruby-identifier">something</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-value">500</span>
+
+<span class="ruby-comment"># forcibly evict something from the cache</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">invalidate!</span>(:<span class="ruby-identifier">ddl</span>, :<span class="ruby-identifier">something</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;value&quot;</span>
+
+<span class="ruby-comment"># deletes an entire named cache and its mutexes</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">delete!</span>(:<span class="ruby-identifier">ddl</span>)
+=<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+
+<span class="ruby-comment"># you can also just use this cache as a global mutex store</span>
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">setup</span>(:<span class="ruby-identifier">mylock</span>)
+
+<span class="ruby-constant">Cache</span>.<span class="ruby-identifier">synchronize</span>(:<span class="ruby-identifier">mylock</span>) <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">do_something</span>()
+<span class="ruby-keyword">end</span>
+</pre>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-delete-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete!</span><span
+            class="method-args">(cache_name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="delete-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 74</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete!</span>(<span class="ruby-identifier">cache_name</span>)
+  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+    <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
+    <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete-21-method -->
+
+    
+      <div id="method-c-has_cache-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_cache?</span><span
+            class="method-args">(cache_name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="has_cache-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_cache?</span>(<span class="ruby-identifier">cache_name</span>)
+  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_cache-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_cache-3F-method -->
+
+    
+      <div id="method-c-invalidate-21" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">invalidate!</span><span
+            class="method-args">(cache_name, key)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="invalidate-21-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">invalidate!</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- invalidate-21-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- invalidate-21-method -->
+
+    
+      <div id="method-c-read" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">read</span><span
+            class="method-args">(cache_name, key)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="read-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 97</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache expired on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cache for item &#39;%s&#39; on cache &#39;%s&#39; has expired&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache hit on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+
+  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- read-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- read-method -->
+
+    
+      <div id="method-c-setup" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup</span><span
+            class="method-args">(cache_name, ttl=300)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="setup-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 54</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">300</span>)
+  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+    <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>] = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+
+    <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+      <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>] = {<span class="ruby-value">:max_age</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Float</span>(<span class="ruby-identifier">ttl</span>)}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup-method -->
+
+    
+      <div id="method-c-synchronize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">synchronize</span><span
+            class="method-args">(cache_name) { || ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="synchronize-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">synchronize</span>(<span class="ruby-identifier">cache_name</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;No block supplied to synchronize&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+
+  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">yield</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- synchronize-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- synchronize-method -->
+
+    
+      <div id="method-c-ttl" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ttl</span><span
+            class="method-args">(cache_name, key)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="ttl-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache miss on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+      <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No item called &#39;%s&#39; for cache &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-value">:max_age</span>] <span class="ruby-operator">-</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ttl-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ttl-method -->
+
+    
+      <div id="method-c-write" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">write</span><span
+            class="method-args">(cache_name, key, value)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="write-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 85</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+
+  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>] <span class="ruby-operator">||=</span> {}
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>] = <span class="ruby-identifier">value</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">value</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- write-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- write-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

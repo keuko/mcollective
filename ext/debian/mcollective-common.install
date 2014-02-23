@@ -1,8 +1,11 @@
-usr/lib/ruby/1.8/* usr/lib/ruby/1.8/
-etc/mcollective/rpc-help.erb etc/mcollective
+usr/lib/ruby/vendor_ruby/* usr/lib/ruby/vendor_ruby/
+etc/mcollective/*.erb etc/mcollective
 usr/share/mcollective/plugins/mcollective/agent usr/share/mcollective/plugins/mcollective
 usr/share/mcollective/plugins/mcollective/audit usr/share/mcollective/plugins/mcollective
 usr/share/mcollective/plugins/mcollective/connector usr/share/mcollective/plugins/mcollective
+usr/share/mcollective/plugins/mcollective/data usr/share/mcollective/plugins/mcollective
 usr/share/mcollective/plugins/mcollective/facts usr/share/mcollective/plugins/mcollective
 usr/share/mcollective/plugins/mcollective/registration usr/share/mcollective/plugins/mcollective
 usr/share/mcollective/plugins/mcollective/security usr/share/mcollective/plugins/mcollective
+usr/share/mcollective/plugins/mcollective/validator usr/share/mcollective/plugins/mcollective
+usr/share/mcollective/plugins/mcollective/discovery usr/share/mcollective/plugins/mcollective

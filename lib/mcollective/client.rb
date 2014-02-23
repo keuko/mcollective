@@ -1,7 +1,7 @@
 module MCollective
   # Helpers for writing clients that can talk to agents, do discovery and so forth
   class Client
-    attr_accessor :options, :stats
+    attr_accessor :options, :stats, :discoverer
 
     def initialize(configfile)
       @config = Config.instance
@@ -14,6 +14,7 @@ module MCollective
       @options = nil
       @subscriptions = {}
 
+      @discoverer = Discovery.new(self)
       @connection.connect
     end
 
@@ -36,6 +37,15 @@ module MCollective
     # Sends a request and returns the generated request id, doesn't wait for
     # responses and doesn't execute any passed in code blocks for responses
     def sendreq(msg, agent, filter = {})
+      request = createreq(msg, agent, filter)
+
+      Log.debug("Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}")
+
+      request.publish
+      request.requestid
+    end
+
+    def createreq(msg, agent, filter ={})
       if msg.is_a?(Message)
         request = msg
         agent = request.agent
@@ -46,14 +56,8 @@ module MCollective
       end
 
       request.encode!
-
-      Log.debug("Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}")
-
-      subscribe(agent, :reply)
-
-      request.publish
-
-      request.requestid
+      subscribe(agent, :reply) unless request.reply_to
+      request
     end
 
     def subscribe(agent, type)
@@ -90,15 +94,14 @@ module MCollective
         reply.expected_msgid = requestid
 
         reply.decode!
-
-        reply.payload[:senderid] = Digest::MD5.hexdigest(reply.payload[:senderid]) if ENV.include?("MCOLLECTIVE_ANON")
-
-        raise(MsgDoesNotMatchRequestID, "Message reqid #{requestid} does not match our reqid #{reply.requestid}") unless reply.requestid == requestid
+        unless reply.requestid == requestid
+          raise(MsgDoesNotMatchRequestID, "Message reqid #{reply.requestid} does not match our reqid #{requestid}")
+        end
       rescue SecurityValidationFailed => e
         Log.warn("Ignoring a message that did not pass security validations")
         retry
       rescue MsgDoesNotMatchRequestID => e
-        Log.debug("Ignoring a message for some other client")
+        Log.debug("Ignoring a message for some other client : #{e.message}")
         retry
       end
 
@@ -112,30 +115,7 @@ module MCollective
     # of the discovery being cancelled soon as it reached the
     # requested limit of hosts
     def discover(filter, timeout, limit=0)
-      raise "Limit has to be an integer" unless limit.is_a?(Fixnum)
-
-      begin
-        hosts = []
-        Timeout.timeout(timeout) do
-          reqid = sendreq("ping", "discovery", filter)
-          Log.debug("Waiting #{timeout} seconds for discovery replies to request #{reqid}")
-
-          loop do
-            reply = receive(reqid)
-            Log.debug("Got discovery reply from #{reply.payload[:senderid]}")
-            hosts << reply.payload[:senderid]
-
-            return hosts if limit > 0 && hosts.size == limit
-          end
-        end
-      rescue Timeout::Error => e
-      rescue Exception => e
-        raise
-      ensure
-        unsubscribe("discovery", :reply)
-      end
-
-      hosts.sort
+      discovered = @discoverer.discover(filter, timeout, limit)
     end
 
     # Send a request, performs the passed block for each response
@@ -146,109 +126,114 @@ module MCollective
     #
     # It returns a hash of times and timeouts for discovery and total run is taken from the options
     # hash which in turn is generally built using MCollective::Optionparser
-    def req(body, agent=nil, options=false, waitfor=0)
+    def req(body, agent=nil, options=false, waitfor=0, &block)
       if body.is_a?(Message)
         agent = body.agent
-        options = body.options
         waitfor = body.discovered_hosts.size || 0
+        @options = body.options
       end
 
+      @options = options if options
+      threaded = @options[:threaded]
+      timeout = @discoverer.discovery_timeout(@options[:timeout], @options[:filter])
+      request = createreq(body, agent, @options[:filter])
+      publish_timeout = @options[:publish_timeout]
       stat = {:starttime => Time.now.to_f, :discoverytime => 0, :blocktime => 0, :totaltime => 0}
-
-      options = @options unless options
-
       STDOUT.sync = true
-
       hosts_responded = 0
 
+
       begin
-        Timeout.timeout(options[:timeout]) do
-          reqid = sendreq(body, agent, options[:filter])
-
-          loop do
-            resp = receive(reqid)
-
-            hosts_responded += 1
-
-            yield(resp.payload)
-
-            break if (waitfor != 0 && hosts_responded >= waitfor)
-          end
+        if threaded
+          hosts_responded = threaded_req(request, publish_timeout, timeout, waitfor, &block)
+        else
+          hosts_responded = unthreaded_req(request, publish_timeout, timeout, waitfor, &block)
         end
       rescue Interrupt => e
-      rescue Timeout::Error => e
       ensure
         unsubscribe(agent, :reply)
       end
 
+      return update_stat(stat, hosts_responded, request.requestid)
+    end
+
+    # Starts the client receiver and publisher unthreaded.
+    # This is the default client behaviour.
+    def unthreaded_req(request, publish_timeout, timeout, waitfor, &block)
+      start_publisher(request, publish_timeout)
+      start_receiver(request.requestid, waitfor, timeout, &block)
+    end
+
+    # Starts the client receiver and publisher in threads.
+    # This is activated when the 'threader_client' configuration
+    # option is set.
+    def threaded_req(request, publish_timeout, timeout, waitfor, &block)
+      Log.debug("Starting threaded client")
+      publisher = Thread.new do
+        start_publisher(request, publish_timeout)
+      end
+
+      # When the client is threaded we add the publishing timeout to
+      # the agent timeout so that the receiver doesn't time out before
+      # publishing has finished in cases where publish_timeout >= timeout.
+      total_timeout = publish_timeout + timeout
+      hosts_responded = 0
+
+      receiver = Thread.new do
+        hosts_responded = start_receiver(request.requestid, waitfor, total_timeout, &block)
+      end
+
+      receiver.join
+      hosts_responded
+    end
+
+    # Starts the request publishing routine
+    def start_publisher(request, publish_timeout)
+      Log.debug("Starting publishing with publish timeout of #{publish_timeout}")
+      begin
+        Timeout.timeout(publish_timeout) do
+          Log.debug("Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}")
+          request.publish
+        end
+      rescue Timeout::Error => e
+        Log.warn("Could not publish all messages. Publishing timed out.")
+      end
+    end
+
+    # Starts the response receiver routine
+    # Expected to return the amount of received responses.
+    def start_receiver(requestid, waitfor, timeout, &block)
+      Log.debug("Starting response receiver with timeout of #{timeout}")
+      hosts_responded = 0
+      begin
+        Timeout.timeout(timeout) do
+          begin
+            resp = receive(requestid)
+            yield resp.payload
+            hosts_responded += 1
+          end while (waitfor == 0 || hosts_responded < waitfor)
+        end
+      rescue Timeout::Error => e
+        if (waitfor > hosts_responded)
+          Log.warn("Could not receive all responses. Expected : #{waitfor}. Received : #{hosts_responded}")
+        end
+      end
+
+      hosts_responded
+    end
+
+    def update_stat(stat, hosts_responded, requestid)
       stat[:totaltime] = Time.now.to_f - stat[:starttime]
       stat[:blocktime] = stat[:totaltime] - stat[:discoverytime]
       stat[:responses] = hosts_responded
       stat[:noresponsefrom] = []
+      stat[:requestid] = requestid
 
       @stats = stat
-      return stat
     end
 
-    # Performs a discovery and then send a request, performs the passed block for each response
-    #
-    #    times = discovered_req("status", "mcollectived", options, client) {|resp|
-    #       pp resp
-    #    }
-    #
-    # It returns a hash of times and timeouts for discovery and total run is taken from the options
-    # hash which in turn is generally built using MCollective::Optionparser
     def discovered_req(body, agent, options=false)
-      stat = {:starttime => Time.now.to_f, :discoverytime => 0, :blocktime => 0, :totaltime => 0}
-
-      options = @options unless options
-
-      STDOUT.sync = true
-
-      print("Determining the amount of hosts matching filter for #{options[:disctimeout]} seconds .... ")
-
-      begin
-        discovered_hosts = discover(options[:filter], options[:disctimeout])
-        discovered = discovered_hosts.size
-        hosts_responded = []
-        hosts_not_responded = discovered_hosts
-
-        stat[:discoverytime] = Time.now.to_f - stat[:starttime]
-
-        puts("#{discovered}\n\n")
-      rescue Interrupt
-        puts("Discovery interrupted.")
-        exit!
-      end
-
-      raise("No matching clients found") if discovered == 0
-
-      begin
-        Timeout.timeout(options[:timeout]) do
-          reqid = sendreq(body, agent, options[:filter])
-
-          (1..discovered).each do |c|
-            resp = receive(reqid)
-
-            hosts_responded << resp.payload[:senderid]
-            hosts_not_responded.delete(resp.payload[:senderid]) if hosts_not_responded.include?(resp.payload[:senderid])
-
-            yield(resp.payload)
-          end
-        end
-      rescue Interrupt => e
-      rescue Timeout::Error => e
-      end
-
-      stat[:totaltime] = Time.now.to_f - stat[:starttime]
-      stat[:blocktime] = stat[:totaltime] - stat[:discoverytime]
-      stat[:responses] = hosts_responded.size
-      stat[:responsesfrom] = hosts_responded
-      stat[:noresponsefrom] = hosts_not_responded
-      stat[:discovered] = discovered
-
-      @stats = stat
-      return stat
+      raise "Client#discovered_req has been removed, please port your agent and client to the SimpleRPC framework"
     end
 
     # Prints out the stats returns from req and discovered_req in a nice way

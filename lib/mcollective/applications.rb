@@ -11,10 +11,10 @@ module MCollective
       begin
         load_application(appname)
       rescue Exception => e
-        e.backtrace.first << RPC::Helpers.colorize(:red, "  <----")
+        e.backtrace.first << Util.colorize(:red, "  <----")
         STDERR.puts "Application '#{appname}' failed to load:"
         STDERR.puts
-        STDERR.puts RPC::Helpers.colorize(:red, "   #{e} (#{e.class})")
+        STDERR.puts Util.colorize(:red, "   #{e} (#{e.class})")
         STDERR.puts
         STDERR.puts "       %s" % [e.backtrace.join("\n       ")]
         exit 1
@@ -36,18 +36,7 @@ module MCollective
     def self.list
       load_config
 
-      applist = []
-
-      Config.instance.libdir.each do |libdir|
-        applicationdir = "#{libdir}/mcollective/application"
-        next unless File.directory?(applicationdir)
-
-        Dir.entries(applicationdir).grep(/\.rb$/).each do |application|
-          applist << File.basename(application, ".rb")
-        end
-      end
-
-      applist
+      PluginManager.find("application")
     rescue SystemExit
       exit 1
     rescue Exception => e

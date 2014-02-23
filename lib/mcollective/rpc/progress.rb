@@ -19,7 +19,7 @@ module MCollective
         if size
           @size = size
         else
-          cols = Helpers.terminal_dimensions[0] - 22
+          cols = Util.terminal_dimensions[0] - 22
 
           # Defaults back to old behavior if it
           # couldn't figure out the size or if
@@ -40,9 +40,9 @@ module MCollective
         return "\r#{current} / #{total}" if @size == 0
 
         if current == total
-          txt = "\r " + Helpers.colorize(:green, "*") + " [ "
+          txt = "\r %s [ " % Util.colorize(:green, "*")
         else
-          txt = "\r #{@twirl[@twirldex]} [ "
+          txt = "\r %s [ " % Util.colorize(:red, @twirl[@twirldex])
         end
 
         dashes = ((current.to_f / total) * @size).round

@@ -2,29 +2,31 @@ Source: mcollective
 Section: utils
 Priority: extra
 Maintainer: Riccardo Setti <giskard@debian.org>
-Build-Depends: debhelper (>= 7), dpatch, cdbs
+Build-Depends: debhelper (>= 7), quilt, cdbs, ruby
 Standards-Version: 3.8.0
 Homepage: http://marionette-collective.org/
 
 Package: mcollective
 Architecture: all
-Depends: ruby (>= 1.8.1), mcollective-common (>= ${source:Version})
+Depends: ruby (>= 1.8.1), mcollective-common (= ${source:Version})
 Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework 
+ The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution systems.
 
 Package: mcollective-client
 Architecture: all
-Depends: ruby (>= 1.8.1), mcollective-common (>= ${source:Version})
+Depends: ruby (>= 1.8.1), mcollective-common (= ${source:Version})
 Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework 
+ The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution system
 
 Package: mcollective-common
+Replaces: mcollective (<< 2.0.0-1)
+Breaks: mcollective (<< 2.0.0-1), mcollective-client (<< 2.0.0-1)
 Architecture: all
-Depends: ruby (>= 1.8.1) , rubygems
+Depends: ruby (>= 1.8.1) , rubygems, ruby-stomp | libstomp-ruby
 Description: build server orchestration or parallel job execution systems
- The Marionette Collective aka. mcollective is a framework 
+ The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution systems.
  .
  Common files for mcollective packages.
@@ -33,7 +35,7 @@ Package: mcollective-doc
 Architecture: all
 Section: doc
 Description: Documentation for mcollective
- The Marionette Collective aka. mcollective is a framework 
+ The Marionette Collective aka. mcollective is a framework
  to build server orchestration or parallel job execution systems.
  .
  Documentation package.

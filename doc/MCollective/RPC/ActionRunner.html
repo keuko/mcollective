@@ -1,0 +1,919 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>class MCollective::RPC::ActionRunner - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+
+
+<body id="top" class="class">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../../index.html">Home</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/rpc/actionrunner.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</nav>
+
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-canrun-3F">#canrun?</a>
+    
+    <li ><a href="#method-i-load_json_results">#load_json_results</a>
+    
+    <li ><a href="#method-i-load_results">#load_results</a>
+    
+    <li ><a href="#method-i-path_to_command">#path_to_command</a>
+    
+    <li ><a href="#method-i-run">#run</a>
+    
+    <li ><a href="#method-i-save_json_request">#save_json_request</a>
+    
+    <li ><a href="#method-i-saverequest">#saverequest</a>
+    
+    <li ><a href="#method-i-shell">#shell</a>
+    
+    <li ><a href="#method-i-tempfile">#tempfile</a>
+    
+    <li ><a href="#method-i-to_s">#to_s</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../../README.html">README</a>
+  
+    <li class="file"><a href="../../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../Array.html">Array</a>
+  
+    <li><a href="../../Dir.html">Dir</a>
+  
+    <li><a href="../../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../../MCollective.html">MCollective</a>
+  
+    <li><a href="../../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../../Object.html">Object</a>
+  
+    <li><a href="../../String.html">String</a>
+  
+    <li><a href="../../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="class">class MCollective::RPC::ActionRunner</h1>
+
+  <div id="description" class="description">
+    
+<p>A helper used by RPC::Agent#implemented_by to delegate an action to an
+external script.  At present only JSON based serialization is supported in
+future ones based on key=val pairs etc will be added</p>
+
+<p>It serializes the request object into an input file and creates an empty
+output file.  It then calls the external command reading the output file at
+the end.</p>
+
+<p>any STDERR gets logged at error level and any STDOUT gets logged at info
+level.</p>
+
+<p>It will interpret the exit code from the application the same way <a
+href="Reply.html#method-i-fail-21">MCollective::RPC::Reply#fail!</a> and
+fail handles their codes creating a consistent interface, the message part
+of the fail message will come from STDERR</p>
+
+<p>Generally externals should just exit with code 1 on failure and print to
+STDERR, this is exactly what Perl die() does and translates perfectly to
+our model</p>
+
+<p>It uses the <a href="../Shell.html">MCollective::Shell</a> wrapper to call
+the external application</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <!-- Attributes -->
+    <section id="attribute-method-details" class="method-section section">
+      <h3 class="section-header">Attributes</h3>
+
+      
+      <div id="attribute-i-action" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">action</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-agent" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">agent</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-command" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">command</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-format" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">format</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-request" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">request</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-stderr" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">stderr</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-stdout" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">stdout</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section><!-- attribute-method-details -->
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(command, request, format=:json)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 26</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">format</span>=<span class="ruby-value">:json</span>)
+  <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
+  <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">action</span>
+  <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">format</span>
+  <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">request</span>
+  <span class="ruby-ivar">@command</span> = <span class="ruby-identifier">path_to_command</span>(<span class="ruby-identifier">command</span>)
+  <span class="ruby-ivar">@stdout</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-ivar">@stderr</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- new-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- new-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-canrun-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">canrun?</span><span
+            class="method-args">(command)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="canrun-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 117</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">canrun?</span>(<span class="ruby-identifier">command</span>)
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">executable?</span>(<span class="ruby-identifier">command</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- canrun-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- canrun-3F-method -->
+
+    
+      <div id="method-i-load_json_results" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_json_results</span><span
+            class="method-args">(file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="load_json_results-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_json_results</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-keyword">return</span> {} <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
+
+  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">||</span> {}
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">ParserError</span>
+  {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_json_results-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_json_results-method -->
+
+    
+      <div id="method-i-load_results" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">load_results</span><span
+            class="method-args">(file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="load_results-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 73</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_results</span>(<span class="ruby-identifier">file</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to load results in #{format} format from #{file}&quot;</span>)
+
+  <span class="ruby-identifier">data</span> = {}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>)
+    <span class="ruby-identifier">tempdata</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>, <span class="ruby-identifier">file</span>)
+
+    <span class="ruby-identifier">tempdata</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">data</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">data</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- load_results-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- load_results-method -->
+
+    
+      <div id="method-i-path_to_command" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">path_to_command</span><span
+            class="method-args">(command)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="path_to_command-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 129</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">path_to_command</span>(<span class="ruby-identifier">command</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">command</span>[<span class="ruby-value">0</span>,<span class="ruby-value">1</span>] <span class="ruby-operator">==</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">SEPARATOR</span>
+    <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">command_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">command</span>)
+
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">command_file</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">command</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- path_to_command-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- path_to_command-method -->
+
+    
+      <div id="method-i-run" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">run</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="run-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 36</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">canrun?</span>(<span class="ruby-identifier">command</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Cannot run #{to_s}&quot;</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RPCAborted</span>, <span class="ruby-node">&quot;Cannot execute #{to_s}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running #{to_s}&quot;</span>)
+
+  <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">saverequest</span>(<span class="ruby-identifier">request</span>)
+  <span class="ruby-identifier">reply_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;reply&quot;</span>)
+  <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close</span>
+
+  <span class="ruby-identifier">runner</span> = <span class="ruby-identifier">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)
+
+  <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">runcommand</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{command} exited with #{runner.status.exitstatus}&quot;</span>)
+
+  <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">empty?</span>
+
+  {<span class="ruby-value">:exitstatus</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">status</span>.<span class="ruby-identifier">exitstatus</span>,
+   <span class="ruby-value">:stdout</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stdout</span>,
+   <span class="ruby-value">:stderr</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stderr</span>,
+   <span class="ruby-value">:data</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">load_results</span>(<span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)}
+<span class="ruby-keyword">ensure</span>
+  <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close!&quot;</span>)
+  <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- run-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- run-method -->
+
+    
+      <div id="method-i-save_json_request" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">save_json_request</span><span
+            class="method-args">(req)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="save_json_request-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 113</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_json_request</span>(<span class="ruby-identifier">req</span>)
+  <span class="ruby-identifier">req</span>.<span class="ruby-identifier">to_json</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- save_json_request-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- save_json_request-method -->
+
+    
+      <div id="method-i-saverequest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">saverequest</span><span
+            class="method-args">(req)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="saverequest-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">saverequest</span>(<span class="ruby-identifier">req</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to save request in #{format} format&quot;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>)
+    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>, <span class="ruby-identifier">req</span>)
+
+    <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;request&quot;</span>)
+    <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">data</span>
+    <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">request_file</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- saverequest-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- saverequest-method -->
+
+    
+      <div id="method-i-shell" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">shell</span><span
+            class="method-args">(command, infile, outfile)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="shell-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 66</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">infile</span>, <span class="ruby-identifier">outfile</span>)
+  <span class="ruby-identifier">env</span> = {<span class="ruby-string">&quot;MCOLLECTIVE_REQUEST_FILE&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">infile</span>,
+         <span class="ruby-string">&quot;MCOLLECTIVE_REPLY_FILE&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">outfile</span>}
+
+  <span class="ruby-constant">Shell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{command} #{infile} #{outfile}&quot;</span>, <span class="ruby-value">:cwd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>, <span class="ruby-value">:stdout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stdout</span>, <span class="ruby-value">:stderr</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stderr</span>, <span class="ruby-value">:environment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">env</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- shell-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- shell-method -->
+
+    
+      <div id="method-i-tempfile" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">tempfile</span><span
+            class="method-args">(prefix)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="tempfile-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">tempfile</span>(<span class="ruby-identifier">prefix</span>)
+  <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;mcollective_#{prefix}&quot;</span>, <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- tempfile-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- tempfile-method -->
+
+    
+      <div id="method-i-to_s" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">to_s</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="to_s-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 121</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
+  <span class="ruby-node">&quot;%s#%s command: %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">command</span> ]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- to_s-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- to_s-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

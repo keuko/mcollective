@@ -5,7 +5,9 @@ module MCollective
 
       def initialize(arguments)
         @token_index = 0
-        @arguments = arguments
+        @arguments = arguments.split("")
+        @seperation_counter = 0
+        @white_spaces = 0
       end
 
       # Scans the input string and identifies single language tokens
@@ -14,110 +16,186 @@ module MCollective
           return nil
         end
 
-        begin
-          case @arguments.split("")[@token_index]
-          when "("
-            return "(", "("
+        case @arguments[@token_index]
+        when "("
+          return "(", "("
 
-          when ")"
-            return ")", ")"
+        when ")"
+          return ")", ")"
 
-          when "n"
-            if (@arguments.split("")[@token_index + 1] == "o") && (@arguments.split("")[@token_index + 2] == "t") && ((@arguments.split("")[@token_index + 3] == " ") || (@arguments.split("")[@token_index + 3] == "("))
-              @token_index += 2
-              return "not", "not"
-            else
-              gen_statement
-            end
-
-          when "!"
+        when "n"
+          if (@arguments[@token_index + 1] == "o") && (@arguments[@token_index + 2] == "t") && ((@arguments[@token_index + 3] == " ") || (@arguments[@token_index + 3] == "("))
+            @token_index += 2
             return "not", "not"
-
-          when "a"
-            if (@arguments.split("")[@token_index + 1] == "n") && (@arguments.split("")[@token_index + 2] == "d") && ((@arguments.split("")[@token_index + 3] == " ") || (@arguments.split("")[@token_index + 3] == "("))
-              @token_index += 2
-              return "and", "and"
-            else
-              gen_statement
-            end
-
-          when "o"
-            if (@arguments.split("")[@token_index + 1] == "r") && ((@arguments.split("")[@token_index + 2] == " ") || (@arguments.split("")[@token_index + 2] == "("))
-              @token_index += 1
-              return "or", "or"
-            else
-              gen_statement
-            end
-
-          when " "
-            return " ", " "
-
           else
             gen_statement
           end
+
+        when "!"
+          return "not", "not"
+
+        when "a"
+          if (@arguments[@token_index + 1] == "n") && (@arguments[@token_index + 2] == "d") && ((@arguments[@token_index + 3] == " ") || (@arguments[@token_index + 3] == "("))
+            @token_index += 2
+            return "and", "and"
+          else
+            gen_statement
+          end
+
+        when "o"
+          if (@arguments[@token_index + 1] == "r") && ((@arguments[@token_index + 2] == " ") || (@arguments[@token_index + 2] == "("))
+            @token_index += 1
+            return "or", "or"
+          else
+            gen_statement
+          end
+
+        when " "
+          return " ", " "
+
+        else
+          gen_statement
         end
-      rescue NoMethodError => e
-        pp e
-        raise "Cannot end statement with 'and', 'or', 'not'"
       end
 
       private
       # Helper generates a statement token
       def gen_statement
+        func = false
         current_token_value = ""
         j = @token_index
 
         begin
-          if (@arguments.split("")[j] == "/")
+          if (@arguments[j] == "/")
             begin
-              current_token_value << @arguments.split("")[j]
+              current_token_value << @arguments[j]
               j += 1
-              if @arguments.split("")[j] == "/"
-                current_token_value << "/"
+            end until (j >= @arguments.size) || (@arguments[j] =~ /\s/)
+          elsif (@arguments[j] =~ /=|<|>/)
+            while !(@arguments[j] =~ /=|<|>/)
+              current_token_value << @arguments[j]
+              j += 1
+            end
+
+            current_token_value << @arguments[j]
+            j += 1
+
+            if @arguments[j] == "/"
+              begin
+                current_token_value << @arguments[j]
+                j += 1
+                if @arguments[j] == "/"
+                  current_token_value << "/"
+                  break
+                end
+              end until (j >= @arguments.size) || (@arguments[j] =~ /\//)
+            else
+              while (j < @arguments.size) && ((@arguments[j] != " ") && (@arguments[j] != ")"))
+                current_token_value << @arguments[j]
+                j += 1
+              end
+            end
+          else
+            begin
+              # Identify and tokenize regular expressions by ignoring everything between /'s
+              if @arguments[j] == '/'
+                current_token_value << '/'
+                j+=1
+                while(j < @arguments.size && @arguments[j] != '/')
+                  current_token_value << @arguments[j]
+                  j += 1
+                end
+                current_token_value << @arguments[j] if @arguments[j]
                 break
               end
-            end until (j >= @arguments.size) || (@arguments.split("")[j] =~ /\//)
-          elsif (@arguments.split("")[j] =~ /=|<|>/)
-                        while !(@arguments.split("")[j] =~ /=|<|>/)
-                            current_token_value << @arguments.split("")[j]
-                            j += 1
-                        end
-
-                        current_token_value << @arguments.split("")[j]
-                        j += 1
-
-                        if @arguments.split("")[j] == "/"
-                            begin
-                                current_token_value << @arguments.split("")[j]
-                                j += 1
-                                if @arguments.split("")[j] == "/"
-                                    current_token_value << "/"
-                                    break
-                                end
-                            end until (j >= @arguments.size) || (@arguments.split("")[j] =~ /\//)
-                        else
-                            while (j < @arguments.size) && ((@arguments.split("")[j] != " ") && (@arguments.split("")[j] != ")"))
-                                current_token_value << @arguments.split("")[j]
-                                j += 1
-                            end
-                        end
-                    else
-                        begin
-                            current_token_value << @arguments.split("")[j]
-                            j += 1
-                        end until (j >= @arguments.size) || (@arguments.split("")[j] =~ /\s|\)/)
-                    end
-                rescue Exception => e
-                    raise "Invalid token found - '#{current_token_value}'"
+              if @arguments[j+1] == "("
+                func = true
+                be_greedy = true
+              end
+              current_token_value << @arguments[j]
+              if be_greedy
+                while !(j+1 >= @arguments.size) && @arguments[j] != ')'
+                  j += 1
+                  current_token_value << @arguments[j]
                 end
-
-                if current_token_value =~ /^(and|or|not|!)$/
-                    raise "Class name cannot be 'and', 'or', 'not'. Found '#{current_token_value}'"
+                j += 1
+                be_greedy = false
+              else
+                j += 1
+              end
+              if(@arguments[j] == ' ')
+                break if(is_klass?(j) && !(@arguments[j-1] =~ /=|<|>/))
+              end
+              if( (@arguments[j] == ' ') && (@seperation_counter < 2) && !(current_token_value.match(/^.+(=|<|>).+$/)) )
+                if((index = lookahead(j)))
+                  j = index
                 end
-
-                @token_index += current_token_value.size - 1
-                return "statement", current_token_value
-            end
+              end
+            end until (j >= @arguments.size) || (@arguments[j] =~ /\s|\)/)
+            @seperation_counter = 0
+          end
+        rescue Exception => e
+          raise "An exception was raised while trying to tokenize '#{current_token_value} - #{e}'"
         end
+
+        @token_index += current_token_value.size + @white_spaces - 1
+        @white_spaces = 0
+
+        # bar(
+        if current_token_value.match(/.+?\($/)
+          return "bad_token", [@token_index - current_token_value.size + 1, @token_index]
+        # /foo/=bar
+        elsif current_token_value.match(/^\/.+?\/(<|>|=).+/)
+          return "bad_token", [@token_index - current_token_value.size + 1, @token_index]
+        elsif current_token_value.match(/^.+?\/(<|>|=).+/)
+          return "bad_token", [@token_index - current_token_value.size + 1, @token_index]
+        else
+          if func
+            if current_token_value.match(/^.+?\((\s*(')[^']*(')\s*(,\s*(')[^']*('))*)?\)(\.[a-zA-Z0-9_]+)?((!=|<=|>=|=|>|<).+)?$/) ||
+              current_token_value.match(/^.+?\((\s*(")[^"]*(")\s*(,\s*(")[^"]*("))*)?\)(\.[a-zA-Z0-9_]+)?((!=|<=|>=|=|>|<).+)?$/)
+              return "fstatement", current_token_value
+            else
+              return "bad_token", [@token_index - current_token_value.size + 1, @token_index]
+            end
+          else
+            slash_err = false
+            current_token_value.split('').each do |c|
+              if c == '/'
+                slash_err = !slash_err
+              end
+            end
+            return "bad_token", [@token_index - current_token_value.size + 1, @token_index] if slash_err
+            return "statement", current_token_value
+          end
+        end
+      end
+
+      # Deal with special puppet class statement
+      def is_klass?(j)
+        while(j < @arguments.size && @arguments[j] == ' ')
+          j += 1
+        end
+
+        if @arguments[j] =~ /=|<|>/
+          return false
+        else
+          return true
+        end
+      end
+
+      # Eat spaces while looking for the next comparison symbol
+      def lookahead(index)
+        index += 1
+        while(index <= @arguments.size)
+          @white_spaces += 1
+          unless(@arguments[index] =~ /\s/)
+            @seperation_counter +=1
+            return index
+          end
+          index += 1
+        end
+        return nil
+      end
     end
+  end
 end
