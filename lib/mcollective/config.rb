@@ -3,14 +3,19 @@ module MCollective
   class Config
     include Singleton
 
-    attr_reader :topicprefix, :daemonize, :pluginconf, :libdir, :configured,
-    :logfile, :keeplogs, :max_log_size, :loglevel, :logfacility, :identity,
-    :daemonize, :connector, :securityprovider, :factsource, :registration,
-    :registerinterval, :topicsep, :classesfile, :rpcauditprovider, :rpcaudit,
-    :configdir, :rpcauthprovider, :rpcauthorization, :color, :configfile,
-    :rpchelptemplate, :rpclimitmethod, :logger_type, :fact_cache_time,
-    :collectives, :main_collective, :ssl_cipher, :registration_collective,
-    :direct_addressing, :direct_addressing_threshold, :queueprefix, :ttl
+    attr_accessor :mode
+
+    attr_reader :daemonize, :pluginconf, :libdir, :configured
+    attr_reader :logfile, :keeplogs, :max_log_size, :loglevel, :logfacility
+    attr_reader :identity, :daemonize, :connector, :securityprovider, :factsource
+    attr_reader :registration, :registerinterval, :classesfile
+    attr_reader :rpcauditprovider, :rpcaudit, :configdir, :rpcauthprovider
+    attr_reader :rpcauthorization, :color, :configfile
+    attr_reader :rpclimitmethod, :logger_type, :fact_cache_time, :collectives
+    attr_reader :main_collective, :ssl_cipher, :registration_collective
+    attr_reader :direct_addressing, :direct_addressing_threshold, :ttl
+    attr_reader :default_discovery_method, :default_discovery_options
+    attr_reader :publish_timeout, :threaded
 
     def initialize
       @configured = false
@@ -20,39 +25,34 @@ module MCollective
       set_config_defaults(configfile)
 
       if File.exists?(configfile)
-        File.open(configfile, "r").each do |line|
+        File.readlines(configfile).each do |line|
 
           # strip blank spaces, tabs etc off the end of all lines
           line.gsub!(/\s*$/, "")
 
           unless line =~ /^#|^$/
             if (line =~ /(.+?)\s*=\s*(.+)/)
-              key = $1
+              key = $1.strip
               val = $2
 
-              case key
-                when "topicsep"
-                  @topicsep = val
+              begin
+                case key
                 when "registration"
                   @registration = val.capitalize
                 when "registration_collective"
                   @registration_collective = val
                 when "registerinterval"
-                  @registerinterval = val.to_i
+                  @registerinterval = Integer(val)
                 when "collectives"
                   @collectives = val.split(",").map {|c| c.strip}
                 when "main_collective"
                   @main_collective = val
-                when "topicprefix"
-                  @topicprefix = val
-                when "queueprefix"
-                  @queueprefix = val
                 when "logfile"
                   @logfile = val
                 when "keeplogs"
-                  @keeplogs = val.to_i
+                  @keeplogs = Integer(val)
                 when "max_log_size"
-                  @max_log_size = val.to_i
+                  @max_log_size = Integer(val)
                 when "loglevel"
                   @loglevel = val
                 when "logfacility"
@@ -60,6 +60,8 @@ module MCollective
                 when "libdir"
                   paths = val.split(File::PATH_SEPARATOR)
                   paths.each do |path|
+                    raise("libdir paths should be absolute paths but '%s' is relative" % path) unless Util.absolute_path?(path)
+
                     @libdir << path
                     unless $LOAD_PATH.include?(path)
                       $LOAD_PATH << path
@@ -68,13 +70,13 @@ module MCollective
                 when "identity"
                   @identity = val
                 when "direct_addressing"
-                  val =~ /^1|y/i ? @direct_addressing = true : @direct_addressing = false
+                  @direct_addressing = Util.str_to_bool(val)
                 when "direct_addressing_threshold"
-                  @direct_addressing_threshold = val.to_i
+                  @direct_addressing_threshold = Integer(val)
                 when "color"
-                  val =~ /^1|y/i ? @color = true : @color = false
+                  @color = Util.str_to_bool(val)
                 when "daemonize"
-                  val =~ /^1|y/i ? @daemonize = true : @daemonize = false
+                  @daemonize = Util.str_to_bool(val)
                 when "securityprovider"
                   @securityprovider = val.capitalize
                 when "factsource"
@@ -85,32 +87,45 @@ module MCollective
                   @classesfile = val
                 when /^plugin.(.+)$/
                   @pluginconf[$1] = val
+                when "publish_timeout"
+                  @publish_timeout = Integer(val)
                 when "rpcaudit"
-                  val =~ /^1|y/i ? @rpcaudit = true : @rpcaudit = false
+                  @rpcaudit = Util.str_to_bool(val)
                 when "rpcauditprovider"
                   @rpcauditprovider = val.capitalize
                 when "rpcauthorization"
-                  val =~ /^1|y/i ? @rpcauthorization = true : @rpcauthorization = false
+                  @rpcauthorization = Util.str_to_bool(val)
                 when "rpcauthprovider"
                   @rpcauthprovider = val.capitalize
-                when "rpchelptemplate"
-                  @rpchelptemplate = val
                 when "rpclimitmethod"
                   @rpclimitmethod = val.to_sym
                 when "logger_type"
                   @logger_type = val
                 when "fact_cache_time"
-                  @fact_cache_time = val.to_i
+                  @fact_cache_time = Integer(val)
                 when "ssl_cipher"
                   @ssl_cipher = val
+                when "threaded"
+                  @threaded = Util.str_to_bool(val)
                 when "ttl"
-                  @ttl = val.to_i
+                  @ttl = Integer(val)
+                when "default_discovery_options"
+                  @default_discovery_options << val
+                when "default_discovery_method"
+                  @default_discovery_method = val
+                when "topicprefix", "topicsep", "queueprefix", "rpchelptemplate", "helptemplatedir"
+                  Log.warn("Use of deprecated '#{key}' option.  This option is ignored and should be removed from '#{configfile}'")
                 else
-                  raise("Unknown config parameter #{key}")
+                  raise("Unknown config parameter '#{key}'")
+                end
+              rescue ArgumentError => e
+                raise "Could not parse value for configuration option '#{key}' with value '#{val}'"
               end
             end
           end
         end
+
+        raise('The %s config file does not specify a libdir setting, cannot continue' % configfile) if @libdir.empty?
 
         read_plugin_config_dir("#{@configdir}/plugin.d")
 
@@ -130,6 +145,8 @@ module MCollective
         PluginManager.loadclass("Mcollective::Registration::#{@registration}")
         PluginManager.loadclass("Mcollective::Audit::#{@rpcauditprovider}") if @rpcaudit
         PluginManager << {:type => "global_stats", :class => RunnerStats.new}
+
+        Log.info("The Marionette Collective version #{MCollective::VERSION} started by #{$0} using config file #{configfile}")
       else
         raise("Cannot find config file '#{configfile}'")
       end
@@ -139,16 +156,13 @@ module MCollective
       @stomp = Hash.new
       @subscribe = Array.new
       @pluginconf = Hash.new
-      @connector = "Stomp"
+      @connector = "activemq"
       @securityprovider = "Psk"
       @factsource = "Yaml"
       @identity = Socket.gethostname
       @registration = "Agentlist"
       @registerinterval = 0
       @registration_collective = nil
-      @topicsep = "."
-      @topicprefix = "/topic/"
-      @queueprefix = "/queue/"
       @classesfile = "/var/lib/puppet/state/classes.txt"
       @rpcaudit = false
       @rpcauditprovider = ""
@@ -168,15 +182,14 @@ module MCollective
       @collectives = ["mcollective"]
       @main_collective = @collectives.first
       @ssl_cipher = "aes-256-cbc"
-      @direct_addressing = false
+      @direct_addressing = true
       @direct_addressing_threshold = 10
+      @default_discovery_method = "mc"
+      @default_discovery_options = []
       @ttl = 60
-
-      # look in the config dir for the template so users can provide their own and windows
-      # with odd paths will just work more often, but fall back to old behavior if it does
-      # not exist
-      @rpchelptemplate = File.join(File.dirname(configfile), "rpc-help.erb")
-      @rpchelptemplate = "/etc/mcollective/rpc-help.erb" unless File.exists?(@rpchelptemplate)
+      @mode = :client
+      @publish_timeout = 2
+      @threaded = false
     end
 
     def read_plugin_config_dir(dir)
@@ -191,7 +204,7 @@ module MCollective
           line.gsub!(/\s*$/, "")
           next if line =~ /^#|^$/
           if (line =~ /(.+?)\s*=\s*(.+)/)
-            key = $1
+            key = $1.strip
             val = $2
             @pluginconf["#{plugin}.#{key}"] = val
           end

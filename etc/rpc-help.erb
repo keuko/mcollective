@@ -1,45 +1,44 @@
-<%= meta[:name] %>
-<% meta[:name].size.times do %>=<% end %>
-
-<%= meta[:description] %>
-
-      Author: <%= meta[:author] %>
-     Version: <%= meta[:version] %>
-     License: <%= meta[:license] %>
-     Timeout: <%= meta[:timeout] %>
-   Home Page: <%= meta[:url] %>
-
-
-
+<%= metastring %>
 ACTIONS:
 ========
-   <%= actions.keys.sort.join(", ") %>
+   <%= entities.keys.sort.join(", ") %>
 
-% actions.keys.sort.each do |action|
+% entities.keys.sort.each do |action|
    <%= action %> action:
    <% (action.size + 8).times do %>-<% end %>
-       <%= actions[action][:description] %>
+       <%= entities[action][:description] %>
 
        INPUT:
-%    actions[action][:input].keys.sort.each do |input|
+%  if entities[action][:input].size > 0
+%    entities[action][:input].keys.sort.each do |input|
            <%= input %>:
-              Description: <%= actions[action][:input][input][:description] %>
-                   Prompt: <%= actions[action][:input][input][:prompt] %>
-                     Type: <%= actions[action][:input][input][:type] %>
-%        if actions[action][:input][input][:type] == :string
-               Validation: <%= actions[action][:input][input][:validation] %>
-                   Length: <%= actions[action][:input][input][:maxlength] %>
-%        elsif actions[action][:input][input][:type] == :list
-             Valid Values: <%= actions[action][:input][input][:list].join(", ") %>
+              Description: <%= entities[action][:input][input][:description] %>
+                   Prompt: <%= entities[action][:input][input][:prompt] %>
+                     Type: <%= entities[action][:input][input][:type] %>
+                 Optional: <%= !!entities[action][:input][input][:optional] %>
+%        if entities[action][:input][input][:type] == :string
+               Validation: <%= entities[action][:input][input][:validation] %>
+                   Length: <%= entities[action][:input][input][:maxlength] %>
+%        elsif entities[action][:input][input][:type] == :list
+             Valid Values: <%= entities[action][:input][input][:list].join(", ") %>
+%        end
+%        if entities[action][:input][input][:default]
+            Default Value: <%= entities[action][:input][input][:default] %>
 %        end
 
 %    end
+%  else
+          This action does not have any inputs
+%  end
 
        OUTPUT:
-%    actions[action][:output].keys.sort.each do |output|
+%    entities[action][:output].keys.sort.each do |output|
            <%= output %>:
-              Description: <%= actions[action][:output][output][:description] %>
-               Display As: <%= actions[action][:output][output][:display_as] %>
+              Description: <%= entities[action][:output][output][:description] %>
+               Display As: <%= entities[action][:output][output][:display_as] %>
+%        if entities[action][:output][output][:default]
+            Default Value: <%= entities[action][:output][output][:default] %>
+%        end
 
 %    end
 % end

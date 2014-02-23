@@ -1,0 +1,843 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective::PluginManager - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/pluginmanager.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-3C-3C">::&lt;&lt;</a>
+    
+    <li ><a href="#method-c-5B-5D">::[]</a>
+    
+    <li ><a href="#method-c-clear">::clear</a>
+    
+    <li ><a href="#method-c-create_instance">::create_instance</a>
+    
+    <li ><a href="#method-c-delete">::delete</a>
+    
+    <li ><a href="#method-c-find">::find</a>
+    
+    <li ><a href="#method-c-find_and_load">::find_and_load</a>
+    
+    <li ><a href="#method-c-grep">::grep</a>
+    
+    <li ><a href="#method-c-include-3F">::include?</a>
+    
+    <li ><a href="#method-c-loadclass">::loadclass</a>
+    
+    <li ><a href="#method-c-pluginlist">::pluginlist</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective::PluginManager</h1>
+
+  <div id="description" class="description">
+    
+<p>A simple plugin manager, it stores one plugin each of a specific type the
+idea is that we can only have one security provider, one connector etc.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-3C-3C" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">&lt;&lt;</span><span
+            class="method-args">(plugin)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Adds a plugin to the list of plugins, we expect a hash like:</p>
+
+<pre class="ruby">{:<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
+ :<span class="ruby-keyword">class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">foo</span>.<span class="ruby-identifier">new</span>}
+</pre>
+
+<p>or like:</p>
+
+<pre class="ruby">{:<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
+ :<span class="ruby-keyword">class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Foo::Bar&quot;</span>}
+</pre>
+
+<p>In the event that we already have a class with the given type an exception
+will be raised.</p>
+
+<p>If the :class passed is a <a href="../String.html">String</a> then we will
+delay instantiation till the first time someone asks for the plugin, this
+is because most likely the registration gets done by inherited() hooks, at
+which point the plugin class is not final.</p>
+
+<p>If we were to do a .new here the Class initialize method would get called
+and not the plugins, we there for only initialize the classes when they get
+requested via []</p>
+
+<p>By default all plugin instances are cached and returned later so
+there&#39;s always a single instance.  You can pass :single_instance =&gt;
+false when calling this to instruct it to always return a new instance when
+a copy is requested.  This only works with sending a <a
+href="../String.html">String</a> for :class.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="3C-3C-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 30</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">plugin</span>)
+  <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>] = <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:single_instance</span>)
+
+  <span class="ruby-identifier">type</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:type</span>]
+  <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:class</span>]
+  <span class="ruby-identifier">single</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>]
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+
+
+  <span class="ruby-comment"># If we get a string then store &#39;nil&#39; as the instance, signalling that we&#39;ll</span>
+  <span class="ruby-comment"># create the class later on demand.</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single</span>}
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass} single_instance: #{single}&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class</span>, <span class="ruby-value">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass.class} single_instance: true&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 3C-3C-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 3C-3C-method -->
+
+    
+      <div id="method-c-5B-5D" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">[]</span><span
+            class="method-args">(plugin)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets a plugin by type</p>
+          
+          
+
+          
+          <div class="method-source-code" id="5B-5D-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 72</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">plugin</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin #{plugin} defined&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+
+  <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:class</span>]
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:single</span>]
+    <span class="ruby-comment"># Create an instance of the class if one hasn&#39;t been done before</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+      <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning cached plugin #{plugin} with class #{klass}&quot;</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+    <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- 5B-5D-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- 5B-5D-method -->
+
+    
+      <div id="method-c-clear" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">clear</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>deletes all registered plugins</p>
+          
+          
+
+          
+          <div class="method-source-code" id="clear-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 67</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">clear</span>
+  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">clear</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- clear-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- clear-method -->
+
+    
+      <div id="method-c-create_instance" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_instance</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>use eval to create an instance of a class</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_instance-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 94</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{klass}.new&quot;</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not create instance of plugin #{klass}: #{e}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_instance-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_instance-method -->
+
+    
+      <div id="method-c-delete" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">delete</span><span
+            class="method-args">(plugin)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Removes a plugim the list</p>
+          
+          
+
+          
+          <div class="method-source-code" id="delete-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 52</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>)
+  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- delete-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- delete-method -->
+
+    
+      <div id="method-c-find" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find</span><span
+            class="method-args">(type, extension="rb")</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds plugins in all configured libdirs</p>
+
+<pre>find(&quot;agent&quot;)</pre>
+
+<p>will return an array of just agent names, for example:</p>
+
+<pre>[&quot;puppetd&quot;, &quot;package&quot;]</pre>
+
+<p>Can also be used to find files of other extensions:</p>
+
+<pre>find(&quot;agent&quot;, &quot;ddl&quot;)</pre>
+
+<p>Will return the same list but only of files with extension .ddl in the
+agent subdirectory</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 116</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
+  <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
+
+  <span class="ruby-identifier">plugins</span> = []
+
+  <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">plugdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_s</span>])
+    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">plugdir</span>)
+
+    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-node">/#{extension}$/</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">plugins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">extension</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find-method -->
+
+    
+      <div id="method-c-find_and_load" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">find_and_load</span><span
+            class="method-args">(type, extension="rb") { |plugin| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds and loads from disk all plugins from all libdirs that match certain
+criteria.</p>
+
+<pre>find_and_load(&quot;pluginpackager&quot;)</pre>
+
+<p>Will find all .rb files in the libdir/mcollective/pluginpackager/ directory
+in all libdirs and load them from disk.</p>
+
+<p>You can influence what plugins get loaded using a block notation:</p>
+
+<pre class="ruby"><span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;pluginpackager&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+   <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/puppet/</span>)
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>This will load only plugins matching /puppet/</p>
+          
+          
+
+          
+          <div class="method-source-code" id="find_and_load-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 148</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
+  <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
+
+  <span class="ruby-identifier">klasses</span> = <span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+      <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">plugin</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-string">&quot;%s::%s::%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;MCollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">capitalize</span> ]
+  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">compact</span>
+
+  <span class="ruby-identifier">klasses</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-keyword">true</span>)}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- find_and_load-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- find_and_load-method -->
+
+    
+      <div id="method-c-grep" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">grep</span><span
+            class="method-args">(regex)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Grep&#39;s over the plugin list and returns the list found</p>
+          
+          
+
+          
+          <div class="method-source-code" id="grep-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 176</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
+  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- grep-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- grep-method -->
+
+    
+      <div id="method-c-include-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">include?</span><span
+            class="method-args">(plugin)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds out if we have a plugin with the given name</p>
+          
+          
+
+          
+          <div class="method-source-code" id="include-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 57</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- include-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- include-3F-method -->
+
+    
+      <div id="method-c-loadclass" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadclass</span><span
+            class="method-args">(klass, squash_failures=false)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Loads a class from file by doing some simple search/replace on class names
+and then doing a require.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="loadclass-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 164</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">squash_failures</span>=<span class="ruby-keyword">false</span>)
+  <span class="ruby-identifier">fname</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;::&quot;</span>, <span class="ruby-string">&quot;/&quot;</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.rb&quot;</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Loading #{klass} from #{fname}&quot;</span>)
+
+  <span class="ruby-identifier">load</span> <span class="ruby-identifier">fname</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load #{klass}: #{e}&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">squash_failures</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- loadclass-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- loadclass-method -->
+
+    
+      <div id="method-c-pluginlist" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">pluginlist</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Provides a list of plugins we know about</p>
+          
+          
+
+          
+          <div class="method-source-code" id="pluginlist-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 62</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pluginlist</span>
+  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- pluginlist-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- pluginlist-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

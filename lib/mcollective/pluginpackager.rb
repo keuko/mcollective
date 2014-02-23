@@ -15,9 +15,16 @@ module MCollective
 
     # Fetch and return metadata from plugin DDL
     def self.get_metadata(path, type)
-      ddl = MCollective::RPC::DDL.new("package", false)
-      ddl.instance_eval File.read(Dir.glob(File.join(path, type, "*.ddl")).first)
-      ddl.meta
+      ddl = DDL.new("package", type.to_sym, false)
+
+      begin
+        ddl_file = File.read(Dir.glob(File.join(path, type, "*.ddl")).first)
+      rescue Exception
+        raise "failed to load ddl file in plugin directory : #{File.join(path, type)}"
+      end
+      ddl.instance_eval ddl_file
+
+      return ddl.meta, ddl.requirements[:mcollective]
     end
 
     # Checks if a directory is present and not empty
@@ -26,7 +33,7 @@ module MCollective
     end
 
     # Quietly calls a block if verbose parameter is false
-    def self.do_quietly?(verbose, &block)
+    def self.execute_verbosely(verbose, &block)
       unless verbose
         old_stdout = $stdout.clone
         $stdout.reopen(File.new("/dev/null", "w"))
@@ -44,7 +51,7 @@ module MCollective
     end
 
     # Checks if a build tool is present on the system
-    def self.build_tool?(build_tool)
+    def self.command_available?(build_tool)
       ENV["PATH"].split(File::PATH_SEPARATOR).each do |path|
         builder = File.join(path, build_tool)
         if File.exists?(builder)
@@ -55,7 +62,28 @@ module MCollective
     end
 
     def self.safe_system(*args)
-      raise RuntimeError, "Failed: #{args.join(' ')}" unless system *args
+      raise(RuntimeError, "Failed: #{args.join(' ')}") unless system *args
+    end
+
+    # Filter out platform specific dependencies
+    # Given a list of dependencies named -
+    # debian::foo
+    # redhat::bar
+    # PluginPackager.filter_dependencies('debian', dependencies)
+    # will return foo.
+    def self.filter_dependencies(prefix, dependencies)
+      dependencies.map do |dependency|
+        if dependency[:name] =~ /^(\w+)::(\w+)/
+          if prefix == $1
+            dependency[:name] = $2
+            dependency
+          else
+            nil
+          end
+        else
+          dependency
+        end
+      end.reject{ |dependency| dependency == nil }
     end
   end
 end

@@ -19,6 +19,7 @@ module MCollective
     # options[:options]        - the normal client options hash
     # options[:ttl]            - the maximum amount of seconds this message can be valid for
     # options[:expected_msgid] - in the case of replies this is the msgid it is expecting in the replies
+    # options[:requestid]      - specific request id to use else one will be generated
     def initialize(payload, message, options = {})
       options = {:base64 => false,
                  :agent => nil,
@@ -29,11 +30,12 @@ module MCollective
                  :options => {},
                  :ttl => 60,
                  :expected_msgid => nil,
+                 :requestid => nil,
                  :collective => nil}.merge(options)
 
       @payload = payload
       @message = message
-      @requestid = nil
+      @requestid = options[:requestid]
       @discovered_hosts = nil
       @reply_to = nil
 
@@ -72,15 +74,21 @@ module MCollective
     # this is to force a workflow that doesnt not yield in a mistake when someone might assume
     # direct_addressing is enabled when its not.
     def type=(type)
+      raise "Unknown message type #{type}" unless VALIDTYPES.include?(type)
+
       if type == :direct_request
         raise "Direct requests is not enabled using the direct_addressing config option" unless Config.instance.direct_addressing
 
         unless @discovered_hosts && !@discovered_hosts.empty?
           raise "Can only set type to :direct_request if discovered_hosts have been set"
         end
-      end
 
-      raise "Unknown message type #{type}" unless VALIDTYPES.include?(type)
+        # clear out the filter, custom discovery sources might interpret the filters
+        # different than the remote mcollectived and in directed mode really the only
+        # filter that matters is the agent filter
+        @filter = Util.empty_filter
+        @filter["agent"] << @agent
+      end
 
       @type = type
     end
@@ -131,10 +139,36 @@ module MCollective
           @requestid = request.payload[:requestid]
           @payload = PluginManager["security_plugin"].encodereply(agent, payload, requestid, request.payload[:callerid])
         when :request, :direct_request
-          @requestid = create_reqid
+          validate_compound_filter(@filter["compound"]) unless @filter["compound"].empty?
+
+          @requestid = create_reqid unless @requestid
           @payload = PluginManager["security_plugin"].encoderequest(Config.instance.identity, payload, requestid, filter, agent, collective, ttl)
         else
           raise "Cannot encode #{type} messages"
+      end
+    end
+
+    def validate_compound_filter(compound_filter)
+      compound_filter.each do |filter|
+        filter.each do |statement|
+          if statement["fstatement"]
+            functionname = statement["fstatement"]["name"]
+            pluginname = Data.pluginname(functionname)
+            value = statement["fstatement"]["value"]
+
+            ddl = DDL.new(pluginname, :data)
+
+            # parses numbers and booleans entered as strings into proper
+            # types of data so that DDL validation will pass
+            statement["fstatement"]["params"] = Data.ddl_transform_input(ddl, statement["fstatement"]["params"])
+
+            Data.ddl_validate(ddl, statement["fstatement"]["params"])
+
+            unless value && Data.ddl_has_output?(ddl, value)
+              DDL.validation_fail!(:PLMC41, "Data plugin '%{functionname}()' does not return a '%{value}' value", :error, {:functionname => functionname, :value => value})
+            end
+          end
+        end
       end
     end
 
@@ -166,7 +200,7 @@ module MCollective
         if msg_age > ttl
           PluginManager["global_stats"].ttlexpired
 
-          raise(MsgTTLExpired, "Message #{requestid} from #{cid} created at #{msgtime} is #{msg_age} seconds old, TTL is #{ttl}")
+          raise(MsgTTLExpired, "message #{requestid} from #{cid} created at #{msgtime} is #{msg_age} seconds old, TTL is #{ttl}")
         end
       end
 
@@ -177,25 +211,23 @@ module MCollective
 
     # publish a reply message by creating a target name and sending it
     def publish
-      Timeout.timeout(2) do
-        # If we've been specificaly told about hosts that were discovered
-        # use that information to do P2P calls if appropriate else just
-        # send it as is.
-        if @discovered_hosts && Config.instance.direct_addressing
-          if @discovered_hosts.size <= Config.instance.direct_addressing_threshold
-            @type = :direct_request
-            Log.debug("Handling #{requestid} as a direct request")
-          end
-
-          PluginManager["connector_plugin"].publish(self)
-        else
-          PluginManager["connector_plugin"].publish(self)
-        end
+      # If we've been specificaly told about hosts that were discovered
+      # use that information to do P2P calls if appropriate else just
+      # send it as is.
+      config = Config.instance
+      if @discovered_hosts && config.direct_addressing && (@discovered_hosts.size <= config.direct_addressing_threshold)
+        self.type = :direct_request
+        Log.debug("Handling #{requestid} as a direct request")
       end
+
+      PluginManager['connector_plugin'].publish(self)
     end
 
     def create_reqid
-      Digest::MD5.hexdigest("#{Config.instance.identity}-#{Time.now.to_f}-#{agent}-#{collective}")
+      # we gsub out the -s so that the format of the id does not
+      # change from previous versions, these should just be more
+      # unique than previous ones
+      SSL.uuid.gsub("-", "")
     end
   end
 end

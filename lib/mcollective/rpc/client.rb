@@ -3,8 +3,9 @@ module MCollective
     # The main component of the Simple RPC client system, this wraps around MCollective::Client
     # and just brings in a lot of convention and standard approached.
     class Client
-      attr_accessor :discovery_timeout, :timeout, :verbose, :filter, :config, :progress, :ttl, :reply_to
+      attr_accessor :timeout, :verbose, :filter, :config, :progress, :ttl, :reply_to
       attr_reader :client, :stats, :ddl, :agent, :limit_targets, :limit_method, :output_format, :batch_size, :batch_sleep_time, :batch_mode
+      attr_reader :discovery_options, :discovery_method, :default_discovery_method, :limit_seed
 
       @@initial_options = nil
 
@@ -37,20 +38,34 @@ module MCollective
           @@initial_options = Marshal.dump(initial_options)
         end
 
+        @initial_options = initial_options
+
+        @config = initial_options[:config]
+        @client = MCollective::Client.new(@config)
+        @client.options = initial_options
+
         @stats = Stats.new
         @agent = agent
-        @discovery_timeout = initial_options[:disctimeout]
-        @timeout = initial_options[:timeout]
+        @timeout = initial_options[:timeout] || 5
         @verbose = initial_options[:verbose]
-        @filter = initial_options[:filter]
-        @config = initial_options[:config]
+        @filter = initial_options[:filter] || Util.empty_filter
         @discovered_agents = nil
         @progress = initial_options[:progress_bar]
         @limit_targets = initial_options[:mcollective_limit_targets]
         @limit_method = Config.instance.rpclimitmethod
+        @limit_seed = initial_options[:limit_seed] || nil
         @output_format = initial_options[:output_format] || :console
         @force_direct_request = false
         @reply_to = initial_options[:reply_to]
+        @discovery_method = initial_options[:discovery_method]
+        if !@discovery_method
+          @discovery_method = Config.instance.default_discovery_method
+          @default_discovery_method = true
+        else
+          @default_discovery_method = false
+        end
+        @discovery_options = initial_options[:discovery_options] || []
+        @force_display_mode = initial_options[:force_display_mode] || false
 
         @batch_size = Integer(initial_options[:batch_size] || 0)
         @batch_sleep_time = Float(initial_options[:batch_sleep_time] || 1)
@@ -58,11 +73,12 @@ module MCollective
 
         agent_filter agent
 
-        @client = MCollective::Client.new(@config)
-        @client.options = initial_options
+        @discovery_timeout = @initial_options.fetch(:disctimeout, nil)
 
         @collective = @client.collective
         @ttl = initial_options[:ttl] || Config.instance.ttl
+        @publish_timeout = initial_options[:publish_timeout] || Config.instance.publish_timeout
+        @threaded = initial_options[:threaded] || Config.instance.threaded
 
         # if we can find a DDL for the service override
         # the timeout of the client so we always magically
@@ -77,13 +93,11 @@ module MCollective
         # We do this only if the timeout is the default 5
         # seconds, so that users cli overrides will still
         # get applied
-        begin
-          @ddl = DDL.new(agent)
-          @timeout = @ddl.meta[:timeout] + @discovery_timeout if @timeout == 5
-        rescue Exception => e
-          Log.debug("Could not find DDL: #{e}")
-          @ddl = nil
-        end
+        #
+        # DDLs are required, failure to find a DDL is fatal
+        @ddl = DDL.new(agent)
+        @stats.ddl = @ddl
+        @timeout = @ddl.meta[:timeout] + discovery_timeout if @timeout == 5
 
         # allows stderr and stdout to be overridden for testing
         # but also for web apps that might not want a bunch of stuff
@@ -110,11 +124,7 @@ module MCollective
 
       # Returns help for an agent if a DDL was found
       def help(template)
-        if @ddl
-          @ddl.help(template)
-        else
-          return "Can't find DDL for agent '#{@agent}'"
-        end
+        @ddl.help(template)
       end
 
       # Creates a suitable request hash for the SimpleRPC agent.
@@ -145,6 +155,18 @@ module MCollective
          :action => action,
          :caller => callerid,
          :data   => data}
+      end
+
+      # For the provided arguments and action the input arguments get
+      # modified by supplying any defaults provided in the DDL for arguments
+      # that were not supplied in the request
+      #
+      # We then pass the modified arguments to the DDL for validation
+      def validate_request(action, args)
+        raise "No DDL found for agent %s cannot validate inputs" % @agent unless @ddl
+
+        @ddl.set_default_input_arguments(action, args)
+        @ddl.validate_rpc_request(action, args)
       end
 
       # Magic handler to invoke remote methods
@@ -215,7 +237,7 @@ module MCollective
 
         @stats.reset
 
-        @ddl.validate_request(action, args) if @ddl
+        validate_request(action, args)
 
         # if a global batch size is set just use that else set it
         # in the case that it was passed as an argument
@@ -272,7 +294,7 @@ module MCollective
       # request which technically does not need filters.  If you try to use this
       # mode with direct addressing disabled an exception will be raise
       def custom_request(action, args, expected_agents, filter = {}, &block)
-        @ddl.validate_request(action, args) if @ddl
+        validate_request(action, args)
 
         if filter == {} && !Config.instance.direct_addressing
           raise "Attempted to do a filterless custom_request without direct_addressing enabled, preventing unexpected call to all nodes"
@@ -319,9 +341,62 @@ module MCollective
         end
       end
 
+      def discovery_timeout
+        return @discovery_timeout if @discovery_timeout
+        return @client.discoverer.ddl.meta[:timeout]
+      end
+
+      def discovery_timeout=(timeout)
+        @discovery_timeout = Float(timeout)
+
+        # we calculate the overall timeout from the DDL of the agent and
+        # the supplied discovery timeout unless someone specifically
+        # specifies a timeout to the constructor
+        #
+        # But if we also then specifically set a discovery_timeout on the
+        # agent that has to override the supplied timeout so we then
+        # calculate a correct timeout based on DDL timeout and the
+        # supplied discovery timeout
+        @timeout = @ddl.meta[:timeout] + discovery_timeout
+      end
+
+      # Sets the discovery method.  If we change the method there are a
+      # number of steps to take:
+      #
+      #  - set the new method
+      #  - if discovery options were provided, re-set those to initially
+      #    provided ones else clear them as they might now apply to a
+      #    different provider
+      #  - update the client options so it knows there is a new discovery
+      #    method in force
+      #  - reset discovery data forcing a discover on the next request
+      #
+      # The remaining item is the discovery timeout, we leave that as is
+      # since that is the user supplied timeout either via initial options
+      # or via specifically setting it on the client.
+      def discovery_method=(method)
+        @default_discovery_method = false
+        @discovery_method = method
+
+        if @initial_options[:discovery_options]
+          @discovery_options = @initial_options[:discovery_options]
+        else
+          @discovery_options.clear
+        end
+
+        @client.options = options
+
+        reset
+      end
+
+      def discovery_options=(options)
+        @discovery_options = [options].flatten
+        reset
+      end
+
       # Sets the class filter
       def class_filter(klass)
-        @filter["cf_class"] << klass
+        @filter["cf_class"] = @filter["cf_class"] | [klass]
         @filter["cf_class"].compact!
         reset
       end
@@ -333,10 +408,10 @@ module MCollective
 
         if value.nil?
           parsed = Util.parse_fact_string(fact)
-          @filter["fact"] << parsed unless parsed == false
+          @filter["fact"] = @filter["fact"] | [parsed] unless parsed == false
         else
           parsed = Util.parse_fact_string("#{fact}#{operator}#{value}")
-          @filter["fact"] << parsed unless parsed == false
+          @filter["fact"] = @filter["fact"] | [parsed] unless parsed == false
         end
 
         @filter["fact"].compact!
@@ -345,21 +420,21 @@ module MCollective
 
       # Sets the agent filter
       def agent_filter(agent)
-        @filter["agent"] << agent
+        @filter["agent"] = @filter["agent"] | [agent]
         @filter["agent"].compact!
         reset
       end
 
       # Sets the identity filter
       def identity_filter(identity)
-        @filter["identity"] << identity
+        @filter["identity"] = @filter["identity"] | [identity]
         @filter["identity"].compact!
         reset
       end
 
       # Set a compound filter
       def compound_filter(filter)
-        @filter["compound"] << Matcher::Parser.new(filter).execution_stack
+        @filter["compound"] = @filter["compound"] |  [Matcher.create_compound_callstack(filter)]
         reset
       end
 
@@ -425,20 +500,8 @@ module MCollective
             @discovered_agents = hosts
             @force_direct_request = true
 
-          # if an identity filter is supplied and it is all strings no regex we can use that
-          # as discovery data, technically the identity filter is then redundant if we are
-          # in direct addressing mode and we could empty it out but this use case should
-          # only really be for a few -I's on the CLI
-          #
-          # For safety we leave the filter in place for now, that way we can support this
-          # enhancement also in broadcast mode
-          elsif options[:filter]["identity"].size > 0
-            regex_filters = options[:filter]["identity"].select{|i| i.match("^\/")}.size
-
-            if regex_filters == 0
-              @discovered_agents = options[:filter]["identity"].clone
-              @force_direct_request = true if Config.instance.direct_addressing
-            end
+          else
+            identity_filter_discovery_optimization
           end
         end
 
@@ -446,20 +509,38 @@ module MCollective
         unless @discovered_agents
           @stats.time_discovery :start
 
-          @stderr.print("Determining the amount of hosts matching filter for #{discovery_timeout} seconds .... ") if verbose
+          @client.options = options
+
+          # if compound filters are used the only real option is to use the mc
+          # discovery plugin since its the only capable of using data queries etc
+          # and we do not want to degrade that experience just to allow compounds
+          # on other discovery plugins the UX would be too bad raising complex sets
+          # of errors etc.
+          @client.discoverer.force_discovery_method_by_filter(options[:filter])
+
+          if verbose
+            actual_timeout = @client.discoverer.discovery_timeout(discovery_timeout, options[:filter])
+
+            if actual_timeout > 0
+              @stderr.print("Discovering hosts using the %s method for %d second(s) .... " % [@client.discoverer.discovery_method, actual_timeout])
+            else
+              @stderr.print("Discovering hosts using the %s method .... " % [@client.discoverer.discovery_method])
+            end
+          end
 
           # if the requested limit is a pure number and not a percent
           # and if we're configured to use the first found hosts as the
           # limit method then pass in the limit thus minimizing the amount
           # of work we do in the discover phase and speeding it up significantly
           if @limit_method == :first and @limit_targets.is_a?(Fixnum)
-            @discovered_agents = @client.discover(@filter, @discovery_timeout, @limit_targets)
+            @discovered_agents = @client.discover(@filter, discovery_timeout, @limit_targets)
           else
-            @discovered_agents = @client.discover(@filter, @discovery_timeout)
+            @discovered_agents = @client.discover(@filter, discovery_timeout)
           end
 
-          @force_direct_request = false
           @stderr.puts(@discovered_agents.size) if verbose
+
+          @force_direct_request = @client.discoverer.force_direct_mode?
 
           @stats.time_discovery :end
         end
@@ -473,20 +554,28 @@ module MCollective
       # Provides a normal options hash like you would get from
       # Optionparser
       def options
-        {:disctimeout => @discovery_timeout,
+        {:disctimeout => discovery_timeout,
          :timeout => @timeout,
          :verbose => @verbose,
          :filter => @filter,
          :collective => @collective,
          :output_format => @output_format,
          :ttl => @ttl,
-         :config => @config}
+         :discovery_method => @discovery_method,
+         :discovery_options => @discovery_options,
+         :force_display_mode => @force_display_mode,
+         :config => @config,
+         :publish_timeout => @publish_timeout,
+         :threaded => @threaded}
       end
 
       # Sets the collective we are communicating with
       def collective=(c)
+        raise "Unknown collective #{c}" unless Config.instance.collectives.include?(c)
+
         @collective = c
-        @client.options[:collective] = c
+        @client.options = options
+        reset
       end
 
       # Sets and sanity checks the limit_targets variable
@@ -529,7 +618,6 @@ module MCollective
         @batch_sleep_time = Float(time)
       end
 
-      private
       # Pick a number of nodes from the discovered nodes
       #
       # The count should be a string that can be either
@@ -542,12 +630,14 @@ module MCollective
       #   - :first would be a simple way to do a distance based
       #     selection
       #   - anything else will just pick one at random
+      #   - if random chosen, and batch-seed set, then set srand
+      #     for the generator, and reset afterwards
       def pick_nodes_from_discovered(count)
         if count =~ /%$/
-          pct = (discover.size * (count.to_f / 100)).to_i
+          pct = Integer((discover.size * (count.to_f / 100)))
           pct == 0 ? count = 1 : count = pct
         else
-          count = count.to_i
+          count = Integer(count)
         end
 
         return discover if discover.size <= count
@@ -557,14 +647,56 @@ module MCollective
         if @limit_method == :first
           return discover[0, count]
         else
-          count.times do
-            rnd = rand(discover.size)
-            result << discover[rnd]
-            discover.delete_at(rnd)
+          # we delete from the discovered list because we want
+          # to be sure there is no chance that the same node will
+          # be randomly picked twice.  So we have to clone the
+          # discovered list else this method will only ever work
+          # once per discovery cycle and not actually return the
+          # right nodes.
+          haystack = discover.clone
+
+          if @limit_seed
+            haystack.sort!
+            srand(@limit_seed)
           end
+
+          count.times do
+            rnd = rand(haystack.size)
+            result << haystack.delete_at(rnd)
+          end
+
+          # Reset random number generator to fresh seed
+          # As our seed from options is most likely short
+          srand if @limit_seed
         end
 
         [result].flatten
+      end
+
+      def load_aggregate_functions(action, ddl)
+        return nil unless ddl
+        return nil unless ddl.action_interface(action).keys.include?(:aggregate)
+
+        return Aggregate.new(ddl.action_interface(action))
+
+      rescue => e
+        Log.error("Failed to load aggregate functions, calculating summaries disabled: %s: %s (%s)" % [e.backtrace.first, e.to_s, e.class])
+        return nil
+      end
+
+      def aggregate_reply(reply, aggregate)
+        return nil unless aggregate
+
+        aggregate.call_functions(reply)
+        return aggregate
+      rescue Exception => e
+        Log.error("Failed to calculate aggregate summaries for reply from %s, calculating summaries disabled: %s: %s (%s)" % [reply[:senderid], e.backtrace.first, e.to_s, e.class])
+        return nil
+      end
+
+      def rpc_result_from_reply(agent, action, reply)
+        Result.new(agent, action, {:sender => reply[:senderid], :statuscode => reply[:body][:statuscode],
+                                   :statusmsg => reply[:body][:statusmsg], :data => reply[:body][:data]})
       end
 
       # for requests that do not care for results just
@@ -576,7 +708,9 @@ module MCollective
       #
       # Should only be called via method_missing
       def fire_and_forget_request(action, args, filter=nil)
-        @ddl.validate_request(action, args) if @ddl
+        validate_request(action, args)
+
+        identity_filter_discovery_optimization
 
         req = new_request(action.to_s, args)
 
@@ -585,7 +719,34 @@ module MCollective
         message = Message.new(req, nil, {:agent => @agent, :type => :request, :collective => @collective, :filter => filter, :options => options})
         message.reply_to = @reply_to if @reply_to
 
-        return @client.sendreq(message, nil)
+        if @force_direct_request || @client.discoverer.force_direct_mode?
+          message.discovered_hosts = discover.clone
+          message.type = :direct_request
+        end
+
+        client.sendreq(message, nil)
+      end
+
+      # if an identity filter is supplied and it is all strings no regex we can use that
+      # as discovery data, technically the identity filter is then redundant if we are
+      # in direct addressing mode and we could empty it out but this use case should
+      # only really be for a few -I's on the CLI
+      #
+      # For safety we leave the filter in place for now, that way we can support this
+      # enhancement also in broadcast mode.
+      #
+      # This is only needed for the 'mc' discovery method, other methods might change
+      # the concept of identity to mean something else so we should pass the full
+      # identity filter to them
+      def identity_filter_discovery_optimization
+        if options[:filter]["identity"].size > 0 && @discovery_method == "mc"
+          regex_filters = options[:filter]["identity"].select{|i| i.match("^\/")}.size
+
+          if regex_filters == 0
+            @discovered_agents = options[:filter]["identity"].clone
+            @force_direct_request = true if Config.instance.direct_addressing
+          end
+        end
       end
 
       # Calls an agent in a way very similar to call_agent but it supports batching
@@ -607,11 +768,13 @@ module MCollective
         @force_direct_request = true
 
         discovered = discover
-        result = []
+        results = []
         respcount = 0
 
         if discovered.size > 0
           req = new_request(action.to_s, args)
+
+          aggregate = load_aggregate_functions(action, @ddl)
 
           if @progress && !block_given?
             twirl = Progress.new
@@ -619,19 +782,29 @@ module MCollective
             @stdout.print twirl.twirl(respcount, discovered.size)
           end
 
+          @stats.requestid = nil
+
           discovered.in_groups_of(batch_size) do |hosts, last_batch|
             message = Message.new(req, nil, {:agent => @agent, :type => :direct_request, :collective => @collective, :filter => opts[:filter], :options => opts})
+
+            # first time round we let the Message object create a request id
+            # we then re-use it for future requests to keep auditing sane etc
+            @stats.requestid = message.create_reqid unless @stats.requestid
+            message.requestid = @stats.requestid
+
             message.discovered_hosts = hosts.clone.compact
 
             @client.req(message) do |resp|
               respcount += 1
 
               if block_given?
-                process_results_with_block(action, resp, block)
+                aggregate = process_results_with_block(action, resp, block, aggregate)
               else
                 @stdout.print twirl.twirl(respcount, discovered.size) if @progress
 
-                result << process_results_without_block(resp, action)
+                result, aggregate = process_results_without_block(resp, action, aggregate)
+
+                results << result
               end
             end
 
@@ -643,6 +816,9 @@ module MCollective
 
             sleep sleep_time unless last_batch
           end
+
+          @stats.aggregate_summary = aggregate.summarize if aggregate
+          @stats.aggregate_failures = aggregate.failed if aggregate
         else
           @stderr.print("\nNo request sent, we did not discover any nodes.")
         end
@@ -656,7 +832,7 @@ module MCollective
         if block_given?
           return stats
         else
-          return [result].flatten
+          return [results].flatten
         end
       end
 
@@ -693,30 +869,37 @@ module MCollective
 
         message = Message.new(req, nil, {:agent => @agent, :type => :request, :collective => @collective, :filter => opts[:filter], :options => opts})
         message.discovered_hosts = discovered.clone
-        message.type = :direct_request if @force_direct_request
 
-        result = []
+        results = []
         respcount = 0
 
         if discovered.size > 0
+          message.type = :direct_request if @force_direct_request
+
           if @progress && !block_given?
             twirl = Progress.new
             @stdout.puts
             @stdout.print twirl.twirl(respcount, discovered.size)
           end
 
+          aggregate = load_aggregate_functions(action, @ddl)
+
           @client.req(message) do |resp|
             respcount += 1
 
             if block_given?
-              process_results_with_block(action, resp, block)
+              aggregate = process_results_with_block(action, resp, block, aggregate)
             else
               @stdout.print twirl.twirl(respcount, discovered.size) if @progress
 
-              result << process_results_without_block(resp, action)
+              result, aggregate = process_results_without_block(resp, action, aggregate)
+
+              results << result
             end
           end
 
+          @stats.aggregate_summary = aggregate.summarize if aggregate
+          @stats.aggregate_failures = aggregate.failed if aggregate
           @stats.client_stats = @client.stats
         else
           @stderr.print("\nNo request sent, we did not discover any nodes.")
@@ -731,62 +914,68 @@ module MCollective
         if block_given?
           return stats
         else
-          return [result].flatten
+          return [results].flatten
         end
       end
 
       # Handles result sets that has no block associated, sets fails and ok
       # in the stats object and return a hash of the response to send to the
       # caller
-      def process_results_without_block(resp, action)
+      def process_results_without_block(resp, action, aggregate)
         @stats.node_responded(resp[:senderid])
+
+        result = rpc_result_from_reply(@agent, action, resp)
+        aggregate = aggregate_reply(result, aggregate) if aggregate
 
         if resp[:body][:statuscode] == 0 || resp[:body][:statuscode] == 1
           @stats.ok if resp[:body][:statuscode] == 0
           @stats.fail if resp[:body][:statuscode] == 1
-
-          return Result.new(@agent, action, {:sender => resp[:senderid], :statuscode => resp[:body][:statuscode],
-                              :statusmsg => resp[:body][:statusmsg], :data => resp[:body][:data]})
         else
           @stats.fail
-
-          return Result.new(@agent, action, {:sender => resp[:senderid], :statuscode => resp[:body][:statuscode],
-                              :statusmsg => resp[:body][:statusmsg], :data => nil})
         end
+
+        [result, aggregate]
       end
 
       # process client requests by calling a block on each result
       # in this mode we do not do anything fancy with the result
       # objects and we raise exceptions if there are problems with
       # the data
-      def process_results_with_block(action, resp, block)
+      def process_results_with_block(action, resp, block, aggregate)
         @stats.node_responded(resp[:senderid])
 
+        result = rpc_result_from_reply(@agent, action, resp)
+        aggregate = aggregate_reply(result, aggregate) if aggregate
+
         if resp[:body][:statuscode] == 0 || resp[:body][:statuscode] == 1
+          @stats.ok if resp[:body][:statuscode] == 0
+          @stats.fail if resp[:body][:statuscode] == 1
           @stats.time_block_execution :start
 
           case block.arity
-          when 1
-            block.call(resp)
-          when 2
-            rpcresp = Result.new(@agent, action, {:sender => resp[:senderid], :statuscode => resp[:body][:statuscode],
-                                   :statusmsg => resp[:body][:statusmsg], :data => resp[:body][:data]})
-            block.call(resp, rpcresp)
+            when 1
+              block.call(resp)
+            when 2
+              block.call(resp, result)
           end
 
           @stats.time_block_execution :end
         else
+          @stats.fail
+
           case resp[:body][:statuscode]
-          when 2
-            raise UnknownRPCAction, resp[:body][:statusmsg]
-          when 3
-            raise MissingRPCData, resp[:body][:statusmsg]
-          when 4
-            raise InvalidRPCData, resp[:body][:statusmsg]
-          when 5
-            raise UnknownRPCError, resp[:body][:statusmsg]
+            when 2
+              raise UnknownRPCAction, resp[:body][:statusmsg]
+            when 3
+              raise MissingRPCData, resp[:body][:statusmsg]
+            when 4
+              raise InvalidRPCData, resp[:body][:statusmsg]
+            when 5
+              raise UnknownRPCError, resp[:body][:statusmsg]
           end
         end
+
+        return aggregate
       end
     end
   end

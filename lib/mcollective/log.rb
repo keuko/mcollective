@@ -81,12 +81,14 @@ module MCollective
           end
 
           require "mcollective/logger/#{logger_type.downcase}_logger"
-          set_logger(eval("MCollective::Logger::#{logger_type.capitalize}_logger.new"))
+
+          logger_class = MCollective::Logger.const_get("#{logger_type.capitalize}_logger")
+
+          set_logger(logger_class.new)
         else
           set_logger(logger)
           @configured = true
         end
-
 
         @logger.start
       rescue Exception => e
@@ -96,7 +98,13 @@ module MCollective
 
       # figures out the filename that called us
       def from
-        from = File.basename(caller[2])
+        path, line, method = execution_stack[3].split(/:(\d+)/)
+        "%s:%s%s" % [File.basename(path), line, method]
+      end
+
+      # this method is here to facilitate testing and from
+      def execution_stack
+        caller
       end
     end
   end

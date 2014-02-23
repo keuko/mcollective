@@ -86,7 +86,7 @@ module MCollective
       end
 
       @parser.on('-S', '--select FILTER', 'Compound filter combining facts and classes') do |f|
-        @options[:filter]["compound"] << MCollective::Matcher::Parser.new(f).execution_stack
+        @options[:filter]["compound"] << Matcher.create_compound_callstack(f)
       end
 
       @parser.on('-F', '--wf', '--with-fact fact=val', 'Match hosts with a certain fact') do |f|
@@ -151,6 +151,31 @@ module MCollective
 
       @parser.on('--reply-to TARGET', 'Set a custom target for replies') do |v|
         @options[:reply_to] = v
+      end
+
+      @parser.on('--dm', '--disc-method METHOD', 'Which discovery method to use') do |v|
+        raise "Discovery method is already set by a competing option" if @options[:discovery_method] && @options[:discovery_method] != v
+        @options[:discovery_method] = v
+      end
+
+      @parser.on('--do', '--disc-option OPTION', 'Options to pass to the discovery method') do |a|
+        @options[:discovery_options] << a
+      end
+
+      @parser.on("--nodes FILE", "List of nodes to address") do |v|
+        raise "Cannot mix --disc-method, --disc-option and --nodes" if @options[:discovery_method] || @options[:discovery_options].size > 0
+        raise "Cannot read the discovery file #{v}" unless File.readable?(v)
+
+        @options[:discovery_method] = "flatfile"
+        @options[:discovery_options] << v
+      end
+
+      @parser.on("--publish_timeout TIMEOUT", Integer, "Timeout for publishing requests to remote agents.") do |pt|
+        @options[:publish_timeout] = pt
+      end
+
+      @parser.on("--threaded", "Start publishing requests and receiving responses in threaded mode.") do |v|
+        @options[:threaded] = true
       end
     end
 

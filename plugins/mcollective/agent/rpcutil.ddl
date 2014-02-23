@@ -1,4 +1,4 @@
-metadata    :name        => "Utilities and Helpers for SimpleRPC Agents",
+metadata    :name        => "rpcutil",
             :description => "General helpful actions that expose stats and internals to SimpleRPC clients",
             :author      => "R.I.Pienaar <rip@devco.net>",
             :license     => "Apache License, Version 2.0",
@@ -16,6 +16,10 @@ action "collective_info", :description => "Info about the main and sub collectiv
     output :collectives,
            :description => "All Collectives",
            :display_as => "All Collectives"
+
+    summarize do
+        aggregate summary(:collectives)
+    end
 end
 
 action "inventory", :description => "System Inventory" do
@@ -44,18 +48,22 @@ action "inventory", :description => "System Inventory" do
     output :collectives,
            :description => "All Collectives",
            :display_as => "All Collectives"
+
+    output :data_plugins,
+           :description => "List of data plugin names",
+           :display_as => "Data Plugins"
 end
 
 action "get_fact", :description => "Retrieve a single fact from the fact store" do
      display :always
 
      input :fact,
-         :prompt      => "The name of the fact",
-         :description => "The fact to retrieve",
-         :type        => :string,
-         :validation  => '^[\w\-\.]+$',
-         :optional    => false,
-         :maxlength   => 40
+           :prompt      => "The name of the fact",
+           :description => "The fact to retrieve",
+           :type        => :string,
+           :validation  => '^[\w\-\.]+$',
+           :optional    => false,
+           :maxlength   => 40
 
      output :fact,
             :description => "The name of the fact being returned",
@@ -64,6 +72,26 @@ action "get_fact", :description => "Retrieve a single fact from the fact store" 
      output :value,
             :description => "The value of the fact",
             :display_as => "Value"
+
+    summarize do
+        aggregate summary(:value)
+    end
+end
+
+action "get_facts", :description => "Retrieve multiple facts from the fact store" do
+     display :always
+
+     input :facts,
+           :prompt      => "Comma-separated list of facts",
+           :description => "Facts to retrieve",
+           :type        => :string,
+           :validation  => '^\s*[\w\.\-]+(\s*,\s*[\w\.\-]+)*$',
+           :optional    => false,
+           :maxlength   => 200
+
+     output :values,
+            :description => "List of values of the facts",
+            :display_as => "Values"
 end
 
 action "daemon_stats", :description => "Get statistics from the running daemon" do
@@ -124,6 +152,11 @@ action "daemon_stats", :description => "Get statistics from the running daemon" 
     output :ttlexpired,
            :description => "Messages that did pass TTL checks",
            :display_as => "TTL Expired"
+
+    summarize do
+        aggregate summary(:version)
+        aggregate summary(:agents)
+    end
 end
 
 action "agent_inventory", :description => "Inventory of all agents on the server" do
@@ -138,12 +171,12 @@ action "get_config_item", :description => "Get the active value of a specific co
     display :always
 
     input :item,
-        :prompt      => "Configuration Item",
-        :description => "The item to retrieve from the server",
-        :type        => :string,
-        :validation  => '^.+$',
-        :optional    => false,
-        :maxlength    => 50
+          :prompt      => "Configuration Item",
+          :description => "The item to retrieve from the server",
+          :type        => :string,
+          :validation  => '^.+$',
+          :optional    => false,
+          :maxlength    => 50
 
     output :item,
            :description => "The config property being retrieved",
@@ -152,6 +185,30 @@ action "get_config_item", :description => "Get the active value of a specific co
     output :value,
            :description => "The value that is in use",
            :display_as => "Value"
+
+    summarize do
+        aggregate summary(:value)
+    end
+end
+
+action "get_data", :description => "Get data from a data plugin" do
+    display :always
+
+    input :source,
+          :prompt      => "Data Source",
+          :description => "The data plugin to retrieve information from",
+          :type        => :string,
+          :validation  => '^\w+$',
+          :optional    => false,
+          :maxlength   => 50
+
+    input :query,
+          :prompt      => "Query",
+          :description => "The query argument to supply to the data plugin",
+          :type        => :string,
+          :validation  => '^.+$',
+          :optional    => true,
+          :maxlength   => 200
 end
 
 action "ping", :description => "Responds to requests for PING with PONG" do

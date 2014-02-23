@@ -1,0 +1,1697 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective::Util - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/util.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-absolute_path-3F">::absolute_path?</a>
+    
+    <li ><a href="#method-c-align_text">::align_text</a>
+    
+    <li ><a href="#method-c-color">::color</a>
+    
+    <li ><a href="#method-c-colorize">::colorize</a>
+    
+    <li ><a href="#method-c-command_in_path-3F">::command_in_path?</a>
+    
+    <li ><a href="#method-c-config_file_for_user">::config_file_for_user</a>
+    
+    <li ><a href="#method-c-default_options">::default_options</a>
+    
+    <li ><a href="#method-c-empty_filter">::empty_filter</a>
+    
+    <li ><a href="#method-c-empty_filter-3F">::empty_filter?</a>
+    
+    <li ><a href="#method-c-get_fact">::get_fact</a>
+    
+    <li ><a href="#method-c-has_agent-3F">::has_agent?</a>
+    
+    <li ><a href="#method-c-has_cf_class-3F">::has_cf_class?</a>
+    
+    <li ><a href="#method-c-has_fact-3F">::has_fact?</a>
+    
+    <li ><a href="#method-c-has_identity-3F">::has_identity?</a>
+    
+    <li ><a href="#method-c-loadclass">::loadclass</a>
+    
+    <li ><a href="#method-c-make_subscriptions">::make_subscriptions</a>
+    
+    <li ><a href="#method-c-mcollective_version">::mcollective_version</a>
+    
+    <li ><a href="#method-c-parse_fact_string">::parse_fact_string</a>
+    
+    <li ><a href="#method-c-ruby_version">::ruby_version</a>
+    
+    <li ><a href="#method-c-setup_windows_sleeper">::setup_windows_sleeper</a>
+    
+    <li ><a href="#method-c-shellescape">::shellescape</a>
+    
+    <li ><a href="#method-c-str_to_bool">::str_to_bool</a>
+    
+    <li ><a href="#method-c-subscribe">::subscribe</a>
+    
+    <li ><a href="#method-c-templatepath">::templatepath</a>
+    
+    <li ><a href="#method-c-terminal_dimensions">::terminal_dimensions</a>
+    
+    <li ><a href="#method-c-unsubscribe">::unsubscribe</a>
+    
+    <li ><a href="#method-c-versioncmp">::versioncmp</a>
+    
+    <li ><a href="#method-c-windows-3F">::windows?</a>
+    
+    <li ><a href="#method-c-windows_prefix">::windows_prefix</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective::Util</h1>
+
+  <div id="description" class="description">
+    
+<p>Some basic utility helper methods useful to clients, agents, runner etc.</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-absolute_path-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">absolute_path?</span><span
+            class="method-args">(path, separator=File::SEPARATOR, alt_separator=File::ALT_SEPARATOR)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>we should really use Pathname#absolute? but it&#39;s not in all the ruby
+versions we support and it comes down to roughly this</p>
+          
+          
+
+          
+          <div class="method-source-code" id="absolute_path-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 462</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">separator</span>=<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">SEPARATOR</span>, <span class="ruby-identifier">alt_separator</span>=<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">ALT_SEPARATOR</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">alt_separator</span>
+    <span class="ruby-identifier">path_matcher</span> = <span class="ruby-node">/^([a-zA-Z]:){0,1}[#{Regexp.quote alt_separator}#{Regexp.quote separator}]/</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">path_matcher</span> = <span class="ruby-node">/^#{Regexp.quote separator}/</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">path</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">path_matcher</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- absolute_path-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- absolute_path-3F-method -->
+
+    
+      <div id="method-c-align_text" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">align_text</span><span
+            class="method-args">(text, console_cols = nil, preamble = 5)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns an aligned_string of text relative to the size of the terminal
+window. If a line in the string exceeds the width of the terminal window
+the line will be chopped off at the whitespace chacter closest to the end
+of the line and prepended to the next line, keeping all indentation.</p>
+
+<p>The terminal size is detected by default, but custom line widths can
+passed. All strings will also be left aligned with 5 whitespace characters
+by default.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="align_text-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 308</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">align_text</span>(<span class="ruby-identifier">text</span>, <span class="ruby-identifier">console_cols</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">preamble</span> = <span class="ruby-value">5</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">console_cols</span>
+    <span class="ruby-identifier">console_cols</span> = <span class="ruby-identifier">terminal_dimensions</span>[<span class="ruby-value">0</span>]
+
+    <span class="ruby-comment"># if unknown size we default to the typical unix default</span>
+    <span class="ruby-identifier">console_cols</span> = <span class="ruby-value">80</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">console_cols</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">console_cols</span> <span class="ruby-operator">-=</span> <span class="ruby-identifier">preamble</span>
+
+  <span class="ruby-comment"># Return unaligned text if console window is too small</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">text</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">console_cols</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-comment"># If console is 0 this implies unknown so we assume the common</span>
+  <span class="ruby-comment"># minimal unix configuration of 80 characters</span>
+  <span class="ruby-identifier">console_cols</span> = <span class="ruby-value">80</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">console_cols</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+  <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span>
+
+  <span class="ruby-identifier">text</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span>
+
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">whitespace</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39; &#39;</span>
+      <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># If the current line is empty, indent it so that a snippet</span>
+    <span class="ruby-comment"># from the previous line is aligned correctly.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+      <span class="ruby-identifier">line</span> = (<span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">whitespace</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># If text was snipped from the previous line, prepend it to the</span>
+    <span class="ruby-comment"># current line after any current indentation.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span>
+      <span class="ruby-comment"># Reset whitespaces to 0 if there are more whitespaces than there are</span>
+      <span class="ruby-comment"># console columns</span>
+      <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">console_cols</span>
+
+      <span class="ruby-comment"># If the current line is empty and being prepended to, create a new</span>
+      <span class="ruby-comment"># empty line in the text so that formatting is preserved.</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">line</span> <span class="ruby-operator">==</span> (<span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">whitespace</span>)
+        <span class="ruby-identifier">text</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">i</span> <span class="ruby-operator">+</span> <span class="ruby-value">1</span>, <span class="ruby-string">&quot;&quot;</span>)
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-comment"># Add the snipped text to the current line</span>
+      <span class="ruby-identifier">line</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">whitespace</span>, <span class="ruby-node">&quot;#{piece} &quot;</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+
+    <span class="ruby-comment"># Compare the line length to the allowed line length.</span>
+    <span class="ruby-comment"># If it exceeds it, snip the offending text from the line</span>
+    <span class="ruby-comment"># and store it so that it can be prepended to the next line.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">console_cols</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">preamble</span>)
+      <span class="ruby-identifier">reverse</span> = <span class="ruby-identifier">console_cols</span>
+
+      <span class="ruby-keyword">while</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">reverse</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39; &#39;</span>
+        <span class="ruby-identifier">reverse</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-identifier">piece</span> = <span class="ruby-identifier">line</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-identifier">reverse</span>, (<span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)).<span class="ruby-identifier">lstrip</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># If a snippet exists when all the columns in the text have been</span>
+    <span class="ruby-comment"># updated, create a new line and append the snippet to it, using</span>
+    <span class="ruby-comment"># the same left alignment as the last line in the text.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] = <span class="ruby-node">&quot;#{&#39; &#39; * (whitespace)}#{piece}&quot;</span>
+      <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-comment"># Add the preamble to the line and add it to the text</span>
+    <span class="ruby-identifier">line</span> = ((<span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">preamble</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>)
+    <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">line</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">text</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- align_text-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- align_text-method -->
+
+    
+      <div id="method-c-color" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">color</span><span
+            class="method-args">(code)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Return color codes, if the config color= option is false just return a
+empty string</p>
+          
+          
+
+          
+          <div class="method-source-code" id="color-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 268</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">color</span>(<span class="ruby-identifier">code</span>)
+  <span class="ruby-identifier">colorize</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">color</span>
+
+  <span class="ruby-identifier">colors</span> = {<span class="ruby-value">:red</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[31m&quot;</span>,
+            <span class="ruby-value">:green</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[32m&quot;</span>,
+            <span class="ruby-value">:yellow</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[33m&quot;</span>,
+            <span class="ruby-value">:cyan</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[36m&quot;</span>,
+            <span class="ruby-value">:bold</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[1m&quot;</span>,
+            <span class="ruby-value">:reset</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;[0m&quot;</span>}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">colorize</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">colors</span>[<span class="ruby-identifier">code</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- color-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- color-method -->
+
+    
+      <div id="method-c-colorize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">colorize</span><span
+            class="method-args">(code, msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Helper to return a string in specific color</p>
+          
+          
+
+          
+          <div class="method-source-code" id="colorize-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 286</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">msg</span>)
+  <span class="ruby-string">&quot;%s%s%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">color</span>(<span class="ruby-identifier">code</span>), <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">color</span>(<span class="ruby-value">:reset</span>) ]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- colorize-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- colorize-method -->
+
+    
+      <div id="method-c-command_in_path-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">command_in_path?</span><span
+            class="method-args">(command)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks in PATH returns true if the command is found</p>
+          
+          
+
+          
+          <div class="method-source-code" id="command_in_path-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 415</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">command_in_path?</span>(<span class="ruby-identifier">command</span>)
+  <span class="ruby-identifier">found</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;PATH&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">PATH_SEPARATOR</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">command</span>))
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">found</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword">true</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- command_in_path-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- command_in_path-3F-method -->
+
+    
+      <div id="method-c-config_file_for_user" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">config_file_for_user</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Picks a config file defaults to ~/.mcollective else
+/etc/mcollective/client.cfg</p>
+          
+          
+
+          
+          <div class="method-source-code" id="config_file_for_user-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">config_file_for_user</span>
+  <span class="ruby-comment"># expand_path is pretty lame, it relies on HOME environment</span>
+  <span class="ruby-comment"># which isnt&#39;t always there so just handling all exceptions</span>
+  <span class="ruby-comment"># here as cant find reverting to default</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-string">&quot;~/.mcollective&quot;</span>)
+
+    <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">config</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">config</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
+        <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&quot;etc&quot;</span>, <span class="ruby-string">&quot;client.cfg&quot;</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">config</span> = <span class="ruby-string">&quot;/etc/mcollective/client.cfg&quot;</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
+      <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&quot;etc&quot;</span>, <span class="ruby-string">&quot;client.cfg&quot;</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">config</span> = <span class="ruby-string">&quot;/etc/mcollective/client.cfg&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">config</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- config_file_for_user-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- config_file_for_user-method -->
+
+    
+      <div id="method-c-default_options" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">default_options</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a standard options hash</p>
+          
+          
+
+          
+          <div class="method-source-code" id="default_options-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 172</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_options</span>
+  {<span class="ruby-value">:verbose</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+   <span class="ruby-value">:disctimeout</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+   <span class="ruby-value">:timeout</span>           =<span class="ruby-operator">&gt;</span> <span class="ruby-value">5</span>,
+   <span class="ruby-value">:config</span>            =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">config_file_for_user</span>,
+   <span class="ruby-value">:collective</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+   <span class="ruby-value">:discovery_method</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
+   <span class="ruby-value">:discovery_options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">default_discovery_options</span>,
+   <span class="ruby-value">:filter</span>            =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">empty_filter</span>}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- default_options-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- default_options-method -->
+
+    
+      <div id="method-c-empty_filter" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty_filter</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates an empty filter</p>
+          
+          
+
+          
+          <div class="method-source-code" id="empty_filter-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 130</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">empty_filter</span>
+  {<span class="ruby-string">&quot;fact&quot;</span>     =<span class="ruby-operator">&gt;</span> [],
+   <span class="ruby-string">&quot;cf_class&quot;</span> =<span class="ruby-operator">&gt;</span> [],
+   <span class="ruby-string">&quot;agent&quot;</span>    =<span class="ruby-operator">&gt;</span> [],
+   <span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> [],
+   <span class="ruby-string">&quot;compound&quot;</span> =<span class="ruby-operator">&gt;</span> []}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- empty_filter-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- empty_filter-method -->
+
+    
+      <div id="method-c-empty_filter-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty_filter?</span><span
+            class="method-args">(filter)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks if the passed in filter is an empty one</p>
+          
+          
+
+          
+          <div class="method-source-code" id="empty_filter-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 125</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">filter</span>)
+  <span class="ruby-identifier">filter</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">empty_filter</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">filter</span> <span class="ruby-operator">==</span> {}
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- empty_filter-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- empty_filter-3F-method -->
+
+    
+      <div id="method-c-get_fact" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_fact</span><span
+            class="method-args">(fact)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Gets the value of a specific fact, mostly just a duplicate of <a
+href="Facts.html#method-c-get_fact">MCollective::Facts.get_fact</a> but it
+kind of goes with the other classes here</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_fact-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 61</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
+  <span class="ruby-constant">Facts</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- get_fact-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- get_fact-method -->
+
+    
+      <div id="method-c-has_agent-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_agent?</span><span
+            class="method-args">(agent)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Finds out if this <a href="../MCollective.html">MCollective</a> has an
+agent by the name passed</p>
+
+<p>If the passed name starts with a / it&#39;s assumed to be regex and will
+use regex to match</p>
+          
+          
+
+          
+          <div class="method-source-code" id="has_agent-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 8</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_agent?</span>(<span class="ruby-identifier">agent</span>)
+  <span class="ruby-identifier">agent</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;\/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^/&quot;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">agent</span>).<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_agent-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_agent-3F-method -->
+
+    
+      <div id="method-c-has_cf_class-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_cf_class?</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks if this node has a configuration management class by parsing the a
+text file with just a list of classes, recipes, roles etc.  This is ala the
+classes.txt from puppet.</p>
+
+<p>If the passed name starts with a / it&#39;s assumed to be regex and will
+use regex to match</p>
+          
+          
+
+          
+          <div class="method-source-code" id="has_cf_class-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 38</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_cf_class?</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;\/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^/&quot;</span>)
+  <span class="ruby-identifier">cfile</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">classesfile</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Looking for configuration management classes in #{cfile}&quot;</span>)
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-constant">File</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">cfile</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">klass</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">k</span>.<span class="ruby-identifier">chomp</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">klass</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Parsing classes file &#39;#{cfile}&#39; failed: #{e.class}: #{e}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_cf_class-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_cf_class-3F-method -->
+
+    
+      <div id="method-c-has_fact-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_fact?</span><span
+            class="method-args">(fact, value, operator)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Compares fact == value,</p>
+
+<p>If the passed value starts with a / it&#39;s assumed to be regex and will
+use regex to match</p>
+          
+          
+
+          
+          <div class="method-source-code" id="has_fact-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 69</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">operator</span>)
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Comparing #{fact} #{operator} #{value}&quot;</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;where :fact = &#39;#{fact}&#39;, :operator = &#39;#{operator}&#39;, :value = &#39;#{value}&#39;&quot;</span>)
+
+  <span class="ruby-identifier">fact</span> = <span class="ruby-constant">Facts</span>[<span class="ruby-identifier">fact</span>]
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">nil?</span>
+
+  <span class="ruby-identifier">fact</span> = <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">clone</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;=~&#39;</span>
+    <span class="ruby-comment"># to maintain backward compat we send the value</span>
+    <span class="ruby-comment"># as /.../ which is what 1.0.x needed.  this strips</span>
+    <span class="ruby-comment"># off the /&#39;s wich is what we need here</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/(.+)\/$/</span>
+      <span class="ruby-identifier">value</span> = <span class="ruby-node">$1</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">value</span>))
+
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">operator</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;==&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">value</span>
+
+  <span class="ruby-keyword">elsif</span> [<span class="ruby-string">&#39;&lt;=&#39;</span>, <span class="ruby-string">&#39;&gt;=&#39;</span>, <span class="ruby-string">&#39;&lt;&#39;</span>, <span class="ruby-string">&#39;&gt;&#39;</span>, <span class="ruby-string">&#39;!=&#39;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">operator</span>)
+    <span class="ruby-comment"># Yuk - need to type cast, but to_i and to_f are overzealous</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^[0-9]+$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^[0-9]+$/</span>
+      <span class="ruby-identifier">fact</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">fact</span>)
+      <span class="ruby-identifier">value</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">value</span>)
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^[0-9]+.[0-9]+$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^[0-9]+.[0-9]+$/</span>
+      <span class="ruby-identifier">fact</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">fact</span>)
+      <span class="ruby-identifier">value</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">value</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;fact #{operator} value&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_fact-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_fact-3F-method -->
+
+    
+      <div id="method-c-has_identity-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">has_identity?</span><span
+            class="method-args">(identity)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Checks if the configured identity matches the one supplied</p>
+
+<p>If the passed name starts with a / it&#39;s assumed to be regex and will
+use regex to match</p>
+          
+          
+
+          
+          <div class="method-source-code" id="has_identity-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 112</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_identity?</span>(<span class="ruby-identifier">identity</span>)
+  <span class="ruby-identifier">identity</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">identity</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;\/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^/&quot;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">identity</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">identity</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">false</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- has_identity-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- has_identity-3F-method -->
+
+    
+      <div id="method-c-loadclass" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">loadclass</span><span
+            class="method-args">(klass)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper around <a
+href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclass</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="loadclass-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 222</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>)
+  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- loadclass-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- loadclass-method -->
+
+    
+      <div id="method-c-make_subscriptions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_subscriptions</span><span
+            class="method-args">(agent, type, collective=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="make_subscriptions-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 183</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:broadcast</span>, <span class="ruby-value">:directed</span>, <span class="ruby-value">:reply</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">collective</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+      {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>}
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+
+    [{<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>}]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- make_subscriptions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- make_subscriptions-method -->
+
+    
+      <div id="method-c-mcollective_version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">mcollective_version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="mcollective_version-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 296</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mcollective_version</span>
+  <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- mcollective_version-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- mcollective_version-method -->
+
+    
+      <div id="method-c-parse_fact_string" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">parse_fact_string</span><span
+            class="method-args">(fact)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Parse a fact filter string like foo=bar into the tuple hash thats needed</p>
+          
+          
+
+          
+          <div class="method-source-code" id="parse_fact_string-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 227</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parse_fact_string</span>(<span class="ruby-identifier">fact</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*=&gt;[ ]*(.+)/</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&gt;=&#39;</span> }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*=&lt;[ ]*(.+)/</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&lt;=&#39;</span> }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*(&lt;=|&gt;=|&lt;|&gt;|!=|==|=~)[ ]*(.+)/</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$3</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span> }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)[ ]*=[ ]*\/(.+)\/$/</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;/#{$2}/&quot;</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;=~&#39;</span> }
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^= ]+?)[ ]*=[ ]*(.+)/</span>
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;==&#39;</span> }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse fact #{fact} it does not appear to be in a valid format&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- parse_fact_string-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- parse_fact_string-method -->
+
+    
+      <div id="method-c-ruby_version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ruby_version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the current ruby version as per RUBY_VERSION, mostly doing this
+here to aid testing</p>
+          
+          
+
+          
+          <div class="method-source-code" id="ruby_version-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 292</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ruby_version</span>
+  <span class="ruby-constant">RUBY_VERSION</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- ruby_version-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- ruby_version-method -->
+
+    
+      <div id="method-c-setup_windows_sleeper" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">setup_windows_sleeper</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>On windows ^c can&#39;t interrupt the VM if its blocking on IO, so this
+sets up a dummy thread that sleeps and this will have the end result of
+being interruptable at least once a second.  This is a common pattern found
+in Rails etc</p>
+          
+          
+
+          
+          <div class="method-source-code" id="setup_windows_sleeper-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup_windows_sleeper</span>
+  <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> { <span class="ruby-identifier">loop</span> { <span class="ruby-identifier">sleep</span> <span class="ruby-value">1</span> } } <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- setup_windows_sleeper-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- setup_windows_sleeper-method -->
+
+    
+      <div id="method-c-shellescape" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">shellescape</span><span
+            class="method-args">(str)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Escapes a string so it&#39;s safe to use in system() or backticks</p>
+
+<p>Taken from Shellwords#shellescape since it&#39;s only in a few ruby
+versions</p>
+          
+          
+
+          
+          <div class="method-source-code" id="shellescape-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 246</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shellescape</span>(<span class="ruby-identifier">str</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&#39;&#39;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">dup</span>
+
+  <span class="ruby-comment"># Process as a single byte sequence because not all shell</span>
+  <span class="ruby-comment"># implementations are multibyte aware.</span>
+  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/([^A-Za-z0-9_\-.,:\/@\n])/</span>, <span class="ruby-string">&quot;\\\\\\1&quot;</span>)
+
+  <span class="ruby-comment"># A LF cannot be escaped with a backslash because a backslash + LF</span>
+  <span class="ruby-comment"># combo is regarded as line continuation and simply ignored.</span>
+  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/\n/</span>, <span class="ruby-string">&quot;&#39;\n&#39;&quot;</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- shellescape-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- shellescape-method -->
+
+    
+      <div id="method-c-str_to_bool" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">str_to_bool</span><span
+            class="method-args">(val)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Converts a string into a boolean value Strings matching 1,y,yes,true or t
+will return TrueClass Any other value will return FalseClass</p>
+          
+          
+
+          
+          <div class="method-source-code" id="str_to_bool-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 475</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
+  <span class="ruby-identifier">clean_val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(1|yes|true|y|t)$/</span>
+    <span class="ruby-keyword">return</span>  <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(0|no|false|n|f)$/</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot convert string value &#39;#{clean_val}&#39; into a boolean.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- str_to_bool-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- str_to_bool-method -->
+
+    
+      <div id="method-c-subscribe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">subscribe</span><span
+            class="method-args">(targets)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Helper to subscribe to a topic on multiple collectives or just one</p>
+          
+          
+
+          
+          <div class="method-source-code" id="subscribe-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 200</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">targets</span>)
+  <span class="ruby-identifier">connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;connector_plugin&quot;</span>]
+
+  <span class="ruby-identifier">targets</span> = [<span class="ruby-identifier">targets</span>].<span class="ruby-identifier">flatten</span>
+
+  <span class="ruby-identifier">targets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">target</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:agent</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:collective</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- subscribe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- subscribe-method -->
+
+    
+      <div id="method-c-templatepath" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">templatepath</span><span
+            class="method-args">(template_file)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Looks up the template directory and returns its full path</p>
+          
+          
+
+          
+          <div class="method-source-code" id="templatepath-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 487</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-identifier">template_file</span>)
+  <span class="ruby-identifier">config_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">configfile</span>)
+  <span class="ruby-identifier">template_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">config_dir</span>, <span class="ruby-identifier">template_file</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">template_path</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">template_path</span>)
+
+  <span class="ruby-identifier">template_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;/etc/mcollective&quot;</span>, <span class="ruby-identifier">template_file</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">template_path</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- templatepath-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- templatepath-method -->
+
+    
+      <div id="method-c-terminal_dimensions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">terminal_dimensions</span><span
+            class="method-args">(stdout = STDOUT, environment = ENV)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out the columns and lines of the current tty</p>
+
+<p>Returns [0, 0] if it can&#39;t figure it out or if you&#39;re not running
+on a tty</p>
+          
+          
+
+          
+          <div class="method-source-code" id="terminal_dimensions-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 394</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">terminal_dimensions</span>(<span class="ruby-identifier">stdout</span> = <span class="ruby-constant">STDOUT</span>, <span class="ruby-identifier">environment</span> = <span class="ruby-constant">ENV</span>)
+  <span class="ruby-keyword">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">tty?</span>
+
+  <span class="ruby-keyword">return</span> [<span class="ruby-value">80</span>, <span class="ruby-value">40</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;COLUMNS&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;LINES&quot;</span>]
+    <span class="ruby-keyword">return</span> [<span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;COLUMNS&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;LINES&quot;</span>].<span class="ruby-identifier">to_i</span>]
+
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;TERM&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&quot;tput&quot;</span>)
+    <span class="ruby-keyword">return</span> [<span class="ruby-value">%xtput cols`</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-value">%xtput lines`</span>.<span class="ruby-identifier">to_i</span>]
+
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&#39;stty&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-value">%xstty size`</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\d+/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> }
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span>
+  [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- terminal_dimensions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- terminal_dimensions-method -->
+
+    
+      <div id="method-c-unsubscribe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unsubscribe</span><span
+            class="method-args">(targets)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Helper to unsubscribe to a topic on multiple collectives or just one</p>
+          
+          
+
+          
+          <div class="method-source-code" id="unsubscribe-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 211</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">targets</span>)
+  <span class="ruby-identifier">connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;connector_plugin&quot;</span>]
+
+  <span class="ruby-identifier">targets</span> = [<span class="ruby-identifier">targets</span>].<span class="ruby-identifier">flatten</span>
+
+  <span class="ruby-identifier">targets</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">target</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:agent</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:collective</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- unsubscribe-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- unsubscribe-method -->
+
+    
+      <div id="method-c-versioncmp" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">versioncmp</span><span
+            class="method-args">(version_a, version_b)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>compare two software versions as commonly found in package versions.</p>
+
+<p>returns 0 if a == b returns -1 if a &lt; b returns 1 if a &gt; b</p>
+
+<p>Code originally from Puppet</p>
+          
+          
+
+          
+          <div class="method-source-code" id="versioncmp-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 431</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">version_a</span>, <span class="ruby-identifier">version_b</span>)
+  <span class="ruby-identifier">vre</span> = <span class="ruby-regexp">/[-.]|\d+|[^-.\d]+/</span>
+  <span class="ruby-identifier">ax</span> = <span class="ruby-identifier">version_a</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-identifier">vre</span>)
+  <span class="ruby-identifier">bx</span> = <span class="ruby-identifier">version_b</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-identifier">vre</span>)
+
+  <span class="ruby-keyword">while</span> (<span class="ruby-identifier">ax</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">bx</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">&gt;</span><span class="ruby-value">0</span>)
+    <span class="ruby-identifier">a</span> = <span class="ruby-identifier">ax</span>.<span class="ruby-identifier">shift</span>
+    <span class="ruby-identifier">b</span> = <span class="ruby-identifier">bx</span>.<span class="ruby-identifier">shift</span>
+
+    <span class="ruby-keyword">if</span>( <span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">b</span> )                 <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>) <span class="ruby-keyword">then</span>
+      <span class="ruby-keyword">if</span>( <span class="ruby-identifier">a</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^0/</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^0/</span> ) <span class="ruby-keyword">then</span>
+        <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_i</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">upcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">upcase</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">version_a</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">version_b</span>;
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- versioncmp-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- versioncmp-method -->
+
+    
+      <div id="method-c-windows-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">windows?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="windows-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 262</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
+  <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;host_os&#39;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin|win32|dos|mingw|cygwin/</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- windows-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- windows-3F-method -->
+
+    
+      <div id="method-c-windows_prefix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">windows_prefix</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the PuppetLabs mcollective path for windows</p>
+          
+          
+
+          
+          <div class="method-source-code" id="windows_prefix-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 139</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;win32/dir&#39;</span>
+  <span class="ruby-identifier">prefix</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Dir</span><span class="ruby-operator">::</span><span class="ruby-constant">COMMON_APPDATA</span>, <span class="ruby-string">&quot;PuppetLabs&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- windows_prefix-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- windows_prefix-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

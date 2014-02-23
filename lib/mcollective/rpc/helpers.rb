@@ -2,15 +2,6 @@ module MCollective
   module RPC
     # Various utilities for the RPC system
     class Helpers
-      # Checks in PATH returns true if the command is found
-      def self.command_in_path?(command)
-        found = ENV["PATH"].split(File::PATH_SEPARATOR).map do |p|
-          File.exist?(File.join(p, command))
-        end
-
-        found.include?(true)
-      end
-
       # Parse JSON output as produced by printrpc and extract
       # the "sender" of each rpc response
       #
@@ -42,54 +33,6 @@ module MCollective
         end
       end
 
-      # Figures out the columns and liens of the current tty
-      #
-      # Returns [0, 0] if it can't figure it out or if you're
-      # not running on a tty
-      def self.terminal_dimensions
-        return [0, 0] unless STDOUT.tty?
-
-        return [80, 40] if Util.windows?
-
-        if ENV["COLUMNS"] && ENV["LINES"]
-          return [ENV["COLUMNS"].to_i, ENV["LINES"].to_i]
-
-        elsif ENV["TERM"] && command_in_path?("tput")
-          return [`tput cols`.to_i, `tput lines`.to_i]
-
-        elsif command_in_path?('stty')
-          return `stty size`.scan(/\d+/).map {|s| s.to_i }
-        else
-          return [0, 0]
-        end
-      rescue
-        [0, 0]
-      end
-
-      # Return color codes, if the config color= option is false
-      # just return a empty string
-      def self.color(code)
-        colorize = Config.instance.color
-
-        colors = {:red => "[31m",
-          :green => "[32m",
-          :yellow => "[33m",
-          :cyan => "[36m",
-          :bold => "[1m",
-          :reset => "[0m"}
-
-        if colorize
-          return colors[code] || ""
-        else
-          return ""
-        end
-      end
-
-      # Helper to return a string in specific color
-      def self.colorize(code, msg)
-        "#{self.color(code)}#{msg}#{self.color(:reset)}"
-      end
-
       # Returns a blob of text representing the results in a standard way
       #
       # It tries hard to do sane things so you often
@@ -109,7 +52,7 @@ module MCollective
       # hostnames, it will just print the result as if it's one huge result,
       # handy for things like showing a combined mailq.
       def self.rpcresults(result, flags = {})
-        flags = {:verbose => false, :flatten => false, :format => :console}.merge(flags)
+        flags = {:verbose => false, :flatten => false, :format => :console, :force_display_mode => false}.merge(flags)
 
         result_text = ""
         ddl = nil
@@ -133,26 +76,32 @@ module MCollective
                 sender = r[:sender]
                 status = r[:statuscode]
                 message = r[:statusmsg]
-                display = ddl[:display]
                 result = r[:data]
+
+                if flags[:force_display_mode]
+                  display = flags[:force_display_mode]
+                else
+                  display = ddl[:display]
+                end
 
                 # appand the results only according to what the DDL says
                 case display
-                when :ok
-                  if status == 0
+                  when :ok
+                    if status == 0
+                      result_text << text_for_result(sender, status, message, result, ddl)
+                    end
+
+                  when :failed
+                    if status > 0
+                      result_text << text_for_result(sender, status, message, result, ddl)
+                    end
+
+                  when :always
                     result_text << text_for_result(sender, status, message, result, ddl)
-                  end
 
-                when :failed
-                  if status > 0
-                    result_text << text_for_result(sender, status, message, result, ddl)
-                  end
-
-                when :always
-                  result_text << text_for_result(sender, status, message, result, ddl)
-
-                when :flatten
-                  result_text << text_for_flattened_result(status, result)
+                  when :flatten
+                    Log.warn("The display option :flatten is being deprecated and will be removed in the next minor release")
+                    result_text << text_for_flattened_result(status, result)
 
                 end
               rescue Exception => e
@@ -170,17 +119,17 @@ module MCollective
       # Return text representing a result
       def self.text_for_result(sender, status, msg, result, ddl)
         statusses = ["",
-                     colorize(:red, "Request Aborted"),
-                     colorize(:yellow, "Unknown Action"),
-                     colorize(:yellow, "Missing Request Data"),
-                     colorize(:yellow, "Invalid Request Data"),
-                     colorize(:red, "Unknown Request Status")]
+                     Util.colorize(:red, "Request Aborted"),
+                     Util.colorize(:yellow, "Unknown Action"),
+                     Util.colorize(:yellow, "Missing Request Data"),
+                     Util.colorize(:yellow, "Invalid Request Data"),
+                     Util.colorize(:red, "Unknown Request Status")]
 
         result_text = "%-40s %s\n" % [sender, statusses[status]]
-        result_text << "   %s\n" % [colorize(:yellow, msg)] unless msg == "OK"
+        result_text << "   %s\n" % [Util.colorize(:yellow, msg)] unless msg == "OK"
 
         # only print good data, ignore data that results from failure
-        if [0, 1].include?(status)
+        if status == 0
           if result.is_a?(Hash)
             # figure out the lengths of the display as strings, we'll use
             # it later to correctly justify the output
@@ -192,7 +141,7 @@ module MCollective
               end
             end
 
-            result.keys.each do |k|
+            result.keys.sort_by{|k| k}.each do |k|
               # get all the output fields nicely lined up with a
               # 3 space front padding
               begin
@@ -224,6 +173,10 @@ module MCollective
                 result_text << " " << result[k].pretty_inspect.split("\n").join("\n" << padding) << "\n"
               end
             end
+          elsif status == 1
+            # for status 1 we dont want to show half baked
+            # data by default since the DDL will supply all the defaults
+            # it just doesnt look right
           else
             result_text << "\n\t" + result.pretty_inspect.split("\n").join("\n\t")
           end
@@ -289,7 +242,7 @@ module MCollective
               end
             else
               unless r[:statuscode] == 0
-                result_text << "%-40s %s\n" % [r[:sender], colorize(:red, r[:statusmsg])]
+                result_text << "%-40s %s\n" % [r[:sender], Util.colorize(:red, r[:statusmsg])]
               end
             end
           end
@@ -301,6 +254,7 @@ module MCollective
       # Add SimpleRPC common options
       def self.add_simplerpc_options(parser, options)
         parser.separator ""
+        parser.separator "RPC Options"
 
         # add SimpleRPC specific options to all clients that use our library
         parser.on('--np', '--no-progress', 'Do not show the progress bar') do |v|
@@ -319,7 +273,11 @@ module MCollective
           options[:batch_sleep_time] = v
         end
 
-        parser.on('--limit-nodes COUNT', '--ln', 'Send request to only a subset of nodes, can be a percentage') do |v|
+        parser.on('--limit-seed NUMBER', Integer, 'Seed value for deterministic random batching') do |v|
+          options[:limit_seed] = v
+        end
+
+        parser.on('--limit-nodes COUNT', '--ln', '--limit', 'Send request to only a subset of nodes, can be a percentage') do |v|
           raise "Invalid limit specified: #{v} valid limits are /^\d+%*$/" unless v =~ /^\d+%*$/
 
           if v =~ /^\d+$/
@@ -332,6 +290,16 @@ module MCollective
         parser.on('--json', '-j', 'Produce JSON output') do |v|
           options[:progress_bar] = false
           options[:output_format] = :json
+        end
+
+        parser.on('--display MODE', 'Influence how results are displayed. One of ok, all or failed') do |v|
+          if v == "all"
+            options[:force_display_mode] = :always
+          else
+            options[:force_display_mode] = v.intern
+          end
+
+          raise "--display has to be one of 'ok', 'all' or 'failed'" unless [:ok, :failed, :always].include?(options[:force_display_mode])
         end
       end
     end

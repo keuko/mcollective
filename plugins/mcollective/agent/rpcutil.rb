@@ -1,14 +1,6 @@
 module MCollective
   module Agent
     class Rpcutil<RPC::Agent
-      metadata    :name        => "Utilities and Helpers for SimpleRPC Agents",
-      :description => "General helpful actions that expose stats and internals to SimpleRPC clients",
-      :author      => "R.I.Pienaar <rip@devco.net>",
-      :license     => "Apache License, Version 2.0",
-      :version     => "1.0",
-      :url         => "http://marionette-collective.org/",
-      :timeout     => 10
-
       # Basic system inventory, same as the basic discovery agent
       action "inventory" do
         reply[:agents] = Agents.agentlist
@@ -17,6 +9,7 @@ module MCollective
         reply[:classes] = []
         reply[:main_collective] = config.main_collective
         reply[:collectives] = config.collectives
+        reply[:data_plugins] = PluginManager.grep(/_data$/)
 
         cfile = Config.instance.classesfile
         if File.exist?(cfile)
@@ -26,10 +19,17 @@ module MCollective
 
       # Retrieve a single fact from the node
       action "get_fact" do
-        validate :fact, String
-
         reply[:fact] = request[:fact]
         reply[:value] = Facts[request[:fact]]
+      end 
+
+      action "get_facts" do
+        response = {}
+        request[:facts].split(',').map { |x| x.strip }.each do |fact|
+          value = Facts[fact]
+          response[fact] = value
+        end
+        reply[:values] = response
       end
 
       # Get the global stats for this mcollectied
@@ -56,13 +56,13 @@ module MCollective
           actions = agent.methods.grep(/_agent/)
 
           agent_data = {:agent => target_agent,
-            :license => "unknown",
-            :timeout => agent.timeout,
-            :description => "unknown",
-            :name => target_agent,
-            :url => "unknown",
-            :version => "unknown",
-            :author => "unknown"}
+                        :license => "unknown",
+                        :timeout => agent.timeout,
+                        :description => "unknown",
+                        :name => target_agent,
+                        :url => "unknown",
+                        :version => "unknown",
+                        :author => "unknown"}
 
           agent_data.merge!(agent.meta)
 
@@ -72,8 +72,6 @@ module MCollective
 
       # Retrieves a single config property that is in effect
       action "get_config_item" do
-        validate :item, String
-
         reply.fail! "Unknown config property #{request[:item]}" unless config.respond_to?(request[:item])
 
         reply[:item] = request[:item]
@@ -90,6 +88,20 @@ module MCollective
         config = Config.instance
         reply[:main_collective] = config.main_collective
         reply[:collectives] = config.collectives
+      end
+
+      action "get_data" do
+        if request[:query]
+          query = Data.ddl_transform_input(Data.ddl(request[:source]), request[:query].to_s)
+        else
+          query = nil
+        end
+
+        data = Data[ request[:source] ].lookup(query)
+
+        data.keys.each do |key|
+          reply[key] = data[key]
+        end
       end
     end
   end

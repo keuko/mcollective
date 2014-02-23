@@ -4,10 +4,10 @@ class MCollective::Application::Rpc<MCollective::Application
   usage "mco rpc [options] [filters] --agent <agent> --action <action> [--argument <key=val> --argument ...]"
   usage "mco rpc [options] [filters] <agent> <action> [<key=val> <key=val> ...]"
 
-  option :no_results,
+  option :show_results,
          :description    => "Do not process results, just send request",
          :arguments      => ["--no-results", "--nr"],
-         :default        => false,
+         :default        => true,
          :type           => :bool
 
   option :agent,
@@ -41,11 +41,12 @@ class MCollective::Application::Rpc<MCollective::Application
             configuration[:arguments] << v
           else
             STDERR.puts("Could not parse --arg #{v}")
+            exit(1)
           end
         end
       else
         STDERR.puts("No agent, action and arguments specified")
-        exit!
+        exit(1)
       end
     end
 
@@ -60,44 +61,17 @@ class MCollective::Application::Rpc<MCollective::Application
     end
   end
 
-  # As we're taking arguments on the command line we need a
-  # way to input booleans, true on the cli is a string so this
-  # method will take the ddl, find all arguments that are supposed
-  # to be boolean and if they are the strings "true"/"yes" or "false"/"no"
-  # turn them into the matching boolean
-  def string_to_boolean(val)
-    return true if ["true", "yes", "1"].include?(val)
-    return false if ["false", "no", "0"].include?(val)
-
-    raise "#{val} does not look like a boolean argument"
-  end
-
-  # a generic string to number function, if a number looks like a float
-  # it turns it into a float else an int.  This is naive but should be sufficient
-  # for numbers typed on the cli in most cases
-  def string_to_number(val)
-    return val.to_f if val =~ /^\d+\.\d+$/
-    return val.to_i if val =~ /^\d+$/
-
-    raise "#{val} does not look like a number"
-  end
-
   def string_to_ddl_type(arguments, ddl)
     return if ddl.empty?
 
     arguments.keys.each do |key|
       if ddl[:input].keys.include?(key)
-        begin
-          case ddl[:input][key][:type]
-            when :boolean
-              arguments[key] = booleanish_to_boolean(arguments[key])
+        case ddl[:input][key][:type]
+          when :boolean
+            arguments[key] = MCollective::DDL.string_to_boolean(arguments[key])
 
-            when :number, :integer, :float
-              arguments[key] = string_to_number(arguments[key])
-          end
-        rescue
-          # just go on to the next key, DDL validation will figure out
-          # any inconsistancies caused by exceptions when the request is made
+          when :number, :integer, :float
+            arguments[key] = MCollective::DDL.string_to_number(arguments[key])
         end
       end
     end
@@ -108,31 +82,38 @@ class MCollective::Application::Rpc<MCollective::Application
 
     mc.agent_filter(configuration[:agent])
 
-    string_to_ddl_type(configuration[:arguments], mc.ddl.action_interface(configuration[:action])) unless mc.ddl.nil?
+    string_to_ddl_type(configuration[:arguments], mc.ddl.action_interface(configuration[:action])) if mc.ddl
+
+    mc.validate_request(configuration[:action], configuration[:arguments])
 
     if mc.reply_to
       configuration[:arguments][:process_results] = true
 
       puts "Request sent with id: " + mc.send(configuration[:action], configuration[:arguments]) + " replies to #{mc.reply_to}"
-    elsif configuration[:no_results]
+    elsif !configuration[:show_results]
       configuration[:arguments][:process_results] = false
 
       puts "Request sent with id: " + mc.send(configuration[:action], configuration[:arguments])
     else
-      # if there's stuff on STDIN assume its JSON that came from another
-      # rpc or printrpc, we feed that in as discovery data
       discover_args = {:verbose => true}
-
-      unless STDIN.tty?
-        discovery_data = STDIN.read.chomp
-        discover_args = {:json => discovery_data} unless discovery_data == ""
+      # IF the discovery method hasn't been explicitly overridden
+      #  and we're not being run interactively,
+      #  and someone has piped us some data
+      # Then we assume it's a discovery list - this can be either:
+      #  - list of hosts in plaintext
+      #  - JSON that came from another rpc or printrpc
+      if mc.default_discovery_method && !STDIN.tty? && !STDIN.eof?
+          # Then we override discovery to try to grok the data on STDIN
+          mc.discovery_method = 'stdin'
+          mc.discovery_options = 'auto'
+          discover_args = {:verbose => false}
       end
 
       mc.discover discover_args
 
       printrpc mc.send(configuration[:action], configuration[:arguments])
 
-      printrpcstats :caption => "#{configuration[:agent]}##{configuration[:action]} call stats" if mc.discover.size > 0
+      printrpcstats :summarize => true, :caption => "#{configuration[:agent]}##{configuration[:action]} call stats" if mc.discover.size > 0
 
       halt mc.stats
     end

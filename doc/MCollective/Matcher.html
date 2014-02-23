@@ -1,0 +1,668 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective::Matcher - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/matcher.rb
+    <li>lib/mcollective/matcher/parser.rb
+    <li>lib/mcollective/matcher/scanner.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li ><a href="#method-c-create_compound_callstack">::create_compound_callstack</a>
+    
+    <li ><a href="#method-c-create_function_hash">::create_function_hash</a>
+    
+    <li ><a href="#method-c-eval_compound_fstatement">::eval_compound_fstatement</a>
+    
+    <li ><a href="#method-c-eval_compound_statement">::eval_compound_statement</a>
+    
+    <li ><a href="#method-c-execute_function">::execute_function</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective::Matcher</h1>
+
+  <div id="description" class="description">
+    
+<p>A parser and scanner that creates a stack machine for a simple fact and
+class matching language used on the CLI to facilitate a rich discovery
+language</p>
+
+<p>Language EBNF</p>
+
+<p>compound = [“(”] expression [“)”] {[“(”] expression [“)”]} expression =
+[!|not]statement [“and”|“or”] [!|not] statement char = A-Z | a-z | &lt; |
+&gt; | =&gt; | =&lt; | _ | - |* | / { A-Z | a-z | &lt; | &gt; | =&gt; |
+=&lt; | _ | - | * | / | } int = 0|1|2|3|4|5|6|7|8|9{|0|1|2|3|4|5|6|7|8|9|0}</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-create_compound_callstack" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_compound_callstack</span><span
+            class="method-args">(call_string)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a callstack to be evaluated from a compound evaluation string</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_compound_callstack-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 181</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_compound_callstack</span>(<span class="ruby-identifier">call_string</span>)
+  <span class="ruby-identifier">callstack</span> = <span class="ruby-constant">Matcher</span><span class="ruby-operator">::</span><span class="ruby-constant">Parser</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">call_string</span>).<span class="ruby-identifier">execution_stack</span>
+  <span class="ruby-identifier">callstack</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">statement</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">statement</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;fstatement&quot;</span>
+      <span class="ruby-identifier">callstack</span>[<span class="ruby-identifier">i</span>][<span class="ruby-string">&quot;fstatement&quot;</span>] = <span class="ruby-identifier">create_function_hash</span>(<span class="ruby-identifier">statement</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">callstack</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_compound_callstack-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_compound_callstack-method -->
+
+    
+      <div id="method-c-create_function_hash" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_function_hash</span><span
+            class="method-args">(function_call)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Helper creates a hash from a function call string</p>
+          
+          
+
+          
+          <div class="method-source-code" id="create_function_hash-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 17</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_function_hash</span>(<span class="ruby-identifier">function_call</span>)
+  <span class="ruby-identifier">func_hash</span> = {}
+  <span class="ruby-identifier">f</span> = <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-identifier">func_parts</span> = <span class="ruby-identifier">function_call</span>.<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/(!=|&gt;=|&lt;=|&lt;|&gt;|=)/</span>)
+  <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>] = <span class="ruby-identifier">func_parts</span>.<span class="ruby-identifier">pop</span>
+  <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] = <span class="ruby-identifier">func_parts</span>.<span class="ruby-identifier">pop</span>
+  <span class="ruby-identifier">func</span> = <span class="ruby-identifier">func_parts</span>.<span class="ruby-identifier">join</span>
+
+  <span class="ruby-comment"># Deal with dots in function parameters and functions without dot values</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">func</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^.+\(.*\)$/</span>)
+    <span class="ruby-identifier">f</span> = <span class="ruby-identifier">func</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">func_parts</span> = <span class="ruby-identifier">func</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;.&quot;</span>)
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;value&quot;</span>] = <span class="ruby-identifier">func_parts</span>.<span class="ruby-identifier">pop</span>
+    <span class="ruby-identifier">f</span> = <span class="ruby-identifier">func_parts</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Deal with regular expression matches</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/.*\/$/</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] = <span class="ruby-string">&quot;=~&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;=&quot;</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] = <span class="ruby-string">&quot;!=~&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;!=&quot;</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>] = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/^\/|\/$/</span>, <span class="ruby-string">&quot;&quot;</span>))
+  <span class="ruby-comment"># Convert = operators to == so they can be propperly evaluated</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;=&quot;</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] = <span class="ruby-string">&quot;==&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Grab function name and parameters from left compare string</span>
+  <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;name&quot;</span>], <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-identifier">f</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;(&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;)&quot;</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">else</span>
+
+    <span class="ruby-comment"># Walk the function parameters from the front and from the</span>
+    <span class="ruby-comment"># back removing the first and last instances of single of</span>
+    <span class="ruby-comment"># double qoutes. We do this to handle the case where params</span>
+    <span class="ruby-comment"># contain escaped qoutes.</span>
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;)&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+    <span class="ruby-identifier">func_quotes</span> = <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/(&#39;|&quot;)/</span>)
+
+    <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&#39;|&quot;/</span>)
+        <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">i</span>)
+        <span class="ruby-keyword">break</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&#39;|&quot;/</span>)
+        <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
+        <span class="ruby-keyword">break</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">join</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">func_hash</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- create_function_hash-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- create_function_hash-method -->
+
+    
+      <div id="method-c-eval_compound_fstatement" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">eval_compound_fstatement</span><span
+            class="method-args">(function_hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the result of an evaluated compound statement that includes a
+function</p>
+          
+          
+
+          
+          <div class="method-source-code" id="eval_compound_fstatement-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 135</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">eval_compound_fstatement</span>(<span class="ruby-identifier">function_hash</span>)
+  <span class="ruby-identifier">l_compare</span> = <span class="ruby-identifier">execute_function</span>(<span class="ruby-identifier">function_hash</span>)
+
+  <span class="ruby-comment"># Break out early and return false if the function returns nil</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">l_compare</span>
+
+  <span class="ruby-comment"># Prevent unwanted discovery by limiting comparison operators</span>
+  <span class="ruby-comment"># on Strings and Booleans</span>
+  <span class="ruby-keyword">if</span>((<span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">TrueClass</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FalseClass</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&lt;|&gt;/</span>))
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span> <span class="ruby-node">&quot;Cannot do &gt; and &lt; comparison on Booleans and Strings &#39;#{l_compare} #{function_hash[&quot;operator&quot;]} #{function_hash[&quot;r_compare&quot;]}&#39;&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Prevent backticks in function parameters</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/`/</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cannot use backticks in function parameters&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># Escape strings for evaluation</span>
+  <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>] = <span class="ruby-node">&quot;\&quot;#{function_hash[&quot;r_compare&quot;]}\&quot;&quot;</span> <span class="ruby-keyword">if</span>(<span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)  <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/=~|!=~/</span>))
+
+  <span class="ruby-comment"># Do a regex comparison if right compare string is a regex</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/(=~|!=~)/</span>
+    <span class="ruby-comment"># Fail if left compare value isn&#39;t a string</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cannot do a regex check on a non string value.&quot;</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">compare_result</span> = <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;r_compare&quot;</span>])
+      <span class="ruby-comment"># Flip return value for != operator</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;!=~&quot;</span>
+        <span class="ruby-operator">!</span>((<span class="ruby-identifier">compare_result</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>)
+      <span class="ruby-keyword">else</span>
+        (<span class="ruby-identifier">compare_result</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">true</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-comment"># Otherwise evaluate the logical comparison</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">l_compare</span> = <span class="ruby-node">&quot;\&quot;#{l_compare}\&quot;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+    <span class="ruby-identifier">result</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{l_compare} #{function_hash[&quot;operator&quot;]} #{function_hash[&quot;r_compare&quot;]}&quot;</span>)
+    (<span class="ruby-identifier">result</span>.<span class="ruby-identifier">nil?</span>) <span class="ruby-operator">?</span> <span class="ruby-keyword">false</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- eval_compound_fstatement-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- eval_compound_fstatement-method -->
+
+    
+      <div id="method-c-eval_compound_statement" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">eval_compound_statement</span><span
+            class="method-args">(expression)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Evaluates a compound statement</p>
+          
+          
+
+          
+          <div class="method-source-code" id="eval_compound_statement-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 115</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">eval_compound_statement</span>(<span class="ruby-identifier">expression</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\//</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_cf_class?</span>(<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/&gt;=|&lt;=|=|&lt;|&gt;/</span>
+    <span class="ruby-identifier">optype</span> = <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&gt;=|&lt;=|=|&lt;|&gt;/</span>)
+    <span class="ruby-identifier">name</span>, <span class="ruby-identifier">value</span> = <span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span>.<span class="ruby-identifier">split</span>(<span class="ruby-identifier">optype</span>[<span class="ruby-value">0</span>])
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;&quot;</span>)[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;/&quot;</span>
+      <span class="ruby-identifier">optype</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;=&quot;</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">optype</span> = <span class="ruby-string">&quot;==&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">optype</span> = <span class="ruby-identifier">optype</span>[<span class="ruby-value">0</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">optype</span> = <span class="ruby-string">&quot;=~&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">name</span>,<span class="ruby-identifier">value</span>, <span class="ruby-identifier">optype</span>).<span class="ruby-identifier">to_s</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_cf_class?</span>(<span class="ruby-identifier">expression</span>.<span class="ruby-identifier">values</span>.<span class="ruby-identifier">first</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- eval_compound_statement-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- eval_compound_statement-method -->
+
+    
+      <div id="method-c-execute_function" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">execute_function</span><span
+            class="method-args">(function_hash)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the result of an executed function</p>
+          
+          
+
+          
+          <div class="method-source-code" id="execute_function-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 78</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">execute_function</span>(<span class="ruby-identifier">function_hash</span>)
+  <span class="ruby-comment"># In the case where a data plugin isn&#39;t present there are two ways we can handle</span>
+  <span class="ruby-comment"># the raised exception. The function result can either be false or the entire</span>
+  <span class="ruby-comment"># expression can fail.</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># In the case where we return the result as false it opens us op to unexpected</span>
+  <span class="ruby-comment"># negation behavior.</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment">#   !foo(&#39;bar&#39;).name = bar</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># In this case the user would expect discovery to match on all machines where</span>
+  <span class="ruby-comment"># the name value of the foo function does not equal bar. If a non existent function</span>
+  <span class="ruby-comment"># returns false then it is posible to match machines where the name value of the</span>
+  <span class="ruby-comment"># foo function is bar.</span>
+  <span class="ruby-comment">#</span>
+  <span class="ruby-comment"># Instead we raise a DDLValidationError to prevent this unexpected behavior from</span>
+  <span class="ruby-comment"># happening.</span>
+
+  <span class="ruby-identifier">result</span> = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;name&quot;</span>], <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;params&quot;</span>])
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;value&quot;</span>]
+    <span class="ruby-keyword">begin</span>
+      <span class="ruby-identifier">eval_result</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;value&quot;</span>])
+    <span class="ruby-keyword">rescue</span>
+      <span class="ruby-comment"># If data field has not been set we set the comparison result to nil</span>
+      <span class="ruby-identifier">eval_result</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">eval_result</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;cannot execute discovery function &#39;#{function_hash[&quot;name&quot;]}&#39;. data plugin not found&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- execute_function-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- execute_function-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

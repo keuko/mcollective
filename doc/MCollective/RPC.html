@@ -1,0 +1,762 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+
+<title>module MCollective::RPC - mcollective version 2.4.1</title>
+
+<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
+<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+
+
+<body id="top" class="module">
+<nav id="metadata">
+  <nav id="home-section" class="section">
+  <h3 class="section-header">
+    <a href="../index.html">Home</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </h3>
+</nav>
+
+
+  <nav id="search-section" class="section project-section" class="initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <h3 class="section-header">
+      <input type="text" name="search" placeholder="Search" id="search-field"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </h3>
+  </form>
+
+  <ul id="search-results" class="initially-hidden"></ul>
+</nav>
+
+
+  
+
+  <div id="file-metadata">
+    <nav id="file-list-section" class="section">
+  <h3 class="section-header">Defined In</h3>
+  <ul>
+    <li>lib/mcollective/rpc.rb
+    <li>lib/mcollective/rpc/actionrunner.rb
+    <li>lib/mcollective/rpc/agent.rb
+    <li>lib/mcollective/rpc/audit.rb
+    <li>lib/mcollective/rpc/client.rb
+    <li>lib/mcollective/rpc/helpers.rb
+    <li>lib/mcollective/rpc/progress.rb
+    <li>lib/mcollective/rpc/reply.rb
+    <li>lib/mcollective/rpc/request.rb
+    <li>lib/mcollective/rpc/result.rb
+    <li>lib/mcollective/rpc/stats.rb
+  </ul>
+</nav>
+
+    
+  </div>
+
+  <div id="class-metadata">
+    
+    
+    
+    
+    <!-- Method Quickref -->
+<nav id="method-list-section" class="section">
+  <h3 class="section-header">Methods</h3>
+
+  <ul class="link-list">
+    
+    <li class="calls-super" ><a href="#method-c-const_missing">::const_missing</a>
+    
+    <li ><a href="#method-c-discovered">::discovered</a>
+    
+    <li ><a href="#method-c-stats">::stats</a>
+    
+    <li ><a href="#method-i-empty_filter-3F">#empty_filter?</a>
+    
+    <li ><a href="#method-i-printrpc">#printrpc</a>
+    
+    <li ><a href="#method-i-printrpcstats">#printrpcstats</a>
+    
+    <li ><a href="#method-i-rpcclient">#rpcclient</a>
+    
+    <li ><a href="#method-i-rpcoptions">#rpcoptions</a>
+    
+  </ul>
+</nav>
+
+  </div>
+
+  <div id="project-metadata">
+    <nav id="fileindex-section" class="section project-section">
+  <h3 class="section-header">Pages</h3>
+
+  <ul>
+  
+    <li class="file"><a href="../COPYING.html">COPYING</a>
+  
+    <li class="file"><a href="../Gemfile.html">Gemfile</a>
+  
+    <li class="file"><a href="../README.html">README</a>
+  
+    <li class="file"><a href="../Rakefile.html">Rakefile</a>
+  
+    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
+  
+    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</nav>
+
+    <nav id="classindex-section" class="section project-section">
+  <h3 class="section-header">Class and Module Index</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../Array.html">Array</a>
+  
+    <li><a href="../Dir.html">Dir</a>
+  
+    <li><a href="../GetoptLong.html">GetoptLong</a>
+  
+    <li><a href="../MCollective.html">MCollective</a>
+  
+    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
+  
+    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
+  
+    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
+  
+    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
+  
+    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
+  
+    <li><a href="../MCollective/Application.html">MCollective::Application</a>
+  
+    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
+  
+    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
+  
+    <li><a href="../MCollective/Client.html">MCollective::Client</a>
+  
+    <li><a href="../MCollective/Config.html">MCollective::Config</a>
+  
+    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
+  
+    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
+  
+    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
+  
+    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
+  
+    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
+  
+    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
+  
+    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
+  
+    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
+  
+    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
+  
+    <li><a href="../MCollective/Data.html">MCollective::Data</a>
+  
+    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
+  
+    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
+  
+    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
+  
+    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
+  
+    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
+  
+    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
+  
+    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
+  
+    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
+  
+    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
+  
+    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
+  
+    <li><a href="../MCollective/Log.html">MCollective::Log</a>
+  
+    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
+  
+    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
+  
+    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
+  
+    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
+  
+    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
+  
+    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
+  
+    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
+  
+    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
+  
+    <li><a href="../MCollective/Message.html">MCollective::Message</a>
+  
+    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
+  
+    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
+  
+    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
+  
+    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
+  
+    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
+  
+    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
+  
+    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
+  
+    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
+  
+    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
+  
+    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
+  
+    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
+  
+    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
+  
+    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
+  
+    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
+  
+    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
+  
+    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
+  
+    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
+  
+    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
+  
+    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
+  
+    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
+  
+    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
+  
+    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
+  
+    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
+  
+    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
+  
+    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
+  
+    <li><a href="../MCollective/Security.html">MCollective::Security</a>
+  
+    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
+  
+    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
+  
+    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
+  
+    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
+  
+    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
+  
+    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
+  
+    <li><a href="../MCollective/Util.html">MCollective::Util</a>
+  
+    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
+  
+    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
+  
+    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
+  
+    <li><a href="../Object.html">Object</a>
+  
+    <li><a href="../String.html">String</a>
+  
+    <li><a href="../Symbol.html">Symbol</a>
+  
+  </ul>
+</nav>
+
+  </div>
+</nav>
+
+<div id="documentation">
+  <h1 class="module">module MCollective::RPC</h1>
+
+  <div id="description" class="description">
+    
+<p>Toolset to create a standard interface of client and agent using an <a
+href="RPC.html">RPC</a> metaphor, standard compliant agents will make it
+easier to create generic clients like web interfaces etc</p>
+
+  </div><!-- description -->
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    <!-- Methods -->
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Class Methods</h3>
+
+    
+      <div id="method-c-const_missing" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">const_missing</span><span
+            class="method-args">(const_name)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+            <div class="method-calls-super">
+              Calls superclass method
+              
+            </div>
+          
+
+          
+          <div class="method-source-code" id="const_missing-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 175</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">const_name</span>)
+  <span class="ruby-keyword">super</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">const_name</span> <span class="ruby-operator">==</span> <span class="ruby-value">:DDL</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;MCollective::RPC::DDL is deprecatd, please use MCollective::DDL instead&quot;</span>)
+  <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">DDL</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- const_missing-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- const_missing-method -->
+
+    
+      <div id="method-c-discovered" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">discovered</span><span
+            class="method-args">(discovered)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>means for other classes to drop discovered hosts into this module its a bit
+hacky but needed so that the mixin methods like printrpcstats can easily
+get access to it without users having to pass it around in params.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="discovered-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 107</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovered</span>(<span class="ruby-identifier">discovered</span>)
+  <span class="ruby-identifier">@@discovered</span> = <span class="ruby-identifier">discovered</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- discovered-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- discovered-method -->
+
+    
+      <div id="method-c-stats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stats</span><span
+            class="method-args">(stats)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>means for other classes to drop stats into this module its a bit hacky but
+needed so that the mixin methods like printrpcstats can easily get access
+to it without users having to pass it around in params.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="stats-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 99</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stats</span>(<span class="ruby-identifier">stats</span>)
+  <span class="ruby-identifier">@@stats</span> = <span class="ruby-identifier">stats</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- stats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- stats-method -->
+
+    
+    </section><!-- public-class-method-details -->
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
+      <h3 class="section-header">Public Instance Methods</h3>
+
+    
+      <div id="method-i-empty_filter-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">empty_filter?</span><span
+            class="method-args">(options)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper for <a
+href="Util.html#method-c-empty_filter-3F">MCollective::Util.empty_filter?</a>
+to make clients less fugly to write - ticket #18</p>
+          
+          
+
+          
+          <div class="method-source-code" id="empty_filter-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 167</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:filter</span>)
+    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- empty_filter-3F-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- empty_filter-3F-method -->
+
+    
+      <div id="method-i-printrpc" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">printrpc</span><span
+            class="method-args">(result, flags = {})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Prints the result of an <a href="RPC.html">RPC</a> call.</p>
+
+<p>In the default quiet mode - no flattening or verbose - only results that
+produce an error will be printed</p>
+
+<p>To get details of each result run with the -v command line option.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="printrpc-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 146</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">printrpc</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+  <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">verbose</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">verbose</span>
+  <span class="ruby-identifier">flatten</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:flatten</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">format</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>]
+  <span class="ruby-identifier">forced_mode</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:force_display_mode</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+
+  <span class="ruby-identifier">result_text</span> =  <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, {<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">verbose</span>, <span class="ruby-value">:flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">flatten</span>, <span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">format</span>, <span class="ruby-value">:force_display_mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">forced_mode</span>})
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\n%s\n&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">result_text</span> ]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># when we get just one result to print dont pad them all with</span>
+    <span class="ruby-comment"># blank spaces etc, just print the individual result with no</span>
+    <span class="ruby-comment"># padding</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_text</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- printrpc-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- printrpc-method -->
+
+    
+      <div id="method-i-printrpcstats" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">printrpcstats</span><span
+            class="method-args">(flags={})</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Prints stats, requires stats to be saved from elsewhere using the <a
+href="RPC.html#method-c-stats">::stats</a> method.</p>
+
+<p>If you&#39;ve passed -v on the command line a detailed stat block will be
+printed, else just a one liner.</p>
+
+<p>You can pass flags into it:</p>
+
+<pre class="ruby"><span class="ruby-identifier">printrpcstats</span> :<span class="ruby-identifier">caption</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Foo&quot;</span>, :<span class="ruby-identifier">summarize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+</pre>
+
+<p>This will use “Foo” as the caption to the stats in verbose mode and print
+out any aggregate summary information if present</p>
+          
+          
+
+          
+          <div class="method-source-code" id="printrpcstats-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 123</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">printrpcstats</span>(<span class="ruby-identifier">flags</span>={})
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
+
+  <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:summarize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:caption</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;rpc stats&quot;</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
+
+  <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">stats</span> = <span class="ruby-identifier">@@stats</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;no stats to display&quot;</span>)
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">report</span>(<span class="ruby-identifier">flags</span>[<span class="ruby-value">:caption</span>], <span class="ruby-identifier">flags</span>[<span class="ruby-value">:summarize</span>], <span class="ruby-identifier">verbose</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- printrpcstats-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- printrpcstats-method -->
+
+    
+      <div id="method-i-rpcclient" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rpcclient</span><span
+            class="method-args">(agent, flags = {}) { |rpc| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Wrapper to create clients, supposed to be used as a mixin:</p>
+
+<p>include <a href="RPC.html">MCollective::RPC</a></p>
+
+<p>exim = rpcclient(“exim”) printrpc exim.mailq</p>
+
+<p>or</p>
+
+<p>rpcclient(“exim”) do |exim|</p>
+
+<pre>printrpc exim.mailq</pre>
+
+<p>end</p>
+
+<p>It will take a few flags:</p>
+
+<pre class="ruby">:<span class="ruby-identifier">configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;etc/client.cfg&quot;</span>
+:<span class="ruby-identifier">options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>
+:<span class="ruby-identifier">exit_on_failure</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+</pre>
+
+<p>Options would be a build up options hash from the <a
+href="Optionparser.html">Optionparser</a> you can use the rpcoptions helper
+to create this</p>
+
+<p>:exit_on_failure is true by default, and causes the application to exit if
+there is a failure constructing the <a href="RPC.html">RPC</a> client. Set
+this flag to false to cause an Exception to be raised instead.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="rpcclient-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 60</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rpcclient</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">flags</span> = {})
+  <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:configfile</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;/etc/mcollective/client.cfg&quot;</span>
+  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:options</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">nil</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:exit_on_failure</span>)
+    <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:exit_on_failure</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># We exit on failure by default for CLI-friendliness</span>
+    <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>
+      <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:config</span>], <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>)
+      <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">configfile</span>)
+      <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">exit_on_failure</span>
+      <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Could not create RPC client: #{e}&quot;</span>)
+      <span class="ruby-identifier">exit!</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+    <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">rpc</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">rpc</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rpcclient-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rpcclient-method -->
+
+    
+      <div id="method-i-rpcoptions" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rpcoptions</span><span
+            class="method-args">() { |parser, options| ... }</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a standard options hash, pass in a block to add extra headings etc
+see <a href="Optionparser.html">Optionparser</a></p>
+          
+          
+
+          
+          <div class="method-source-code" id="rpcoptions-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 21</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rpcoptions</span>
+  <span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:progress_bar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
+
+  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">oparser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+      <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- rpcoptions-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- rpcoptions-method -->
+
+    
+    </section><!-- public-instance-method-details -->
+  
+  </section><!-- 5Buntitled-5D -->
+
+</div><!-- documentation -->
+
+
+<footer id="validator-badges">
+  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+</footer>
+

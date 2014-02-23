@@ -54,6 +54,11 @@ module MCollective
         if activate_agent?(agentname)
           PluginManager << {:type => "#{agentname}_agent", :class => classname, :single_instance => single_instance}
 
+          # Attempt to instantiate the agent once so any validation and hooks get run
+          # this does a basic sanity check on the agent as a whole, if this fails it
+          # will be removed from the plugin list
+          PluginManager["#{agentname}_agent"]
+
           Util.subscribe(Util.make_subscriptions(agentname, :broadcast)) unless @@agents.include?(agentname)
 
           @@agents[agentname] = {:file => agentfile}
@@ -106,22 +111,6 @@ module MCollective
     # Determines if we have an agent with a certain name
     def include?(agentname)
       PluginManager.include?("#{agentname}_agent")
-    end
-
-    # Returns the help for an agent after first trying to get
-    # rid of some indentation infront
-    def help(agentname)
-      raise("No such agent") unless include?(agentname)
-
-      body = PluginManager["#{agentname}_agent"].help.split("\n")
-
-      if body.first =~ /^(\s+)\S/
-        indent = $1
-
-        body = body.map {|b| b.gsub(/^#{indent}/, "")}
-      end
-
-      body.join("\n")
     end
 
     # Dispatches a message to an agent, accepts a block that will get run if there are

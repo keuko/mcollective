@@ -4,36 +4,46 @@ module MCollective
   # all this information
   class Runner
     def initialize(configfile)
-      @config = Config.instance
-      @config.loadconfig(configfile) unless @config.configured
+      begin
+        @config = Config.instance
+        @config.loadconfig(configfile) unless @config.configured
+        @config.mode = :server
+        @state = :running
+        @stats = PluginManager["global_stats"]
 
-      @stats = PluginManager["global_stats"]
+        @security = PluginManager["security_plugin"]
+        @security.initiated_by = :node
 
-      @security = PluginManager["security_plugin"]
-      @security.initiated_by = :node
+        @connection = PluginManager["connector_plugin"]
+        @connection.connect
 
-      @connection = PluginManager["connector_plugin"]
-      @connection.connect
+        @agents = Agents.new
 
-      @agents = Agents.new
+        unless Util.windows?
+          Signal.trap("USR1") do
+            Log.info("Reloading all agents after receiving USR1 signal")
+            @agents.loadagents
+          end
 
-      unless Util.windows?
-        Signal.trap("USR1") do
-          Log.info("Reloading all agents after receiving USR1 signal")
-          @agents.loadagents
+          Signal.trap("USR2") do
+            Log.info("Cycling logging level due to USR2 signal")
+            Log.cycle_level
+          end
+        else
+          Util.setup_windows_sleeper
         end
-
-        Signal.trap("USR2") do
-          Log.info("Cycling logging level due to USR2 signal")
-          Log.cycle_level
-        end
-      else
-        Util.setup_windows_sleeper
+      rescue => e
+        Log.error("Failed to start MCollective runner.")
+        Log.error(e)
+        Log.error(e.backtrace.join("\n\t"))
+        raise e
       end
     end
 
     # Starts the main loop, before calling this you should initialize the MCollective::Config singleton.
     def run
+      Data.load_data_sources
+
       Util.subscribe(Util.make_subscriptions("mcollective", :broadcast))
       Util.subscribe(Util.make_subscriptions("mcollective", :directed)) if @config.direct_addressing
 
@@ -48,10 +58,10 @@ module MCollective
         begin
           request = receive
 
-          if request.agent == "mcollective"
-            controlmsg(request)
-          else
+          unless request.agent == "mcollective"
             agentmsg(request)
+          else
+            Log.error("Received a control message, possibly via 'mco controller' but this has been deprecated")
           end
         rescue SignalException => e
           Log.warn("Exiting after signal: #{e}")
@@ -68,7 +78,14 @@ module MCollective
           Log.warn("Failed to handle message: #{e} - #{e.class}\n")
           Log.warn(e.backtrace.join("\n\t"))
         end
+
+        return if @state == :stopping
       end
+    end
+
+    # Flag the runner to stop
+    def stop
+      @state = :stopping
     end
 
     private
