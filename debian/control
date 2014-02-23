@@ -41,7 +41,7 @@ Package: mcollective-common
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
 Suggests: mcollective-doc
-Depends: ${misc:Depends}, ruby | ruby-interpreter, ruby-stomp, ruby-systemu, ruby-json
+Depends: ${misc:Depends}, ruby | ruby-interpreter, ruby-stomp (>> 1.2.10-1~), ruby-systemu, ruby-json
 Description: Marionette Collective clustering framework - common files
  The Marionette Collective is a framework for building server
  orchestration and parallel job execution systems.
