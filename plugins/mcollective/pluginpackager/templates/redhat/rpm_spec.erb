@@ -1,7 +1,7 @@
 Name: <%= @package_name %>
 Summary: <%= @plugin.metadata[:description] %>
 Version: <%= @plugin.metadata[:version] %>
-Release: <%= @plugin.revision %>
+Release: <%= @plugin.revision %>%{?dist}
 License: <%= @plugin.metadata[:license]%>
 URL: <%= @plugin.metadata[:url]%>
 Vendor: <%= @plugin.vendor%>
@@ -34,7 +34,7 @@ rm -rf %{buildroot}
 %package <%= type %>
 Summary: <%= @plugin.metadata[:description] %>
 <% if data[:plugindependency] %>
-Requires: <%= data[:plugindependency][:name] -%> = <%= data[:plugindependency][:version]%>-<%= data[:plugindependency][:revision]%>
+Requires: <%= data[:plugindependency][:name] -%> = <%= data[:plugindependency][:version]%>-<%= data[:plugindependency][:revision]%>%{?dist}
 <% end -%>
 <% PluginPackager.filter_dependencies('redhat', data[:dependencies]).each do |dep|-%>
 Requires: <%= dep[:name] -%> <%= ">= #{dep[:version]}" if dep[:version]%><%="-#{dep[:revision]}" if dep[:revision]%>

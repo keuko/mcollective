@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>module MCollective::Facts - mcollective version 2.5.2</title>
+<title>class MCollective::MessageNotReceived - mcollective version 2.5.2</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -20,7 +20,7 @@
 <script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
 
 
-<body id="top" class="module">
+<body id="top" class="class">
 <nav id="metadata">
   <nav id="home-section" class="section">
   <h3 class="section-header">
@@ -49,8 +49,7 @@
     <nav id="file-list-section" class="section">
   <h3 class="section-header">Defined In</h3>
   <ul>
-    <li>lib/mcollective/facts.rb
-    <li>lib/mcollective/facts/base.rb
+    <li>lib/mcollective/exceptions.rb
   </ul>
 </nav>
 
@@ -59,24 +58,16 @@
 
   <div id="class-metadata">
     
-    
-    
-    
-    <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
-
-  <ul class="link-list">
-    
-    <li ><a href="#method-c-5B-5D">::[]</a>
-    
-    <li ><a href="#method-c-get_fact">::get_fact</a>
-    
-    <li ><a href="#method-c-has_fact-3F">::has_fact?</a>
-    
-  </ul>
+    <nav id="parent-class-section" class="section">
+  <h3 class="section-header">Parent</h3>
+  
+  <p class="link"><a href="BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
+  
 </nav>
 
+    
+    
+    
   </div>
 
   <div id="project-metadata">
@@ -304,30 +295,10 @@
 </nav>
 
 <div id="documentation">
-  <h1 class="module">module MCollective::Facts</h1>
+  <h1 class="class">class MCollective::MessageNotReceived</h1>
 
   <div id="description" class="description">
     
-<p>This is a class that gives access to the configured fact provider such as
-MCollectives::Facts::Facter that uses Reductive Labs facter</p>
-
-<p>The actual provider is pluggable and configurable using the
-&#39;factsource&#39; configuration option.</p>
-<dl class="rdoc-list note-list"><dt>To develop a new factsource simply create a class under <a href="Facts.html">MCollective::Facts</a>
-<dd>
-<p>and provide the following classes:</p>
-
-<pre>self.get_fact(fact)
-self.has_fact?(fact)</pre>
-
-<p>You can also just inherit from <a
-href="Facts/Base.html">MCollective::Facts::Base</a> and provide just the</p>
-
-<pre>self.get_facts</pre>
-
-<p>method that should return a hash of facts.</p>
-</dd></dl>
-
   </div><!-- description -->
 
   
@@ -344,111 +315,6 @@ href="Facts/Base.html">MCollective::Facts::Base</a> and provide just the</p>
 
     <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
-
-    
-      <div id="method-c-5B-5D" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">[]</span><span
-            class="method-args">(fact)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Get the value of a fact</p>
-          
-          
-
-          
-          <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">fact</span>)
-  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;facts_plugin&quot;</span>].<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- 5B-5D-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- 5B-5D-method -->
-
-    
-      <div id="method-c-get_fact" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">get_fact</span><span
-            class="method-args">(fact)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>Get the value of a fact</p>
-          
-          
-
-          
-          <div class="method-source-code" id="get_fact-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
-  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;facts_plugin&quot;</span>].<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- get_fact-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- get_fact-method -->
-
-    
-      <div id="method-c-has_fact-3F" class="method-detail ">
-        
-        <div class="method-heading">
-          <span class="method-name">has_fact?</span><span
-            class="method-args">(fact, value)</span>
-          
-          <span class="method-click-advice">click to toggle source</span>
-          
-        </div>
-        
-
-        <div class="method-description">
-          
-          <p>True if we know of a specific fact else false</p>
-          
-          
-
-          
-          <div class="method-source-code" id="has_fact-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">value</span>)
-  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;facts_plugin&quot;</span>].<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>) <span class="ruby-operator">==</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">true</span> <span class="ruby-operator">:</span> <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
-          </div><!-- has_fact-3F-source -->
-          
-        </div>
-
-        
-
-        
-      </div><!-- has_fact-3F-method -->
-
-    
-    </section><!-- public-class-method-details -->
-  
   </section><!-- 5Buntitled-5D -->
 
 </div><!-- documentation -->
