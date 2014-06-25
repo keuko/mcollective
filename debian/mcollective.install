@@ -1,3 +1,0 @@
-usr/sbin/mcollectived usr/sbin
-etc/mcollective/server.cfg usr/share/mcollective
-etc/mcollective/ssl
