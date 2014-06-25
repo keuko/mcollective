@@ -12,8 +12,8 @@
 %endif
 
 # VERSION is subbed out during rake package:srpm process
-%global         realversion 2.4.1
-%global         rpmversion 2.4.1
+%global         realversion 2.5.2
+%global         rpmversion 2.5.2
 
 Summary:        Application Server for hosting Ruby code on any capable middleware
 Name:           mcollective
@@ -53,7 +53,7 @@ Server for the mcollective Application Server
 Summary:        Common libraries for the mcollective clients and servers
 Group:          System Environment/Libraries
 Requires:       ruby >= 1.8
-Requires:       rubygems
+Requires:       rubygems >= 1.3.7
 Requires:       rubygem-stomp
 
 %description common
@@ -147,7 +147,6 @@ fi
 
 %files client
 %defattr(-, root, root, 0755)
-%attr(0755, root, root)%{_sbindir}/mc-call-agent
 %attr(0755, root, root)%{_bindir}/mco
 %doc COPYING
 %config(noreplace)%{_sysconfdir}/mcollective/client.cfg
@@ -169,8 +168,8 @@ fi
 %config(noreplace)%{_sysconfdir}/mcollective/plugin.d
 
 %changelog
-* Mon Feb 10 2014 Puppet Labs Release <info@puppetlabs.com> -  2.4.1-1
-- Build for 2.4.1
+* Mon Jun 09 2014 Puppet Labs Release <info@puppetlabs.com> -  2.5.2-1
+- Build for 2.5.2
 
 * Tue Nov 03 2009 R.I.Pienaar <rip@devco.net>
 - First release

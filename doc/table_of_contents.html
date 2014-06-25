@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>Table of Contents - mcollective version 2.4.1</title>
+<title>Table of Contents - mcollective version 2.5.2</title>
 
 <link type="text/css" media="screen" href="./rdoc.css" rel="stylesheet">
 
@@ -21,7 +21,7 @@
 
 
 <body class="indexpage">
-<h1>Table of Contents - mcollective version 2.4.1</h1>
+<h1>Table of Contents - mcollective version 2.5.2</h1>
 
 <h2>Pages</h2>
 <ul>
@@ -114,6 +114,9 @@
   </li>
     <li class="class">
     <a href="MCollective/Applications.html">MCollective::Applications</a>
+  </li>
+    <li class="class">
+    <a href="MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
   </li>
     <li class="module">
     <a href="MCollective/Cache.html">MCollective::Cache</a>
@@ -215,6 +218,9 @@
     <a href="MCollective/Message.html">MCollective::Message</a>
   </li>
     <li class="class">
+    <a href="MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
+  </li>
+    <li class="class">
     <a href="MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
   </li>
     <li class="class">
@@ -308,6 +314,9 @@
     <a href="MCollective/Shell.html">MCollective::Shell</a>
   </li>
     <li class="class">
+    <a href="MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
+  </li>
+    <li class="class">
     <a href="MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
   </li>
     <li class="class">
@@ -345,11 +354,11 @@
   
     <li class="method"><a href="MCollective/PluginManager.html#method-c-3C-3C">::<< &mdash; MCollective::PluginManager</a>
   
-    <li class="method"><a href="MCollective/Application.html#method-c-5B-5D">::[] &mdash; MCollective::Application</a>
-  
     <li class="method"><a href="MCollective/Validator.html#method-c-5B-5D">::[] &mdash; MCollective::Validator</a>
   
-    <li class="method"><a href="MCollective/Applications.html#method-c-5B-5D">::[] &mdash; MCollective::Applications</a>
+    <li class="method"><a href="MCollective/Data.html#method-c-5B-5D">::[] &mdash; MCollective::Data</a>
+  
+    <li class="method"><a href="MCollective/Application.html#method-c-5B-5D">::[] &mdash; MCollective::Application</a>
   
     <li class="method"><a href="MCollective/PluginManager.html#method-c-5B-5D">::[] &mdash; MCollective::PluginManager</a>
   
@@ -357,7 +366,7 @@
   
     <li class="method"><a href="MCollective/Facts.html#method-c-5B-5D">::[] &mdash; MCollective::Facts</a>
   
-    <li class="method"><a href="MCollective/Data.html#method-c-5B-5D">::[] &mdash; MCollective::Data</a>
+    <li class="method"><a href="MCollective/Applications.html#method-c-5B-5D">::[] &mdash; MCollective::Applications</a>
   
     <li class="method"><a href="MCollective/Application.html#method-c-5B-5D-3D">::[]= &mdash; MCollective::Application</a>
   
@@ -483,9 +492,9 @@
   
     <li class="method"><a href="MCollective/Util.html#method-c-has_cf_class-3F">::has_cf_class? &mdash; MCollective::Util</a>
   
-    <li class="method"><a href="MCollective/Util.html#method-c-has_fact-3F">::has_fact? &mdash; MCollective::Util</a>
-  
     <li class="method"><a href="MCollective/Facts.html#method-c-has_fact-3F">::has_fact? &mdash; MCollective::Facts</a>
+  
+    <li class="method"><a href="MCollective/Util.html#method-c-has_fact-3F">::has_fact? &mdash; MCollective::Util</a>
   
     <li class="method"><a href="MCollective/Util.html#method-c-has_identity-3F">::has_identity? &mdash; MCollective::Util</a>
   
@@ -499,13 +508,13 @@
   
     <li class="method"><a href="MCollective/Security/Base.html#method-c-inherited">::inherited &mdash; MCollective::Security::Base</a>
   
-    <li class="method"><a href="MCollective/RPC/Audit.html#method-c-inherited">::inherited &mdash; MCollective::RPC::Audit</a>
-  
     <li class="method"><a href="MCollective/Registration/Base.html#method-c-inherited">::inherited &mdash; MCollective::Registration::Base</a>
   
     <li class="method"><a href="MCollective/Data/Base.html#method-c-inherited">::inherited &mdash; MCollective::Data::Base</a>
   
     <li class="method"><a href="MCollective/Connector/Base.html#method-c-inherited">::inherited &mdash; MCollective::Connector::Base</a>
+  
+    <li class="method"><a href="MCollective/RPC/Audit.html#method-c-inherited">::inherited &mdash; MCollective::RPC::Audit</a>
   
     <li class="method"><a href="MCollective/Log.html#method-c-instance">::instance &mdash; MCollective::Log</a>
   
@@ -529,9 +538,9 @@
   
     <li class="method"><a href="MCollective/Validator.html#method-c-load_validators-3F">::load_validators? &mdash; MCollective::Validator</a>
   
-    <li class="method"><a href="MCollective/PluginManager.html#method-c-loadclass">::loadclass &mdash; MCollective::PluginManager</a>
-  
     <li class="method"><a href="MCollective/Util.html#method-c-loadclass">::loadclass &mdash; MCollective::Util</a>
+  
+    <li class="method"><a href="MCollective/PluginManager.html#method-c-loadclass">::loadclass &mdash; MCollective::PluginManager</a>
   
     <li class="method"><a href="MCollective/Log.html#method-c-log">::log &mdash; MCollective::Log</a>
   
@@ -543,83 +552,85 @@
   
     <li class="method"><a href="MCollective/SSL.html#method-c-md5">::md5 &mdash; MCollective::SSL</a>
   
-    <li class="method"><a href="MCollective/Validator.html#method-c-method_missing">::method_missing &mdash; MCollective::Validator</a>
-  
     <li class="method"><a href="MCollective/Data.html#method-c-method_missing">::method_missing &mdash; MCollective::Data</a>
+  
+    <li class="method"><a href="MCollective/Validator.html#method-c-method_missing">::method_missing &mdash; MCollective::Validator</a>
   
     <li class="method"><a href="Dir.html#method-c-mktmpdir">::mktmpdir &mdash; Dir</a>
   
-    <li class="method"><a href="MCollective/Generators/Base.html#method-c-new">::new &mdash; MCollective::Generators::Base</a>
+    <li class="method"><a href="MCollective/SSL.html#method-c-new">::new &mdash; MCollective::SSL</a>
   
-    <li class="method"><a href="MCollective/Aggregate.html#method-c-new">::new &mdash; MCollective::Aggregate</a>
+    <li class="method"><a href="MCollective/RunnerStats.html#method-c-new">::new &mdash; MCollective::RunnerStats</a>
+  
+    <li class="method"><a href="MCollective/Security/Base.html#method-c-new">::new &mdash; MCollective::Security::Base</a>
+  
+    <li class="method"><a href="MCollective/Client.html#method-c-new">::new &mdash; MCollective::Client</a>
   
     <li class="method"><a href="MCollective/Runner.html#method-c-new">::new &mdash; MCollective::Runner</a>
   
     <li class="method"><a href="MCollective/Data/Result.html#method-c-new">::new &mdash; MCollective::Data::Result</a>
   
-    <li class="method"><a href="MCollective/PluginPackager/StandardDefinition.html#method-c-new">::new &mdash; MCollective::PluginPackager::StandardDefinition</a>
+    <li class="method"><a href="MCollective/RPC/Stats.html#method-c-new">::new &mdash; MCollective::RPC::Stats</a>
   
-    <li class="method"><a href="MCollective/Aggregate/Base.html#method-c-new">::new &mdash; MCollective::Aggregate::Base</a>
+    <li class="method"><a href="MCollective/Message.html#method-c-new">::new &mdash; MCollective::Message</a>
+  
+    <li class="method"><a href="MCollective/Matcher/Scanner.html#method-c-new">::new &mdash; MCollective::Matcher::Scanner</a>
+  
+    <li class="method"><a href="MCollective/DDL/Base.html#method-c-new">::new &mdash; MCollective::DDL::Base</a>
+  
+    <li class="method"><a href="MCollective/RPC/Client.html#method-c-new">::new &mdash; MCollective::RPC::Client</a>
   
     <li class="method"><a href="MCollective/Data/Base.html#method-c-new">::new &mdash; MCollective::Data::Base</a>
   
     <li class="method"><a href="MCollective/Config.html#method-c-new">::new &mdash; MCollective::Config</a>
   
-    <li class="method"><a href="MCollective/Generators/AgentGenerator.html#method-c-new">::new &mdash; MCollective::Generators::AgentGenerator</a>
-  
-    <li class="method"><a href="MCollective/DDL/Base.html#method-c-new">::new &mdash; MCollective::DDL::Base</a>
-  
-    <li class="method"><a href="MCollective/Aggregate/Result/Base.html#method-c-new">::new &mdash; MCollective::Aggregate::Result::Base</a>
-  
-    <li class="method"><a href="MCollective/Security/Base.html#method-c-new">::new &mdash; MCollective::Security::Base</a>
-  
-    <li class="method"><a href="MCollective/Generators/DataGenerator.html#method-c-new">::new &mdash; MCollective::Generators::DataGenerator</a>
-  
-    <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-c-new">::new &mdash; MCollective::RPC::ActionRunner</a>
-  
-    <li class="method"><a href="MCollective/RunnerStats.html#method-c-new">::new &mdash; MCollective::RunnerStats</a>
-  
-    <li class="method"><a href="MCollective/Client.html#method-c-new">::new &mdash; MCollective::Client</a>
-  
-    <li class="method"><a href="MCollective/Logger/Base.html#method-c-new">::new &mdash; MCollective::Logger::Base</a>
-  
-    <li class="method"><a href="MCollective/Optionparser.html#method-c-new">::new &mdash; MCollective::Optionparser</a>
-  
-    <li class="method"><a href="MCollective/Facts/Base.html#method-c-new">::new &mdash; MCollective::Facts::Base</a>
-  
-    <li class="method"><a href="MCollective/SSL.html#method-c-new">::new &mdash; MCollective::SSL</a>
-  
-    <li class="method"><a href="MCollective/RPC/Stats.html#method-c-new">::new &mdash; MCollective::RPC::Stats</a>
-  
-    <li class="method"><a href="MCollective/RPC/Result.html#method-c-new">::new &mdash; MCollective::RPC::Result</a>
-  
-    <li class="method"><a href="MCollective/Shell.html#method-c-new">::new &mdash; MCollective::Shell</a>
-  
-    <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-c-new">::new &mdash; MCollective::DDL::AgentDDL</a>
-  
     <li class="method"><a href="MCollective/Agents.html#method-c-new">::new &mdash; MCollective::Agents</a>
-  
-    <li class="method"><a href="MCollective/Message.html#method-c-new">::new &mdash; MCollective::Message</a>
-  
-    <li class="method"><a href="MCollective/Discovery.html#method-c-new">::new &mdash; MCollective::Discovery</a>
-  
-    <li class="method"><a href="MCollective/Matcher/Scanner.html#method-c-new">::new &mdash; MCollective::Matcher::Scanner</a>
-  
-    <li class="method"><a href="MCollective/DDL.html#method-c-new">::new &mdash; MCollective::DDL</a>
-  
-    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-c-new">::new &mdash; MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li class="method"><a href="MCollective/Matcher/Parser.html#method-c-new">::new &mdash; MCollective::Matcher::Parser</a>
   
     <li class="method"><a href="MCollective/RPC/Agent.html#method-c-new">::new &mdash; MCollective::RPC::Agent</a>
   
-    <li class="method"><a href="MCollective/RPC/Progress.html#method-c-new">::new &mdash; MCollective::RPC::Progress</a>
+    <li class="method"><a href="MCollective/Aggregate.html#method-c-new">::new &mdash; MCollective::Aggregate</a>
   
-    <li class="method"><a href="MCollective/RPC/Reply.html#method-c-new">::new &mdash; MCollective::RPC::Reply</a>
+    <li class="method"><a href="MCollective/Logger/Base.html#method-c-new">::new &mdash; MCollective::Logger::Base</a>
+  
+    <li class="method"><a href="MCollective/BackoffSuggestion.html#method-c-new">::new &mdash; MCollective::BackoffSuggestion</a>
+  
+    <li class="method"><a href="MCollective/Generators/DataGenerator.html#method-c-new">::new &mdash; MCollective::Generators::DataGenerator</a>
+  
+    <li class="method"><a href="MCollective/Aggregate/Base.html#method-c-new">::new &mdash; MCollective::Aggregate::Base</a>
+  
+    <li class="method"><a href="MCollective/Shell.html#method-c-new">::new &mdash; MCollective::Shell</a>
+  
+    <li class="method"><a href="MCollective/Aggregate/Result/Base.html#method-c-new">::new &mdash; MCollective::Aggregate::Result::Base</a>
+  
+    <li class="method"><a href="MCollective/Matcher/Parser.html#method-c-new">::new &mdash; MCollective::Matcher::Parser</a>
+  
+    <li class="method"><a href="MCollective/DDL.html#method-c-new">::new &mdash; MCollective::DDL</a>
+  
+    <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-c-new">::new &mdash; MCollective::DDL::AgentDDL</a>
+  
+    <li class="method"><a href="MCollective/RPC/Result.html#method-c-new">::new &mdash; MCollective::RPC::Result</a>
+  
+    <li class="method"><a href="MCollective/Discovery.html#method-c-new">::new &mdash; MCollective::Discovery</a>
+  
+    <li class="method"><a href="MCollective/Generators/Base.html#method-c-new">::new &mdash; MCollective::Generators::Base</a>
+  
+    <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-c-new">::new &mdash; MCollective::RPC::ActionRunner</a>
+  
+    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-c-new">::new &mdash; MCollective::PluginPackager::AgentDefinition</a>
+  
+    <li class="method"><a href="MCollective/PluginPackager/StandardDefinition.html#method-c-new">::new &mdash; MCollective::PluginPackager::StandardDefinition</a>
   
     <li class="method"><a href="MCollective/RPC/Request.html#method-c-new">::new &mdash; MCollective::RPC::Request</a>
   
-    <li class="method"><a href="MCollective/RPC/Client.html#method-c-new">::new &mdash; MCollective::RPC::Client</a>
+    <li class="method"><a href="MCollective/RPC/Reply.html#method-c-new">::new &mdash; MCollective::RPC::Reply</a>
+  
+    <li class="method"><a href="MCollective/RPC/Progress.html#method-c-new">::new &mdash; MCollective::RPC::Progress</a>
+  
+    <li class="method"><a href="MCollective/Generators/AgentGenerator.html#method-c-new">::new &mdash; MCollective::Generators::AgentGenerator</a>
+  
+    <li class="method"><a href="MCollective/Facts/Base.html#method-c-new">::new &mdash; MCollective::Facts::Base</a>
+  
+    <li class="method"><a href="MCollective/Optionparser.html#method-c-new">::new &mdash; MCollective::Optionparser</a>
   
     <li class="method"><a href="MCollective/RPC/Helpers.html#method-c-old_rpcresults">::old_rpcresults &mdash; MCollective::RPC::Helpers</a>
   
@@ -699,21 +710,21 @@
   
     <li class="method"><a href="Symbol.html#method-i-3C-3D-3E">#<=> &mdash; Symbol</a>
   
-    <li class="method"><a href="MCollective/RPC/Request.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Request</a>
-  
     <li class="method"><a href="MCollective/RPC/Result.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Result</a>
   
-    <li class="method"><a href="MCollective/RPC/Stats.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Stats</a>
-  
     <li class="method"><a href="MCollective/Data/Result.html#method-i-5B-5D">#[] &mdash; MCollective::Data::Result</a>
+  
+    <li class="method"><a href="MCollective/RPC/Request.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Request</a>
+  
+    <li class="method"><a href="MCollective/RPC/Stats.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Stats</a>
   
     <li class="method"><a href="MCollective/RPC/Reply.html#method-i-5B-5D">#[] &mdash; MCollective::RPC::Reply</a>
   
     <li class="method"><a href="MCollective/Data/Result.html#method-i-5B-5D-3D">#[]= &mdash; MCollective::Data::Result</a>
   
-    <li class="method"><a href="MCollective/RPC/Result.html#method-i-5B-5D-3D">#[]= &mdash; MCollective::RPC::Result</a>
-  
     <li class="method"><a href="MCollective/RPC/Reply.html#method-i-5B-5D-3D">#[]= &mdash; MCollective::RPC::Reply</a>
+  
+    <li class="method"><a href="MCollective/RPC/Result.html#method-i-5B-5D-3D">#[]= &mdash; MCollective::RPC::Result</a>
   
     <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-i-action">#action &mdash; MCollective::DDL::AgentDDL</a>
   
@@ -811,9 +822,9 @@
   
     <li class="method"><a href="MCollective/Logger/Console_logger.html#method-i-colorize">#colorize &mdash; MCollective::Logger::Console_logger</a>
   
-    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-i-common">#common &mdash; MCollective::PluginPackager::AgentDefinition</a>
-  
     <li class="method"><a href="MCollective/PluginPackager/StandardDefinition.html#method-i-common">#common &mdash; MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-i-common">#common &mdash; MCollective::PluginPackager::AgentDefinition</a>
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-compound_filter">#compound_filter &mdash; MCollective::RPC::Client</a>
   
@@ -865,11 +876,11 @@
   
     <li class="method"><a href="MCollective/SSL.html#method-i-decrypt_with_public">#decrypt_with_public &mdash; MCollective::SSL</a>
   
+    <li class="method"><a href="MCollective/Application.html#method-i-disconnect">#disconnect &mdash; MCollective::Application</a>
+  
     <li class="method"><a href="MCollective/Client.html#method-i-disconnect">#disconnect &mdash; MCollective::Client</a>
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-disconnect">#disconnect &mdash; MCollective::RPC::Client</a>
-  
-    <li class="method"><a href="MCollective/Application.html#method-i-disconnect">#disconnect &mdash; MCollective::Application</a>
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-discover">#discover &mdash; MCollective::RPC::Client</a>
   
@@ -893,9 +904,9 @@
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-discovery_options-3D">#discovery_options= &mdash; MCollective::RPC::Client</a>
   
-    <li class="method"><a href="MCollective/RPC/Client.html#method-i-discovery_timeout">#discovery_timeout &mdash; MCollective::RPC::Client</a>
-  
     <li class="method"><a href="MCollective/Discovery.html#method-i-discovery_timeout">#discovery_timeout &mdash; MCollective::Discovery</a>
+  
+    <li class="method"><a href="MCollective/RPC/Client.html#method-i-discovery_timeout">#discovery_timeout &mdash; MCollective::RPC::Client</a>
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-discovery_timeout-3D">#discovery_timeout= &mdash; MCollective::RPC::Client</a>
   
@@ -935,17 +946,17 @@
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-fact_filter">#fact_filter &mdash; MCollective::RPC::Client</a>
   
-    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-fail">#fail &mdash; MCollective::RPC::Reply</a>
-  
     <li class="method"><a href="MCollective/RPC/Stats.html#method-i-fail">#fail &mdash; MCollective::RPC::Stats</a>
   
+    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-fail">#fail &mdash; MCollective::RPC::Reply</a>
+  
     <li class="method"><a href="MCollective/RPC/Reply.html#method-i-fail-21">#fail! &mdash; MCollective::RPC::Reply</a>
+  
+    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-fetch">#fetch &mdash; MCollective::RPC::Reply</a>
   
     <li class="method"><a href="MCollective/RPC/Result.html#method-i-fetch">#fetch &mdash; MCollective::RPC::Result</a>
   
     <li class="method"><a href="MCollective/RPC/Request.html#method-i-fetch">#fetch &mdash; MCollective::RPC::Request</a>
-  
-    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-fetch">#fetch &mdash; MCollective::RPC::Reply</a>
   
     <li class="method"><a href="MCollective/RunnerStats.html#method-i-filtered">#filtered &mdash; MCollective::RunnerStats</a>
   
@@ -983,15 +994,15 @@
   
     <li class="method"><a href="MCollective/Discovery.html#method-i-has_method-3F">#has_method? &mdash; MCollective::Discovery</a>
   
-    <li class="method"><a href="MCollective/Application.html#method-i-help">#help &mdash; MCollective::Application</a>
+    <li class="method"><a href="MCollective/RPC/Client.html#method-i-help">#help &mdash; MCollective::RPC::Client</a>
   
     <li class="method"><a href="MCollective/DDL/Base.html#method-i-help">#help &mdash; MCollective::DDL::Base</a>
   
-    <li class="method"><a href="MCollective/RPC/Client.html#method-i-help">#help &mdash; MCollective::RPC::Client</a>
-  
-    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-i-identify_packages">#identify_packages &mdash; MCollective::PluginPackager::AgentDefinition</a>
+    <li class="method"><a href="MCollective/Application.html#method-i-help">#help &mdash; MCollective::Application</a>
   
     <li class="method"><a href="MCollective/PluginPackager/StandardDefinition.html#method-i-identify_packages">#identify_packages &mdash; MCollective::PluginPackager::StandardDefinition</a>
+  
+    <li class="method"><a href="MCollective/PluginPackager/AgentDefinition.html#method-i-identify_packages">#identify_packages &mdash; MCollective::PluginPackager::AgentDefinition</a>
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-identity_filter">#identity_filter &mdash; MCollective::RPC::Client</a>
   
@@ -1001,17 +1012,17 @@
   
     <li class="method"><a href="MCollective/Data/Result.html#method-i-include-3F">#include? &mdash; MCollective::Data::Result</a>
   
-    <li class="method"><a href="MCollective/RPC/Request.html#method-i-include-3F">#include? &mdash; MCollective::RPC::Request</a>
-  
     <li class="method"><a href="MCollective/Agents.html#method-i-include-3F">#include? &mdash; MCollective::Agents</a>
+  
+    <li class="method"><a href="MCollective/RPC/Request.html#method-i-include-3F">#include? &mdash; MCollective::RPC::Request</a>
   
     <li class="method"><a href="MCollective/RPC/Reply.html#method-i-initialize_data">#initialize_data &mdash; MCollective::RPC::Reply</a>
   
-    <li class="method"><a href="MCollective/DDL/Base.html#method-i-input">#input &mdash; MCollective::DDL::Base</a>
+    <li class="method"><a href="MCollective/DDL/DataDDL.html#method-i-input">#input &mdash; MCollective::DDL::DataDDL</a>
   
     <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-i-input">#input &mdash; MCollective::DDL::AgentDDL</a>
   
-    <li class="method"><a href="MCollective/DDL/DataDDL.html#method-i-input">#input &mdash; MCollective::DDL::DataDDL</a>
+    <li class="method"><a href="MCollective/DDL/Base.html#method-i-input">#input &mdash; MCollective::DDL::Base</a>
   
     <li class="method"><a href="Object.html#method-i-install_binfile">#install_binfile &mdash; Object</a>
   
@@ -1053,15 +1064,17 @@
   
     <li class="method"><a href="MCollective/Application.html#method-i-main">#main &mdash; MCollective::Application</a>
   
+    <li class="method"><a href="MCollective/Runner.html#method-i-main_loop">#main_loop &mdash; MCollective::Runner</a>
+  
     <li class="method"><a href="MCollective/SSL.html#method-i-md5">#md5 &mdash; MCollective::SSL</a>
   
     <li class="method"><a href="MCollective/DDL/Base.html#method-i-metadata">#metadata &mdash; MCollective::DDL::Base</a>
   
     <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-i-method_missing">#method_missing &mdash; MCollective::DDL::AgentDDL</a>
   
-    <li class="method"><a href="MCollective/RPC/Client.html#method-i-method_missing">#method_missing &mdash; MCollective::RPC::Client</a>
-  
     <li class="method"><a href="MCollective/Data/Result.html#method-i-method_missing">#method_missing &mdash; MCollective::Data::Result</a>
+  
+    <li class="method"><a href="MCollective/RPC/Client.html#method-i-method_missing">#method_missing &mdash; MCollective::RPC::Client</a>
   
     <li class="method"><a href="MCollective/Registration/Base.html#method-i-msg_filter">#msg_filter &mdash; MCollective::Registration::Base</a>
   
@@ -1087,6 +1100,8 @@
   
     <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-i-path_to_command">#path_to_command &mdash; MCollective::RPC::ActionRunner</a>
   
+    <li class="method"><a href="MCollective/Runner.html#method-i-pause">#pause &mdash; MCollective::Runner</a>
+  
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-pick_nodes_from_discovered">#pick_nodes_from_discovered &mdash; MCollective::RPC::Client</a>
   
     <li class="method"><a href="MCollective/PluginPackager/StandardDefinition.html#method-i-plugin">#plugin &mdash; MCollective::PluginPackager::StandardDefinition</a>
@@ -1101,9 +1116,9 @@
   
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-process_results_without_block">#process_results_without_block &mdash; MCollective::RPC::Client</a>
   
-    <li class="method"><a href="MCollective/Message.html#method-i-publish">#publish &mdash; MCollective::Message</a>
-  
     <li class="method"><a href="MCollective/Registration/Base.html#method-i-publish">#publish &mdash; MCollective::Registration::Base</a>
+  
+    <li class="method"><a href="MCollective/Message.html#method-i-publish">#publish &mdash; MCollective::Message</a>
   
     <li class="method"><a href="MCollective/SSL.html#method-i-read_key">#read_key &mdash; MCollective::SSL</a>
   
@@ -1131,11 +1146,13 @@
   
     <li class="method"><a href="MCollective/Aggregate/Result/Base.html#method-i-result_type">#result_type &mdash; MCollective::Aggregate::Result::Base</a>
   
+    <li class="method"><a href="MCollective/Runner.html#method-i-resume">#resume &mdash; MCollective::Runner</a>
+  
     <li class="method"><a href="MCollective/RPC/Client.html#method-i-rpc_result_from_reply">#rpc_result_from_reply &mdash; MCollective::RPC::Client</a>
   
-    <li class="method"><a href="MCollective/RPC.html#method-i-rpcclient">#rpcclient &mdash; MCollective::RPC</a>
-  
     <li class="method"><a href="MCollective/Application.html#method-i-rpcclient">#rpcclient &mdash; MCollective::Application</a>
+  
+    <li class="method"><a href="MCollective/RPC.html#method-i-rpcclient">#rpcclient &mdash; MCollective::RPC</a>
   
     <li class="method"><a href="MCollective/RPC.html#method-i-rpcoptions">#rpcoptions &mdash; MCollective::RPC</a>
   
@@ -1147,13 +1164,13 @@
   
     <li class="method"><a href="MCollective/SSL.html#method-i-rsa_encrypt_with_public">#rsa_encrypt_with_public &mdash; MCollective::SSL</a>
   
-    <li class="method"><a href="MCollective/Registration/Base.html#method-i-run">#run &mdash; MCollective::Registration::Base</a>
-  
-    <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-i-run">#run &mdash; MCollective::RPC::ActionRunner</a>
-  
     <li class="method"><a href="MCollective/Application.html#method-i-run">#run &mdash; MCollective::Application</a>
   
     <li class="method"><a href="MCollective/Runner.html#method-i-run">#run &mdash; MCollective::Runner</a>
+  
+    <li class="method"><a href="MCollective/Registration/Base.html#method-i-run">#run &mdash; MCollective::Registration::Base</a>
+  
+    <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-i-run">#run &mdash; MCollective::RPC::ActionRunner</a>
   
     <li class="method"><a href="MCollective/Shell.html#method-i-runcommand">#runcommand &mdash; MCollective::Shell</a>
   
@@ -1166,6 +1183,10 @@
     <li class="method"><a href="MCollective/RunnerStats.html#method-i-sent">#sent &mdash; MCollective::RunnerStats</a>
   
     <li class="method"><a href="MCollective/WindowsDaemon.html#method-i-service_main">#service_main &mdash; MCollective::WindowsDaemon</a>
+  
+    <li class="method"><a href="MCollective/WindowsDaemon.html#method-i-service_pause">#service_pause &mdash; MCollective::WindowsDaemon</a>
+  
+    <li class="method"><a href="MCollective/WindowsDaemon.html#method-i-service_resume">#service_resume &mdash; MCollective::WindowsDaemon</a>
   
     <li class="method"><a href="MCollective/WindowsDaemon.html#method-i-service_stop">#service_stop &mdash; MCollective::WindowsDaemon</a>
   
@@ -1189,11 +1210,11 @@
   
     <li class="method"><a href="MCollective/SSL.html#method-i-sign">#sign &mdash; MCollective::SSL</a>
   
-    <li class="method"><a href="MCollective/Logger/File_logger.html#method-i-start">#start &mdash; MCollective::Logger::File_logger</a>
-  
     <li class="method"><a href="MCollective/Logger/Console_logger.html#method-i-start">#start &mdash; MCollective::Logger::Console_logger</a>
   
     <li class="method"><a href="MCollective/Logger/Syslog_logger.html#method-i-start">#start &mdash; MCollective::Logger::Syslog_logger</a>
+  
+    <li class="method"><a href="MCollective/Logger/File_logger.html#method-i-start">#start &mdash; MCollective::Logger::File_logger</a>
   
     <li class="method"><a href="MCollective/Client.html#method-i-start_publisher">#start_publisher &mdash; MCollective::Client</a>
   
@@ -1207,11 +1228,11 @@
   
     <li class="method"><a href="MCollective/Client.html#method-i-subscribe">#subscribe &mdash; MCollective::Client</a>
   
-    <li class="method"><a href="MCollective/Aggregate/Base.html#method-i-summarize">#summarize &mdash; MCollective::Aggregate::Base</a>
+    <li class="method"><a href="MCollective/Aggregate.html#method-i-summarize">#summarize &mdash; MCollective::Aggregate</a>
   
     <li class="method"><a href="MCollective/DDL/AgentDDL.html#method-i-summarize">#summarize &mdash; MCollective::DDL::AgentDDL</a>
   
-    <li class="method"><a href="MCollective/Aggregate.html#method-i-summarize">#summarize &mdash; MCollective::Aggregate</a>
+    <li class="method"><a href="MCollective/Aggregate/Base.html#method-i-summarize">#summarize &mdash; MCollective::Aggregate::Base</a>
   
     <li class="method"><a href="MCollective/Logger/Syslog_logger.html#method-i-syslog_facility">#syslog_facility &mdash; MCollective::Logger::Syslog_logger</a>
   
@@ -1233,23 +1254,23 @@
   
     <li class="method"><a href="MCollective/RPC/Request.html#method-i-to_hash">#to_hash &mdash; MCollective::RPC::Request</a>
   
+    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-to_hash">#to_hash &mdash; MCollective::RPC::Reply</a>
+  
     <li class="method"><a href="MCollective/RPC/Stats.html#method-i-to_hash">#to_hash &mdash; MCollective::RPC::Stats</a>
   
     <li class="method"><a href="MCollective/RunnerStats.html#method-i-to_hash">#to_hash &mdash; MCollective::RunnerStats</a>
   
-    <li class="method"><a href="MCollective/RPC/Reply.html#method-i-to_hash">#to_hash &mdash; MCollective::RPC::Reply</a>
-  
     <li class="method"><a href="MCollective/RPC/Result.html#method-i-to_json">#to_json &mdash; MCollective::RPC::Result</a>
   
     <li class="method"><a href="MCollective/RPC/Request.html#method-i-to_json">#to_json &mdash; MCollective::RPC::Request</a>
+  
+    <li class="method"><a href="MCollective/Aggregate/Result/Base.html#method-i-to_s">#to_s &mdash; MCollective::Aggregate::Result::Base</a>
   
     <li class="method"><a href="MCollective/RPC/ActionRunner.html#method-i-to_s">#to_s &mdash; MCollective::RPC::ActionRunner</a>
   
     <li class="method"><a href="MCollective/Aggregate/Result/NumericResult.html#method-i-to_s">#to_s &mdash; MCollective::Aggregate::Result::NumericResult</a>
   
     <li class="method"><a href="MCollective/Aggregate/Result/CollectionResult.html#method-i-to_s">#to_s &mdash; MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li class="method"><a href="MCollective/Aggregate/Result/Base.html#method-i-to_s">#to_s &mdash; MCollective::Aggregate::Result::Base</a>
   
     <li class="method"><a href="MCollective/RunnerStats.html#method-i-ttlexpired">#ttlexpired &mdash; MCollective::RunnerStats</a>
   
@@ -1269,9 +1290,9 @@
   
     <li class="method"><a href="MCollective/Logger/File_logger.html#method-i-valid_levels">#valid_levels &mdash; MCollective::Logger::File_logger</a>
   
-    <li class="method"><a href="MCollective/Logger/Syslog_logger.html#method-i-valid_levels">#valid_levels &mdash; MCollective::Logger::Syslog_logger</a>
-  
     <li class="method"><a href="MCollective/Logger/Console_logger.html#method-i-valid_levels">#valid_levels &mdash; MCollective::Logger::Console_logger</a>
+  
+    <li class="method"><a href="MCollective/Logger/Syslog_logger.html#method-i-valid_levels">#valid_levels &mdash; MCollective::Logger::Syslog_logger</a>
   
     <li class="method"><a href="MCollective/Message.html#method-i-validate">#validate &mdash; MCollective::Message</a>
   

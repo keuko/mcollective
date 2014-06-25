@@ -135,7 +135,7 @@ module MCollective
         end
 
         def on_ssl_connecting(params)
-          Log.info("Estblishing SSL session with #{stomp_url(params)}")
+          Log.info("Establishing SSL session with #{stomp_url(params)}")
         rescue
         end
 
@@ -181,6 +181,11 @@ module MCollective
         @subscriptions = []
         @msgpriority = 0
         @base64 = false
+        @use_exponential_back_off = get_bool_option("activemq.use_exponential_back_off", "true")
+        @initial_reconnect_delay = Float(get_option("activemq.initial_reconnect_delay", 0.01))
+        @back_off_multiplier = Integer(get_option("activemq.back_off_multiplier", 2))
+        @max_reconnect_delay = Float(get_option("activemq.max_reconnect_delay", 30.0))
+        @reconnect_delay = @initial_reconnect_delay
       end
 
       # Connects to the ActiveMQ middleware
@@ -194,7 +199,7 @@ module MCollective
           @base64 = get_bool_option("activemq.base64", "false")
           @msgpriority = get_option("activemq.priority", 0).to_i
 
-          pools = @config.pluginconf["activemq.pool.size"].to_i
+          pools = Integer(get_option("activemq.pool.size"))
           hosts = []
 
           1.upto(pools) do |poolnum|
@@ -202,11 +207,14 @@ module MCollective
 
             host[:host] = get_option("activemq.pool.#{poolnum}.host")
             host[:port] = get_option("activemq.pool.#{poolnum}.port", 61613).to_i
-            host[:login] = get_env_or_option("STOMP_USER", "activemq.pool.#{poolnum}.user")
-            host[:passcode] = get_env_or_option("STOMP_PASSWORD", "activemq.pool.#{poolnum}.password")
+            host[:login] = get_env_or_option("STOMP_USER", "activemq.pool.#{poolnum}.user", '')
+            host[:passcode] = get_env_or_option("STOMP_PASSWORD", "activemq.pool.#{poolnum}.password", '')
             host[:ssl] = get_bool_option("activemq.pool.#{poolnum}.ssl", "false")
 
-            host[:ssl] = ssl_parameters(poolnum, get_bool_option("activemq.pool.#{poolnum}.ssl.fallback", "false")) if host[:ssl]
+            # if ssl is enabled set :ssl to the hash of parameters
+            if host[:ssl]
+              host[:ssl] = ssl_parameters(poolnum, get_bool_option("activemq.pool.#{poolnum}.ssl.fallback", "false"))
+            end
 
             Log.debug("Adding #{host[:host]}:#{host[:port]} to the connection pool")
             hosts << host
@@ -218,10 +226,10 @@ module MCollective
 
           # Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of
           # these can be guessed, the documentation isn't clear
-          connection[:initial_reconnect_delay] = Float(get_option("activemq.initial_reconnect_delay", 0.01))
-          connection[:max_reconnect_delay] = Float(get_option("activemq.max_reconnect_delay", 30.0))
-          connection[:use_exponential_back_off] = get_bool_option("activemq.use_exponential_back_off", "true")
-          connection[:back_off_multiplier] = Integer(get_option("activemq.back_off_multiplier", 2))
+          connection[:use_exponential_back_off] = @use_exponential_back_off
+          connection[:initial_reconnect_delay] = @initial_reconnect_delay
+          connection[:back_off_multiplier] = @back_off_multiplier
+          connection[:max_reconnect_delay] = @max_reconnect_delay
           connection[:max_reconnect_attempts] = Integer(get_option("activemq.max_reconnect_attempts", 0))
           connection[:randomize] = get_bool_option("activemq.randomize", "false")
           connection[:backup] = get_bool_option("activemq.backup", "false")
@@ -244,6 +252,10 @@ module MCollective
         ::Stomp::Version::STRING
       end
 
+      def stomp_version_supports_heartbeat?
+        return Util.versioncmp(stomp_version, "1.2.10") >= 0
+      end
+
       def connection_headers
         headers = {:"accept-version" => "1.0"}
 
@@ -253,7 +265,7 @@ module MCollective
         headers[:host] = get_option("activemq.vhost", "mcollective")
 
         if heartbeat_interval > 0
-          unless Util.versioncmp(stomp_version, "1.2.10") >= 0
+          unless stomp_version_supports_heartbeat?
             raise("Setting STOMP 1.1 properties like heartbeat intervals require at least version 1.2.10 of the STOMP gem")
           end
 
@@ -271,7 +283,9 @@ module MCollective
             headers[:"accept-version"] = "1.1"
           end
         else
-          Log.warn("Connecting without STOMP 1.1 heartbeats, if you are using ActiveMQ 5.8 or newer consider setting plugin.activemq.heartbeat_interval")
+          if stomp_version_supports_heartbeat?
+            Log.info("Connecting without STOMP 1.1 heartbeats, if you are using ActiveMQ 5.8 or newer consider setting plugin.activemq.heartbeat_interval")
+          end
         end
 
         headers
@@ -324,6 +338,25 @@ module MCollective
         ENV["MCOLLECTIVE_ACTIVEMQ_POOL%s_SSL_CERT" % poolnum] || get_option("activemq.pool.#{poolnum}.ssl.cert", false)
       end
 
+      # Calculate the exponential backoff needed
+      def exponential_back_off
+        if !@use_exponential_back_off
+          return nil
+        end
+
+        backoff = @reconnect_delay
+
+        # calculate next delay
+        @reconnect_delay = @reconnect_delay * @back_off_multiplier
+
+        # cap at max reconnect delay
+        if @reconnect_delay > @max_reconnect_delay
+          @reconnect_delay = @max_reconnect_delay
+        end
+
+        return backoff
+      end
+
       # Receives a message from the ActiveMQ connection
       def receive
         Log.debug("Waiting for a message from ActiveMQ")
@@ -337,6 +370,19 @@ module MCollective
         rescue ::Stomp::Error::NoCurrentConnection
           sleep 1
           retry
+        end
+
+        # In older stomp gems an attempt to receive after failed authentication can return nil
+        if msg.nil?
+          raise MessageNotReceived.new(exponential_back_off), "No message received from ActiveMQ."
+
+        end
+
+        # We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types
+        if msg.command != 'MESSAGE'
+          Log.debug("Unexpected '#{msg.command}' frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}")
+          raise UnexpectedMessageType.new(exponential_back_off),
+            "Received frame of type '#{msg.command}' expected 'MESSAGE'"
         end
 
         Message.new(msg.body, msg, :base64 => @base64, :headers => msg.headers)
