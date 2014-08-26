@@ -16,7 +16,7 @@ XB-Ruby-Versions: ${ruby:Versions}
 Depends: ${misc:Depends},
  ruby | ruby-interpreter,
  mcollective-common (>= ${source:Version})
-Suggests: activemq
+Suggests: activemq, facter, puppet
 Recommends: mcollective-client
 Description: Marionette Collective clustering framework - server
  The Marionette Collective is a framework for building server
@@ -33,9 +33,8 @@ Description: Marionette Collective clustering framework - clients
  The Marionette Collective is a framework for building server
  orchestration and parallel job execution systems.
  .
- This package provides the MCollective client utilities:
+ This package provides the MCollective client utility:
   * mco
-  * mc-call-agent
 
 Package: mcollective-common
 Architecture: all
