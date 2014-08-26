@@ -1,3 +1,21 @@
+mcollective (2.5.2+dfsg-1) unstable; urgency=low
+
+  * Imported Upstream version 2.5.2+dfsg (Closes: #738590)
+  * d/control:
+    - added version depend to ruby-stomp
+    - bumped standards version to 3.9.5 (no changes needed)
+    - updated description
+    - added facter,puppet package as Suggests
+  * d/watch: update for new tarball names
+  * d/repackage.sh: remove also js files
+  * d/p/pluginsdir.patch: refreshed for new upstream version
+  * removed debconf questions and queries for now
+    will be back later for new configuration file syntax. (accepting patches)
+  * switched to d/rules, disabled old upstream makefile
+  * removed note about debconf in README
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Tue, 26 Aug 2014 19:16:28 +0200
+
 mcollective (2.0.0+dfsg-4) unstable; urgency=low
 
   * d/control: removed rubygems dependency (Closes: #724317)
