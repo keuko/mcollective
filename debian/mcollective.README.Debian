@@ -15,15 +15,6 @@ MCollective servers. (client.cfg and server.cfg).
 
 You need also to set an PSK in your MCollective configuration.
 
-The configuration can be setup via debconf:
-
- # dpkg-reconfigure -plow mcollective-common mcollective-client mcollective
-
-You can also use 'preseeding' to configure MCollective on installation. See
-default pressed file
-/usr/share/doc/mcollective-common/examples/mcollective.preseed.
-
-
 ActiveMQ Configuration step by step:
 -----------------------------------
 
