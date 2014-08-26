@@ -12,6 +12,15 @@ Upstream: no
  logger_type = console
  loglevel = warn
  
+@@ -11,7 +11,7 @@
+ connector = activemq
+ plugin.activemq.pool.size = 1
+ plugin.activemq.pool.1.host = stomp1
+-plugin.activemq.pool.1.port = 6163
++plugin.activemq.pool.1.port = 61613
+ plugin.activemq.pool.1.user = mcollective
+ plugin.activemq.pool.1.password = marionette
+ 
 --- a/etc/server.cfg.dist
 +++ b/etc/server.cfg.dist
 @@ -1,6 +1,6 @@
@@ -22,3 +31,12 @@ Upstream: no
  logfile = /var/log/mcollective.log
  loglevel = info
  daemonize = 1
+@@ -12,7 +12,7 @@
+ connector = activemq
+ plugin.activemq.pool.size = 1
+ plugin.activemq.pool.1.host = stomp1
+-plugin.activemq.pool.1.port = 6163
++plugin.activemq.pool.1.port = 61613
+ plugin.activemq.pool.1.user = mcollective
+ plugin.activemq.pool.1.password = marionette
+ 
