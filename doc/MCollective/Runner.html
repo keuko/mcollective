@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class MCollective::Runner - mcollective version 2.5.2</title>
+<title>class MCollective::Runner - mcollective version 2.6.0</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -405,13 +405,25 @@
 
     <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
       <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR1&quot;</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reloading all agents after receiving USR1 signal&quot;</span>)
-        <span class="ruby-ivar">@agents</span>.<span class="ruby-identifier">loadagents</span>
+        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reloading all agents after receiving USR1 signal&quot;</span>)
+          <span class="ruby-ivar">@agents</span>.<span class="ruby-identifier">loadagents</span>
+        <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
 
       <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR2&quot;</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Cycling logging level due to USR2 signal&quot;</span>)
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">cycle_level</span>
+        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Cycling logging level due to USR2 signal&quot;</span>)
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">cycle_level</span>
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;WINCH&quot;</span>) <span class="ruby-keyword">do</span>
+        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopening logfiles due to WINCH signal&quot;</span>)
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">reopen</span>
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopened logfiles due to WINCH signal&quot;</span>)
+        <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-constant">Util</span>.<span class="ruby-identifier">setup_windows_sleeper</span>
@@ -458,7 +470,7 @@
 
           
           <div class="method-source-code" id="main_loop-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 57</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 69</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">main_loop</span>
   <span class="ruby-comment"># Enter the main context</span>
   <span class="ruby-ivar">@receiver_thread</span> = <span class="ruby-identifier">start_receiver_thread</span>
@@ -471,17 +483,7 @@
         <span class="ruby-comment"># If soft_shutdown has been enabled we wait for all running agents to</span>
         <span class="ruby-comment"># finish, one way or the other.</span>
         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">soft_shutdown</span>
-          <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
-            <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;soft_shutdown specified. This feature is not available on Windows. Shutting down normally.&quot;</span>)
-          <span class="ruby-keyword">else</span>
-            <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Waiting for all running agents to finish or timeout.&quot;</span>)
-            <span class="ruby-ivar">@agent_threads</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-              <span class="ruby-keyword">if</span> <span class="ruby-identifier">t</span>.<span class="ruby-identifier">alive?</span>
-                <span class="ruby-identifier">t</span>.<span class="ruby-identifier">join</span>
-              <span class="ruby-keyword">end</span>
-            <span class="ruby-keyword">end</span>
-            <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;All running agents have completed. Stopping.&quot;</span>)
-          <span class="ruby-keyword">end</span>
+          <span class="ruby-identifier">soft_shutdown</span>
         <span class="ruby-keyword">end</span>
 
         <span class="ruby-identifier">stop_threads</span>
@@ -543,7 +545,7 @@
 
           
           <div class="method-source-code" id="pause-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 117</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:running</span>
     <span class="ruby-ivar">@state</span> = <span class="ruby-value">:pausing</span>
@@ -580,7 +582,7 @@
 
           
           <div class="method-source-code" id="resume-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 125</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 127</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:paused</span>
     <span class="ruby-ivar">@state</span> = <span class="ruby-value">:unpausing</span>
@@ -617,7 +619,7 @@
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 51</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 63</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;The #run method has been deprecated. Use #main_loop instead.&quot;</span>)
   <span class="ruby-identifier">main_loop</span>
@@ -651,7 +653,7 @@
 
           
           <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 113</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 115</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>
   <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopping</span>
 <span class="ruby-keyword">end</span></pre>
@@ -674,7 +676,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

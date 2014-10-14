@@ -424,7 +424,7 @@ module MCollective
         Log.error("Received subscription request for #{source.inspect.chomp} but already had a matching subscription, ignoring")
       end
 
-      # Subscribe to a topic or queue
+      # UnSubscribe to a topic or queue
       def unsubscribe(agent, type, collective)
         source = make_target(agent, type, collective)
 
@@ -486,7 +486,7 @@ module MCollective
 
         case type
           when :reply
-            target[:name] = ["/queue/" + collective, :reply, "#{Config.instance.identity}_#{$$}"].join(".")
+            target[:name] = ["/queue/" + collective, :reply, "#{Config.instance.identity}_#{$$}", Client.request_sequence].join(".")
 
           when :broadcast
             target[:name] = ["/topic/" + collective, agent, :agent].join(".")

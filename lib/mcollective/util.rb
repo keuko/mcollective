@@ -75,11 +75,21 @@ module MCollective
       return false if fact.nil?
 
       fact = fact.clone
+      case fact
+      when Array
+        return fact.any? { |element| test_fact_value(element, value, operator)}
+      when Hash
+        return fact.keys.any? { |element| test_fact_value(element, value, operator)}
+      else
+        return test_fact_value(fact, value, operator)
+      end
+    end
 
+    def self.test_fact_value(fact, value, operator)
       if operator == '=~'
         # to maintain backward compat we send the value
         # as /.../ which is what 1.0.x needed.  this strips
-        # off the /'s wich is what we need here
+        # off the /'s which is what we need here
         if value =~ /^\/(.+)\/$/
           value = $1
         end
@@ -104,6 +114,7 @@ module MCollective
 
       false
     end
+    private_class_method :test_fact_value
 
     # Checks if the configured identity matches the one supplied
     #
@@ -491,6 +502,23 @@ module MCollective
 
       template_path = File.join("/etc/mcollective", template_file)
       return template_path
+    end
+
+    # subscribe to the direct addressing queue
+    def self.subscribe_to_direct_addressing_queue
+      subscribe(make_subscriptions("mcollective", :directed))
+    end
+
+    # Get field size for printing
+    def self.field_size(elements, min_size=40)
+      max_length = elements.max_by { |e| e.length }.length
+      max_length > min_size ? max_length : min_size
+    end
+
+    # Calculate number of fields for printing
+    def self.field_number(field_size, max_size=90)
+      number = (max_size/field_size).to_i
+      (number == 0) ? 1 : number
     end
   end
 end

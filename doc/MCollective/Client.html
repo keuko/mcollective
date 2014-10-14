@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class MCollective::Client - mcollective version 2.5.2</title>
+<title>class MCollective::Client - mcollective version 2.6.0</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -74,6 +74,8 @@
   <ul class="link-list">
     
     <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-c-request_sequence">::request_sequence</a>
     
     <li ><a href="#method-i-collective">#collective</a>
     
@@ -454,6 +456,39 @@ forth</p>
       </div><!-- new-method -->
 
     
+      <div id="method-c-request_sequence" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">request_sequence</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="request_sequence-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 22</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">request_sequence</span>
+  <span class="ruby-identifier">@@request_sequence</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- request_sequence-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- request_sequence-method -->
+
+    
     </section><!-- public-class-method-details -->
   
      <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
@@ -480,7 +515,7 @@ specified as options</p>
 
           
           <div class="method-source-code" id="collective-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 23</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 28</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">collective</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>].<span class="ruby-identifier">nil?</span>
     <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">main_collective</span>
@@ -517,7 +552,7 @@ specified as options</p>
 
           
           <div class="method-source-code" id="createreq-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 53</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">createreq</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">filter</span> ={})
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Message</span>)
     <span class="ruby-identifier">request</span> = <span class="ruby-identifier">msg</span>
@@ -527,6 +562,8 @@ specified as options</p>
     <span class="ruby-identifier">request</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-keyword">nil</span>, {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:request</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">filter</span>, <span class="ruby-value">:ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>})
     <span class="ruby-identifier">request</span>.<span class="ruby-identifier">reply_to</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:reply_to</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:reply_to</span>]
   <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">@@request_sequence</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
 
   <span class="ruby-identifier">request</span>.<span class="ruby-identifier">encode!</span>
   <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:reply</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">request</span>.<span class="ruby-identifier">reply_to</span>
@@ -561,7 +598,7 @@ specified as options</p>
 
           
           <div class="method-source-code" id="disconnect-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 32</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 37</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">disconnect</span>
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Disconnecting from the middleware&quot;</span>)
   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
@@ -599,7 +636,7 @@ being cancelled soon as it reached the requested limit of hosts</p>
 
           
           <div class="method-source-code" id="discover-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 117</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 124</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>=<span class="ruby-value">0</span>)
   <span class="ruby-identifier">discovered</span> = <span class="ruby-ivar">@discoverer</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -632,7 +669,7 @@ being cancelled soon as it reached the requested limit of hosts</p>
 
           
           <div class="method-source-code" id="discovered_req-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 235</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 242</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discovered_req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword">false</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Client#discovered_req has been removed, please port your agent and client to the SimpleRPC framework&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -667,7 +704,7 @@ way</p>
 
           
           <div class="method-source-code" id="display_stats-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 240</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 247</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">display_stats</span>(<span class="ruby-identifier">stats</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword">false</span>, <span class="ruby-identifier">caption</span>=<span class="ruby-string">&quot;stomp call summary&quot;</span>)
   <span class="ruby-identifier">options</span> = <span class="ruby-ivar">@options</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">options</span>
 
@@ -738,7 +775,7 @@ it and keep waiting for more till it finds a matching message.</p>
 
           
           <div class="method-source-code" id="receive-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 88</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 95</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">receive</span>(<span class="ruby-identifier">requestid</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">reply</span> = <span class="ruby-keyword">nil</span>
 
@@ -800,7 +837,7 @@ href="Optionparser.html">MCollective::Optionparser</a></p>
 
           
           <div class="method-source-code" id="req-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 129</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 136</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">req</span>(<span class="ruby-identifier">body</span>, <span class="ruby-identifier">agent</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">options</span>=<span class="ruby-keyword">false</span>, <span class="ruby-identifier">waitfor</span>=<span class="ruby-value">0</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Message</span>)
     <span class="ruby-identifier">agent</span> = <span class="ruby-identifier">body</span>.<span class="ruby-identifier">agent</span>
@@ -861,7 +898,7 @@ responses and doesn&#39;t execute any passed in code blocks for responses</p>
 
           
           <div class="method-source-code" id="sendreq-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 39</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 44</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">sendreq</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">filter</span> = {})
   <span class="ruby-identifier">request</span> = <span class="ruby-identifier">createreq</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">filter</span>)
 
@@ -899,7 +936,7 @@ responses and doesn&#39;t execute any passed in code blocks for responses</p>
 
           
           <div class="method-source-code" id="start_publisher-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 191</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 198</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">start_publisher</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">publish_timeout</span>)
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Starting publishing with publish timeout of #{publish_timeout}&quot;</span>)
   <span class="ruby-keyword">begin</span>
@@ -941,7 +978,7 @@ received responses.</p>
 
           
           <div class="method-source-code" id="start_receiver-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 205</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 212</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">start_receiver</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">waitfor</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Starting response receiver with timeout of #{timeout}&quot;</span>)
   <span class="ruby-identifier">hosts_responded</span> = <span class="ruby-value">0</span>
@@ -990,7 +1027,7 @@ received responses.</p>
 
           
           <div class="method-source-code" id="subscribe-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 63</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
     <span class="ruby-identifier">subscription</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
@@ -1030,7 +1067,7 @@ the &#39;threader_client&#39; configuration option is set.</p>
 
           
           <div class="method-source-code" id="threaded_req-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 170</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">threaded_req</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">publish_timeout</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">waitfor</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Starting threaded client&quot;</span>)
   <span class="ruby-identifier">publisher</span> = <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
@@ -1079,7 +1116,7 @@ the &#39;threader_client&#39; configuration option is set.</p>
 
           
           <div class="method-source-code" id="unsubscribe-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 73</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 80</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agent</span>)
     <span class="ruby-identifier">subscription</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
@@ -1119,7 +1156,7 @@ client behaviour.</p>
 
           
           <div class="method-source-code" id="unthreaded_req-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 162</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 169</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">unthreaded_req</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">publish_timeout</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">waitfor</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">start_publisher</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">publish_timeout</span>)
   <span class="ruby-identifier">start_receiver</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">waitfor</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
@@ -1153,7 +1190,7 @@ client behaviour.</p>
 
           
           <div class="method-source-code" id="update_stat-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 225</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 232</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">update_stat</span>(<span class="ruby-identifier">stat</span>, <span class="ruby-identifier">hosts_responded</span>, <span class="ruby-identifier">requestid</span>)
   <span class="ruby-identifier">stat</span>[<span class="ruby-value">:totaltime</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-value">:starttime</span>]
   <span class="ruby-identifier">stat</span>[<span class="ruby-value">:blocktime</span>] = <span class="ruby-identifier">stat</span>[<span class="ruby-value">:totaltime</span>] <span class="ruby-operator">-</span> <span class="ruby-identifier">stat</span>[<span class="ruby-value">:discoverytime</span>]
@@ -1182,7 +1219,7 @@ client behaviour.</p>
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

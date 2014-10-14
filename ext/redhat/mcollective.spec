@@ -12,8 +12,8 @@
 %endif
 
 # VERSION is subbed out during rake package:srpm process
-%global         realversion 2.5.2
-%global         rpmversion 2.5.2
+%global         realversion 2.6.0
+%global         rpmversion 2.6.0
 
 Summary:        Application Server for hosting Ruby code on any capable middleware
 Name:           mcollective
@@ -168,8 +168,8 @@ fi
 %config(noreplace)%{_sysconfdir}/mcollective/plugin.d
 
 %changelog
-* Mon Jun 09 2014 Puppet Labs Release <info@puppetlabs.com> -  2.5.2-1
-- Build for 2.5.2
+* Thu Aug 21 2014 Puppet Labs Release <info@puppetlabs.com> -  2.6.0-1
+- Build for 2.6.0
 
 * Tue Nov 03 2009 R.I.Pienaar <rip@devco.net>
 - First release

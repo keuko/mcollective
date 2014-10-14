@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class MCollective::Log - mcollective version 2.5.2</title>
+<title>class MCollective::Log - mcollective version 2.6.0</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -94,6 +94,8 @@
     <li ><a href="#method-c-log">::log</a>
     
     <li ><a href="#method-c-logger">::logger</a>
+    
+    <li ><a href="#method-c-reopen">::reopen</a>
     
     <li ><a href="#method-c-set_logger">::set_logger</a>
     
@@ -377,7 +379,7 @@ till we eventually get a logging preference from the config module</p>
 
           
           <div class="method-source-code" id="configure-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 72</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 79</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">configure</span>(<span class="ruby-identifier">logger</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">logger</span>
     <span class="ruby-identifier">logger_type</span> = <span class="ruby-string">&quot;console&quot;</span>
@@ -532,7 +534,7 @@ till we eventually get a logging preference from the config module</p>
 
           
           <div class="method-source-code" id="execution_stack-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 106</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 113</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">execution_stack</span>
   <span class="ruby-identifier">caller</span>
 <span class="ruby-keyword">end</span></pre>
@@ -598,7 +600,7 @@ till we eventually get a logging preference from the config module</p>
 
           
           <div class="method-source-code" id="from-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 100</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 107</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">from</span>
   <span class="ruby-identifier">path</span>, <span class="ruby-identifier">line</span>, <span class="ruby-identifier">method</span> = <span class="ruby-identifier">execution_stack</span>[<span class="ruby-value">3</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/:(\d+)/</span>)
   <span class="ruby-string">&quot;%s:%s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">path</span>), <span class="ruby-identifier">line</span>, <span class="ruby-identifier">method</span>]
@@ -698,7 +700,7 @@ till we eventually get a logging preference from the config module</p>
 
           
           <div class="method-source-code" id="log-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 48</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 55</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">msg</span>)
   <span class="ruby-identifier">configure</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@configured</span>
 
@@ -755,6 +757,41 @@ till we eventually get a logging preference from the config module</p>
       </div><!-- logger-method -->
 
     
+      <div id="method-c-reopen" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">reopen</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>reopen log files</p>
+          
+          
+
+          
+          <div class="method-source-code" id="reopen-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">reopen</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@configured</span>
+    <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">reopen</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div><!-- reopen-source -->
+          
+        </div>
+
+        
+
+        
+      </div><!-- reopen-method -->
+
+    
       <div id="method-c-set_logger" class="method-detail ">
         
         <div class="method-heading">
@@ -774,7 +811,7 @@ till we eventually get a logging preference from the config module</p>
 
           
           <div class="method-source-code" id="set_logger-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 63</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/log.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_logger</span>(<span class="ruby-identifier">logger</span>)
   <span class="ruby-ivar">@logger</span> = <span class="ruby-identifier">logger</span>
 <span class="ruby-keyword">end</span></pre>
@@ -830,7 +867,7 @@ till we eventually get a logging preference from the config module</p>
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 
