@@ -1,3 +1,12 @@
+mcollective (2.6.0+dfsg-1) unstable; urgency=low
+
+  * Imported Upstream version 2.6.0+dfsg
+  * d/watch: removed uversionmangle, fixed for new tarball names
+  * d/control: bumped up standards version to 3.9.6 (no changes needed)
+  * added d/mcollective-doc.doc-base
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Tue, 14 Oct 2014 14:15:48 +0200
+
 mcollective (2.5.2+dfsg-1) unstable; urgency=low
 
   * Imported Upstream version 2.5.2+dfsg (Closes: #738590)
