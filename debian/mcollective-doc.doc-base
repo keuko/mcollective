@@ -1,0 +1,11 @@
+Document: mcollective-doc
+Title: MCollective manuel
+Author: MCollective authors
+Abstract: Mcollective Manual
+ The Marionette Collective documentation
+Section: Programming/Ruby
+
+Format: HTML
+Index: /usr/share/doc/mcollective-doc/index.html
+Files: /usr/share/doc/mcollective-doc/*.html
+ /usr/share/doc/mcollective-doc/MCollective/*.html
