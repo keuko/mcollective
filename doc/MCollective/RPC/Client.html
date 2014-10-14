@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class MCollective::RPC::Client - mcollective version 2.5.2</title>
+<title>class MCollective::RPC::Client - mcollective version 2.6.0</title>
 
 <link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
 
@@ -718,7 +718,12 @@ instead which is a wrapper around this that can be used as a Mixin</p>
     <span class="ruby-identifier">initial_options</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">@@initial_options</span>)
 
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:progress_bar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:mcollective_limit_targets</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:batch_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:batch_sleep_time</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
+    <span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({ <span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, 
+                                              <span class="ruby-value">:progress_bar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, 
+                                              <span class="ruby-value">:mcollective_limit_targets</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, 
+                                              <span class="ruby-value">:batch_size</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, 
+                                              <span class="ruby-value">:batch_sleep_time</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> }, 
+                                            <span class="ruby-string">&quot;filter&quot;</span>)
 
     <span class="ruby-identifier">initial_options</span> = <span class="ruby-identifier">oparser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parser</span>, <span class="ruby-identifier">opts</span><span class="ruby-operator">|</span>
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
@@ -760,13 +765,13 @@ instead which is a wrapper around this that can be used as a Mixin</p>
   <span class="ruby-ivar">@discovery_options</span> = <span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:discovery_options</span>] <span class="ruby-operator">||</span> []
   <span class="ruby-ivar">@force_display_mode</span> = <span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:force_display_mode</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
 
-  <span class="ruby-ivar">@batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:batch_size</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>)
+  <span class="ruby-ivar">@batch_size</span> = <span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:batch_size</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
   <span class="ruby-ivar">@batch_sleep_time</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:batch_sleep_time</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>)
-  <span class="ruby-ivar">@batch_mode</span> = <span class="ruby-ivar">@batch_size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@batch_mode</span> = <span class="ruby-identifier">determine_batch_mode</span>(<span class="ruby-ivar">@batch_size</span>)
 
   <span class="ruby-identifier">agent_filter</span> <span class="ruby-identifier">agent</span>
 
-  <span class="ruby-ivar">@discovery_timeout</span> = <span class="ruby-ivar">@initial_options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:disctimeout</span>, <span class="ruby-keyword">nil</span>)
+  <span class="ruby-ivar">@discovery_timeout</span> = <span class="ruby-ivar">@initial_options</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:disctimeout</span>, <span class="ruby-keyword">nil</span>) <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">discovery_timeout</span>
 
   <span class="ruby-ivar">@collective</span> = <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">collective</span>
   <span class="ruby-ivar">@ttl</span> = <span class="ruby-identifier">initial_options</span>[<span class="ruby-value">:ttl</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ttl</span>
@@ -844,7 +849,7 @@ instead which is a wrapper around this that can be used as a Mixin</p>
 
           
           <div class="method-source-code" id="agent_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 422</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 432</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">agent_filter</span>(<span class="ruby-identifier">agent</span>)
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] = <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">|</span> [<span class="ruby-identifier">agent</span>]
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>].<span class="ruby-identifier">compact!</span>
@@ -879,7 +884,7 @@ instead which is a wrapper around this that can be used as a Mixin</p>
 
           
           <div class="method-source-code" id="aggregate_reply-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 687</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 707</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">aggregate_reply</span>(<span class="ruby-identifier">reply</span>, <span class="ruby-identifier">aggregate</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">aggregate</span>
 
@@ -918,12 +923,16 @@ instead which is a wrapper around this that can be used as a Mixin</p>
 
           
           <div class="method-source-code" id="batch_size-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 608</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 624</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">batch_size=</span>(<span class="ruby-identifier">limit</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set batch size if direct addressing is supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set batch size if direct addressing is supported&quot;</span>
+  <span class="ruby-keyword">end</span>
+  
+  <span class="ruby-identifier">validate_batch_size</span>(<span class="ruby-identifier">limit</span>)
 
-  <span class="ruby-ivar">@batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">limit</span>)
-  <span class="ruby-ivar">@batch_mode</span> = <span class="ruby-ivar">@batch_size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@batch_size</span> = <span class="ruby-identifier">limit</span>
+  <span class="ruby-ivar">@batch_mode</span> = <span class="ruby-identifier">determine_batch_mode</span>(<span class="ruby-ivar">@batch_size</span>)
 <span class="ruby-keyword">end</span></pre>
           </div><!-- batch_size-3D-source -->
           
@@ -954,7 +963,7 @@ instead which is a wrapper around this that can be used as a Mixin</p>
 
           
           <div class="method-source-code" id="batch_sleep_time-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 615</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 635</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">batch_sleep_time=</span>(<span class="ruby-identifier">time</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set batch sleep time if direct addressing is supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
 
@@ -993,7 +1002,7 @@ specifying custom options and discovery data</p>
 
           
           <div class="method-source-code" id="call_agent-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 844</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 883</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call_agent</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">opts</span>, <span class="ruby-identifier">disc</span>=<span class="ruby-value">:auto</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-comment"># Handle fire and forget requests and make sure</span>
   <span class="ruby-comment"># the :process_results value is set appropriately</span>
@@ -1049,6 +1058,10 @@ specifying custom options and discovery data</p>
 
         <span class="ruby-identifier">results</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>
       <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initial_options</span>[<span class="ruby-value">:sort</span>]
+      <span class="ruby-identifier">results</span>.<span class="ruby-identifier">sort!</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">aggregate_summary</span> = <span class="ruby-identifier">aggregate</span>.<span class="ruby-identifier">summarize</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">aggregate</span>
@@ -1108,12 +1121,12 @@ only with direct addressing mode</p>
 
           
           <div class="method-source-code" id="call_agent_batched-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 759</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 779</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">call_agent_batched</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">opts</span>, <span class="ruby-identifier">batch_size</span>, <span class="ruby-identifier">sleep_time</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Batched requests requires direct addressing&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot bypass result processing for batched requests&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">args</span>[<span class="ruby-value">:process_results</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-identifier">validate_batch_size</span>(<span class="ruby-identifier">batch_size</span>)
 
-  <span class="ruby-identifier">batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">batch_size</span>)
   <span class="ruby-identifier">sleep_time</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">sleep_time</span>)
 
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Calling #{agent}##{action} in batches of #{batch_size} with sleep time of #{sleep_time}&quot;</span>)
@@ -1135,10 +1148,22 @@ only with direct addressing mode</p>
       <span class="ruby-ivar">@stdout</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">twirl</span>.<span class="ruby-identifier">twirl</span>(<span class="ruby-identifier">respcount</span>, <span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">size</span>)
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">requestid</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">if</span> (<span class="ruby-identifier">batch_size</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span>)
+      <span class="ruby-comment"># determine batch_size as a percentage of the discovered array&#39;s size</span>
+      <span class="ruby-identifier">batch_size</span> = (<span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-value">100.0</span> <span class="ruby-operator">*</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>)).<span class="ruby-identifier">ceil</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">batch_size</span>)
+    <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-identifier">batch_size</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hosts</span>, <span class="ruby-identifier">last_batch</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">req</span>, <span class="ruby-keyword">nil</span>, {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:direct_request</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@collective</span>, <span class="ruby-value">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opts</span>[<span class="ruby-value">:filter</span>], <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opts</span>})
+    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">requestid</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-identifier">processed_nodes</span> = <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-identifier">batch_size</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hosts</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">message</span> = <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">req</span>, <span class="ruby-keyword">nil</span>, {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@agent</span>, 
+                                       <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:direct_request</span>, 
+                                       <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@collective</span>, 
+                                       <span class="ruby-value">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opts</span>[<span class="ruby-value">:filter</span>], 
+                                       <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">opts</span>})
 
       <span class="ruby-comment"># first time round we let the Message object create a request id</span>
       <span class="ruby-comment"># we then re-use it for future requests to keep auditing sane etc</span>
@@ -1161,13 +1186,20 @@ only with direct addressing mode</p>
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
 
+      <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initial_options</span>[<span class="ruby-value">:sort</span>]
+        <span class="ruby-identifier">results</span>.<span class="ruby-identifier">sort!</span>
+      <span class="ruby-keyword">end</span>
+
       <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">noresponsefrom</span>.<span class="ruby-identifier">concat</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">stats</span>[<span class="ruby-value">:noresponsefrom</span>]
       <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">responses</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">stats</span>[<span class="ruby-value">:responses</span>]
       <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">blocktime</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">stats</span>[<span class="ruby-value">:blocktime</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">sleep_time</span>
       <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">totaltime</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">stats</span>[<span class="ruby-value">:totaltime</span>]
       <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">discoverytime</span> <span class="ruby-operator">+=</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">stats</span>[<span class="ruby-value">:discoverytime</span>]
 
-      <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">sleep_time</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">last_batch</span>
+      <span class="ruby-identifier">processed_nodes</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">length</span>
+      <span class="ruby-keyword">if</span> (<span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">processed_nodes</span>)
+        <span class="ruby-identifier">sleep</span> <span class="ruby-identifier">sleep_time</span>
+      <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">aggregate_summary</span> = <span class="ruby-identifier">aggregate</span>.<span class="ruby-identifier">summarize</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">aggregate</span>
@@ -1217,7 +1249,7 @@ only with direct addressing mode</p>
 
           
           <div class="method-source-code" id="class_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 398</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 408</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">class_filter</span>(<span class="ruby-identifier">klass</span>)
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>] = <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>] <span class="ruby-operator">|</span> [<span class="ruby-identifier">klass</span>]
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">compact!</span>
@@ -1252,7 +1284,7 @@ only with direct addressing mode</p>
 
           
           <div class="method-source-code" id="collective-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 573</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 583</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">collective=</span>(<span class="ruby-identifier">c</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown collective #{c}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">c</span>)
 
@@ -1289,7 +1321,7 @@ only with direct addressing mode</p>
 
           
           <div class="method-source-code" id="compound_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 436</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 446</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">compound_filter</span>(<span class="ruby-identifier">filter</span>)
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>] = <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>] <span class="ruby-operator">|</span>  [<span class="ruby-constant">Matcher</span>.<span class="ruby-identifier">create_compound_callstack</span>(<span class="ruby-identifier">filter</span>)]
   <span class="ruby-identifier">reset</span>
@@ -1351,7 +1383,7 @@ mode with direct addressing disabled an exception will be raise</p>
 
           
           <div class="method-source-code" id="custom_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 296</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 306</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">custom_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">expected_agents</span>, <span class="ruby-identifier">filter</span> = {}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>)
 
@@ -1428,7 +1460,7 @@ mode with direct addressing disabled an exception will be raise</p>
 
           
           <div class="method-source-code" id="disconnect-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 121</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 126</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">disconnect</span>
   <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">disconnect</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1476,7 +1508,7 @@ the :verbose flag is passed in.</p>
 
           
           <div class="method-source-code" id="discover-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 468</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 478</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">flags</span>={})
   <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown option #{key} passed to discover&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:verbose</span>, <span class="ruby-value">:hosts</span>, <span class="ruby-value">:nodes</span>, <span class="ruby-value">:json</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
@@ -1604,7 +1636,7 @@ setting it on the client.</p>
 
           
           <div class="method-source-code" id="discovery_method-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 377</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 387</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_method=</span>(<span class="ruby-identifier">method</span>)
   <span class="ruby-ivar">@default_discovery_method</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-ivar">@discovery_method</span> = <span class="ruby-identifier">method</span>
@@ -1648,7 +1680,7 @@ setting it on the client.</p>
 
           
           <div class="method-source-code" id="discovery_options-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 392</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 402</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_options=</span>(<span class="ruby-identifier">options</span>)
   <span class="ruby-ivar">@discovery_options</span> = [<span class="ruby-identifier">options</span>].<span class="ruby-identifier">flatten</span>
   <span class="ruby-identifier">reset</span>
@@ -1682,7 +1714,7 @@ setting it on the client.</p>
 
           
           <div class="method-source-code" id="discovery_timeout-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 344</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 354</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_timeout</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@discovery_timeout</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@discovery_timeout</span>
   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">discoverer</span>.<span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:timeout</span>]
@@ -1716,7 +1748,7 @@ setting it on the client.</p>
 
           
           <div class="method-source-code" id="discovery_timeout-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 349</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 359</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_timeout=</span>(<span class="ruby-identifier">timeout</span>)
   <span class="ruby-ivar">@discovery_timeout</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">timeout</span>)
 
@@ -1759,7 +1791,7 @@ setting it on the client.</p>
 
           
           <div class="method-source-code" id="fact_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 405</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 415</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fact_filter</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">value</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">operator</span>=<span class="ruby-string">&quot;=&quot;</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">nil?</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">false</span>
@@ -1811,7 +1843,7 @@ href="Client.html#method-i-method_missing">#method_missing</a></p>
 
           
           <div class="method-source-code" id="fire_and_forget_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 710</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 730</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fire_and_forget_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">filter</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>)
 
@@ -1860,7 +1892,7 @@ href="Client.html#method-i-method_missing">#method_missing</a></p>
 
           
           <div class="method-source-code" id="help-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 126</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 131</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">template</span>)
   <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">help</span>(<span class="ruby-identifier">template</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -1893,7 +1925,7 @@ href="Client.html#method-i-method_missing">#method_missing</a></p>
 
           
           <div class="method-source-code" id="identity_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 429</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 439</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">identity_filter</span>(<span class="ruby-identifier">identity</span>)
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;identity&quot;</span>] = <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;identity&quot;</span>] <span class="ruby-operator">|</span> [<span class="ruby-identifier">identity</span>]
   <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">compact!</span>
@@ -1938,7 +1970,7 @@ pass the full identity filter to them</p>
 
           
           <div class="method-source-code" id="identity_filter_discovery_optimization-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 741</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 761</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">identity_filter_discovery_optimization</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@discovery_method</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;mc&quot;</span>
     <span class="ruby-identifier">regex_filters</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span> <span class="ruby-identifier">i</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^\/&quot;</span>)}.<span class="ruby-identifier">size</span>
@@ -1981,7 +2013,7 @@ href="Client.html#attribute-i-limit_targets">#limit_targets</a> is set</p>
 
           
           <div class="method-source-code" id="limit_method-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 599</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 615</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">limit_method=</span>(<span class="ruby-identifier">method</span>)
   <span class="ruby-identifier">method</span> = <span class="ruby-identifier">method</span>.<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">method</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)
 
@@ -2014,14 +2046,20 @@ href="Client.html#attribute-i-limit_targets">#limit_targets</a> is set</p>
           
           <p>Sets and sanity checks the <a
 href="Client.html#attribute-i-limit_targets">#limit_targets</a> variable
-used to restrict how many nodes we&#39;ll target</p>
+used to restrict how many nodes we&#39;ll target Limit targets can be reset
+by passing nil or false</p>
           
           
 
           
           <div class="method-source-code" id="limit_targets-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 583</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 594</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">limit_targets=</span>(<span class="ruby-identifier">limit</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">limit</span>
+    <span class="ruby-ivar">@limit_targets</span> = <span class="ruby-keyword">nil</span>
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">limit</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Invalid limit specified: #{limit} valid limits are /^\d+%*$/&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">limit</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+%*$/</span>
 
@@ -2063,7 +2101,7 @@ used to restrict how many nodes we&#39;ll target</p>
 
           
           <div class="method-source-code" id="load_aggregate_functions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 676</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 696</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">load_aggregate_functions</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">ddl</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddl</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>).<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:aggregate</span>)
@@ -2187,7 +2225,7 @@ at a time</p>
 
           
           <div class="method-source-code" id="method_missing-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 231</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 236</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method_name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-comment"># set args to an empty hash if nothings given</span>
   <span class="ruby-identifier">args</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">0</span>]
@@ -2199,6 +2237,11 @@ at a time</p>
 
   <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>)
 
+  <span class="ruby-comment"># TODO(ploubser): The logic here seems poor. It implies that it is valid to</span>
+  <span class="ruby-comment"># pass arguments where batch_mode is set to false and batch_mode &gt; 0.</span>
+  <span class="ruby-comment"># If this is the case we completely ignore the supplied value of batch_mode</span>
+  <span class="ruby-comment"># and do our own thing. </span>
+
   <span class="ruby-comment"># if a global batch size is set just use that else set it</span>
   <span class="ruby-comment"># in the case that it was passed as an argument</span>
   <span class="ruby-identifier">batch_mode</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:batch_size</span>) <span class="ruby-operator">||</span> <span class="ruby-ivar">@batch_mode</span>
@@ -2208,7 +2251,7 @@ at a time</p>
   <span class="ruby-comment"># if we were given a batch_size argument thats 0 and batch_mode was</span>
   <span class="ruby-comment"># determined to be on via global options etc this will allow a batch_size</span>
   <span class="ruby-comment"># of 0 to disable or batch_mode for this call only</span>
-  <span class="ruby-identifier">batch_mode</span> = (<span class="ruby-identifier">batch_mode</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">batch_size</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>)
+  <span class="ruby-identifier">batch_mode</span> = <span class="ruby-identifier">determine_batch_mode</span>(<span class="ruby-identifier">batch_size</span>)
 
   <span class="ruby-comment"># Handle single target requests by doing discovery and picking</span>
   <span class="ruby-comment"># a random node.  Then do a custom request specifying a filter</span>
@@ -2271,7 +2314,7 @@ code requires such a thing</p>
 
           
           <div class="method-source-code" id="new_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 149</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 154</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">data</span>)
   <span class="ruby-identifier">callerid</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">callerid</span>
 
@@ -2312,7 +2355,7 @@ href="../Optionparser.html">Optionparser</a></p>
 
           
           <div class="method-source-code" id="options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 556</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 566</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">options</span>
   {<span class="ruby-value">:disctimeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">discovery_timeout</span>,
    <span class="ruby-value">:timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@timeout</span>,
@@ -2369,7 +2412,7 @@ configuration option which can be either :first or anything else</p>
 
           
           <div class="method-source-code" id="pick_nodes_from_discovered-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 635</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 655</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">pick_nodes_from_discovered</span>(<span class="ruby-identifier">count</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">count</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/%$/</span>
     <span class="ruby-identifier">pct</span> = <span class="ruby-constant">Integer</span>((<span class="ruby-identifier">discover</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">count</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-value">100</span>)))
@@ -2441,40 +2484,25 @@ there are problems with the data</p>
 
           
           <div class="method-source-code" id="process_results_with_block-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 944</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 987</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_results_with_block</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">resp</span>, <span class="ruby-identifier">block</span>, <span class="ruby-identifier">aggregate</span>)
   <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">node_responded</span>(<span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>])
 
   <span class="ruby-identifier">result</span> = <span class="ruby-identifier">rpc_result_from_reply</span>(<span class="ruby-ivar">@agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">resp</span>)
   <span class="ruby-identifier">aggregate</span> = <span class="ruby-identifier">aggregate_reply</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">aggregate</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">aggregate</span>
 
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">ok</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">fail</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">time_block_execution</span> <span class="ruby-value">:start</span>
+  <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">ok</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">fail</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">time_block_execution</span> <span class="ruby-value">:start</span>
 
-    <span class="ruby-keyword">case</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">arity</span>
-      <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
-        <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">resp</span>)
-      <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
-        <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">resp</span>, <span class="ruby-identifier">result</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">time_block_execution</span> <span class="ruby-value">:end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">fail</span>
-
-    <span class="ruby-keyword">case</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>]
-      <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCAction</span>, <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statusmsg</span>]
-      <span class="ruby-keyword">when</span> <span class="ruby-value">3</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">MissingRPCData</span>, <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statusmsg</span>]
-      <span class="ruby-keyword">when</span> <span class="ruby-value">4</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidRPCData</span>, <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statusmsg</span>]
-      <span class="ruby-keyword">when</span> <span class="ruby-value">5</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCError</span>, <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statusmsg</span>]
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">block</span>.<span class="ruby-identifier">arity</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">resp</span>)
+    <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
+      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>(<span class="ruby-identifier">resp</span>, <span class="ruby-identifier">result</span>)
   <span class="ruby-keyword">end</span>
+
+  <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">time_block_execution</span> <span class="ruby-value">:end</span>
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">aggregate</span>
 <span class="ruby-keyword">end</span></pre>
@@ -2508,7 +2536,7 @@ stats object and return a hash of the response to send to the caller</p>
 
           
           <div class="method-source-code" id="process_results_without_block-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 924</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 967</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">process_results_without_block</span>(<span class="ruby-identifier">resp</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">aggregate</span>)
   <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">node_responded</span>(<span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>])
 
@@ -2554,7 +2582,7 @@ the cached discovery</p>
 
           
           <div class="method-source-code" id="reset-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 443</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 453</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset</span>
   <span class="ruby-ivar">@discovered_agents</span> = <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
@@ -2587,7 +2615,7 @@ the cached discovery</p>
 
           
           <div class="method-source-code" id="reset_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 448</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 458</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">reset_filter</span>
   <span class="ruby-ivar">@filter</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>
   <span class="ruby-identifier">agent_filter</span> <span class="ruby-ivar">@agent</span>
@@ -2621,7 +2649,7 @@ the cached discovery</p>
 
           
           <div class="method-source-code" id="rpc_result_from_reply-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 697</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 717</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">rpc_result_from_reply</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">reply</span>)
   <span class="ruby-constant">Result</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, {<span class="ruby-value">:sender</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reply</span>[<span class="ruby-value">:senderid</span>], <span class="ruby-value">:statuscode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reply</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statuscode</span>],
                              <span class="ruby-value">:statusmsg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reply</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:statusmsg</span>], <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">reply</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:data</span>]})
@@ -2660,7 +2688,7 @@ for validation</p>
 
           
           <div class="method-source-code" id="validate_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 165</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No DDL found for agent %s cannot validate inputs&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@agent</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ddl</span>
 
@@ -2686,7 +2714,7 @@ for validation</p>
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

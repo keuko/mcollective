@@ -25,7 +25,12 @@ module MCollective
           initial_options = Marshal.load(@@initial_options)
 
         else
-          oparser = MCollective::Optionparser.new({:verbose => false, :progress_bar => true, :mcollective_limit_targets => false, :batch_size => nil, :batch_sleep_time => 1}, "filter")
+          oparser = MCollective::Optionparser.new({ :verbose => false, 
+                                                    :progress_bar => true, 
+                                                    :mcollective_limit_targets => false, 
+                                                    :batch_size => nil, 
+                                                    :batch_sleep_time => 1 }, 
+                                                  "filter")
 
           initial_options = oparser.parse do |parser, opts|
             if block_given?
@@ -67,13 +72,13 @@ module MCollective
         @discovery_options = initial_options[:discovery_options] || []
         @force_display_mode = initial_options[:force_display_mode] || false
 
-        @batch_size = Integer(initial_options[:batch_size] || 0)
+        @batch_size = initial_options[:batch_size] || 0
         @batch_sleep_time = Float(initial_options[:batch_sleep_time] || 1)
-        @batch_mode = @batch_size > 0
+        @batch_mode = determine_batch_mode(@batch_size)
 
         agent_filter agent
 
-        @discovery_timeout = @initial_options.fetch(:disctimeout, nil)
+        @discovery_timeout = @initial_options.fetch(:disctimeout, nil) || Config.instance.discovery_timeout
 
         @collective = @client.collective
         @ttl = initial_options[:ttl] || Config.instance.ttl
@@ -239,6 +244,11 @@ module MCollective
 
         validate_request(action, args)
 
+        # TODO(ploubser): The logic here seems poor. It implies that it is valid to
+        # pass arguments where batch_mode is set to false and batch_mode > 0.
+        # If this is the case we completely ignore the supplied value of batch_mode
+        # and do our own thing. 
+
         # if a global batch size is set just use that else set it
         # in the case that it was passed as an argument
         batch_mode = args.include?(:batch_size) || @batch_mode
@@ -248,7 +258,7 @@ module MCollective
         # if we were given a batch_size argument thats 0 and batch_mode was
         # determined to be on via global options etc this will allow a batch_size
         # of 0 to disable or batch_mode for this call only
-        batch_mode = (batch_mode && Integer(batch_size) > 0)
+        batch_mode = determine_batch_mode(batch_size)
 
         # Handle single target requests by doing discovery and picking
         # a random node.  Then do a custom request specifying a filter
@@ -580,7 +590,13 @@ module MCollective
 
       # Sets and sanity checks the limit_targets variable
       # used to restrict how many nodes we'll target
+      # Limit targets can be reset by passing nil or false
       def limit_targets=(limit)
+        if !limit
+          @limit_targets = nil
+          return
+        end
+
         if limit.is_a?(String)
           raise "Invalid limit specified: #{limit} valid limits are /^\d+%*$/" unless limit =~ /^\d+%*$/
 
@@ -606,10 +622,14 @@ module MCollective
 
       # Sets the batch size, if the size is set to 0 that will disable batch mode
       def batch_size=(limit)
-        raise "Can only set batch size if direct addressing is supported" unless Config.instance.direct_addressing
+        unless Config.instance.direct_addressing
+          raise "Can only set batch size if direct addressing is supported"
+        end
+        
+        validate_batch_size(limit)
 
-        @batch_size = Integer(limit)
-        @batch_mode = @batch_size > 0
+        @batch_size = limit
+        @batch_mode = determine_batch_mode(@batch_size)
       end
 
       def batch_sleep_time=(time)
@@ -759,8 +779,8 @@ module MCollective
       def call_agent_batched(action, args, opts, batch_size, sleep_time, &block)
         raise "Batched requests requires direct addressing" unless Config.instance.direct_addressing
         raise "Cannot bypass result processing for batched requests" if args[:process_results] == false
+        validate_batch_size(batch_size)
 
-        batch_size = Integer(batch_size)
         sleep_time = Float(sleep_time)
 
         Log.debug("Calling #{agent}##{action} in batches of #{batch_size} with sleep time of #{sleep_time}")
@@ -782,10 +802,22 @@ module MCollective
             @stdout.print twirl.twirl(respcount, discovered.size)
           end
 
-          @stats.requestid = nil
+          if (batch_size =~ /^(\d+)%$/)
+            # determine batch_size as a percentage of the discovered array's size
+            batch_size = (discovered.size / 100.0 * Integer($1)).ceil
+          else
+            batch_size = Integer(batch_size)
+          end
 
-          discovered.in_groups_of(batch_size) do |hosts, last_batch|
-            message = Message.new(req, nil, {:agent => @agent, :type => :direct_request, :collective => @collective, :filter => opts[:filter], :options => opts})
+          @stats.requestid = nil
+          processed_nodes = 0
+
+          discovered.in_groups_of(batch_size) do |hosts|
+            message = Message.new(req, nil, {:agent => @agent, 
+                                             :type => :direct_request, 
+                                             :collective => @collective, 
+                                             :filter => opts[:filter], 
+                                             :options => opts})
 
             # first time round we let the Message object create a request id
             # we then re-use it for future requests to keep auditing sane etc
@@ -808,13 +840,20 @@ module MCollective
               end
             end
 
+            if @initial_options[:sort]
+              results.sort!
+            end
+
             @stats.noresponsefrom.concat @client.stats[:noresponsefrom]
             @stats.responses += @client.stats[:responses]
             @stats.blocktime += @client.stats[:blocktime] + sleep_time
             @stats.totaltime += @client.stats[:totaltime]
             @stats.discoverytime += @client.stats[:discoverytime]
 
-            sleep sleep_time unless last_batch
+            processed_nodes += hosts.length
+            if (discovered.length > processed_nodes)
+              sleep sleep_time
+            end
           end
 
           @stats.aggregate_summary = aggregate.summarize if aggregate
@@ -898,6 +937,10 @@ module MCollective
             end
           end
 
+          if @initial_options[:sort]
+            results.sort!
+          end
+
           @stats.aggregate_summary = aggregate.summarize if aggregate
           @stats.aggregate_failures = aggregate.failed if aggregate
           @stats.client_stats = @client.stats
@@ -947,35 +990,46 @@ module MCollective
         result = rpc_result_from_reply(@agent, action, resp)
         aggregate = aggregate_reply(result, aggregate) if aggregate
 
-        if resp[:body][:statuscode] == 0 || resp[:body][:statuscode] == 1
-          @stats.ok if resp[:body][:statuscode] == 0
-          @stats.fail if resp[:body][:statuscode] == 1
-          @stats.time_block_execution :start
+        @stats.ok if resp[:body][:statuscode] == 0
+        @stats.fail if resp[:body][:statuscode] != 0
+        @stats.time_block_execution :start
 
-          case block.arity
-            when 1
-              block.call(resp)
-            when 2
-              block.call(resp, result)
-          end
+        case block.arity
+          when 1
+            block.call(resp)
+          when 2
+            block.call(resp, result)
+        end
 
-          @stats.time_block_execution :end
-        else
-          @stats.fail
+        @stats.time_block_execution :end
 
-          case resp[:body][:statuscode]
-            when 2
-              raise UnknownRPCAction, resp[:body][:statusmsg]
-            when 3
-              raise MissingRPCData, resp[:body][:statusmsg]
-            when 4
-              raise InvalidRPCData, resp[:body][:statusmsg]
-            when 5
-              raise UnknownRPCError, resp[:body][:statusmsg]
+        return aggregate
+      end
+
+      private
+      
+      def determine_batch_mode(batch_size)
+        if (batch_size != 0 && batch_size != "0")
+          return true
+        end
+
+        return false
+      end
+
+      # Validate the bach_size based on the following criteria
+      # batch_size is percentage string and it's more than 0 percent
+      # batch_size is a string of digits
+      # batch_size is of type Integer
+      def validate_batch_size(batch_size)
+        if (batch_size.is_a?(Integer))
+          return
+        elsif (batch_size.is_a?(String))
+          if ((batch_size =~ /^(\d+)%$/ && Integer($1) != 0) || batch_size =~ /^(\d+)$/)
+            return
           end
         end
 
-        return aggregate
+        raise("batch_size must be an integer or match a percentage string (e.g. '24%'")
       end
     end
   end

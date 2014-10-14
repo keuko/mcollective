@@ -15,7 +15,8 @@ module MCollective
     attr_reader :main_collective, :ssl_cipher, :registration_collective
     attr_reader :direct_addressing, :direct_addressing_threshold, :ttl
     attr_reader :default_discovery_method, :default_discovery_options
-    attr_reader :publish_timeout, :threaded, :soft_shutdown
+    attr_reader :publish_timeout, :threaded, :soft_shutdown, :activate_agents
+    attr_reader :registration_splay, :discovery_timeout, :soft_shutdown_timeout
 
     def initialize
       @configured = false
@@ -43,6 +44,8 @@ module MCollective
                   @registration_collective = val
                 when "registerinterval"
                   @registerinterval = Integer(val)
+                when "registration_splay"
+                  @registration_splay = Util.str_to_bool(val)
                 when "collectives"
                   @collectives = val.split(",").map {|c| c.strip}
                 when "main_collective"
@@ -87,6 +90,8 @@ module MCollective
                   @classesfile = val
                 when /^plugin.(.+)$/
                   @pluginconf[$1] = val
+                when "discovery_timeout"
+                  @discovery_timeout = Integer(val)
                 when "publish_timeout"
                   @publish_timeout = Integer(val)
                 when "rpcaudit"
@@ -115,6 +120,10 @@ module MCollective
                   @default_discovery_method = val
                 when "soft_shutdown"
                   @soft_shutdown = Util.str_to_bool(val)
+                when "soft_shutdown_timeout"
+                  @soft_shutdown_timeout = Integer(val)
+                when "activate_agents"
+                  @activate_agents = Util.str_to_bool(val)
                 when "topicprefix", "topicsep", "queueprefix", "rpchelptemplate", "helptemplatedir"
                   Log.warn("Use of deprecated '#{key}' option.  This option is ignored and should be removed from '#{configfile}'")
                 else
@@ -165,6 +174,7 @@ module MCollective
       @registration = "Agentlist"
       @registerinterval = 0
       @registration_collective = nil
+      @registration_splay = false
       @classesfile = "/var/lib/puppet/state/classes.txt"
       @rpcaudit = false
       @rpcauditprovider = ""
@@ -193,6 +203,8 @@ module MCollective
       @publish_timeout = 2
       @threaded = false
       @soft_shutdown = false
+      @soft_shutdown_timeout = nil
+      @activate_agents = true
     end
 
     def read_plugin_config_dir(dir)

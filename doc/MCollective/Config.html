@@ -4,7 +4,7 @@
 <head>
 <meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
 
-<title>class MCollective::Config - mcollective version 2.5.2</title>
+<title>class MCollective::Config - mcollective version 2.6.0</title>
 
 <link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
 
@@ -347,6 +347,19 @@
       <h3 class="section-header">Attributes</h3>
 
       
+      <div id="attribute-i-activate_agents" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">activate_agents</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-classesfile" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">classesfile</span><span
@@ -493,6 +506,19 @@
       <div id="attribute-i-direct_addressing_threshold" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">direct_addressing_threshold</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-discovery_timeout" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">discovery_timeout</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -724,6 +750,19 @@
         </div>
       </div>
       
+      <div id="attribute-i-registration_splay" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">registration_splay</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-rpcaudit" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">rpcaudit</span><span
@@ -815,6 +854,19 @@
         </div>
       </div>
       
+      <div id="attribute-i-soft_shutdown_timeout" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">soft_shutdown_timeout</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-ssl_cipher" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">ssl_cipher</span><span
@@ -882,7 +934,7 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 20</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
   <span class="ruby-ivar">@configured</span> = <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
@@ -921,7 +973,7 @@
 
           
           <div class="method-source-code" id="loadconfig-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 24</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 25</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>)
   <span class="ruby-identifier">set_config_defaults</span>(<span class="ruby-identifier">configfile</span>)
 
@@ -944,6 +996,8 @@
               <span class="ruby-ivar">@registration_collective</span> = <span class="ruby-identifier">val</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;registerinterval&quot;</span>
               <span class="ruby-ivar">@registerinterval</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;registration_splay&quot;</span>
+              <span class="ruby-ivar">@registration_splay</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;collectives&quot;</span>
               <span class="ruby-ivar">@collectives</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">c</span>.<span class="ruby-identifier">strip</span>}
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;main_collective&quot;</span>
@@ -988,6 +1042,8 @@
               <span class="ruby-ivar">@classesfile</span> = <span class="ruby-identifier">val</span>
             <span class="ruby-keyword">when</span> <span class="ruby-regexp">/^plugin.(.+)$/</span>
               <span class="ruby-ivar">@pluginconf</span>[<span class="ruby-node">$1</span>] = <span class="ruby-identifier">val</span>
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;discovery_timeout&quot;</span>
+              <span class="ruby-ivar">@discovery_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;publish_timeout&quot;</span>
               <span class="ruby-ivar">@publish_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;rpcaudit&quot;</span>
@@ -1016,6 +1072,10 @@
               <span class="ruby-ivar">@default_discovery_method</span> = <span class="ruby-identifier">val</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;soft_shutdown&quot;</span>
               <span class="ruby-ivar">@soft_shutdown</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;soft_shutdown_timeout&quot;</span>
+              <span class="ruby-ivar">@soft_shutdown_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;activate_agents&quot;</span>
+              <span class="ruby-ivar">@activate_agents</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;topicprefix&quot;</span>, <span class="ruby-string">&quot;topicsep&quot;</span>, <span class="ruby-string">&quot;queueprefix&quot;</span>, <span class="ruby-string">&quot;rpchelptemplate&quot;</span>, <span class="ruby-string">&quot;helptemplatedir&quot;</span>
               <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Use of deprecated &#39;#{key}&#39; option.  This option is ignored and should be removed from &#39;#{configfile}&#39;&quot;</span>)
             <span class="ruby-keyword">else</span>
@@ -1083,7 +1143,7 @@
 
           
           <div class="method-source-code" id="read_plugin_config_dir-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 198</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 210</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">read_plugin_config_dir</span>(<span class="ruby-identifier">dir</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)
 
@@ -1132,7 +1192,7 @@
 
           
           <div class="method-source-code" id="set_config_defaults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 157</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 166</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_config_defaults</span>(<span class="ruby-identifier">configfile</span>)
   <span class="ruby-ivar">@stomp</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@subscribe</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
@@ -1144,6 +1204,7 @@
   <span class="ruby-ivar">@registration</span> = <span class="ruby-string">&quot;Agentlist&quot;</span>
   <span class="ruby-ivar">@registerinterval</span> = <span class="ruby-value">0</span>
   <span class="ruby-ivar">@registration_collective</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@registration_splay</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-ivar">@classesfile</span> = <span class="ruby-string">&quot;/var/lib/puppet/state/classes.txt&quot;</span>
   <span class="ruby-ivar">@rpcaudit</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-ivar">@rpcauditprovider</span> = <span class="ruby-string">&quot;&quot;</span>
@@ -1172,6 +1233,8 @@
   <span class="ruby-ivar">@publish_timeout</span> = <span class="ruby-value">2</span>
   <span class="ruby-ivar">@threaded</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-ivar">@soft_shutdown</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@soft_shutdown_timeout</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@activate_agents</span> = <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
           </div><!-- set_config_defaults-source -->
           
@@ -1192,7 +1255,7 @@
 
 <footer id="validator-badges">
   <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.1.
+  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
   <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
 </footer>
 

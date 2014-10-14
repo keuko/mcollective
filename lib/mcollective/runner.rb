@@ -28,13 +28,25 @@ module MCollective
 
         unless Util.windows?
           Signal.trap("USR1") do
-            Log.info("Reloading all agents after receiving USR1 signal")
-            @agents.loadagents
+            Thread.new do
+              Log.info("Reloading all agents after receiving USR1 signal")
+              @agents.loadagents
+            end
           end
 
           Signal.trap("USR2") do
-            Log.info("Cycling logging level due to USR2 signal")
-            Log.cycle_level
+            Thread.new do
+              Log.info("Cycling logging level due to USR2 signal")
+              Log.cycle_level
+            end
+          end
+
+          Signal.trap("WINCH") do
+            Thread.new do
+              Log.info("Reopening logfiles due to WINCH signal")
+              Log.reopen
+              Log.info("Reopened logfiles due to WINCH signal")
+            end
           end
         else
           Util.setup_windows_sleeper
@@ -66,17 +78,7 @@ module MCollective
             # If soft_shutdown has been enabled we wait for all running agents to
             # finish, one way or the other.
             if @config.soft_shutdown
-              if Util.windows?
-                Log.warn("soft_shutdown specified. This feature is not available on Windows. Shutting down normally.")
-              else
-                Log.debug("Waiting for all running agents to finish or timeout.")
-                @agent_threads.each do |t|
-                  if t.alive?
-                    t.join
-                  end
-                end
-                Log.debug("All running agents have completed. Stopping.")
-              end
+              soft_shutdown
             end
 
             stop_threads
@@ -148,14 +150,16 @@ module MCollective
     def receiver_thread
       # Create internal connection in Connector
       @connection.connect
-      # Create agents and let them subscribe
-      #   Load data sources
-      Data.load_data_sources
-      #   Subscribe to relevant topics and queues
-      Util.subscribe(Util.make_subscriptions("mcollective", :broadcast))
-      Util.subscribe(Util.make_subscriptions("mcollective", :directed)) if @config.direct_addressing
+
+      # Subscribe to the direct addressing queue if direct_addressing is enabled
+      if @config.direct_addressing
+        Util.subscribe_to_direct_addressing_queue
+      end
+
       #   Create the agents and let them create their subscriptions
       @agents ||= Agents.new
+      #   Load data sources
+      Data.load_data_sources
 
       # Start the registration plugin if interval isn't 0
       begin
@@ -171,11 +175,7 @@ module MCollective
         begin
           request = receive
 
-          unless request.agent == "mcollective"
-            @agent_threads << agentmsg(request)
-          else
-            Log.error("Received a control message, possibly via 'mco controller' but this has been deprecated and removed")
-          end
+          @agent_threads << agentmsg(request)
         rescue MsgTTLExpired => e
           Log.warn(e)
 
@@ -227,6 +227,72 @@ module MCollective
       msg.publish
 
       @stats.sent
+    end
+
+    # Waits for all agent threads to complete
+    # If soft_shutdown_timeout has been defined it will wait for the
+    # configured grace period before killing all the threads
+    def soft_shutdown
+      timeout = @config.soft_shutdown_timeout
+
+      if timeout && timeout <= 0
+        Log.warn("soft_shutdown_timeout has been set to '#{timeout}'. soft_shutdown_timeout must be > 0")
+        Log.warn("Shutting down normally.")
+        return
+      end
+
+      if Util.windows?
+        windows_soft_shutdown(timeout)
+        return
+      end
+
+      posix_soft_shutdown(timeout)
+    end
+
+    # Implements soft shutdown on the Windows platform
+    # Logs and returns without doing anything if a timeout
+    # hasn't been specified since waiting for long running threads
+    # to exit on Windows can put the MCollective service in a broken state
+    def windows_soft_shutdown(timeout)
+      if !timeout
+        Log.warn("soft_shutdown specified but not soft_shutdown_timeout specified.")
+        Log.warn("To enable soft_shutdown on windows a soft_shutdown_timeout must be specified.")
+        Log.warn("Shutting down normally.")
+        return
+      end
+
+      shutdown_with_timeout(timeout)
+    end
+
+    # Implements soft shutdown on posix systems
+    def posix_soft_shutdown(timeout)
+      if timeout
+        shutdown_with_timeout(timeout)
+        return
+      end
+
+      stop_agent_threads
+    end
+
+    def shutdown_with_timeout(timeout)
+      Log.debug("Shutting down agents with a timeout of '#{timeout}' seconds")
+      begin
+        Timeout.timeout(timeout) do
+          stop_agent_threads
+        end
+      rescue Timeout::Error
+        Log.warn("soft_shutdown_timeout reached. Terminating all running agent threads.")
+      end
+    end
+
+    def stop_agent_threads
+      Log.debug("Waiting for all running agents to finish or timeout.")
+      @agent_threads.each do |t|
+        if t.alive?
+          t.join
+        end
+      end
+      Log.debug("All running agents have completed. Stopping.")
     end
   end
 end
