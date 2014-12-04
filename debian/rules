@@ -4,8 +4,8 @@
 	dh $@ --buildsystem=ruby --with ruby,systemd
 
 override_dh_auto_install:
-	cp $(CURDIR)/etc/server.cfg.dist $(CURDIR)/debian/mcollective/etc/mcollective/server.cfg
-	cp $(CURDIR)/etc/client.cfg.dist $(CURDIR)/debian/mcollective-client/etc/mcollective/client.cfg
+	cp $(CURDIR)/etc/server.cfg.dist $(CURDIR)/debian/mcollective/usr/share/mcollective/server.cfg
+	cp $(CURDIR)/etc/client.cfg.dist $(CURDIR)/debian/mcollective-client/usr/share/mcollective-client/client.cfg
 	cp $(CURDIR)/etc/facts.yaml.dist $(CURDIR)/debian/mcollective-common/etc/mcollective/facts.yaml
 	cp $(CURDIR)/etc/rpc-help.erb $(CURDIR)/debian/mcollective-common/etc/mcollective/rpc-help.erb
 	cp -R  $(CURDIR)/lib/* $(CURDIR)/debian/mcollective-common/usr/lib/ruby/vendor_ruby/

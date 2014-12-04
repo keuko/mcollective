@@ -1,2 +1,3 @@
 etc/mcollective
+usr/share/mcollective-client
 usr/bin
