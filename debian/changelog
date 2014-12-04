@@ -1,3 +1,13 @@
+mcollective (2.6.0+dfsg-2) unstable; urgency=low
+
+  [ Jean Baptiste Favre ]
+  * Remove server & client config files from package to avoid dpkg asking for
+    replacement (Closes: #767936)
+  * Try to change server.cfg and client.cfg default connector, while keeping
+    user values in postinst due to stomp plugin being deprecated
+
+ -- Jonas Genannt <jonas.genannt@capi2name.de>  Thu, 04 Dec 2014 17:23:10 +0100
+
 mcollective (2.6.0+dfsg-1) unstable; urgency=low
 
   * Imported Upstream version 2.6.0+dfsg
