@@ -1,1 +1,1 @@
-interest /usr/share/mcollective/plugins
+interest-noawait /usr/share/mcollective/plugins
