@@ -21,13 +21,10 @@ Files: ext/stompclient
 Copyright: R.I.Pienaar <rip@devco.net>
 License: Apache-2.0
 
-Files: ext/action_helpers/perl/lib/MCollective/Action.pm
-Copyright: 2011 Richard Clamp <richardc@unixbeard.net>
-License: Artistic or GPL-1
-
 Files: debian/*
 Copyright: 2010-2011 Riccardo Setti <giskard@debian.org>
            2011 Jonas Genannt <jonas.genannt@capi2name.de>
+           2018 Sebastien Badia <sbadia@debian.org>
 License: Apache-2.0
 
 License: Apache-2.0
@@ -45,19 +42,3 @@ License: Apache-2.0
  .
  On Debian systems, the full text of the Apache License can be found at
  "/usr/share/common-licenses/Apache-2.0"
-
-License: Artistic
- This program is free software; you can redistribute it and/or modify
- it under the terms of the Artistic License, which comes with Perl.
- .
- On Debian systems, the complete text of the Artistic License can be
- found in `/usr/share/common-licenses/Artistic'.
-
-License: GPL-1
- This program is free software; you can redistribute it and/or modify
- it under the terms of the GNU General Public License as published by
- the Free Software Foundation; either version 1, or (at your option)
- any later version.
- .
- On Debian systems, the complete text of version 1 of the GNU General
- Public License can be found in `/usr/share/common-licenses/GPL-1'.
