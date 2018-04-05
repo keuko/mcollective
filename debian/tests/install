@@ -1,0 +1,74 @@
+#!/bin/sh
+
+# Enable rabbitmq plugins
+rabbitmq-plugins enable rabbitmq_management
+rabbitmq-plugins enable rabbitmq_stomp
+
+# Create vhost, user and exchange
+rabbitmqadmin declare vhost name=/mcollective
+rabbitmqadmin declare user name=mcollective password=changeme tags=
+rabbitmqadmin declare user name=admin password=changeme tags=administrator
+rabbitmqadmin declare permission vhost=/mcollective user=mcollective configure='.*' write='.*' read='.*'
+rabbitmqadmin declare permission vhost=/mcollective user=admin configure='.*' write='.*' read='.*'
+rabbitmqadmin declare exchange --user=admin --password=changeme --vhost=/mcollective name=mcollective_broadcast type=topic
+rabbitmqadmin declare exchange --user=admin --password=changeme --vhost=/mcollective name=mcollective_directed type=direct
+
+# Configure mcollective for stomp
+cat <<EOS > /etc/mcollective/server.cfg
+main_collective = mcollective
+collectives = mcollective
+libdir = /usr/share/mcollective/plugins
+logfile = /var/log/mcollective.log
+loglevel = info
+daemonize = 1
+
+# Plugins
+securityprovider = psk
+plugin.psk = unset
+
+direct_addressing = 1
+
+connector = rabbitmq
+plugin.rabbitmq.vhost = /mcollective
+plugin.rabbitmq.pool.size = 1
+plugin.rabbitmq.pool.1.host = localhost
+plugin.rabbitmq.pool.1.port = 61613
+plugin.rabbitmq.pool.1.user = mcollective
+plugin.rabbitmq.pool.1.password = changeme
+
+# Facts
+factsource = yaml
+plugin.yaml = /etc/mcollective/facts.yaml
+EOS
+
+cat <<EOC > /etc/mcollective/client.cfg
+main_collective = mcollective
+collectives = mcollective
+libdir = /usr/share/mcollective/plugins
+logger_type = console
+loglevel = warn
+
+# Plugins
+securityprovider = psk
+plugin.psk = unset
+
+direct_addressing = 1
+
+connector = rabbitmq
+plugin.rabbitmq.vhost = /mcollective
+plugin.rabbitmq.pool.size = 1
+plugin.rabbitmq.pool.1.host = localhost
+plugin.rabbitmq.pool.1.port = 61613
+plugin.rabbitmq.pool.1.user = mcollective
+plugin.rabbitmq.pool.1.password = changeme
+
+# Facts
+factsource = yaml
+plugin.yaml = /etc/mcollective/facts.yaml
+EOC
+systemctl restart mcollective
+
+# And test a basic ping
+mco ping
+
+exit 0

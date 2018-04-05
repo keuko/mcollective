@@ -1,0 +1,3 @@
+Tests: install
+Depends: @, rabbitmq-server
+Restrictions: needs-root
