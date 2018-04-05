@@ -2,76 +2,73 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
-<title>class MCollective::DDL::AgentDDL - mcollective version 2.6.0</title>
-
-<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+<title>class MCollective::DDL::AgentDDL - mcollective version 2.12.0</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../../index.html">Home</a>
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
     <a href="../../table_of_contents.html#classes">Classes</a>
     <a href="../../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/mcollective/ddl/agentddl.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
   
   <p class="link">Base
   
-</nav>
+</div>
 
     
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li class="calls-super" ><a href="#method-c-new">::new</a>
     
@@ -95,241 +92,22 @@
     
     <li ><a href="#method-i-summarize">#summarize</a>
     
+    <li ><a href="#method-i-symbolize_basic_input_arguments">#symbolize_basic_input_arguments</a>
+    
     <li ><a href="#method-i-validate_rpc_request">#validate_rpc_request</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../../COPYING.html">COPYING</a>
-  
-    <li class="file"><a href="../../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../../README.html">README</a>
-  
-    <li class="file"><a href="../../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../../doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="../../etc/client_cfg_dist.html">client.cfg.dist</a>
-  
-    <li class="file"><a href="../../etc/facts_yaml_dist.html">facts.yaml.dist</a>
-  
-    <li class="file"><a href="../../etc/server_cfg_dist.html">server.cfg.dist</a>
-  
-    <li class="file"><a href="../../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../../mcollective_init.html">mcollective.init</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../../Array.html">Array</a>
-  
-    <li><a href="../../Dir.html">Dir</a>
-  
-    <li><a href="../../GetoptLong.html">GetoptLong</a>
-  
-    <li><a href="../../MCollective.html">MCollective</a>
-  
-    <li><a href="../../MCollective/Agent.html">MCollective::Agent</a>
-  
-    <li><a href="../../MCollective/Agents.html">MCollective::Agents</a>
-  
-    <li><a href="../../MCollective/Aggregate.html">MCollective::Aggregate</a>
-  
-    <li><a href="../../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
-  
-    <li><a href="../../MCollective/Application.html">MCollective::Application</a>
-  
-    <li><a href="../../MCollective/Applications.html">MCollective::Applications</a>
-  
-    <li><a href="../../MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
-  
-    <li><a href="../../MCollective/Cache.html">MCollective::Cache</a>
-  
-    <li><a href="../../MCollective/Client.html">MCollective::Client</a>
-  
-    <li><a href="../../MCollective/Config.html">MCollective::Config</a>
-  
-    <li><a href="../../MCollective/Connector.html">MCollective::Connector</a>
-  
-    <li><a href="../../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
-  
-    <li><a href="../../MCollective/DDL.html">MCollective::DDL</a>
-  
-    <li><a href="../../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
-  
-    <li><a href="../../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
-  
-    <li><a href="../../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
-  
-    <li><a href="../../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
-  
-    <li><a href="../../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
-  
-    <li><a href="../../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
-  
-    <li><a href="../../MCollective/Data.html">MCollective::Data</a>
-  
-    <li><a href="../../MCollective/Data/Base.html">MCollective::Data::Base</a>
-  
-    <li><a href="../../MCollective/Data/Result.html">MCollective::Data::Result</a>
-  
-    <li><a href="../../MCollective/Discovery.html">MCollective::Discovery</a>
-  
-    <li><a href="../../MCollective/Facts.html">MCollective::Facts</a>
-  
-    <li><a href="../../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
-  
-    <li><a href="../../MCollective/Generators.html">MCollective::Generators</a>
-  
-    <li><a href="../../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
-  
-    <li><a href="../../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
-  
-    <li><a href="../../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
-  
-    <li><a href="../../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
-  
-    <li><a href="../../MCollective/Log.html">MCollective::Log</a>
-  
-    <li><a href="../../MCollective/Logger.html">MCollective::Logger</a>
-  
-    <li><a href="../../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
-  
-    <li><a href="../../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
-  
-    <li><a href="../../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
-  
-    <li><a href="../../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
-  
-    <li><a href="../../MCollective/Matcher.html">MCollective::Matcher</a>
-  
-    <li><a href="../../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
-  
-    <li><a href="../../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
-  
-    <li><a href="../../MCollective/Message.html">MCollective::Message</a>
-  
-    <li><a href="../../MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
-  
-    <li><a href="../../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
-  
-    <li><a href="../../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
-  
-    <li><a href="../../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
-  
-    <li><a href="../../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
-  
-    <li><a href="../../MCollective/Optionparser.html">MCollective::Optionparser</a>
-  
-    <li><a href="../../MCollective/PluginManager.html">MCollective::PluginManager</a>
-  
-    <li><a href="../../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
-  
-    <li><a href="../../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li><a href="../../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
-  
-    <li><a href="../../MCollective/RPC.html">MCollective::RPC</a>
-  
-    <li><a href="../../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
-  
-    <li><a href="../../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
-  
-    <li><a href="../../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
-  
-    <li><a href="../../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
-  
-    <li><a href="../../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
-  
-    <li><a href="../../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
-  
-    <li><a href="../../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
-  
-    <li><a href="../../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
-  
-    <li><a href="../../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
-  
-    <li><a href="../../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
-  
-    <li><a href="../../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
-  
-    <li><a href="../../MCollective/RPCError.html">MCollective::RPCError</a>
-  
-    <li><a href="../../MCollective/Registration.html">MCollective::Registration</a>
-  
-    <li><a href="../../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
-  
-    <li><a href="../../MCollective/Runner.html">MCollective::Runner</a>
-  
-    <li><a href="../../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
-  
-    <li><a href="../../MCollective/SSL.html">MCollective::SSL</a>
-  
-    <li><a href="../../MCollective/Security.html">MCollective::Security</a>
-  
-    <li><a href="../../MCollective/Security/Base.html">MCollective::Security::Base</a>
-  
-    <li><a href="../../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
-  
-    <li><a href="../../MCollective/Shell.html">MCollective::Shell</a>
-  
-    <li><a href="../../MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
-  
-    <li><a href="../../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
-  
-    <li><a href="../../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
-  
-    <li><a href="../../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
-  
-    <li><a href="../../MCollective/Util.html">MCollective::Util</a>
-  
-    <li><a href="../../MCollective/Validator.html">MCollective::Validator</a>
-  
-    <li><a href="../../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
-  
-    <li><a href="../../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
-  
-    <li><a href="../../Object.html">Object</a>
-  
-    <li><a href="../../String.html">String</a>
-  
-    <li><a href="../../Symbol.html">Symbol</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="class">class MCollective::DDL::AgentDDL</h1>
+<main role="main" aria-labelledby="class-MCollective::DDL::AgentDDL">
+  <h1 id="class-MCollective::DDL::AgentDDL" class="class">
+    class MCollective::DDL::AgentDDL
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>A <a href="../DDL.html">DDL</a> class specific to agent plugins.</p>
 
@@ -339,13 +117,12 @@ possible bells and whistles present.</p>
 <p>metadata    :name        =&gt; “Utilities and Helpers for SimpleRPC
 Agents”,</p>
 
-<pre class="ruby">:<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;General helpful actions that expose stats and internals to SimpleRPC clients&quot;</span>,
-:<span class="ruby-identifier">author</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;R.I.Pienaar &lt;rip@devco.net&gt;&quot;</span>,
-:<span class="ruby-identifier">license</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Apache License, Version 2.0&quot;</span>,
-:<span class="ruby-identifier">version</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1.0&quot;</span>,
-:<span class="ruby-identifier">url</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;http://marionette-collective.org/&quot;</span>,
-:<span class="ruby-identifier">timeout</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-value">10</span>
-</pre>
+<pre>:description =&gt; &quot;General helpful actions that expose stats and internals to SimpleRPC clients&quot;,
+:author      =&gt; &quot;R.I.Pienaar &lt;rip@devco.net&gt;&quot;,
+:license     =&gt; &quot;Apache License, Version 2.0&quot;,
+:version     =&gt; &quot;1.0&quot;,
+:url         =&gt; &quot;https://docs.puppetlabs.com/mcollective/&quot;,
+:timeout     =&gt; 10</pre>
 
 <p>action “get_fact”, :description =&gt; “Retrieve a single fact from the fact
 store” do</p>
@@ -377,7 +154,7 @@ store” do</p>
 
 <p>end</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -391,10 +168,11 @@ store” do</p>
 
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-new" class="method-detail ">
@@ -427,20 +205,22 @@ store” do</p>
 
   <span class="ruby-keyword">super</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
 
     
       <div id="method-i-action" class="method-detail ">
@@ -499,14 +279,14 @@ the action to attach inputs and validation to the actions</p>
   <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- action-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- action-method -->
+      </div>
 
     
       <div id="method-i-action_interface" class="method-detail ">
@@ -528,18 +308,18 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="action_interface-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 202</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 243</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">name</span>)
   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> {}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- action_interface-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- action_interface-method -->
+      </div>
 
     
       <div id="method-i-actions" class="method-detail ">
@@ -561,18 +341,18 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="actions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 207</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 248</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">actions</span>
   <span class="ruby-ivar">@entities</span>.<span class="ruby-identifier">keys</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- actions-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- actions-method -->
+      </div>
 
     
       <div id="method-i-aggregate" class="method-detail ">
@@ -607,14 +387,14 @@ the action to attach inputs and validation to the actions</p>
   <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">||=</span> []
   <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">format</span>[<span class="ruby-value">:format</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">function</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">format</span>))
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- aggregate-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- aggregate-method -->
+      </div>
 
     
       <div id="method-i-display" class="method-detail ">
@@ -651,14 +431,14 @@ operates on action level</p>
   <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_entity</span>
   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">action</span>][<span class="ruby-value">:display</span>] = <span class="ruby-identifier">pref</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- display-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- display-method -->
+      </div>
 
     
       <div id="method-i-input" class="method-detail ">
@@ -691,14 +471,14 @@ operates on action level</p>
 
   <span class="ruby-keyword">super</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- input-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- input-method -->
+      </div>
 
     
       <div id="method-i-is_function-3F" class="method-detail ">
@@ -727,14 +507,14 @@ agent ddl has hit a aggregate function.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">is_function?</span>(<span class="ruby-identifier">method_name</span>)
   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-string">&quot;aggregate&quot;</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- is_function-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- is_function-3F-method -->
+      </div>
 
     
       <div id="method-i-method_missing" class="method-detail ">
@@ -767,14 +547,14 @@ href="AgentDDL.html#method-i-summarize">summarize</a> block</p>
 
   <span class="ruby-keyword">return</span> {<span class="ruby-value">:function</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:args</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- method_missing-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- method_missing-method -->
+      </div>
 
     
       <div id="method-i-set_default_input_arguments" class="method-detail ">
@@ -812,20 +592,26 @@ our fail-fast approach to input validation</p>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>
 
   <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>)
+      <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compat_arg</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Setting default value for input &#39;%s&#39; to &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]])
-      <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]
+      <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">compat_arg</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- set_default_input_arguments-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- set_default_input_arguments-method -->
+      </div>
 
     
       <div id="method-i-summarize" class="method-detail ">
@@ -865,14 +651,78 @@ user feedback</p>
     <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- summarize-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- summarize-method -->
+      </div>
+
+    
+      <div id="method-i-symbolize_basic_input_arguments" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">symbolize_basic_input_arguments</span><span
+            class="method-args">(input, arguments)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Creates a new set of arguments with string arguments mapped to symbol ones</p>
+
+<p>This is to assist with moving to a JSON pure world where requests might
+come in from REST or other languages, those languages and indeed JSON
+itself does not support symbols.</p>
+
+<p>It ensures a backward compatible mode where for rpcutil both of these
+requests are equivelant</p>
+
+<pre class="ruby"><span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(:<span class="ruby-identifier">fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
+<span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-string">&quot;fact&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
+</pre>
+
+<p>The case where both :fact and “fact” is in the <a
+href="../DDL.html">DDL</a> cannot be handled correctly and this code will
+assume the caller means “fact” in that case.  There&#39;s no way to
+represent such a request in JSON and just in general sounds like a bad
+idea, so a warning is logged which would in default client configuration
+appear on the clients display</p>
+          
+          
+
+          
+          <div class="method-source-code" id="symbolize_basic_input_arguments-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 199</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
+  <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">false</span>
+
+  <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">warned</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;String and Symbol versions of input %s found in the DDL for %s, ensure your DDL keys are unique.&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-ivar">@pluginname</span>])
+      <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">true</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      [<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>, <span class="ruby-identifier">value</span>]
+    <span class="ruby-keyword">else</span>
+      [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-i-validate_rpc_request" class="method-detail ">
@@ -895,7 +745,7 @@ call to an agent should be allowed based on action name and inputs.</p>
 
           
           <div class="method-source-code" id="validate_rpc_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 178</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 218</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_rpc_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
   <span class="ruby-comment"># is the action known?</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
@@ -903,41 +753,41 @@ call to an agent should be allowed based on action name and inputs.</p>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>] <span class="ruby-operator">||</span> {}
+  <span class="ruby-identifier">compatible_args</span> = <span class="ruby-identifier">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
 
   <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
-      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
         <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Action #{action} needs a #{key} argument&quot;</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-      <span class="ruby-identifier">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>])
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-identifier">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">compatible_args</span>[<span class="ruby-identifier">key</span>])
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">true</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- validate_rpc_request-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- validate_rpc_request-method -->
+      </div>
 
     
-    </section><!-- public-instance-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

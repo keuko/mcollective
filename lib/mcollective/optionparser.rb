@@ -110,7 +110,7 @@ module MCollective
 
     # These options should always be present
     def add_required_options
-      @parser.on('-c', '--config FILE', 'Load configuratuion from file rather than default') do |f|
+      @parser.on('-c', '--config FILE', 'Load configuration from file rather than default') do |f|
         @options[:config] = f
       end
 
@@ -180,6 +180,10 @@ module MCollective
 
       @parser.on("--sort", "Sort the output of an RPC call before processing.") do |v|
         @options[:sort] = true
+      end
+
+      @parser.on("--connection-timeout TIMEOUT", Integer, "Set the timeout for establishing a connection to the middleware") do |v|
+        @options[:connection_timeout] = Integer(v)
       end
     end
 

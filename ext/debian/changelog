@@ -1,5 +1,5 @@
-mcollective (2.6.0-1puppetlabs1) unstable sid squeeze wheezy precise; urgency=low
+mcollective (2.12.0-1puppetlabs1) unstable sid squeeze wheezy precise; urgency=low
 
-  * Update to version 2.6.0-1puppetlabs1
+  * Update to version 2.12.0-1puppetlabs1
 
- -- Puppet Labs Release <info@puppetlabs.com>  Thu, 21 Aug 2014 12:48:30 -0700
+ -- Puppet Labs Release <info@puppetlabs.com>  Mon, 19 Mar 2018 15:35:25 -0700

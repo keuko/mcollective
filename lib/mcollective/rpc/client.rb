@@ -25,11 +25,11 @@ module MCollective
           initial_options = Marshal.load(@@initial_options)
 
         else
-          oparser = MCollective::Optionparser.new({ :verbose => false, 
-                                                    :progress_bar => true, 
-                                                    :mcollective_limit_targets => false, 
-                                                    :batch_size => nil, 
-                                                    :batch_sleep_time => 1 }, 
+          oparser = MCollective::Optionparser.new({ :verbose => false,
+                                                    :progress_bar => true,
+                                                    :mcollective_limit_targets => false,
+                                                    :batch_size => nil,
+                                                    :batch_sleep_time => 1 },
                                                   "filter")
 
           initial_options = oparser.parse do |parser, opts|
@@ -46,8 +46,7 @@ module MCollective
         @initial_options = initial_options
 
         @config = initial_options[:config]
-        @client = MCollective::Client.new(@config)
-        @client.options = initial_options
+        @client = MCollective::Client.new(@initial_options)
 
         @stats = Stats.new
         @agent = agent
@@ -72,8 +71,8 @@ module MCollective
         @discovery_options = initial_options[:discovery_options] || []
         @force_display_mode = initial_options[:force_display_mode] || false
 
-        @batch_size = initial_options[:batch_size] || 0
-        @batch_sleep_time = Float(initial_options[:batch_sleep_time] || 1)
+        @batch_size = initial_options[:batch_size] || Config.instance.default_batch_size
+        @batch_sleep_time = Float(initial_options[:batch_sleep_time] || Config.instance.default_batch_sleep_time)
         @batch_mode = determine_batch_mode(@batch_size)
 
         agent_filter agent
@@ -119,6 +118,12 @@ module MCollective
         else
           @stdout = STDOUT
           @stdout.sync = true
+        end
+
+        if initial_options[:stdin]
+          @stdin = initial_options[:stdin]
+        else
+          @stdin = STDIN
         end
       end
 
@@ -247,7 +252,7 @@ module MCollective
         # TODO(ploubser): The logic here seems poor. It implies that it is valid to
         # pass arguments where batch_mode is set to false and batch_mode > 0.
         # If this is the case we completely ignore the supplied value of batch_mode
-        # and do our own thing. 
+        # and do our own thing.
 
         # if a global batch size is set just use that else set it
         # in the case that it was passed as an argument
@@ -460,6 +465,24 @@ module MCollective
         agent_filter @agent
       end
 
+      # Detects data on STDIN and sets the STDIN discovery method
+      #
+      # IF the discovery method hasn't been explicitly overridden
+      #  and we're not being run interactively,
+      #  and someone has piped us some data
+      #
+      # Then we assume it's a discovery list - this can be either:
+      #  - list of hosts in plaintext
+      #  - JSON that came from another rpc or printrpc
+      #
+      # Then we override discovery to try to grok the data on STDIN
+      def detect_and_set_stdin_discovery
+        if self.default_discovery_method && !@stdin.tty? && !@stdin.eof?
+          self.discovery_method = 'stdin'
+          self.discovery_options = 'auto'
+        end
+      end
+
       # Does discovery based on the filters set, if a discovery was
       # previously done return that else do a new discovery.
       #
@@ -542,10 +565,11 @@ module MCollective
           # and if we're configured to use the first found hosts as the
           # limit method then pass in the limit thus minimizing the amount
           # of work we do in the discover phase and speeding it up significantly
-          if @limit_method == :first and @limit_targets.is_a?(Fixnum)
-            @discovered_agents = @client.discover(@filter, discovery_timeout, @limit_targets)
+          filter = @filter.merge({'collective' => @collective})
+          if @limit_method == :first and @limit_targets.is_a?(Integer)
+            @discovered_agents = @client.discover(filter, discovery_timeout, @limit_targets)
           else
-            @discovered_agents = @client.discover(@filter, discovery_timeout)
+            @discovered_agents = @client.discover(filter, discovery_timeout)
           end
 
           @stderr.puts(@discovered_agents.size) if verbose
@@ -625,7 +649,7 @@ module MCollective
         unless Config.instance.direct_addressing
           raise "Can only set batch size if direct addressing is supported"
         end
-        
+
         validate_batch_size(limit)
 
         @batch_size = limit
@@ -715,8 +739,13 @@ module MCollective
       end
 
       def rpc_result_from_reply(agent, action, reply)
-        Result.new(agent, action, {:sender => reply[:senderid], :statuscode => reply[:body][:statuscode],
-                                   :statusmsg => reply[:body][:statusmsg], :data => reply[:body][:data]})
+        senderid = reply.include?("senderid") ? reply["senderid"] : reply[:senderid]
+        body = reply.include?("body") ? reply["body"] : reply[:body]
+        s_code = body.include?("statuscode") ? body["statuscode"] : body[:statuscode]
+        s_msg = body.include?("statusmsg") ? body["statusmsg"] : body[:statusmsg]
+        data = body.include?("data") ? body["data"] : body[:data]
+
+        Result.new(agent, action, {:sender => senderid, :statuscode => s_code, :statusmsg => s_msg, :data => data})
       end
 
       # for requests that do not care for results just
@@ -813,10 +842,10 @@ module MCollective
           processed_nodes = 0
 
           discovered.in_groups_of(batch_size) do |hosts|
-            message = Message.new(req, nil, {:agent => @agent, 
-                                             :type => :direct_request, 
-                                             :collective => @collective, 
-                                             :filter => opts[:filter], 
+            message = Message.new(req, nil, {:agent => @agent,
+                                             :type => :direct_request,
+                                             :collective => @collective,
+                                             :filter => opts[:filter],
                                              :options => opts})
 
             # first time round we let the Message object create a request id
@@ -845,6 +874,7 @@ module MCollective
             end
 
             @stats.noresponsefrom.concat @client.stats[:noresponsefrom]
+            @stats.unexpectedresponsefrom.concat @client.stats[:unexpectedresponsefrom]
             @stats.responses += @client.stats[:responses]
             @stats.blocktime += @client.stats[:blocktime] + sleep_time
             @stats.totaltime += @client.stats[:totaltime]
@@ -970,9 +1000,9 @@ module MCollective
         result = rpc_result_from_reply(@agent, action, resp)
         aggregate = aggregate_reply(result, aggregate) if aggregate
 
-        if resp[:body][:statuscode] == 0 || resp[:body][:statuscode] == 1
-          @stats.ok if resp[:body][:statuscode] == 0
-          @stats.fail if resp[:body][:statuscode] == 1
+        if result[:statuscode] == 0 || result[:statuscode] == 1
+          @stats.ok if result[:statuscode] == 0
+          @stats.fail if result[:statuscode] == 1
         else
           @stats.fail
         end
@@ -990,8 +1020,8 @@ module MCollective
         result = rpc_result_from_reply(@agent, action, resp)
         aggregate = aggregate_reply(result, aggregate) if aggregate
 
-        @stats.ok if resp[:body][:statuscode] == 0
-        @stats.fail if resp[:body][:statuscode] != 0
+        @stats.ok if result[:statuscode] == 0
+        @stats.fail if result[:statuscode] != 0
         @stats.time_block_execution :start
 
         case block.arity
@@ -1007,7 +1037,7 @@ module MCollective
       end
 
       private
-      
+
       def determine_batch_mode(batch_size)
         if (batch_size != 0 && batch_size != "0")
           return true

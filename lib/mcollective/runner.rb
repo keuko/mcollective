@@ -136,7 +136,19 @@ module MCollective
 
     def start_receiver_thread
       @state = :running
-      Thread.new { receiver_thread }
+      @parent = Thread.current
+      Thread.new do
+        begin
+          receiver_thread
+        rescue Exception => e
+          # When we are pausing the receiver thread will be killed.
+          # If the thread raises an exception at any other time
+          # reraise it in the main thread.
+          if @state != :pausing
+            @parent.raise(e)
+          end
+        end
+      end
     end
 
     def stop_threads
@@ -158,6 +170,7 @@ module MCollective
 
       #   Create the agents and let them create their subscriptions
       @agents ||= Agents.new
+
       #   Load data sources
       Data.load_data_sources
 
@@ -180,7 +193,7 @@ module MCollective
           Log.warn(e)
 
         rescue NotTargettedAtUs => e
-          Log.debug("Message does not pass filters, ignoring")
+          Log.info(e)
 
         rescue MessageNotReceived, UnexpectedMessageType => e
           Log.warn(e)
@@ -200,7 +213,7 @@ module MCollective
 
     # Deals with messages directed to agents
     def agentmsg(request)
-      Log.debug("Handling message for agent '#{request.agent}' on collective '#{request.collective}'")
+      Log.info("Handling message #{request.description}: #{request.payload[:body]}")
 
       @agents.dispatch(request, @connection) do |reply_message|
         reply(reply_message, request) if reply_message

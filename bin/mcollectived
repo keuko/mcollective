@@ -5,6 +5,7 @@
 $LOAD_PATH.delete '.'
 
 require 'mcollective'
+require 'mcollective/runner'
 require 'getoptlong'
 
 opts = GetoptLong.new(
@@ -20,7 +21,18 @@ daemonize = nil
 if MCollective::Util.windows?
   configfile = File.join(MCollective::Util.windows_prefix, "etc", "server.cfg")
 else
-  configfile = "/etc/mcollective/server.cfg"
+  # search for the server.cfg in the AIO path then the traditional one
+  configfiles = ['/etc/puppetlabs/mcollective/server.cfg',
+                 '/etc/mcollective/server.cfg' ]
+
+  found = configfiles.find_index { |file| File.readable?(file) }
+
+  # didn't find any? default to the first
+  if found.nil?
+    found = 0
+  end
+
+  configfile = configfiles[found]
 end
 pid = ""
 

@@ -2,76 +2,73 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
-<title>class MCollective::SSL - mcollective version 2.6.0</title>
-
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+<title>class MCollective::SSL - mcollective version 2.12.0</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
     <a href="../table_of_contents.html#classes">Classes</a>
     <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/mcollective/ssl.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
   
   <p class="link"><a href="../Object.html">Object</a>
   
-</nav>
+</div>
 
     
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-base64_decode">::base64_decode</a>
     
@@ -116,238 +113,17 @@
     <li ><a href="#method-i-verify_signature">#verify_signature</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../COPYING.html">COPYING</a>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../README.html">README</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
-  
-    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Array.html">Array</a>
-  
-    <li><a href="../Dir.html">Dir</a>
-  
-    <li><a href="../GetoptLong.html">GetoptLong</a>
-  
-    <li><a href="../MCollective.html">MCollective</a>
-  
-    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
-  
-    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
-  
-    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
-  
-    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
-  
-    <li><a href="../MCollective/Application.html">MCollective::Application</a>
-  
-    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
-  
-    <li><a href="../MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
-  
-    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
-  
-    <li><a href="../MCollective/Client.html">MCollective::Client</a>
-  
-    <li><a href="../MCollective/Config.html">MCollective::Config</a>
-  
-    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
-  
-    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
-  
-    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
-  
-    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
-  
-    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
-  
-    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
-  
-    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
-  
-    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
-  
-    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
-  
-    <li><a href="../MCollective/Data.html">MCollective::Data</a>
-  
-    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
-  
-    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
-  
-    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
-  
-    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
-  
-    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
-  
-    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
-  
-    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
-  
-    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
-  
-    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
-  
-    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
-  
-    <li><a href="../MCollective/Log.html">MCollective::Log</a>
-  
-    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
-  
-    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
-  
-    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
-  
-    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
-  
-    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
-  
-    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
-  
-    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
-  
-    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
-  
-    <li><a href="../MCollective/Message.html">MCollective::Message</a>
-  
-    <li><a href="../MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
-  
-    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
-  
-    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
-  
-    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
-  
-    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
-  
-    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
-  
-    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
-  
-    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
-  
-    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
-  
-    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
-  
-    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
-  
-    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
-  
-    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
-  
-    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
-  
-    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
-  
-    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
-  
-    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
-  
-    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
-  
-    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
-  
-    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
-  
-    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
-  
-    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
-  
-    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
-  
-    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
-  
-    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
-  
-    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
-  
-    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
-  
-    <li><a href="../MCollective/Security.html">MCollective::Security</a>
-  
-    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
-  
-    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
-  
-    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
-  
-    <li><a href="../MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
-  
-    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
-  
-    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
-  
-    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
-  
-    <li><a href="../MCollective/Util.html">MCollective::Util</a>
-  
-    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
-  
-    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
-  
-    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../String.html">String</a>
-  
-    <li><a href="../Symbol.html">Symbol</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="class">class MCollective::SSL</h1>
+<main role="main" aria-labelledby="class-MCollective::SSL">
+  <h1 id="class-MCollective::SSL" class="class">
+    class MCollective::SSL
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>A class that assists in encrypting and decrypting data using a combination
 of RSA and AES</p>
@@ -355,13 +131,14 @@ of RSA and AES</p>
 <p><a href="Data.html">Data</a> will be AES encrypted for speed, the Key used
 in # the AES stage will be encrypted using RSA</p>
 
-<pre>ssl = SSL.new(public_key, private_key, passphrase)
+<pre class="ruby"><span class="ruby-identifier">ssl</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">public_key</span>, <span class="ruby-identifier">private_key</span>, <span class="ruby-identifier">passphrase</span>)
 
-data = File.read(&quot;largefile.dat&quot;)
+<span class="ruby-identifier">data</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&quot;largefile.dat&quot;</span>)
 
-crypted_data = ssl.encrypt_with_private(data)
+<span class="ruby-identifier">crypted_data</span> = <span class="ruby-identifier">ssl</span>.<span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">data</span>)
 
-pp crypted_data</pre>
+<span class="ruby-identifier">pp</span> <span class="ruby-identifier">crypted_data</span>
+</pre>
 
 <p>This will result in a hash of data like:</p>
 
@@ -380,7 +157,7 @@ your original data</p>
 <p>There are matching methods for using a public key to encrypt data to be
 decrypted using a private key</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -393,9 +170,10 @@ decrypted using a private key</p>
     
 
     
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
 
       
       <div id="attribute-i-private_key_file" class="method-detail">
@@ -437,13 +215,14 @@ decrypted using a private key</p>
         </div>
       </div>
       
-    </section><!-- attribute-method-details -->
+    </section>
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-base64_decode" class="method-detail ">
@@ -474,14 +253,14 @@ decrypted using a private key</p>
   <span class="ruby-keyword">end</span>
   <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- base64_decode-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- base64_decode-method -->
+      </div>
 
     
       <div id="method-c-base64_encode" class="method-detail ">
@@ -507,14 +286,14 @@ decrypted using a private key</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- base64_encode-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- base64_encode-method -->
+      </div>
 
     
       <div id="method-c-md5" class="method-detail ">
@@ -540,14 +319,14 @@ decrypted using a private key</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- md5-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- md5-method -->
+      </div>
 
     
       <div id="method-c-new" class="method-detail ">
@@ -583,14 +362,14 @@ decrypted using a private key</p>
 
   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher &#39;#{@ssl_cipher}&#39; is not supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div>
 
     
       <div id="method-c-uuid" class="method-detail ">
@@ -612,7 +391,8 @@ from OpenSSL::BN</p>
 
 <p>Code used with permission from:</p>
 
-<pre>https://github.com/kwilczynski/puppet-functions/blob/master/lib/puppet/parser/functions/uuid.rb</pre>
+<pre class="ruby"><span class="ruby-identifier">https</span>:<span class="ruby-operator">/</span><span class="ruby-regexp">/github.com/</span><span class="ruby-identifier">kwilczynski</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">-</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">blob</span><span class="ruby-operator">/</span><span class="ruby-identifier">master</span><span class="ruby-operator">/</span><span class="ruby-identifier">lib</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">/</span><span class="ruby-identifier">parser</span><span class="ruby-operator">/</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">rb</span>
+</pre>
           
           
 
@@ -622,7 +402,7 @@ from OpenSSL::BN</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>(<span class="ruby-identifier">string</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">string</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Random</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&#39;H*&#39;</span>).<span class="ruby-identifier">shift</span>
 
-  <span class="ruby-identifier">uuid_name_space_dns</span> = <span class="ruby-string">&quot;\x6b\xa7\xb8\x10\x9d\xad\x11\xd1\x80\xb4\x00\xc0\x4f\xd4\x30\xc8&quot;</span>
+  <span class="ruby-identifier">uuid_name_space_dns</span> = [<span class="ruby-value">0x6b</span>, <span class="ruby-value">0xa7</span>, <span class="ruby-value">0xb8</span>, <span class="ruby-value">0x10</span>, <span class="ruby-value">0x9d</span>, <span class="ruby-value">0xad</span>, <span class="ruby-value">0x11</span>, <span class="ruby-value">0xd1</span>, <span class="ruby-value">0x80</span>, <span class="ruby-value">0xb4</span>, <span class="ruby-value">0x00</span>, <span class="ruby-value">0xc0</span>, <span class="ruby-value">0x4f</span>, <span class="ruby-value">0xd4</span>, <span class="ruby-value">0x30</span>, <span class="ruby-value">0xc8</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">chr</span>}.<span class="ruby-identifier">join</span>
 
   <span class="ruby-identifier">sha1</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uuid_name_space_dns</span>)
@@ -645,20 +425,22 @@ from OpenSSL::BN</p>
 
   <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;-&#39;</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- uuid-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- uuid-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
 
     
       <div id="method-i-aes_decrypt" class="method-detail ">
@@ -682,21 +464,21 @@ from OpenSSL::BN</p>
           <div class="method-source-code" id="aes_decrypt-source">
             <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 158</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypt_string</span>)
-  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
 
   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">decrypt</span>
   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
   <span class="ruby-identifier">decrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">crypt_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- aes_decrypt-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- aes_decrypt-method -->
+      </div>
 
     
       <div id="method-i-aes_encrypt" class="method-detail ">
@@ -720,7 +502,7 @@ from OpenSSL::BN</p>
           <div class="method-source-code" id="aes_encrypt-source">
             <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 144</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">encrypt</span>
 
   <span class="ruby-identifier">key</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">random_key</span>
@@ -731,14 +513,14 @@ from OpenSSL::BN</p>
 
   {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">encrypted_data</span>}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- aes_encrypt-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- aes_encrypt-method -->
+      </div>
 
     
       <div id="method-i-base64_decode" class="method-detail ">
@@ -764,14 +546,14 @@ from OpenSSL::BN</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- base64_decode-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- base64_decode-method -->
+      </div>
 
     
       <div id="method-i-base64_encode" class="method-detail ">
@@ -797,14 +579,14 @@ from OpenSSL::BN</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- base64_encode-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- base64_encode-method -->
+      </div>
 
     
       <div id="method-i-decrypt_with_private" class="method-detail ">
@@ -839,14 +621,14 @@ from OpenSSL::BN</p>
     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- decrypt_with_private-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- decrypt_with_private-method -->
+      </div>
 
     
       <div id="method-i-decrypt_with_public" class="method-detail ">
@@ -881,14 +663,14 @@ from OpenSSL::BN</p>
     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- decrypt_with_public-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- decrypt_with_public-method -->
+      </div>
 
     
       <div id="method-i-encrypt_with_private" class="method-detail ">
@@ -926,14 +708,14 @@ from OpenSSL::BN</p>
 
   {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- encrypt_with_private-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- encrypt_with_private-method -->
+      </div>
 
     
       <div id="method-i-encrypt_with_public" class="method-detail ">
@@ -971,14 +753,14 @@ from OpenSSL::BN</p>
 
   {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- encrypt_with_public-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- encrypt_with_public-method -->
+      </div>
 
     
       <div id="method-i-md5" class="method-detail ">
@@ -1004,14 +786,14 @@ from OpenSSL::BN</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- md5-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- md5-method -->
+      </div>
 
     
       <div id="method-i-read_key" class="method-detail ">
@@ -1071,14 +853,14 @@ passphrase to read the private key</p>
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only load :public or :private keys&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- read_key-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- read_key-method -->
+      </div>
 
     
       <div id="method-i-rsa_decrypt_with_private" class="method-detail ">
@@ -1106,14 +888,14 @@ passphrase to read the private key</p>
 
   <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- rsa_decrypt_with_private-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- rsa_decrypt_with_private-method -->
+      </div>
 
     
       <div id="method-i-rsa_decrypt_with_public" class="method-detail ">
@@ -1141,14 +923,14 @@ passphrase to read the private key</p>
 
   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- rsa_decrypt_with_public-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- rsa_decrypt_with_public-method -->
+      </div>
 
     
       <div id="method-i-rsa_encrypt_with_private" class="method-detail ">
@@ -1176,14 +958,14 @@ passphrase to read the private key</p>
 
   <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- rsa_encrypt_with_private-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- rsa_encrypt_with_private-method -->
+      </div>
 
     
       <div id="method-i-rsa_encrypt_with_public" class="method-detail ">
@@ -1211,14 +993,14 @@ passphrase to read the private key</p>
 
   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- rsa_encrypt_with_public-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- rsa_encrypt_with_public-method -->
+      </div>
 
     
       <div id="method-i-sign" class="method-detail ">
@@ -1246,14 +1028,14 @@ passphrase to read the private key</p>
 
   <span class="ruby-identifier">base64</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">sig</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">sig</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- sign-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- sign-method -->
+      </div>
 
     
       <div id="method-i-verify_signature" class="method-detail ">
@@ -1282,26 +1064,25 @@ key</p>
 
   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- verify_signature-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- verify_signature-method -->
+      </div>
 
     
-    </section><!-- public-instance-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

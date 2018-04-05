@@ -1,0 +1,1141 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MCollective::Connector::Rabbitmq - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="Base.html">MCollective::Connector::Base</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-connect">#connect</a>
+    
+    <li ><a href="#method-i-connection_headers">#connection_headers</a>
+    
+    <li ><a href="#method-i-disconnect">#disconnect</a>
+    
+    <li ><a href="#method-i-exponential_back_off">#exponential_back_off</a>
+    
+    <li ><a href="#method-i-get_bool_option">#get_bool_option</a>
+    
+    <li ><a href="#method-i-get_cert_file">#get_cert_file</a>
+    
+    <li ><a href="#method-i-get_env_or_option">#get_env_or_option</a>
+    
+    <li ><a href="#method-i-get_key_file">#get_key_file</a>
+    
+    <li ><a href="#method-i-get_option">#get_option</a>
+    
+    <li ><a href="#method-i-make_target">#make_target</a>
+    
+    <li ><a href="#method-i-publish">#publish</a>
+    
+    <li ><a href="#method-i-receive">#receive</a>
+    
+    <li ><a href="#method-i-ssl_parameters">#ssl_parameters</a>
+    
+    <li ><a href="#method-i-stomp_version">#stomp_version</a>
+    
+    <li ><a href="#method-i-stomp_version_supports_heartbeat-3F">#stomp_version_supports_heartbeat?</a>
+    
+    <li ><a href="#method-i-subscribe">#subscribe</a>
+    
+    <li ><a href="#method-i-target_for">#target_for</a>
+    
+    <li ><a href="#method-i-unsubscribe">#unsubscribe</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MCollective::Connector::Rabbitmq">
+  <h1 id="class-MCollective::Connector::Rabbitmq" class="class">
+    class MCollective::Connector::Rabbitmq
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
+
+      
+      <div id="attribute-i-connection" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">connection</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+    </section>
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 96</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
+  <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+  <span class="ruby-ivar">@subscriptions</span> = []
+  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
+  <span class="ruby-ivar">@use_exponential_back_off</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_exponential_back_off&quot;</span>, <span class="ruby-string">&quot;true&quot;</span>)
+  <span class="ruby-ivar">@initial_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.initial_reconnect_delay&quot;</span>, <span class="ruby-value">0.01</span>))
+  <span class="ruby-ivar">@back_off_multiplier</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.back_off_multiplier&quot;</span>, <span class="ruby-value">2</span>))
+  <span class="ruby-ivar">@max_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.max_reconnect_delay&quot;</span>, <span class="ruby-value">30.0</span>))
+  <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@initial_reconnect_delay</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;RabbitMQ connector initialized.  Using stomp-gem #{stomp_version}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-connect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">connect</span><span
+            class="method-args">(connector = ::Stomp::Connection)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Connects to the RabbitMQ middleware</p>
+          
+          
+
+          
+          <div class="method-source-code" id="connect-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 110</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">connect</span>(<span class="ruby-identifier">connector</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@connection</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Already connection, not re-initializing connection&quot;</span>)
+    <span class="ruby-keyword">return</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.base64&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+
+    <span class="ruby-identifier">pools</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.pool.size&quot;</span>))
+    <span class="ruby-identifier">hosts</span> = []
+    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">prompt_for_username</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.prompt_user&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+    <span class="ruby-identifier">prompt_for_password</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.prompt_password&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous user exists and rabbitmq.prompt-user is set to true&quot;</span>)
+      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Please enter user to connect to middleware: &quot;</span>
+      <span class="ruby-identifier">middleware_user</span> = <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous password exists and rabbitmq.prompt-password is set to true&quot;</span>)
+      <span class="ruby-identifier">middleware_password</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-string">&quot;Please enter password: &quot;</span>)
+      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\n&quot;</span>
+    <span class="ruby-keyword">end</span>
+    
+    <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">pools</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">poolnum</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">host</span> = {}
+
+      <span class="ruby-identifier">host</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.host&quot;</span>)
+      <span class="ruby-identifier">host</span>[<span class="ruby-value">:port</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.port&quot;</span>, <span class="ruby-value">61613</span>).<span class="ruby-identifier">to_i</span>
+      <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+      
+      <span class="ruby-comment"># read user from config file</span>
+      <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_USER&quot;</span>, <span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.user&quot;</span>, <span class="ruby-identifier">middleware_user</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_user</span>
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using #{host[:login]} from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
+                  <span class="ruby-string">&quot;plugin.rabbitmq.prompt_user should be set to false to remove the prompt.&quot;</span>)
+      <span class="ruby-keyword">end</span>
+      
+      <span class="ruby-comment"># read password from config file</span>
+      <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_PASSWORD&quot;</span>, <span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.password&quot;</span>, <span class="ruby-identifier">middleware_password</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_password</span>
+          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using password from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
+                  <span class="ruby-string">&quot;plugin.rabbitmq.prompt_password should be set to false to remove the prompt.&quot;</span>)
+      <span class="ruby-keyword">end</span>
+     
+      <span class="ruby-comment"># if ssl is enabled set :ssl to the hash of parameters</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>]
+        <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl.fallback&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>))
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Adding #{host[:host]}:#{host[:port]} to the connection pool&quot;</span>)
+      <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No hosts found for the RabbitMQ connection pool&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">connection</span> = {<span class="ruby-value">:hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts</span>}
+
+    <span class="ruby-comment"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
+    <span class="ruby-comment"># these can be guessed, the documentation isn&#39;t clear</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:use_exponential_back_off</span>] = <span class="ruby-ivar">@use_exponential_back_off</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:initial_reconnect_delay</span>] = <span class="ruby-ivar">@initial_reconnect_delay</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:back_off_multiplier</span>] = <span class="ruby-ivar">@back_off_multiplier</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_delay</span>] = <span class="ruby-ivar">@max_reconnect_delay</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_attempts</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.max_reconnect_attempts&quot;</span>, <span class="ruby-value">0</span>))
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:randomize</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.randomize&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:backup</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.backup&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.timeout&quot;</span>, <span class="ruby-value">-1</span>))
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.connect_timeout&quot;</span>, <span class="ruby-value">30</span>))
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:reliable</span>] = <span class="ruby-keyword">true</span>
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbrlck_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.max_hbrlck_fails&quot;</span>, <span class="ruby-value">0</span>))
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbread_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.max_hbread_fails&quot;</span>, <span class="ruby-value">2</span>))
+
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_headers</span>] = <span class="ruby-identifier">connection_headers</span>
+
+    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:logger</span>] = <span class="ruby-constant">EventLogger</span>.<span class="ruby-identifier">new</span>
+
+    <span class="ruby-ivar">@connection</span> = <span class="ruby-identifier">connector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">connection</span>)
+
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ClientTimeoutError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not connect to RabbitMQ Server: #{e}&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-connection_headers" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">connection_headers</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="connection_headers-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 200</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">connection_headers</span>
+  <span class="ruby-identifier">headers</span> = {<span class="ruby-value">:&quot;accept-version&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1.0&quot;</span>}
+
+  <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.heartbeat_interval&quot;</span>, <span class="ruby-value">0</span>))
+  <span class="ruby-identifier">stomp_1_0_fallback</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.stomp_1_0_fallback&quot;</span>, <span class="ruby-keyword">true</span>)
+
+  <span class="ruby-identifier">headers</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.vhost&quot;</span>, <span class="ruby-string">&quot;/&quot;</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
+      <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Setting STOMP 1.1 properties like heartbeat intervals require at least version 1.2.10 of the STOMP gem&quot;</span>)
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">30</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Connection heartbeat is set to %d, forcing to minimum value of 30s&quot;</span>)
+      <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-value">30</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
+    <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;heart-beat&quot;</span>] = <span class="ruby-string">&quot;%d,%d&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">+</span> <span class="ruby-value">500</span>, <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">-</span> <span class="ruby-value">500</span>]
+
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_1_0_fallback</span>
+      <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1,1.0&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Connecting without STOMP 1.1 heartbeats, consider setting plugin.rabbitmq.heartbeat_interval&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">headers</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-disconnect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">disconnect</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Disconnects from the RabbitMQ connection</p>
+          
+          
+
+          
+          <div class="method-source-code" id="disconnect-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 481</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">disconnect</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Disconnecting from RabbitMQ&quot;</span>)
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
+  <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword">nil</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-exponential_back_off" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">exponential_back_off</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Calculate the exponential backoff needed</p>
+          
+          
+
+          
+          <div class="method-source-code" id="exponential_back_off-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 294</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">exponential_back_off</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@use_exponential_back_off</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">backoff</span> = <span class="ruby-ivar">@reconnect_delay</span>
+
+  <span class="ruby-comment"># calculate next delay</span>
+  <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@back_off_multiplier</span>
+
+  <span class="ruby-comment"># cap at max reconnect delay</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@max_reconnect_delay</span>
+    <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@max_reconnect_delay</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">backoff</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_bool_option" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_bool_option</span><span
+            class="method-args">(val, default)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>looks up a boolean value in the config</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_bool_option-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 510</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>)
+  <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>))
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_cert_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_cert_file</span><span
+            class="method-args">(poolnum)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the name of the certificate file used by RabbitMQ Will first check
+if an environment variable MCOLLECTIVE_RABBITMQ_POOLX_SSL_CERT exists,
+where X is the RabbitMQ pool number. If the environment variable
+doesn&#39;t exist, it will try and load the value from the config.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_cert_file-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 289</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>)
+  <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_RABBITMQ_POOL%s_SSL_CERT&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl.cert&quot;</span>, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_env_or_option" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_env_or_option</span><span
+            class="method-args">(env, opt, default=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>looks in the environment first then in the config file for a specific
+option, accepts an optional default.</p>
+
+<p>raises an exception when it cant find a value anywhere</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_env_or_option-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 491</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">env</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">env</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">default</span>
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No #{env} environment or plugin.#{opt} configuration option given&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_key_file" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_key_file</span><span
+            class="method-args">(poolnum)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Returns the name of the private key file used by RabbitMQ Will first check
+if an environment variable MCOLLECTIVE_RABBITMQ_POOLX_SSL_KEY exists, where
+X is the RabbitMQ pool number. If the environment variable doesn&#39;t
+exist, it will try and load the value from the config.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_key_file-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 281</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_key_file</span>(<span class="ruby-identifier">poolnum</span>)
+  <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_RABBITMQ_POOL%s_SSL_KEY&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl.key&quot;</span>, <span class="ruby-keyword">false</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-get_option" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_option</span><span
+            class="method-args">(opt, default=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>looks for a config option, accepts an optional default</p>
+
+<p>raises an exception when it cant find a value anywhere</p>
+          
+          
+
+          
+          <div class="method-source-code" id="get_option-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 502</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">default</span>.<span class="ruby-identifier">nil?</span>
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin.#{opt} configuration option given&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-make_target" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">make_target</span><span
+            class="method-args">(agent, type, collective, reply_to=nil, node=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="make_target-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 386</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">reply_to</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">node</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:directed</span>, <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:reply</span>, <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{@config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+
+  <span class="ruby-identifier">agents_multiplex</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.agents_multiplex&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+  <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply_to</span>
+    <span class="ruby-identifier">reply_path</span> = <span class="ruby-identifier">reply_to</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_reply_exchange&quot;</span>, <span class="ruby-keyword">false</span>)
+    <span class="ruby-identifier">reply_path</span> = <span class="ruby-string">&quot;/exchange/mcollective_reply/%s_%s_%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">$$</span>, <span class="ruby-constant">Client</span>.<span class="ruby-identifier">request_sequence</span> ]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">reply_path</span> = <span class="ruby-string">&quot;/temp-queue/mcollective_reply_%s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">agent</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span> <span class="ruby-comment"># receiving replies on a temp queue</span>
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = <span class="ruby-identifier">reply_path</span>
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;mcollective_%s_replies&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">agent</span>
+
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:request</span> <span class="ruby-comment"># publishing a request to all nodes with an agent</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">agents_multiplex</span>
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = <span class="ruby-string">&quot;/exchange/%s_broadcast&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">collective</span>
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_broadcast&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">collective</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = <span class="ruby-string">&quot;/exchange/%s_broadcast/%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>]
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_broadcast_%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>]
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply_to</span>
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">reply_to</span>
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">reply_path</span>
+      <span class="ruby-keyword">end</span>
+
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:direct_request</span> <span class="ruby-comment"># a request to a specific node</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Directed requests need to have a node identity&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">node</span>
+
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = <span class="ruby-string">&quot;/exchange/%s_directed/%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">node</span>]
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">reply_path</span>
+
+    <span class="ruby-keyword">when</span> <span class="ruby-value">:directed</span> <span class="ruby-comment"># subscribing to directed messages</span>
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = <span class="ruby-string">&quot;/exchange/%s_directed/%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>, <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span> ]
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_%s_directed_to_identity&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>, <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span> ]
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-publish" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">publish</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Sends a message to the RabbitMQ connection</p>
+          
+          
+
+          
+          <div class="method-source-code" id="publish-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 345</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">base64_encode!</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
+    <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+      <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>)
+
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to RabbitMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+
+      <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>)
+
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to RabbitMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+
+    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-receive" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">receive</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Receives a message from the RabbitMQ connection</p>
+          
+          
+
+          
+          <div class="method-source-code" id="receive-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 313</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Waiting for a message from RabbitMQ&quot;</span>)
+
+  <span class="ruby-comment"># When the Stomp library &gt; 1.2.0 is mid reconnecting due to its reliable connection</span>
+  <span class="ruby-comment"># handling it sets the connection to closed.  If we happen to be receiving at just</span>
+  <span class="ruby-comment"># that time we will get an exception warning about the closed connection so handling</span>
+  <span class="ruby-comment"># that here with a sleep and a retry.</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoCurrentConnection</span>
+    <span class="ruby-identifier">sleep</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">retry</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># In older stomp gems an attempt to receive after failed authentication can return nil</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">MessageNotReceived</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>), <span class="ruby-string">&quot;No message received from RabbitMQ.&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Received a processing error from RabbitMQ: &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">chomp</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/Processing error/</span>
+
+  <span class="ruby-comment"># We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;MESSAGE&#39;</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unexpected &#39;#{msg.command}&#39; frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnexpectedMessageType</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>),
+      <span class="ruby-node">&quot;Received frame of type &#39;#{msg.command}&#39; expected &#39;MESSAGE&#39;&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base64</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-ssl_parameters" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">ssl_parameters</span><span
+            class="method-args">(poolnum, fallback)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Sets the <a href="../SSL.html">SSL</a> paramaters for a specific connection</p>
+          
+          
+
+          
+          <div class="method-source-code" id="ssl_parameters-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 244</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">fallback</span>)
+  <span class="ruby-identifier">params</span> = {
+    <span class="ruby-value">:cert_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>),
+    <span class="ruby-value">:key_file</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_key_file</span>(<span class="ruby-identifier">poolnum</span>),
+    <span class="ruby-value">:ts_files</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl.ca&quot;</span>, <span class="ruby-keyword">false</span>),
+    <span class="ruby-value">:ciphers</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;rabbitmq.pool.#{poolnum}.ssl.ciphers&quot;</span>, <span class="ruby-keyword">false</span>),
+  }
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;cert, key and ca has to be supplied for verified SSL mode&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>]
+
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find certificate file #{params[:cert_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>])
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find key file #{params[:key_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>])
+
+  <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ca</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find CA file #{ca}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ca</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">SSLParams</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Stomp gem &gt;= 1.2.2 is needed&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fallback</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode, falling back to unverified: #{e.class}: #{e}&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode: #{e.class}: #{e}&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stomp_version" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stomp_version</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stomp_version-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 235</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_version</span>
+  <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Version</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stomp_version_supports_heartbeat-3F" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stomp_version_supports_heartbeat?</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stomp_version_supports_heartbeat-3F-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">stomp_version</span>, <span class="ruby-string">&quot;1.2.10&quot;</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-subscribe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">subscribe</span><span
+            class="method-args">(agent, type, collective)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Subscribe to a topic or queue</p>
+          
+          
+
+          
+          <div class="method-source-code" id="subscribe-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 434</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+    <span class="ruby-comment"># On rabbitmq if you send a message with a reply-to: header set to</span>
+    <span class="ruby-comment"># &#39;/temp-queue/*&#39; it automatically creates a private queue, munges</span>
+    <span class="ruby-comment"># the reply-to: header to point to this private queue, and</span>
+    <span class="ruby-comment"># subscribes you to it.  As such you should never attempt to</span>
+    <span class="ruby-comment"># SUBSCRIBE or UNSUBSCRIBE to &#39;/temp-queue/*&#39; directly as that&#39;ll</span>
+    <span class="ruby-comment"># cause great pain and suffering.</span>
+    <span class="ruby-comment"># https://www.rabbitmq.com/stomp.html#d.tqd</span>
+
+    <span class="ruby-comment"># The exception to this is in &#39;use_reply_exchange&#39; mode, when the</span>
+    <span class="ruby-comment"># reply-to will be set to a queue in an explicit exchange.</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_reply_exchange&quot;</span>, <span class="ruby-keyword">false</span>)
+      <span class="ruby-comment"># We aren&#39;t in &#39;use_reply_exchange&#39; mode, don&#39;t subscribe.</span>
+      <span class="ruby-keyword">return</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{source[:name]} with headers #{source[:headers].inspect.chomp}&quot;</span>)
+    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+    <span class="ruby-ivar">@subscriptions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>]
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">DuplicateSubscription</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Received subscription request for #{source.inspect.chomp} but already had a matching subscription, ignoring&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-target_for" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">target_for</span><span
+            class="method-args">(msg, node=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="target_for-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 365</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+    <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">request</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>], <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&quot;</span>}
+
+  <span class="ruby-keyword">elsif</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
+    <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>, <span class="ruby-identifier">node</span>)
+
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don&#39;t now how to create a target for message type #{msg.type}&quot;</span>
+
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># marks messages as valid for ttl + 10 seconds, we do this here</span>
+  <span class="ruby-comment"># rather than in make_target as this should only be set on publish</span>
+  <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;expiration&quot;</span>] = ((<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">ttl</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>).<span class="ruby-identifier">to_s</span>
+
+  <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;mc_sender&quot;</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-unsubscribe" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">unsubscribe</span><span
+            class="method-args">(agent, type, collective)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Subscribe to a topic or queue</p>
+          
+          
+
+          
+          <div class="method-source-code" id="unsubscribe-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 464</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+    <span class="ruby-comment"># For a more detailed discussion of this logic, please see #subscribe</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_reply_exchange&quot;</span>, <span class="ruby-keyword">false</span>)
+      <span class="ruby-comment"># We shouldn&#39;t try to unsubscribe from a &#39;/temp-queue/*&#39; queue.</span>
+      <span class="ruby-keyword">return</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unsubscribing from #{source[:name]}&quot;</span>)
+  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+  <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

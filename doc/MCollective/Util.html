@@ -2,59 +2,55 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
-<title>module MCollective::Util - mcollective version 2.6.0</title>
-
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+<title>module MCollective::Util - mcollective version 2.12.0</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
 
 
-<body id="top" class="module">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
+
+<body id="top" role="document" class="module">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
     <a href="../table_of_contents.html#classes">Classes</a>
     <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/mcollective/util.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
@@ -62,10 +58,10 @@
     
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-absolute_path-3F">::absolute_path?</a>
     
@@ -90,6 +86,12 @@
     <li ><a href="#method-c-field_size">::field_size</a>
     
     <li ><a href="#method-c-get_fact">::get_fact</a>
+    
+    <li ><a href="#method-c-get_hidden_input">::get_hidden_input</a>
+    
+    <li ><a href="#method-c-get_hidden_input_on_unix">::get_hidden_input_on_unix</a>
+    
+    <li ><a href="#method-c-get_hidden_input_on_windows">::get_hidden_input_on_windows</a>
     
     <li ><a href="#method-c-has_agent-3F">::has_agent?</a>
     
@@ -132,242 +134,21 @@
     <li ><a href="#method-c-windows_prefix">::windows_prefix</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../COPYING.html">COPYING</a>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../README.html">README</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
-  
-    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Array.html">Array</a>
-  
-    <li><a href="../Dir.html">Dir</a>
-  
-    <li><a href="../GetoptLong.html">GetoptLong</a>
-  
-    <li><a href="../MCollective.html">MCollective</a>
-  
-    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
-  
-    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
-  
-    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
-  
-    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
-  
-    <li><a href="../MCollective/Application.html">MCollective::Application</a>
-  
-    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
-  
-    <li><a href="../MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
-  
-    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
-  
-    <li><a href="../MCollective/Client.html">MCollective::Client</a>
-  
-    <li><a href="../MCollective/Config.html">MCollective::Config</a>
-  
-    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
-  
-    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
-  
-    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
-  
-    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
-  
-    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
-  
-    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
-  
-    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
-  
-    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
-  
-    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
-  
-    <li><a href="../MCollective/Data.html">MCollective::Data</a>
-  
-    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
-  
-    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
-  
-    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
-  
-    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
-  
-    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
-  
-    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
-  
-    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
-  
-    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
-  
-    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
-  
-    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
-  
-    <li><a href="../MCollective/Log.html">MCollective::Log</a>
-  
-    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
-  
-    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
-  
-    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
-  
-    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
-  
-    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
-  
-    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
-  
-    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
-  
-    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
-  
-    <li><a href="../MCollective/Message.html">MCollective::Message</a>
-  
-    <li><a href="../MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
-  
-    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
-  
-    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
-  
-    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
-  
-    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
-  
-    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
-  
-    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
-  
-    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
-  
-    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
-  
-    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
-  
-    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
-  
-    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
-  
-    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
-  
-    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
-  
-    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
-  
-    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
-  
-    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
-  
-    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
-  
-    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
-  
-    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
-  
-    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
-  
-    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
-  
-    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
-  
-    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
-  
-    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
-  
-    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
-  
-    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
-  
-    <li><a href="../MCollective/Security.html">MCollective::Security</a>
-  
-    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
-  
-    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
-  
-    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
-  
-    <li><a href="../MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
-  
-    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
-  
-    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
-  
-    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
-  
-    <li><a href="../MCollective/Util.html">MCollective::Util</a>
-  
-    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
-  
-    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
-  
-    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../String.html">String</a>
-  
-    <li><a href="../Symbol.html">Symbol</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="module">module MCollective::Util</h1>
+<main role="main" aria-labelledby="module-MCollective::Util">
+  <h1 id="module-MCollective::Util" class="module">
+    module MCollective::Util
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>Some basic utility helper methods useful to clients, agents, runner etc.</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -381,10 +162,11 @@
 
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-absolute_path-3F" class="method-detail ">
@@ -417,14 +199,14 @@ versions we support and it comes down to roughly this</p>
 
   <span class="ruby-operator">!</span><span class="ruby-operator">!</span><span class="ruby-identifier">path</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">path_matcher</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- absolute_path-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- absolute_path-3F-method -->
+      </div>
 
     
       <div id="method-c-align_text" class="method-detail ">
@@ -535,14 +317,14 @@ by default.</p>
 
   <span class="ruby-identifier">text</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- align_text-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- align_text-method -->
+      </div>
 
     
       <div id="method-c-color" class="method-detail ">
@@ -582,14 +364,14 @@ empty string</p>
     <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- color-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- color-method -->
+      </div>
 
     
       <div id="method-c-colorize" class="method-detail ">
@@ -615,14 +397,14 @@ empty string</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-identifier">code</span>, <span class="ruby-identifier">msg</span>)
   <span class="ruby-string">&quot;%s%s%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">color</span>(<span class="ruby-identifier">code</span>), <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">color</span>(<span class="ruby-value">:reset</span>) ]
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- colorize-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- colorize-method -->
+      </div>
 
     
       <div id="method-c-command_in_path-3F" class="method-detail ">
@@ -652,14 +434,14 @@ empty string</p>
 
   <span class="ruby-identifier">found</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-keyword">true</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- command_in_path-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- command_in_path-3F-method -->
+      </div>
 
     
       <div id="method-c-config_file_for_user" class="method-detail ">
@@ -684,37 +466,37 @@ empty string</p>
           <div class="method-source-code" id="config_file_for_user-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 157</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">config_file_for_user</span>
-  <span class="ruby-comment"># expand_path is pretty lame, it relies on HOME environment</span>
-  <span class="ruby-comment"># which isnt&#39;t always there so just handling all exceptions</span>
-  <span class="ruby-comment"># here as cant find reverting to default</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-string">&quot;~/.mcollective&quot;</span>)
+  <span class="ruby-comment"># the set of acceptable config files</span>
+  <span class="ruby-identifier">config_paths</span> = []
 
-    <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">config</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">file?</span>(<span class="ruby-identifier">config</span>)
-      <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
-        <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&quot;etc&quot;</span>, <span class="ruby-string">&quot;client.cfg&quot;</span>)
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">config</span> = <span class="ruby-string">&quot;/etc/mcollective/client.cfg&quot;</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
-      <span class="ruby-identifier">config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&quot;etc&quot;</span>, <span class="ruby-string">&quot;client.cfg&quot;</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">config</span> = <span class="ruby-string">&quot;/etc/mcollective/client.cfg&quot;</span>
-    <span class="ruby-keyword">end</span>
+  <span class="ruby-comment"># user dotfile</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-comment"># File.expand_path will raise if HOME isn&#39;t set, catch it</span>
+    <span class="ruby-identifier">user_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-string">&quot;~/.mcollective&quot;</span>)
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">user_path</span>
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">config</span>
+  <span class="ruby-comment"># standard locations</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&#39;etc&#39;</span>, <span class="ruby-string">&#39;client.cfg&#39;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/etc/puppetlabs/mcollective/client.cfg&#39;</span>
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/etc/mcollective/client.cfg&#39;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># use the first readable config file, or if none are the first listed</span>
+  <span class="ruby-identifier">found</span> = <span class="ruby-identifier">config_paths</span>.<span class="ruby-identifier">find_index</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>) } <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">config_paths</span>[<span class="ruby-identifier">found</span>]
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- config_file_for_user-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- config_file_for_user-method -->
+      </div>
 
     
       <div id="method-c-default_options" class="method-detail ">
@@ -747,14 +529,14 @@ empty string</p>
    <span class="ruby-value">:discovery_options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">default_discovery_options</span>,
    <span class="ruby-value">:filter</span>            =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">empty_filter</span>}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- default_options-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- default_options-method -->
+      </div>
 
     
       <div id="method-c-empty_filter" class="method-detail ">
@@ -784,14 +566,14 @@ empty string</p>
    <span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> [],
    <span class="ruby-string">&quot;compound&quot;</span> =<span class="ruby-operator">&gt;</span> []}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- empty_filter-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- empty_filter-method -->
+      </div>
 
     
       <div id="method-c-empty_filter-3F" class="method-detail ">
@@ -817,14 +599,14 @@ empty string</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">filter</span>)
   <span class="ruby-identifier">filter</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">empty_filter</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">filter</span> <span class="ruby-operator">==</span> {}
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- empty_filter-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- empty_filter-3F-method -->
+      </div>
 
     
       <div id="method-c-field_number" class="method-detail ">
@@ -851,14 +633,14 @@ empty string</p>
   <span class="ruby-identifier">number</span> = (<span class="ruby-identifier">max_size</span><span class="ruby-operator">/</span><span class="ruby-identifier">field_size</span>).<span class="ruby-identifier">to_i</span>
   (<span class="ruby-identifier">number</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>) <span class="ruby-operator">?</span> <span class="ruby-value">1</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">number</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- field_number-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- field_number-method -->
+      </div>
 
     
       <div id="method-c-field_size" class="method-detail ">
@@ -885,14 +667,14 @@ empty string</p>
   <span class="ruby-identifier">max_length</span> = <span class="ruby-identifier">elements</span>.<span class="ruby-identifier">max_by</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span> <span class="ruby-identifier">e</span>.<span class="ruby-identifier">length</span> }.<span class="ruby-identifier">length</span>
   <span class="ruby-identifier">max_length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">min_size</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">max_length</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">min_size</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- field_size-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- field_size-method -->
+      </div>
 
     
       <div id="method-c-get_fact" class="method-detail ">
@@ -920,14 +702,156 @@ kind of goes with the other classes here</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
   <span class="ruby-constant">Facts</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- get_fact-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- get_fact-method -->
+      </div>
+
+    
+      <div id="method-c-get_hidden_input" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_hidden_input</span><span
+            class="method-args">(message='Please enter data: ')</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_hidden_input-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 560</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-identifier">message</span>=<span class="ruby-string">&#39;Please enter data: &#39;</span>)
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">nil?</span>
+    <span class="ruby-identifier">print</span> <span class="ruby-identifier">message</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">ruby_version</span>, <span class="ruby-string">&#39;1.9.3&#39;</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;io/console&#39;</span>
+    <span class="ruby-identifier">input</span> = <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">noecho</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:gets</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># Use hacks to get hidden input on Ruby &lt;1.9.3</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
+      <span class="ruby-identifier">input</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_windows</span>()
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">input</span> = <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_unix</span>()
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">input</span>.<span class="ruby-identifier">chomp!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>
+  <span class="ruby-identifier">input</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-get_hidden_input_on_unix" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_hidden_input_on_unix</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_hidden_input_on_unix-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 545</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_unix</span>()
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">tty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not hook to stdin to hide input. If using SSH, try using -t flag while connecting to server.&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">&#39;stty -echo -icanon&#39;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not hide input using stty command.&#39;</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">input</span> = <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">gets</span>
+  <span class="ruby-keyword">ensure</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">&#39;stty echo icanon&#39;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not enable echoing of input. Try executing `stty echo icanon` to debug.&#39;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">input</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-c-get_hidden_input_on_windows" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">get_hidden_input_on_windows</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="get_hidden_input_on_windows-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 524</span>
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_windows</span>()
+  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;Win32API&#39;</span>
+  <span class="ruby-comment"># Hook into getch from crtdll. Keep reading all keys till return</span>
+  <span class="ruby-comment"># or newline is hit.</span>
+  <span class="ruby-comment"># If key is backspace or delete, then delete the character and update</span>
+  <span class="ruby-comment"># the buffer.</span>
+  <span class="ruby-identifier">input</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-keyword">while</span> <span class="ruby-identifier">char</span> = <span class="ruby-constant">Win32API</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;crtdll&quot;</span>, <span class="ruby-string">&quot;_getch&quot;</span>, [ ], <span class="ruby-string">&quot;I&quot;</span>).<span class="ruby-constant">Call</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">10</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">13</span> <span class="ruby-comment"># return or newline</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">127</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">8</span> <span class="ruby-comment"># backspace and delete</span>
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+        <span class="ruby-identifier">input</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">-1</span>, <span class="ruby-value">1</span>)
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">char</span>.<span class="ruby-identifier">chr</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">char</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">input</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-c-has_agent-3F" class="method-detail ">
@@ -969,14 +893,14 @@ use regex to match</p>
 
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- has_agent-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- has_agent-3F-method -->
+      </div>
 
     
       <div id="method-c-has_cf_class-3F" class="method-detail ">
@@ -1024,14 +948,14 @@ use regex to match</p>
 
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- has_cf_class-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- has_cf_class-3F-method -->
+      </div>
 
     
       <div id="method-c-has_fact-3F" class="method-detail ">
@@ -1075,14 +999,14 @@ use regex to match</p>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">test_fact_value</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">operator</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- has_fact-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- has_fact-3F-method -->
+      </div>
 
     
       <div id="method-c-has_identity-3F" class="method-detail ">
@@ -1119,14 +1043,14 @@ use regex to match</p>
 
   <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- has_identity-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- has_identity-3F-method -->
+      </div>
 
     
       <div id="method-c-loadclass" class="method-detail ">
@@ -1153,14 +1077,14 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>)
   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- loadclass-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- loadclass-method -->
+      </div>
 
     
       <div id="method-c-make_subscriptions" class="method-detail ">
@@ -1198,14 +1122,14 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
     [{<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>}]
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- make_subscriptions-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- make_subscriptions-method -->
+      </div>
 
     
       <div id="method-c-mcollective_version" class="method-detail ">
@@ -1231,14 +1155,14 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">mcollective_version</span>
   <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">VERSION</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- mcollective_version-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- mcollective_version-method -->
+      </div>
 
     
       <div id="method-c-parse_fact_string" class="method-detail ">
@@ -1276,14 +1200,14 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse fact #{fact} it does not appear to be in a valid format&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- parse_fact_string-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- parse_fact_string-method -->
+      </div>
 
     
       <div id="method-c-ruby_version" class="method-detail ">
@@ -1310,14 +1234,14 @@ here to aid testing</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ruby_version</span>
   <span class="ruby-constant">RUBY_VERSION</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- ruby_version-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- ruby_version-method -->
+      </div>
 
     
       <div id="method-c-setup_windows_sleeper" class="method-detail ">
@@ -1346,14 +1270,14 @@ in Rails etc</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup_windows_sleeper</span>
   <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> { <span class="ruby-identifier">loop</span> { <span class="ruby-identifier">sleep</span> <span class="ruby-value">1</span> } } <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- setup_windows_sleeper-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- setup_windows_sleeper-method -->
+      </div>
 
     
       <div id="method-c-shellescape" class="method-detail ">
@@ -1386,7 +1310,7 @@ versions</p>
 
   <span class="ruby-comment"># Process as a single byte sequence because not all shell</span>
   <span class="ruby-comment"># implementations are multibyte aware.</span>
-  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/([^A-Za-z0-9_\-.,:\/@\n])/</span>, <span class="ruby-string">&quot;\\\\\\1&quot;</span>)
+  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/([^A-Za-z0-9_\-.,:\/@\n])/n</span>, <span class="ruby-string">&quot;\\\\\\1&quot;</span>)
 
   <span class="ruby-comment"># A LF cannot be escaped with a backslash because a backslash + LF</span>
   <span class="ruby-comment"># combo is regarded as line continuation and simply ignored.</span>
@@ -1394,14 +1318,14 @@ versions</p>
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- shellescape-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- shellescape-method -->
+      </div>
 
     
       <div id="method-c-str_to_bool" class="method-detail ">
@@ -1427,22 +1351,22 @@ will return TrueClass Any other value will return FalseClass</p>
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 486</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
   <span class="ruby-identifier">clean_val</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">strip</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(1|yes|true|y|t)$/</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(1|yes|true|y|t)$/i</span>
     <span class="ruby-keyword">return</span>  <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(0|no|false|n|f)$/</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(0|no|false|n|f)$/i</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot convert string value &#39;#{clean_val}&#39; into a boolean.&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- str_to_bool-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- str_to_bool-method -->
+      </div>
 
     
       <div id="method-c-subscribe" class="method-detail ">
@@ -1474,14 +1398,14 @@ will return TrueClass Any other value will return FalseClass</p>
     <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:agent</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:collective</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- subscribe-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- subscribe-method -->
+      </div>
 
     
       <div id="method-c-subscribe_to_direct_addressing_queue" class="method-detail ">
@@ -1507,14 +1431,14 @@ will return TrueClass Any other value will return FalseClass</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">subscribe_to_direct_addressing_queue</span>
   <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-value">:directed</span>))
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- subscribe_to_direct_addressing_queue-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- subscribe_to_direct_addressing_queue-method -->
+      </div>
 
     
       <div id="method-c-templatepath" class="method-detail ">
@@ -1545,14 +1469,14 @@ will return TrueClass Any other value will return FalseClass</p>
   <span class="ruby-identifier">template_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;/etc/mcollective&quot;</span>, <span class="ruby-identifier">template_file</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">template_path</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- templatepath-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- templatepath-method -->
+      </div>
 
     
       <div id="method-c-terminal_dimensions" class="method-detail ">
@@ -1587,24 +1511,24 @@ on a tty</p>
     <span class="ruby-keyword">return</span> [<span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;COLUMNS&quot;</span>].<span class="ruby-identifier">to_i</span>, <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;LINES&quot;</span>].<span class="ruby-identifier">to_i</span>]
 
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;TERM&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&quot;tput&quot;</span>)
-    <span class="ruby-keyword">return</span> [<span class="ruby-value">%xtput cols`</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-value">%xtput lines`</span>.<span class="ruby-identifier">to_i</span>]
+    <span class="ruby-keyword">return</span> [<span class="ruby-value">%x`tput cols`</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-value">%x`tput lines`</span>.<span class="ruby-identifier">to_i</span>]
 
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&#39;stty&#39;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-value">%xstty size`</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\d+/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> }
+    <span class="ruby-keyword">return</span> <span class="ruby-value">%x`stty size`</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\d+/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> }
   <span class="ruby-keyword">else</span>
     <span class="ruby-keyword">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">rescue</span>
   [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- terminal_dimensions-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- terminal_dimensions-method -->
+      </div>
 
     
       <div id="method-c-unsubscribe" class="method-detail ">
@@ -1636,14 +1560,14 @@ on a tty</p>
     <span class="ruby-identifier">connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:agent</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:type</span>], <span class="ruby-identifier">target</span>[<span class="ruby-value">:collective</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- unsubscribe-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- unsubscribe-method -->
+      </div>
 
     
       <div id="method-c-versioncmp" class="method-detail ">
@@ -1663,7 +1587,7 @@ on a tty</p>
 
 <p>returns 0 if a == b returns -1 if a &lt; b returns 1 if a &gt; b</p>
 
-<p>Code originally from Puppet</p>
+<p>Code originally from <a href="../Puppet.html">Puppet</a></p>
           
           
 
@@ -1698,14 +1622,14 @@ on a tty</p>
 
   <span class="ruby-identifier">version_a</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">version_b</span>;
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- versioncmp-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- versioncmp-method -->
+      </div>
 
     
       <div id="method-c-windows-3F" class="method-detail ">
@@ -1729,16 +1653,16 @@ on a tty</p>
           <div class="method-source-code" id="windows-3F-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 273</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
-  <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;host_os&#39;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin|win32|dos|mingw|cygwin/</span>)
+  <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;host_os&#39;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin|win32|dos|mingw|cygwin/i</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- windows-3F-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- windows-3F-method -->
+      </div>
 
     
       <div id="method-c-windows_prefix" class="method-detail ">
@@ -1765,26 +1689,25 @@ on a tty</p>
   <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;win32/dir&#39;</span>
   <span class="ruby-identifier">prefix</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Dir</span><span class="ruby-operator">::</span><span class="ruby-constant">COMMON_APPDATA</span>, <span class="ruby-string">&quot;PuppetLabs&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- windows_prefix-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- windows_prefix-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

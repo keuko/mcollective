@@ -2,76 +2,73 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
-<title>class MCollective::RPC::Helpers - mcollective version 2.6.0</title>
-
-<link type="text/css" media="screen" href="../../rdoc.css" rel="stylesheet">
+<title>class MCollective::RPC::Helpers - mcollective version 2.12.0</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../../js/darkfish.js"></script>
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../../index.html">Home</a>
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
     <a href="../../table_of_contents.html#classes">Classes</a>
     <a href="../../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/mcollective/rpc/helpers.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
   
   <p class="link"><a href="../../Object.html">Object</a>
   
-</nav>
+</div>
 
     
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-add_simplerpc_options">::add_simplerpc_options</a>
     
@@ -88,242 +85,21 @@
     <li ><a href="#method-c-text_for_result">::text_for_result</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../../COPYING.html">COPYING</a>
-  
-    <li class="file"><a href="../../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../../README.html">README</a>
-  
-    <li class="file"><a href="../../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../../doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="../../etc/client_cfg_dist.html">client.cfg.dist</a>
-  
-    <li class="file"><a href="../../etc/facts_yaml_dist.html">facts.yaml.dist</a>
-  
-    <li class="file"><a href="../../etc/server_cfg_dist.html">server.cfg.dist</a>
-  
-    <li class="file"><a href="../../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../../mcollective_init.html">mcollective.init</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../../Array.html">Array</a>
-  
-    <li><a href="../../Dir.html">Dir</a>
-  
-    <li><a href="../../GetoptLong.html">GetoptLong</a>
-  
-    <li><a href="../../MCollective.html">MCollective</a>
-  
-    <li><a href="../../MCollective/Agent.html">MCollective::Agent</a>
-  
-    <li><a href="../../MCollective/Agents.html">MCollective::Agents</a>
-  
-    <li><a href="../../MCollective/Aggregate.html">MCollective::Aggregate</a>
-  
-    <li><a href="../../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li><a href="../../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
-  
-    <li><a href="../../MCollective/Application.html">MCollective::Application</a>
-  
-    <li><a href="../../MCollective/Applications.html">MCollective::Applications</a>
-  
-    <li><a href="../../MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
-  
-    <li><a href="../../MCollective/Cache.html">MCollective::Cache</a>
-  
-    <li><a href="../../MCollective/Client.html">MCollective::Client</a>
-  
-    <li><a href="../../MCollective/Config.html">MCollective::Config</a>
-  
-    <li><a href="../../MCollective/Connector.html">MCollective::Connector</a>
-  
-    <li><a href="../../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
-  
-    <li><a href="../../MCollective/DDL.html">MCollective::DDL</a>
-  
-    <li><a href="../../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
-  
-    <li><a href="../../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
-  
-    <li><a href="../../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
-  
-    <li><a href="../../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
-  
-    <li><a href="../../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
-  
-    <li><a href="../../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
-  
-    <li><a href="../../MCollective/Data.html">MCollective::Data</a>
-  
-    <li><a href="../../MCollective/Data/Base.html">MCollective::Data::Base</a>
-  
-    <li><a href="../../MCollective/Data/Result.html">MCollective::Data::Result</a>
-  
-    <li><a href="../../MCollective/Discovery.html">MCollective::Discovery</a>
-  
-    <li><a href="../../MCollective/Facts.html">MCollective::Facts</a>
-  
-    <li><a href="../../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
-  
-    <li><a href="../../MCollective/Generators.html">MCollective::Generators</a>
-  
-    <li><a href="../../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
-  
-    <li><a href="../../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
-  
-    <li><a href="../../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
-  
-    <li><a href="../../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
-  
-    <li><a href="../../MCollective/Log.html">MCollective::Log</a>
-  
-    <li><a href="../../MCollective/Logger.html">MCollective::Logger</a>
-  
-    <li><a href="../../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
-  
-    <li><a href="../../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
-  
-    <li><a href="../../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
-  
-    <li><a href="../../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
-  
-    <li><a href="../../MCollective/Matcher.html">MCollective::Matcher</a>
-  
-    <li><a href="../../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
-  
-    <li><a href="../../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
-  
-    <li><a href="../../MCollective/Message.html">MCollective::Message</a>
-  
-    <li><a href="../../MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
-  
-    <li><a href="../../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
-  
-    <li><a href="../../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
-  
-    <li><a href="../../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
-  
-    <li><a href="../../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
-  
-    <li><a href="../../MCollective/Optionparser.html">MCollective::Optionparser</a>
-  
-    <li><a href="../../MCollective/PluginManager.html">MCollective::PluginManager</a>
-  
-    <li><a href="../../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
-  
-    <li><a href="../../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li><a href="../../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
-  
-    <li><a href="../../MCollective/RPC.html">MCollective::RPC</a>
-  
-    <li><a href="../../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
-  
-    <li><a href="../../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
-  
-    <li><a href="../../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
-  
-    <li><a href="../../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
-  
-    <li><a href="../../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
-  
-    <li><a href="../../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
-  
-    <li><a href="../../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
-  
-    <li><a href="../../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
-  
-    <li><a href="../../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
-  
-    <li><a href="../../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
-  
-    <li><a href="../../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
-  
-    <li><a href="../../MCollective/RPCError.html">MCollective::RPCError</a>
-  
-    <li><a href="../../MCollective/Registration.html">MCollective::Registration</a>
-  
-    <li><a href="../../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
-  
-    <li><a href="../../MCollective/Runner.html">MCollective::Runner</a>
-  
-    <li><a href="../../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
-  
-    <li><a href="../../MCollective/SSL.html">MCollective::SSL</a>
-  
-    <li><a href="../../MCollective/Security.html">MCollective::Security</a>
-  
-    <li><a href="../../MCollective/Security/Base.html">MCollective::Security::Base</a>
-  
-    <li><a href="../../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
-  
-    <li><a href="../../MCollective/Shell.html">MCollective::Shell</a>
-  
-    <li><a href="../../MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
-  
-    <li><a href="../../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
-  
-    <li><a href="../../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
-  
-    <li><a href="../../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
-  
-    <li><a href="../../MCollective/Util.html">MCollective::Util</a>
-  
-    <li><a href="../../MCollective/Validator.html">MCollective::Validator</a>
-  
-    <li><a href="../../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
-  
-    <li><a href="../../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
-  
-    <li><a href="../../Object.html">Object</a>
-  
-    <li><a href="../../String.html">String</a>
-  
-    <li><a href="../../Symbol.html">Symbol</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="class">class MCollective::RPC::Helpers</h1>
+<main role="main" aria-labelledby="class-MCollective::RPC::Helpers">
+  <h1 id="class-MCollective::RPC::Helpers" class="class">
+    class MCollective::RPC::Helpers
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>Various utilities for the <a href="../RPC.html">RPC</a> system</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -337,10 +113,11 @@
 
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-add_simplerpc_options" class="method-detail ">
@@ -362,7 +139,7 @@
 
           
           <div class="method-source-code" id="add_simplerpc_options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 255</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 264</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;RPC Options&quot;</span>
@@ -375,7 +152,7 @@
   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--one&#39;</span>, <span class="ruby-string">&#39;-1&#39;</span>, <span class="ruby-string">&#39;Send request to only one discovered nodes&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-value">1</span>
   <span class="ruby-keyword">end</span>
-    
+
   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--batch SIZE&#39;</span>, <span class="ruby-string">&#39;Do requests in batches&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-comment"># validate batch string. Is it x% where x &gt; 0 or is it an integer</span>
     <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)$/</span>)
@@ -418,14 +195,14 @@
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;--display has to be one of &#39;ok&#39;, &#39;all&#39; or &#39;failed&#39;&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- add_simplerpc_options-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- add_simplerpc_options-method -->
+      </div>
 
     
       <div id="method-c-extract_hosts_from_array" class="method-detail ">
@@ -448,21 +225,21 @@ lines and return just the array of hosts</p>
 
           
           <div class="method-source-code" id="extract_hosts_from_array-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 29</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 39</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extract_hosts_from_array</span>(<span class="ruby-identifier">hosts</span>)
   [<span class="ruby-identifier">hosts</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{host} should be a string&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
     <span class="ruby-identifier">host</span>.<span class="ruby-identifier">chomp</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- extract_hosts_from_array-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- extract_hosts_from_array-method -->
+      </div>
 
     
       <div id="method-c-extract_hosts_from_json" class="method-detail ">
@@ -478,16 +255,24 @@ lines and return just the array of hosts</p>
 
         <div class="method-description">
           
-          <p>Parse JSON output as produced by printrpc and extract the “sender” of each
-rpc response</p>
+          <p>Parse JSON output as produced by printrpc or puppet query and extract the
+“sender” / “certname” of each entry</p>
 
 <p>The simplist valid JSON based data would be:</p>
 
 <p>[</p>
 
-<pre class="ruby">{<span class="ruby-string">&quot;sender&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;example.com&quot;</span>},
-{<span class="ruby-string">&quot;sender&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;another.com&quot;</span>}
-</pre>
+<pre>{&quot;sender&quot; =&gt; &quot;example.com&quot;},
+{&quot;sender&quot; =&gt; &quot;another.com&quot;}</pre>
+
+<p>]</p>
+
+<p>or</p>
+
+<p>[</p>
+
+<pre>{&quot;certname&quot; =&gt; &quot;example.com&quot;},
+{&quot;certname&quot; =&gt; &quot;another.com&quot;}</pre>
 
 <p>]</p>
           
@@ -495,7 +280,7 @@ rpc response</p>
 
           
           <div class="method-source-code" id="extract_hosts_from_json-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 14</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extract_hosts_from_json</span>(<span class="ruby-identifier">json</span>)
   <span class="ruby-identifier">hosts</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
 
@@ -503,19 +288,22 @@ rpc response</p>
 
   <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list is not an array of Hashes&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list does not have senders in it&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;sender&quot;</span>)
 
-    <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;sender&quot;</span>]
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;sender&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;certname&quot;</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list does not have senders in it&quot;</span>
+    <span class="ruby-keyword">end</span>
+
+    <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;sender&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;certname&quot;</span>]
   <span class="ruby-keyword">end</span>.<span class="ruby-identifier">uniq</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- extract_hosts_from_json-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- extract_hosts_from_json-method -->
+      </div>
 
     
       <div id="method-c-old_rpcresults" class="method-detail ">
@@ -538,7 +326,7 @@ href="../DDL.html">DDL</a></p>
 
           
           <div class="method-source-code" id="old_rpcresults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 203</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 213</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
 
@@ -560,7 +348,6 @@ href="../DDL.html">DDL</a></p>
     <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
   <span class="ruby-keyword">else</span>
     [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>]
         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;%-40s: %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>], <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>]]
 
@@ -589,14 +376,14 @@ href="../DDL.html">DDL</a></p>
 
   <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- old_rpcresults-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- old_rpcresults-method -->
+      </div>
 
     
       <div id="method-c-rpcresults" class="method-detail ">
@@ -637,7 +424,7 @@ handy for things like showing a combined mailq.</p>
 
           
           <div class="method-source-code" id="rpcresults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 54</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
   <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:console</span>, <span class="ruby-value">:force_display_mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
 
@@ -702,14 +489,14 @@ handy for things like showing a combined mailq.</p>
 
   <span class="ruby-identifier">result_text</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- rpcresults-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- rpcresults-method -->
+      </div>
 
     
       <div id="method-c-text_for_flattened_result" class="method-detail ">
@@ -731,7 +518,7 @@ handy for things like showing a combined mailq.</p>
 
           
           <div class="method-source-code" id="text_for_flattened_result-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 190</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 200</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
 
@@ -743,14 +530,14 @@ handy for things like showing a combined mailq.</p>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- text_for_flattened_result-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- text_for_flattened_result-method -->
+      </div>
 
     
       <div id="method-c-text_for_result" class="method-detail ">
@@ -772,7 +559,7 @@ handy for things like showing a combined mailq.</p>
 
           
           <div class="method-source-code" id="text_for_result-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 120</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 130</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
   <span class="ruby-identifier">statusses</span> = [<span class="ruby-string">&quot;&quot;</span>,
                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-string">&quot;Request Aborted&quot;</span>),
@@ -841,26 +628,25 @@ handy for things like showing a combined mailq.</p>
   <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
   <span class="ruby-identifier">result_text</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- text_for_result-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- text_for_result-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

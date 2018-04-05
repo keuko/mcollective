@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>activemq.xml - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../../CONTRIBUTING_md.html">CONTRIBUTING</a>
+  
+    <li><a href="../../COPYING.html">COPYING</a>
+  
+    <li><a href="../../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../MAINTAINERS.html">MAINTAINERS</a>
+  
+    <li><a href="../../README_md.html">README</a>
+  
+    <li><a href="../../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../acceptance/README_md.html">README</a>
+  
+    <li><a href="../../acceptance/Rakefile.html">Rakefile</a>
+  
+    <li><a href="../../acceptance/config/nodes/centos-5-x86_64_yaml.html">centos-5-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/centos-6-x86_64_yaml.html">centos-6-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/debian-6-x86_64_yaml.html">debian-6-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/debian-7-x86_64_yaml.html">debian-7-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/debian-8-x86_64_yaml.html">debian-8-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/fedora-20-x86_64_yaml.html">fedora-20-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/fedora-21-x86_64_yaml.html">fedora-21-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/redhat-5-x86_64_yaml.html">redhat-5-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/redhat-6-x86_64_yaml.html">redhat-6-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/redhat-7-x86_64_yaml.html">redhat-7-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/ubuntu-1204-x86_64_yaml.html">ubuntu-1204-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/ubuntu-1404-x86_64_yaml.html">ubuntu-1404-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/ubuntu-1410-x86_64_yaml.html">ubuntu-1410-x86_64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003r2x64-rubyx64_yaml.html">win2003r2x64-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003r2x64-rubyx86_yaml.html">win2003r2x64-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003r2x86-rubyx86_yaml.html">win2003r2x86-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003x64-rubyx64_yaml.html">win2003x64-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003x64-rubyx86_yaml.html">win2003x64-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2003x86-rubyx86_yaml.html">win2003x86-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2008-rubyx64_yaml.html">win2008-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2008-rubyx86_yaml.html">win2008-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2008r2-rubyx64_yaml.html">win2008r2-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2008r2-rubyx86_yaml.html">win2008r2-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2012-rubyx64_yaml.html">win2012-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2012-rubyx86_yaml.html">win2012-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2012r2-rubyx64_yaml.html">win2012r2-rubyx64.yaml</a>
+  
+    <li><a href="../../acceptance/config/nodes/win2012r2-rubyx86_yaml.html">win2012r2-rubyx86.yaml</a>
+  
+    <li><a href="../../acceptance/files/activemq_xml.html">activemq.xml</a>
+  
+    <li><a href="../../acceptance/files/ca_crt_pem.html">ca_crt.pem</a>
+  
+    <li><a href="../../acceptance/files/client_cfg.html">client.cfg</a>
+  
+    <li><a href="../../acceptance/files/client_crt.html">client.crt</a>
+  
+    <li><a href="../../acceptance/files/client_key.html">client.key</a>
+  
+    <li><a href="../../acceptance/files/server_crt.html">server.crt</a>
+  
+    <li><a href="../../acceptance/files/server_key.html">server.key</a>
+  
+    <li><a href="../../acceptance/files/windows-client_cfg.html">windows-client.cfg</a>
+  
+    <li><a href="../../acceptance/ssl/ca/ca_crl_pem.html">ca_crl.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/ca_crt_pem.html">ca_crt.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/ca_key_pem.html">ca_key.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/ca_pub_pem.html">ca_pub.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/inventory_txt.html">inventory</a>
+  
+    <li><a href="../../acceptance/ssl/ca/private/ca_pass.html">ca.pass</a>
+  
+    <li><a href="../../acceptance/ssl/ca/serial.html">serial</a>
+  
+    <li><a href="../../acceptance/ssl/ca/signed/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/signed/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/signed/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../../acceptance/ssl/ca/signed/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../../acceptance/ssl/certs/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../../acceptance/ssl/certs/ca_pem.html">ca.pem</a>
+  
+    <li><a href="../../acceptance/ssl/certs/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../../acceptance/ssl/certs/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../../acceptance/ssl/certs/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../../acceptance/ssl/crl_pem.html">crl.pem</a>
+  
+    <li><a href="../../acceptance/ssl/private_keys/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../../acceptance/ssl/private_keys/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../../acceptance/ssl/private_keys/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../../acceptance/ssl/private_keys/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../../acceptance/ssl/public_keys/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../../acceptance/ssl/public_keys/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../../acceptance/ssl/public_keys/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../../acceptance/ssl/public_keys/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li><a href="../../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li><a href="../../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li><a href="../../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li><a href="../../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li><a href="../../lib/mcollective/agent/rpcutil_ddl.html">rpcutil.ddl</a>
+  
+    <li><a href="../../lib/mcollective/aggregate/average_ddl.html">average.ddl</a>
+  
+    <li><a href="../../lib/mcollective/aggregate/sum_ddl.html">sum.ddl</a>
+  
+    <li><a href="../../lib/mcollective/aggregate/summary_ddl.html">summary.ddl</a>
+  
+    <li><a href="../../lib/mcollective/connector/activemq_ddl.html">activemq.ddl</a>
+  
+    <li><a href="../../lib/mcollective/connector/rabbitmq_ddl.html">rabbitmq.ddl</a>
+  
+    <li><a href="../../lib/mcollective/data/agent_data_ddl.html">agent_data.ddl</a>
+  
+    <li><a href="../../lib/mcollective/data/collective_data_ddl.html">collective_data.ddl</a>
+  
+    <li><a href="../../lib/mcollective/data/fact_data_ddl.html">fact_data.ddl</a>
+  
+    <li><a href="../../lib/mcollective/data/fstat_data_ddl.html">fstat_data.ddl</a>
+  
+    <li><a href="../../lib/mcollective/discovery/flatfile_ddl.html">flatfile.ddl</a>
+  
+    <li><a href="../../lib/mcollective/discovery/mc_ddl.html">mc.ddl</a>
+  
+    <li><a href="../../lib/mcollective/discovery/stdin_ddl.html">stdin.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/array_validator_ddl.html">array_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/ipv4address_validator_ddl.html">ipv4address_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/ipv6address_validator_ddl.html">ipv6address_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/length_validator_ddl.html">length_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/regex_validator_ddl.html">regex_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/shellsafe_validator_ddl.html">shellsafe_validator.ddl</a>
+  
+    <li><a href="../../lib/mcollective/validator/typecheck_validator_ddl.html">typecheck_validator.ddl</a>
+  
+    <li><a href="../../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page acceptance/files/activemq.xml">
+
+<p>&lt;!–</p>
+
+<pre>Licensed to the Apache Software Foundation (ASF) under one or more
+contributor license agreements.  See the NOTICE file distributed with
+this work for additional information regarding copyright ownership.
+The ASF licenses this file to You under the Apache License, Version 2.0
+(the &quot;License&quot;); you may not use this file except in compliance with
+the License.  You may obtain a copy of the License at
+
+http://www.apache.org/licenses/LICENSE-2.0
+
+Unless required by applicable law or agreed to in writing, software
+distributed under the License is distributed on an &quot;AS IS&quot; BASIS,
+WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+See the License for the specific language governing permissions and
+limitations under the License.</pre>
+
+<p>–&gt; &lt;!– START SNIPPET: example –&gt; &lt;beans</p>
+
+<pre>xmlns=&quot;http://www.springframework.org/schema/beans&quot;
+xmlns:xsi=&quot;http://www.w3.org/2001/XMLSchema-instance&quot;
+xsi:schemaLocation=&quot;http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+http://activemq.apache.org/schema/core http://activemq.apache.org/schema/core/activemq-core.xsd&quot;&gt;
+
+  &lt;!-- Allows us to use system properties as variables in this configuration file --&gt;
+  &lt;bean class=&quot;org.springframework.beans.factory.config.PropertyPlaceholderConfigurer&quot;&gt;
+      &lt;property name=&quot;locations&quot;&gt;
+          &lt;value&gt;file:${activemq.conf}/credentials.properties&lt;/value&gt;
+      &lt;/property&gt;
+  &lt;/bean&gt;
+
+  &lt;!--
+      The &lt;broker&gt; element is used to configure the ActiveMQ broker.
+  --&gt;
+  &lt;broker xmlns=&quot;http://activemq.apache.org/schema/core&quot; brokerName=&quot;localhost&quot; dataDirectory=&quot;${activemq.data}&quot;&gt;
+
+      &lt;destinationPolicy&gt;
+          &lt;policyMap&gt;
+            &lt;policyEntries&gt;
+              &lt;policyEntry topic=&quot;&gt;&quot; &gt;
+                  &lt;!-- The constantPendingMessageLimitStrategy is used to prevent
+                       slow topic consumers to block producers and affect other consumers
+                       by limiting the number of messages that are retained
+                       For more information, see:
+
+                       http://activemq.apache.org/slow-consumer-handling.html
+
+                  --&gt;
+                &lt;pendingMessageLimitStrategy&gt;
+                  &lt;constantPendingMessageLimitStrategy limit=&quot;1000&quot;/&gt;
+                &lt;/pendingMessageLimitStrategy&gt;
+              &lt;/policyEntry&gt;
+            &lt;/policyEntries&gt;
+          &lt;/policyMap&gt;
+      &lt;/destinationPolicy&gt;
+
+      &lt;!--
+          The managementContext is used to configure how ActiveMQ is exposed in
+          JMX. By default, ActiveMQ uses the MBean server that is started by
+          the JVM. For more information, see:
+
+          http://activemq.apache.org/jmx.html
+      --&gt;
+      &lt;managementContext&gt;
+          &lt;managementContext createConnector=&quot;false&quot;/&gt;
+      &lt;/managementContext&gt;
+
+      &lt;!--
+          Configure message persistence for the broker. The default persistence
+          mechanism is the KahaDB store (identified by the kahaDB tag).
+          For more information, see:
+
+          http://activemq.apache.org/persistence.html
+      --&gt;
+      &lt;persistenceAdapter&gt;
+          &lt;kahaDB directory=&quot;${activemq.data}/kahadb&quot;/&gt;
+      &lt;/persistenceAdapter&gt;
+
+      &lt;plugins&gt;
+        &lt;statisticsBrokerPlugin/&gt;
+
+        &lt;!--
+          This configures the users and groups used by this broker. Groups
+          are referenced below, in the write/read/admin attributes
+          of each authorizationEntry element.
+        --&gt;
+        &lt;simpleAuthenticationPlugin&gt;
+          &lt;users&gt;
+            &lt;authenticationUser username=&quot;mcollective&quot; password=&quot;marionette&quot; groups=&quot;mcollective,everyone&quot;/&gt;
+            &lt;authenticationUser username=&quot;admin&quot; password=&quot;secret&quot; groups=&quot;mcollective,admins,everyone&quot;/&gt;
+          &lt;/users&gt;
+        &lt;/simpleAuthenticationPlugin&gt;
+
+        &lt;!--
+          Configure which users are allowed to read and write where. Permissions
+          are organized by group; groups are configured above, in the
+          authentication plugin.
+
+          With the rules below, both servers and admin users belong to group
+          mcollective, which can both issue and respond to commands. For an
+          example that splits permissions and doesn&#39;t allow servers to issue
+          commands, see:
+          https://docs.puppetlabs.com/mcollective/deploy/middleware/activemq.html#detailed-restrictions
+        --&gt;
+        &lt;authorizationPlugin&gt;
+          &lt;map&gt;
+            &lt;authorizationMap&gt;
+              &lt;authorizationEntries&gt;
+                &lt;authorizationEntry queue=&quot;&gt;&quot; write=&quot;admins&quot; read=&quot;admins&quot; admin=&quot;admins&quot; /&gt;
+                &lt;authorizationEntry topic=&quot;&gt;&quot; write=&quot;admins&quot; read=&quot;admins&quot; admin=&quot;admins&quot; /&gt;
+                &lt;authorizationEntry topic=&quot;mcollective.&gt;&quot; write=&quot;mcollective&quot; read=&quot;mcollective&quot; admin=&quot;mcollective&quot; /&gt;
+                &lt;authorizationEntry queue=&quot;mcollective.&gt;&quot; write=&quot;mcollective&quot; read=&quot;mcollective&quot; admin=&quot;mcollective&quot; /&gt;
+                &lt;!--
+                  The advisory topics are part of ActiveMQ, and all users need access to them.
+                  The &quot;everyone&quot; group is not special; you need to ensure every user is a member.
+                --&gt;
+                &lt;authorizationEntry topic=&quot;ActiveMQ.Advisory.&gt;&quot; read=&quot;everyone&quot; write=&quot;everyone&quot; admin=&quot;everyone&quot;/&gt;
+              &lt;/authorizationEntries&gt;
+            &lt;/authorizationMap&gt;
+          &lt;/map&gt;
+        &lt;/authorizationPlugin&gt;
+      &lt;/plugins&gt;
+
+      &lt;sslContext&gt;
+        &lt;sslContext
+            keyStore=&quot;activemq.keystore&quot; keyStorePassword=&quot;notsecret&quot;
+            trustStore=&quot;activemq.truststore&quot; trustStorePassword=&quot;notsecret&quot;
+            /&gt;
+      &lt;/sslContext&gt;
+
+        &lt;!--
+          The systemUsage controls the maximum amount of space the broker will
+          use before disabling caching and/or slowing down producers. For more information, see:
+          http://activemq.apache.org/producer-flow-control.html
+        --&gt;
+        &lt;systemUsage&gt;
+          &lt;systemUsage&gt;
+              &lt;memoryUsage&gt;
+                  &lt;memoryUsage percentOfJvmHeap=&quot;70&quot; /&gt;
+              &lt;/memoryUsage&gt;
+              &lt;storeUsage&gt;
+                  &lt;storeUsage limit=&quot;100 gb&quot;/&gt;
+              &lt;/storeUsage&gt;
+              &lt;tempUsage&gt;
+                  &lt;tempUsage limit=&quot;50 gb&quot;/&gt;
+              &lt;/tempUsage&gt;
+          &lt;/systemUsage&gt;
+      &lt;/systemUsage&gt;
+
+      &lt;!--
+          The transport connectors expose ActiveMQ over a given protocol to
+          clients and other brokers. For more information, see:
+
+          http://activemq.apache.org/configuring-transports.html
+      --&gt;
+      &lt;transportConnectors&gt;
+          &lt;!-- DOS protection, limit concurrent connections to 1000 and frame size to 100MB --&gt;
+          &lt;transportConnector name=&quot;openwire&quot; uri=&quot;tcp://0.0.0.0:61616?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+          &lt;transportConnector name=&quot;amqp&quot; uri=&quot;amqp://0.0.0.0:5672?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+          &lt;transportConnector name=&quot;stomp+ssl&quot; uri=&quot;stomp+ssl://0.0.0.0:61613?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+          &lt;transportConnector name=&quot;mqtt&quot; uri=&quot;mqtt://0.0.0.0:1883?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+          &lt;transportConnector name=&quot;ws&quot; uri=&quot;ws://0.0.0.0:61614?maximumConnections=1000&amp;amp;wireFormat.maxFrameSize=104857600&quot;/&gt;
+      &lt;/transportConnectors&gt;
+
+      &lt;!-- destroy the spring context on shutdown to stop jetty --&gt;
+      &lt;shutdownHooks&gt;
+          &lt;bean xmlns=&quot;http://www.springframework.org/schema/beans&quot; class=&quot;org.apache.activemq.hooks.SpringContextHook&quot; /&gt;
+      &lt;/shutdownHooks&gt;
+
+  &lt;/broker&gt;
+
+  &lt;!--
+      Enable web consoles, REST and Ajax APIs and demos
+      The web consoles requires by default login, you can disable this in the jetty.xml file
+
+      Take a look at ${ACTIVEMQ_HOME}/conf/jetty.xml for more details
+  --&gt;
+  &lt;import resource=&quot;jetty.xml&quot;/&gt;</pre>
+
+<p>&lt;/beans&gt; &lt;!– END SNIPPET: example –&gt;</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

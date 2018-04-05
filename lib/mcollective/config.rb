@@ -5,7 +5,7 @@ module MCollective
 
     attr_accessor :mode
 
-    attr_reader :daemonize, :pluginconf, :libdir, :configured
+    attr_reader :daemonize, :pluginconf, :configured
     attr_reader :logfile, :keeplogs, :max_log_size, :loglevel, :logfacility
     attr_reader :identity, :daemonize, :connector, :securityprovider, :factsource
     attr_reader :registration, :registerinterval, :classesfile
@@ -17,6 +17,7 @@ module MCollective
     attr_reader :default_discovery_method, :default_discovery_options
     attr_reader :publish_timeout, :threaded, :soft_shutdown, :activate_agents
     attr_reader :registration_splay, :discovery_timeout, :soft_shutdown_timeout
+    attr_reader :connection_timeout, :default_batch_size, :default_batch_sleep_time
 
     def initialize
       @configured = false
@@ -26,6 +27,7 @@ module MCollective
       set_config_defaults(configfile)
 
       if File.exists?(configfile)
+        libdirs = []
         File.readlines(configfile).each do |line|
 
           # strip blank spaces, tabs etc off the end of all lines
@@ -65,10 +67,7 @@ module MCollective
                   paths.each do |path|
                     raise("libdir paths should be absolute paths but '%s' is relative" % path) unless Util.absolute_path?(path)
 
-                    @libdir << path
-                    unless $LOAD_PATH.include?(path)
-                      $LOAD_PATH << path
-                    end
+                    libdirs << path
                   end
                 when "identity"
                   @identity = val
@@ -94,6 +93,8 @@ module MCollective
                   @discovery_timeout = Integer(val)
                 when "publish_timeout"
                   @publish_timeout = Integer(val)
+                when "connection_timeout"
+                  @connection_timeout = Integer(val)
                 when "rpcaudit"
                   @rpcaudit = Util.str_to_bool(val)
                 when "rpcauditprovider"
@@ -124,6 +125,10 @@ module MCollective
                   @soft_shutdown_timeout = Integer(val)
                 when "activate_agents"
                   @activate_agents = Util.str_to_bool(val)
+                when "default_batch_size"
+                  @default_batch_size = Integer(val)
+                when "default_batch_sleep_time"
+                  @default_batch_sleep_time = Float(val)
                 when "topicprefix", "topicsep", "queueprefix", "rpchelptemplate", "helptemplatedir"
                   Log.warn("Use of deprecated '#{key}' option.  This option is ignored and should be removed from '#{configfile}'")
                 else
@@ -136,15 +141,21 @@ module MCollective
           end
         end
 
-        raise('The %s config file does not specify a libdir setting, cannot continue' % configfile) if @libdir.empty?
-
         read_plugin_config_dir("#{@configdir}/plugin.d")
 
         raise 'Identities can only match /\w\.\-/' unless @identity.match(/^[\w\.\-]+$/)
 
         @configured = true
 
-        @libdir.each {|dir| Log.warn("Cannot find libdir: #{dir}") unless File.directory?(dir)}
+        libdirs.each do |dir|
+          unless File.directory?(dir)
+            Log.debug("Cannot find libdir: #{dir}")
+          end
+
+          # remove the old one if it exists, we're moving it to the front
+          $LOAD_PATH.reject! { |elem| elem == dir }
+          $LOAD_PATH.unshift dir
+        end
 
         if @logger_type == "syslog"
           raise "The sylog logger is not usable on the Windows platform" if Util.windows?
@@ -187,7 +198,6 @@ module MCollective
       @keeplogs = 5
       @max_log_size = 2097152
       @rpclimitmethod = :first
-      @libdir = Array.new
       @fact_cache_time = 300
       @loglevel = "info"
       @logfacility = "user"
@@ -205,6 +215,13 @@ module MCollective
       @soft_shutdown = false
       @soft_shutdown_timeout = nil
       @activate_agents = true
+      @connection_timeout = nil
+      @default_batch_size = 0
+      @default_batch_sleep_time = 1
+    end
+
+    def libdir
+      $LOAD_PATH
     end
 
     def read_plugin_config_dir(dir)

@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MCollective::Security::Aes_security - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link">Base
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-callerid">#callerid</a>
+    
+    <li ><a href="#method-i-certname_from_callerid">#certname_from_callerid</a>
+    
+    <li ><a href="#method-i-certname_from_certificate">#certname_from_certificate</a>
+    
+    <li ><a href="#method-i-client_cert_dir">#client_cert_dir</a>
+    
+    <li ><a href="#method-i-client_private_key">#client_private_key</a>
+    
+    <li ><a href="#method-i-client_public_key">#client_public_key</a>
+    
+    <li ><a href="#method-i-decodemsg">#decodemsg</a>
+    
+    <li ><a href="#method-i-decrypt">#decrypt</a>
+    
+    <li ><a href="#method-i-deserialize">#deserialize</a>
+    
+    <li ><a href="#method-i-encodereply">#encodereply</a>
+    
+    <li ><a href="#method-i-encoderequest">#encoderequest</a>
+    
+    <li ><a href="#method-i-encrypt">#encrypt</a>
+    
+    <li ><a href="#method-i-public_key_path_for_client">#public_key_path_for_client</a>
+    
+    <li ><a href="#method-i-request_description">#request_description</a>
+    
+    <li ><a href="#method-i-serialize">#serialize</a>
+    
+    <li ><a href="#method-i-server_private_key">#server_private_key</a>
+    
+    <li ><a href="#method-i-server_public_key">#server_public_key</a>
+    
+    <li ><a href="#method-i-update_secure_property">#update_secure_property</a>
+    
+    <li ><a href="#method-i-validate_certificate">#validate_certificate</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MCollective::Security::Aes_security">
+  <h1 id="class-MCollective::Security::Aes_security" class="class">
+    class MCollective::Security::Aes_security
+  </h1>
+
+  <section class="description">
+    
+<p>Impliments a security system that encrypts payloads using AES and secures
+the AES encrypted data using RSA public/private key encryption.</p>
+
+<p>The design goals of this plugin are:</p>
+<ul><li>
+<p>Each actor - clients and servers - can have their own set of public and
+private keys</p>
+</li><li>
+<p>All actors are uniquely and cryptographically identified</p>
+</li><li>
+<p>Requests are encrypted using the clients private key and anyone that has
+the public key can see the request.  Thus an atacker may see the requests
+given access to network or machine due to the broadcast nature of
+mcollective</p>
+</li><li>
+<p>The message time and TTL of messages are cryptographically secured making
+the ensuring messages can not be replayed with fake TTLs or times</p>
+</li><li>
+<p>Replies are encrypted using the calling clients public key.  Thus no-one
+but the caller can view the contents of replies.</p>
+</li><li>
+<p>Servers can all have their own RSA keys, or share one, or reuse keys
+created by other PKI using software like <a
+href="../../Puppet.html">Puppet</a></p>
+</li><li>
+<p>Requests from servers - like registration data - can be secured even to
+external eaves droppers depending on the level of configuration you are
+prepared to do</p>
+</li><li>
+<p>Given a network where you can ensure third parties are not able to access
+the middleware public key distribution can happen automatically</p>
+</li></ul>
+
+<p>Configuration Options:</p>
+
+<h6 id="class-MCollective::Security::Aes_security-label-"><span><a href="#class-MCollective::Security::Aes_security-label-">&para;</a> <a href="#top">&uarr;</a></span></h6>
+
+<p>Common Options:</p>
+
+<pre class="ruby"><span class="ruby-comment"># Enable this plugin</span>
+<span class="ruby-identifier">securityprovider</span> = <span class="ruby-identifier">aes_security</span>
+
+<span class="ruby-comment"># Use YAML as serializer</span>
+<span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">aes</span>.<span class="ruby-identifier">serializer</span> = <span class="ruby-identifier">yaml</span>
+
+<span class="ruby-comment"># Send our public key with every request so servers can learn it</span>
+<span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">aes</span>.<span class="ruby-identifier">send_pubkey</span> = <span class="ruby-value">1</span>
+</pre>
+
+<p>Clients:</p>
+
+<pre># The clients public and private keys
+plugin.aes.client_private = /home/user/.mcollective.d/user-private.pem
+plugin.aes.client_public = /home/user/.mcollective.d/user.pem</pre>
+
+<p>Servers:</p>
+
+<pre># Where to cache client keys or find manually distributed ones
+plugin.aes.client_cert_dir = /etc/mcollective/ssl/clients
+
+# Cache public keys promiscuously from the network (this requires either a ca_cert to be set
+  or insecure_learning to be enabled)
+plugin.aes.learn_pubkeys = 1
+
+# Do not check if client certificate can be verified by a CA
+plugin.aes.insecure_learning = 1
+
+# CA cert used to verify public keys when in learning mode
+plugin.aes.ca_cert = /etc/mcollective/ssl/ca.cert
+
+# Log but accept messages that may have been tampered with
+plugin.aes.enforce_ttl = 0
+
+# The servers public and private keys
+plugin.aes.server_private = /etc/mcollective/ssl/server-private.pem
+plugin.aes.server_public = /etc/mcollective/ssl/server-public.pem</pre>
+
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-callerid" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">callerid</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>sets the caller id to the md5 of the public key</p>
+          
+          
+
+          
+          <div class="method-source-code" id="callerid-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 239</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">callerid</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
+    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">client_public_key</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">server_public_key</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># First try and create a X509 certificate object. If that is possible,</span>
+  <span class="ruby-comment"># we lift the callerid from the cert</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">ssl_cert</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>))
+    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{certname_from_certificate(ssl_cert)}&quot;</span>
+  <span class="ruby-keyword">rescue</span>
+    <span class="ruby-comment"># If the public key is not a certificate, use the file name as callerid</span>
+    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(key).gsub(/\.pem$/, &#39;&#39;)}&quot;</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-certname_from_callerid" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">certname_from_callerid</span><span
+            class="method-args">(id)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Takes our cert=foo callerids and return the foo bit else nil</p>
+          
+          
+
+          
+          <div class="method-source-code" id="certname_from_callerid-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 380</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">certname_from_callerid</span>(<span class="ruby-identifier">id</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^cert=([\w\.\-]+)/</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-node">$1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format: &#39;#{id}&#39;, ignoring&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-certname_from_certificate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">certname_from_certificate</span><span
+            class="method-args">(cert)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="certname_from_certificate-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 388</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">certname_from_certificate</span>(<span class="ruby-identifier">cert</span>)
+  <span class="ruby-identifier">id</span> = <span class="ruby-identifier">cert</span>.<span class="ruby-identifier">subject</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/CN=([\w\.\-]+)/</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-node">$1</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format in an SSL certificate: &#39;#{id}&#39;, ignoring&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-client_cert_dir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">client_cert_dir</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out where to get client public certs from the
+plugin.aes.client_cert_dir config option</p>
+          
+          
+
+          
+          <div class="method-source-code" id="client_cert_dir-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 370</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">client_cert_dir</span>
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No plugin.aes.client_cert_dir configuration option specified&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.client_cert_dir&quot;</span>)
+  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.client_cert_dir&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-client_private_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">client_private_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out the client private key either from MCOLLECTIVE_AES_PRIVATE or
+the plugin.aes.client_private config option</p>
+          
+          
+
+          
+          <div class="method-source-code" id="client_private_key-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 339</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">client_private_key</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_AES_PRIVATE&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;MCOLLECTIVE_AES_PRIVATE&quot;</span>)
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No plugin.aes.client_private configuration option specified&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.client_private&quot;</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.client_private&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-client_public_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">client_public_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out the client public key either from MCOLLECTIVE_AES_PUBLIC or the
+plugin.aes.client_public config option</p>
+          
+          
+
+          
+          <div class="method-source-code" id="client_public_key-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 349</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">client_public_key</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_AES_PUBLIC&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;MCOLLECTIVE_AES_PUBLIC&quot;</span>)
+
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No plugin.aes.client_public configuration option specified&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.client_public&quot;</span>)
+
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.client_public&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-decodemsg" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">decodemsg</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="decodemsg-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 68</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">decodemsg</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-identifier">body</span> = <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>)
+
+  <span class="ruby-identifier">should_process_msg?</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:requestid</span>])
+  <span class="ruby-comment"># if we get a message that has a pubkey attached and we&#39;re set to learn</span>
+  <span class="ruby-comment"># then add it to the client_cert_dir this should only happen on servers</span>
+  <span class="ruby-comment"># since clients will get replies using their own pubkeys</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.learn_pubkeys&quot;</span>, <span class="ruby-keyword">false</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:sslpubkey</span>)
+    <span class="ruby-identifier">certname</span> = <span class="ruby-identifier">certname_from_callerid</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:callerid</span>])
+    <span class="ruby-identifier">certfile</span> = <span class="ruby-node">&quot;#{client_cert_dir}/#{certname}.pem&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">certfile</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.insecure_learning&quot;</span>, <span class="ruby-keyword">false</span>))
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.ca_cert&quot;</span>, <span class="ruby-keyword">nil</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot verify certificate for &#39;#{certname}&#39;. No CA certificate specified.&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">validate_certificate</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:sslpubkey</span>], <span class="ruby-identifier">certname</span>)
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate &#39;#{certname}&#39; against CA&quot;</span>
+        <span class="ruby-keyword">end</span>
+
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate &#39;#{certname}&#39; against CA&quot;</span>)
+      <span class="ruby-keyword">else</span>
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Insecure key learning is not a secure method of key distribution. Do NOT use this mode in sensitive environments.&quot;</span>)
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Caching client cert in #{certfile}&quot;</span>)
+      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">certfile</span>, <span class="ruby-string">&quot;w&quot;</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">print</span> <span class="ruby-identifier">body</span>[<span class="ruby-value">:sslpubkey</span>]}
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Not caching client cert. File #{certfile} already exists.&quot;</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">cryptdata</span> = {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>[<span class="ruby-value">:sslkey</span>], <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>]}
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
+    <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">cryptdata</span>, <span class="ruby-keyword">nil</span>))
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">certname</span> = <span class="ruby-identifier">certname_from_callerid</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:callerid</span>])
+    <span class="ruby-identifier">certfile</span> = <span class="ruby-node">&quot;#{client_cert_dir}/#{certname}.pem&quot;</span>
+    <span class="ruby-comment"># if aes.ca_cert is set every certificate is validated before we try and use it</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.ca_cert&quot;</span>, <span class="ruby-keyword">nil</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">validate_certificate</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">certfile</span>), <span class="ruby-identifier">certname</span>)
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate &#39;#{certname}&#39; against CA&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">cryptdata</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:callerid</span>]))
+
+    <span class="ruby-comment"># If we got a hash it&#39;s possible that this is a message with secure</span>
+    <span class="ruby-comment"># TTL and message time, attempt to decode that and transform into a</span>
+    <span class="ruby-comment"># traditional message.</span>
+    <span class="ruby-comment">#</span>
+    <span class="ruby-comment"># If it&#39;s not a hash it might be a old style message like old discovery</span>
+    <span class="ruby-comment"># ones that would just be a string so we allow that unaudited but only</span>
+    <span class="ruby-comment"># if enforce_ttl is disabled.  This is primarly to allow a mixed old and</span>
+    <span class="ruby-comment"># new plugin infrastructure to work</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+      <span class="ruby-identifier">update_secure_property</span>(<span class="ruby-identifier">body</span>, <span class="ruby-value">:aes_ttl</span>, <span class="ruby-value">:ttl</span>, <span class="ruby-string">&quot;TTL&quot;</span>)
+      <span class="ruby-identifier">update_secure_property</span>(<span class="ruby-identifier">body</span>, <span class="ruby-value">:aes_msgtime</span>, <span class="ruby-value">:msgtime</span>, <span class="ruby-string">&quot;Message Time&quot;</span>)
+
+      <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:aes_msg</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-value">:aes_msg</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.enforce_ttl&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;0&quot;</span>
+        <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Message %s is in an unknown or older security protocol, ignoring&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">request_description</span>(<span class="ruby-identifier">body</span>)]
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">MsgDoesNotMatchRequestID</span>
+  <span class="ruby-identifier">raise</span>
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSAError</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">MsgDoesNotMatchRequestID</span>, <span class="ruby-string">&quot;Could not decrypt message using our key, possibly directed at another client&quot;</span>
+
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Could not decrypt message from client: #{e.class}: #{e}&quot;</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-constant">SecurityValidationFailed</span>, <span class="ruby-string">&quot;Could not decrypt message&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-decrypt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">decrypt</span><span
+            class="method-args">(string, certid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="decrypt-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 282</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">certid</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
+    <span class="ruby-ivar">@ssl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">client_public_key</span>, <span class="ruby-identifier">client_private_key</span>)
+
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Decrypting message using private key&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@ssl</span>.<span class="ruby-identifier">decrypt_with_private</span>(<span class="ruby-identifier">string</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Decrypting message using public key for #{certid}&quot;</span>)
+    <span class="ruby-identifier">ssl</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">public_key_path_for_client</span>(<span class="ruby-identifier">certid</span>))
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">ssl</span>.<span class="ruby-identifier">decrypt_with_public</span>(<span class="ruby-identifier">string</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-deserialize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">deserialize</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>De-Serializes a message using the configured encoder</p>
+          
+          
+
+          
+          <div class="method-source-code" id="deserialize-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 221</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-identifier">serializer</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.serializer&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;marshal&quot;</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;De-Serializing using #{serializer}&quot;</span>)
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">serializer</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;yaml&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">respond_to?</span> <span class="ruby-value">:safe_load</span>
+      <span class="ruby-keyword">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">safe_load</span>(<span class="ruby-identifier">msg</span>, [<span class="ruby-constant">Symbol</span>])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;YAML.safe_load not supported by Ruby #{RUBY_VERSION}. Please update to Ruby 2.1+.&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-encodereply" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encodereply</span><span
+            class="method-args">(sender, msg, requestid, requestcallerid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Encodes a reply</p>
+          
+          
+
+          
+          <div class="method-source-code" id="encodereply-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 170</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">requestcallerid</span>)
+  <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">serialize</span>(<span class="ruby-identifier">msg</span>), <span class="ruby-identifier">requestcallerid</span>)
+
+  <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_reply</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">sender</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
+  <span class="ruby-identifier">req</span>[<span class="ruby-value">:sslkey</span>] = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]
+
+  <span class="ruby-identifier">serialize</span>(<span class="ruby-identifier">req</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-encoderequest" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encoderequest</span><span
+            class="method-args">(sender, msg, requestid, filter, target_agent, target_collective, ttl=60)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Encodes a request msg</p>
+          
+          
+
+          
+          <div class="method-source-code" id="encoderequest-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 180</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encoderequest</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">60</span>)
+  <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-ivar">@initiated_by</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>)
+
+  <span class="ruby-comment"># embed the ttl and msgtime in the crypted data later we will use these in</span>
+  <span class="ruby-comment"># the decoding of a message to set the message ones from secure sources. this</span>
+  <span class="ruby-comment"># is to ensure messages are not tampered with to facility replay attacks etc</span>
+  <span class="ruby-identifier">aes_msg</span> = {<span class="ruby-value">:aes_msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>,
+    <span class="ruby-value">:aes_ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>,
+    <span class="ruby-value">:aes_msgtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">req</span>[<span class="ruby-value">:msgtime</span>]}
+
+  <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">serialize</span>(<span class="ruby-identifier">aes_msg</span>), <span class="ruby-identifier">callerid</span>)
+
+  <span class="ruby-identifier">req</span>[<span class="ruby-value">:body</span>] = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]
+  <span class="ruby-identifier">req</span>[<span class="ruby-value">:sslkey</span>] = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]
+
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.send_pubkey&quot;</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.send_pubkey&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;1&quot;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
+      <span class="ruby-identifier">req</span>[<span class="ruby-value">:sslpubkey</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">client_public_key</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">req</span>[<span class="ruby-value">:sslpubkey</span>] = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">server_public_key</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">serialize</span>(<span class="ruby-identifier">req</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-encrypt" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">encrypt</span><span
+            class="method-args">(string, certid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="encrypt-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 259</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">certid</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
+    <span class="ruby-ivar">@ssl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">client_public_key</span>, <span class="ruby-identifier">client_private_key</span>)
+
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Encrypting message using private key&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@ssl</span>.<span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">string</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># when the server is initating requests like for registration</span>
+    <span class="ruby-comment"># then the certid will be our callerid</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">certid</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">callerid</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encrypting message using private key #{server_private_key}&quot;</span>)
+
+      <span class="ruby-identifier">ssl</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">server_public_key</span>, <span class="ruby-identifier">server_private_key</span>)
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">ssl</span>.<span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">string</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encrypting message using public key for #{certid}&quot;</span>)
+
+      <span class="ruby-identifier">ssl</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">public_key_path_for_client</span>(<span class="ruby-identifier">certid</span>))
+      <span class="ruby-keyword">return</span> <span class="ruby-identifier">ssl</span>.<span class="ruby-identifier">encrypt_with_public</span>(<span class="ruby-identifier">string</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-public_key_path_for_client" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">public_key_path_for_client</span><span
+            class="method-args">(clientid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>On servers this will look in the aes.client_cert_dir for public keys
+matching the clientid, clientid is expected to be in the format set by
+callerid</p>
+          
+          
+
+          
+          <div class="method-source-code" id="public_key_path_for_client-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 329</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">public_key_path_for_client</span>(<span class="ruby-identifier">clientid</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown callerid format in &#39;#{clientid}&#39;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">clientid</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^cert=(.+)$/</span>)
+
+  <span class="ruby-identifier">clientid</span> = <span class="ruby-node">$1</span>
+
+  <span class="ruby-identifier">client_cert_dir</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;/#{clientid}.pem&quot;</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-request_description" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">request_description</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="request_description-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 375</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">request_description</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-string">&quot;%s from %s@%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">msg</span>[<span class="ruby-value">:requestid</span>], <span class="ruby-identifier">msg</span>[<span class="ruby-value">:callerid</span>], <span class="ruby-identifier">msg</span>[<span class="ruby-value">:senderid</span>]]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-serialize" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">serialize</span><span
+            class="method-args">(msg)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Serializes a message using the configured encoder</p>
+          
+          
+
+          
+          <div class="method-source-code" id="serialize-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 207</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">serialize</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-identifier">serializer</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.serializer&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;marshal&quot;</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Serializing using #{serializer}&quot;</span>)
+
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">serializer</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;yaml&quot;</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-server_private_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">server_private_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out the server private key from the plugin.aes.server_private
+config option</p>
+          
+          
+
+          
+          <div class="method-source-code" id="server_private_key-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 364</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">server_private_key</span>
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No plugin.aes.server_private configuration option specified&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.server_private&quot;</span>)
+  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.server_private&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-server_public_key" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">server_public_key</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Figures out the server public key from the plugin.aes.server_public config
+option</p>
+          
+          
+
+          
+          <div class="method-source-code" id="server_public_key-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 358</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">server_public_key</span>
+  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No aes.server_public configuration option specified&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;aes.server_public&quot;</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.server_public&quot;</span>]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-update_secure_property" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">update_secure_property</span><span
+            class="method-args">(msg, secure_property, property, description)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>To avoid tampering we turn the origin body into a hash and copy some of the
+protocol keys like :ttl and :msg_time into the hash before encrypting it.</p>
+
+<p>This function compares and updates the unencrypted ones based on the
+encrypted ones.  By default it enforces matching and presense by raising
+exceptions, if aes.enforce_ttl is set to 0 it will only log warnings about
+violations</p>
+          
+          
+
+          
+          <div class="method-source-code" id="update_secure_property-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 151</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">update_secure_property</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">secure_property</span>, <span class="ruby-identifier">property</span>, <span class="ruby-identifier">description</span>)
+  <span class="ruby-identifier">req</span> = <span class="ruby-identifier">request_description</span>(<span class="ruby-identifier">msg</span>)
+
+  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;aes.enforce_ttl&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;0&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Request #{req} does not have a secure #{description}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">secure_property</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Request #{req} #{description} does not match encrypted #{description} - possible tampering&quot;</span>  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-identifier">secure_property</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">property</span>]
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">secure_property</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Request #{req} #{description} does not match encrypted #{description} - possible tampering&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-identifier">secure_property</span>] <span class="ruby-operator">==</span> <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">property</span>]
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Request #{req} does not have a secure #{description}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">secure_property</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">msg</span>[<span class="ruby-identifier">property</span>] = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-identifier">secure_property</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">secure_property</span>)
+  <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">secure_property</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-validate_certificate" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">validate_certificate</span><span
+            class="method-args">(client_cert, certid)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="validate_certificate-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 295</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_certificate</span>(<span class="ruby-identifier">client_cert</span>, <span class="ruby-identifier">certid</span>)
+  <span class="ruby-identifier">cert_file</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.ca_cert&quot;</span>, <span class="ruby-keyword">nil</span>)
+
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">ssl_cert</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">client_cert</span>)
+  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">CertificateError</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Received public key that is not a X509 certficate&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">ssl_certname</span> = <span class="ruby-identifier">certname_from_certificate</span>(<span class="ruby-identifier">ssl_cert</span>)
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">certid</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">ssl_certname</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;certname &#39;#{certid}&#39; doesn&#39;t match certificate &#39;#{ssl_certname}&#39;&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Loading CA Cert for verification&quot;</span>)
+  <span class="ruby-identifier">ca_cert</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Store</span>.<span class="ruby-identifier">new</span>
+  <span class="ruby-identifier">ca_cert</span>.<span class="ruby-identifier">add_file</span> <span class="ruby-identifier">cert_file</span>
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ca_cert</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-identifier">ssl_cert</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate &#39;#{ssl_certname}&#39; against CA&quot;</span>)
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-comment"># TODO add cert id</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unable to validate certificate &#39;#{ssl_certname}&#39;&#39; against CA&quot;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

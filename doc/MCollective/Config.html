@@ -2,72 +2,68 @@
 
 <html>
 <head>
-<meta content="text/html; charset=UTF-8" http-equiv="Content-Type">
+<meta charset="UTF-8">
 
-<title>class MCollective::Config - mcollective version 2.6.0</title>
-
-<link type="text/css" media="screen" href="../rdoc.css" rel="stylesheet">
+<title>class MCollective::Config - mcollective version 2.12.0</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
 </script>
 
-<script type="text/javascript" charset="utf-8" src="../js/jquery.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/navigation.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search_index.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/search.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/searcher.js"></script>
-<script type="text/javascript" charset="utf-8" src="../js/darkfish.js"></script>
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
 
 
-<body id="top" class="class">
-<nav id="metadata">
-  <nav id="home-section" class="section">
-  <h3 class="section-header">
-    <a href="../index.html">Home</a>
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
     <a href="../table_of_contents.html#classes">Classes</a>
     <a href="../table_of_contents.html#methods">Methods</a>
-  </h3>
-</nav>
+  </div>
+</div>
 
-
-  <nav id="search-section" class="section project-section" class="initially-hidden">
+    <div id="search-section" role="search" class="project-section initially-hidden">
   <form action="#" method="get" accept-charset="utf-8">
-    <h3 class="section-header">
-      <input type="text" name="search" placeholder="Search" id="search-field"
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
              title="Type to search, Up and Down to navigate, Enter to load">
-    </h3>
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
   </form>
+</div>
 
-  <ul id="search-results" class="initially-hidden"></ul>
-</nav>
-
+  </div>
 
   
-
-  <div id="file-metadata">
-    <nav id="file-list-section" class="section">
-  <h3 class="section-header">Defined In</h3>
-  <ul>
-    <li>lib/mcollective/config.rb
-  </ul>
-</nav>
-
-    
-  </div>
 
   <div id="class-metadata">
     
-    <nav id="parent-class-section" class="section">
-  <h3 class="section-header">Parent</h3>
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
   
   <p class="link"><a href="../Object.html">Object</a>
   
-</nav>
+</div>
 
-    <!-- Included Modules -->
-<nav id="includes-section" class="section">
-  <h3 class="section-header">Included Modules</h3>
+    <div id="includes-section" class="nav-section">
+  <h3>Included Modules</h3>
 
   <ul class="link-list">
   
@@ -76,16 +72,18 @@
   
   
   </ul>
-</nav>
+</div>
 
     
     <!-- Method Quickref -->
-<nav id="method-list-section" class="section">
-  <h3 class="section-header">Methods</h3>
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
 
-  <ul class="link-list">
+  <ul class="link-list" role="directory">
     
     <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-libdir">#libdir</a>
     
     <li ><a href="#method-i-loadconfig">#loadconfig</a>
     
@@ -94,242 +92,21 @@
     <li ><a href="#method-i-set_config_defaults">#set_config_defaults</a>
     
   </ul>
-</nav>
-
-  </div>
-
-  <div id="project-metadata">
-    <nav id="fileindex-section" class="section project-section">
-  <h3 class="section-header">Pages</h3>
-
-  <ul>
-  
-    <li class="file"><a href="../COPYING.html">COPYING</a>
-  
-    <li class="file"><a href="../Gemfile.html">Gemfile</a>
-  
-    <li class="file"><a href="../README.html">README</a>
-  
-    <li class="file"><a href="../Rakefile.html">Rakefile</a>
-  
-    <li class="file"><a href="../doc/created_rid.html">created.rid</a>
-  
-    <li class="file"><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
-  
-    <li class="file"><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
-  
-    <li class="file"><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
-  
-    <li class="file"><a href="../mcollective_init.html">mcollective.init</a>
-  
-  </ul>
-</nav>
-
-    <nav id="classindex-section" class="section project-section">
-  <h3 class="section-header">Class and Module Index</h3>
-
-  <ul class="link-list">
-  
-    <li><a href="../Array.html">Array</a>
-  
-    <li><a href="../Dir.html">Dir</a>
-  
-    <li><a href="../GetoptLong.html">GetoptLong</a>
-  
-    <li><a href="../MCollective.html">MCollective</a>
-  
-    <li><a href="../MCollective/Agent.html">MCollective::Agent</a>
-  
-    <li><a href="../MCollective/Agents.html">MCollective::Agents</a>
-  
-    <li><a href="../MCollective/Aggregate.html">MCollective::Aggregate</a>
-  
-    <li><a href="../MCollective/Aggregate/Base.html">MCollective::Aggregate::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result.html">MCollective::Aggregate::Result</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/Base.html">MCollective::Aggregate::Result::Base</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/CollectionResult.html">MCollective::Aggregate::Result::CollectionResult</a>
-  
-    <li><a href="../MCollective/Aggregate/Result/NumericResult.html">MCollective::Aggregate::Result::NumericResult</a>
-  
-    <li><a href="../MCollective/Application.html">MCollective::Application</a>
-  
-    <li><a href="../MCollective/Applications.html">MCollective::Applications</a>
-  
-    <li><a href="../MCollective/BackoffSuggestion.html">MCollective::BackoffSuggestion</a>
-  
-    <li><a href="../MCollective/Cache.html">MCollective::Cache</a>
-  
-    <li><a href="../MCollective/Client.html">MCollective::Client</a>
-  
-    <li><a href="../MCollective/Config.html">MCollective::Config</a>
-  
-    <li><a href="../MCollective/Connector.html">MCollective::Connector</a>
-  
-    <li><a href="../MCollective/Connector/Base.html">MCollective::Connector::Base</a>
-  
-    <li><a href="../MCollective/DDL.html">MCollective::DDL</a>
-  
-    <li><a href="../MCollective/DDL/AgentDDL.html">MCollective::DDL::AgentDDL</a>
-  
-    <li><a href="../MCollective/DDL/Base.html">MCollective::DDL::Base</a>
-  
-    <li><a href="../MCollective/DDL/DataDDL.html">MCollective::DDL::DataDDL</a>
-  
-    <li><a href="../MCollective/DDL/DiscoveryDDL.html">MCollective::DDL::DiscoveryDDL</a>
-  
-    <li><a href="../MCollective/DDL/ValidatorDDL.html">MCollective::DDL::ValidatorDDL</a>
-  
-    <li><a href="../MCollective/DDLValidationError.html">MCollective::DDLValidationError</a>
-  
-    <li><a href="../MCollective/Data.html">MCollective::Data</a>
-  
-    <li><a href="../MCollective/Data/Base.html">MCollective::Data::Base</a>
-  
-    <li><a href="../MCollective/Data/Result.html">MCollective::Data::Result</a>
-  
-    <li><a href="../MCollective/Discovery.html">MCollective::Discovery</a>
-  
-    <li><a href="../MCollective/Facts.html">MCollective::Facts</a>
-  
-    <li><a href="../MCollective/Facts/Base.html">MCollective::Facts::Base</a>
-  
-    <li><a href="../MCollective/Generators.html">MCollective::Generators</a>
-  
-    <li><a href="../MCollective/Generators/AgentGenerator.html">MCollective::Generators::AgentGenerator</a>
-  
-    <li><a href="../MCollective/Generators/Base.html">MCollective::Generators::Base</a>
-  
-    <li><a href="../MCollective/Generators/DataGenerator.html">MCollective::Generators::DataGenerator</a>
-  
-    <li><a href="../MCollective/InvalidRPCData.html">MCollective::InvalidRPCData</a>
-  
-    <li><a href="../MCollective/Log.html">MCollective::Log</a>
-  
-    <li><a href="../MCollective/Logger.html">MCollective::Logger</a>
-  
-    <li><a href="../MCollective/Logger/Base.html">MCollective::Logger::Base</a>
-  
-    <li><a href="../MCollective/Logger/Console_logger.html">MCollective::Logger::Console_logger</a>
-  
-    <li><a href="../MCollective/Logger/File_logger.html">MCollective::Logger::File_logger</a>
-  
-    <li><a href="../MCollective/Logger/Syslog_logger.html">MCollective::Logger::Syslog_logger</a>
-  
-    <li><a href="../MCollective/Matcher.html">MCollective::Matcher</a>
-  
-    <li><a href="../MCollective/Matcher/Parser.html">MCollective::Matcher::Parser</a>
-  
-    <li><a href="../MCollective/Matcher/Scanner.html">MCollective::Matcher::Scanner</a>
-  
-    <li><a href="../MCollective/Message.html">MCollective::Message</a>
-  
-    <li><a href="../MCollective/MessageNotReceived.html">MCollective::MessageNotReceived</a>
-  
-    <li><a href="../MCollective/MissingRPCData.html">MCollective::MissingRPCData</a>
-  
-    <li><a href="../MCollective/MsgDoesNotMatchRequestID.html">MCollective::MsgDoesNotMatchRequestID</a>
-  
-    <li><a href="../MCollective/MsgTTLExpired.html">MCollective::MsgTTLExpired</a>
-  
-    <li><a href="../MCollective/NotTargettedAtUs.html">MCollective::NotTargettedAtUs</a>
-  
-    <li><a href="../MCollective/Optionparser.html">MCollective::Optionparser</a>
-  
-    <li><a href="../MCollective/PluginManager.html">MCollective::PluginManager</a>
-  
-    <li><a href="../MCollective/PluginPackager.html">MCollective::PluginPackager</a>
-  
-    <li><a href="../MCollective/PluginPackager/AgentDefinition.html">MCollective::PluginPackager::AgentDefinition</a>
-  
-    <li><a href="../MCollective/PluginPackager/StandardDefinition.html">MCollective::PluginPackager::StandardDefinition</a>
-  
-    <li><a href="../MCollective/RPC.html">MCollective::RPC</a>
-  
-    <li><a href="../MCollective/RPC/ActionRunner.html">MCollective::RPC::ActionRunner</a>
-  
-    <li><a href="../MCollective/RPC/Agent.html">MCollective::RPC::Agent</a>
-  
-    <li><a href="../MCollective/RPC/Audit.html">MCollective::RPC::Audit</a>
-  
-    <li><a href="../MCollective/RPC/Client.html">MCollective::RPC::Client</a>
-  
-    <li><a href="../MCollective/RPC/Helpers.html">MCollective::RPC::Helpers</a>
-  
-    <li><a href="../MCollective/RPC/Progress.html">MCollective::RPC::Progress</a>
-  
-    <li><a href="../MCollective/RPC/Reply.html">MCollective::RPC::Reply</a>
-  
-    <li><a href="../MCollective/RPC/Request.html">MCollective::RPC::Request</a>
-  
-    <li><a href="../MCollective/RPC/Result.html">MCollective::RPC::Result</a>
-  
-    <li><a href="../MCollective/RPC/Stats.html">MCollective::RPC::Stats</a>
-  
-    <li><a href="../MCollective/RPCAborted.html">MCollective::RPCAborted</a>
-  
-    <li><a href="../MCollective/RPCError.html">MCollective::RPCError</a>
-  
-    <li><a href="../MCollective/Registration.html">MCollective::Registration</a>
-  
-    <li><a href="../MCollective/Registration/Base.html">MCollective::Registration::Base</a>
-  
-    <li><a href="../MCollective/Runner.html">MCollective::Runner</a>
-  
-    <li><a href="../MCollective/RunnerStats.html">MCollective::RunnerStats</a>
-  
-    <li><a href="../MCollective/SSL.html">MCollective::SSL</a>
-  
-    <li><a href="../MCollective/Security.html">MCollective::Security</a>
-  
-    <li><a href="../MCollective/Security/Base.html">MCollective::Security::Base</a>
-  
-    <li><a href="../MCollective/SecurityValidationFailed.html">MCollective::SecurityValidationFailed</a>
-  
-    <li><a href="../MCollective/Shell.html">MCollective::Shell</a>
-  
-    <li><a href="../MCollective/UnexpectedMessageType.html">MCollective::UnexpectedMessageType</a>
-  
-    <li><a href="../MCollective/UnixDaemon.html">MCollective::UnixDaemon</a>
-  
-    <li><a href="../MCollective/UnknownRPCAction.html">MCollective::UnknownRPCAction</a>
-  
-    <li><a href="../MCollective/UnknownRPCError.html">MCollective::UnknownRPCError</a>
-  
-    <li><a href="../MCollective/Util.html">MCollective::Util</a>
-  
-    <li><a href="../MCollective/Validator.html">MCollective::Validator</a>
-  
-    <li><a href="../MCollective/ValidatorError.html">MCollective::ValidatorError</a>
-  
-    <li><a href="../MCollective/WindowsDaemon.html">MCollective::WindowsDaemon</a>
-  
-    <li><a href="../Object.html">Object</a>
-  
-    <li><a href="../String.html">String</a>
-  
-    <li><a href="../Symbol.html">Symbol</a>
-  
-  </ul>
-</nav>
+</div>
 
   </div>
 </nav>
 
-<div id="documentation">
-  <h1 class="class">class MCollective::Config</h1>
+<main role="main" aria-labelledby="class-MCollective::Config">
+  <h1 id="class-MCollective::Config" class="class">
+    class MCollective::Config
+  </h1>
 
-  <div id="description" class="description">
+  <section class="description">
     
 <p>A pretty sucky config class, ripe for refactoring/improving</p>
 
-  </div><!-- description -->
+  </section>
 
   
   
@@ -342,9 +119,10 @@
     
 
     
-    <!-- Attributes -->
-    <section id="attribute-method-details" class="method-section section">
-      <h3 class="section-header">Attributes</h3>
+    <section class="attribute-method-details" class="method-section">
+      <header>
+        <h3>Attributes</h3>
+      </header>
 
       
       <div id="attribute-i-activate_agents" class="method-detail">
@@ -438,6 +216,19 @@
         </div>
       </div>
       
+      <div id="attribute-i-connection_timeout" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">connection_timeout</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
       <div id="attribute-i-connector" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">connector</span><span
@@ -454,6 +245,32 @@
       <div id="attribute-i-daemonize" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">daemonize</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-default_batch_size" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">default_batch_size</span><span
+            class="attribute-access-type">[R]</span>
+        </div>
+
+        <div class="method-description">
+        
+        
+        
+        </div>
+      </div>
+      
+      <div id="attribute-i-default_batch_sleep_time" class="method-detail">
+        <div class="method-heading attribute-method-heading">
+          <span class="method-name">default_batch_sleep_time</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -571,19 +388,6 @@
       <div id="attribute-i-keeplogs" class="method-detail">
         <div class="method-heading attribute-method-heading">
           <span class="method-name">keeplogs</span><span
-            class="attribute-access-type">[R]</span>
-        </div>
-
-        <div class="method-description">
-        
-        
-        
-        </div>
-      </div>
-      
-      <div id="attribute-i-libdir" class="method-detail">
-        <div class="method-heading attribute-method-heading">
-          <span class="method-name">libdir</span><span
             class="attribute-access-type">[R]</span>
         </div>
 
@@ -906,13 +710,14 @@
         </div>
       </div>
       
-    </section><!-- attribute-method-details -->
+    </section>
     
 
-    <!-- Methods -->
     
-     <section id="public-class-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Class Methods</h3>
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
 
     
       <div id="method-c-new" class="method-detail ">
@@ -934,24 +739,59 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 21</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 22</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
   <span class="ruby-ivar">@configured</span> = <span class="ruby-keyword">false</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- new-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- new-method -->
+      </div>
 
     
-    </section><!-- public-class-method-details -->
+    </section>
   
-     <section id="public-instance-5Buntitled-5D-method-details" class="method-section section">
-      <h3 class="section-header">Public Instance Methods</h3>
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-libdir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">libdir</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="libdir-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 223</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">libdir</span>
+  <span class="ruby-identifier">$LOAD_PATH</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
 
     
       <div id="method-i-loadconfig" class="method-detail ">
@@ -973,11 +813,12 @@
 
           
           <div class="method-source-code" id="loadconfig-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 25</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 26</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>)
   <span class="ruby-identifier">set_config_defaults</span>(<span class="ruby-identifier">configfile</span>)
 
   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">configfile</span>)
+    <span class="ruby-identifier">libdirs</span> = []
     <span class="ruby-constant">File</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">configfile</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
 
       <span class="ruby-comment"># strip blank spaces, tabs etc off the end of all lines</span>
@@ -1017,10 +858,7 @@
               <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
                 <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;libdir paths should be absolute paths but &#39;%s&#39; is relative&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">path</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">path</span>)
 
-                <span class="ruby-ivar">@libdir</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">path</span>
-                <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">path</span>)
-                  <span class="ruby-identifier">$LOAD_PATH</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">path</span>
-                <span class="ruby-keyword">end</span>
+                <span class="ruby-identifier">libdirs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">path</span>
               <span class="ruby-keyword">end</span>
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;identity&quot;</span>
               <span class="ruby-ivar">@identity</span> = <span class="ruby-identifier">val</span>
@@ -1046,6 +884,8 @@
               <span class="ruby-ivar">@discovery_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;publish_timeout&quot;</span>
               <span class="ruby-ivar">@publish_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;connection_timeout&quot;</span>
+              <span class="ruby-ivar">@connection_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;rpcaudit&quot;</span>
               <span class="ruby-ivar">@rpcaudit</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;rpcauditprovider&quot;</span>
@@ -1076,6 +916,10 @@
               <span class="ruby-ivar">@soft_shutdown_timeout</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;activate_agents&quot;</span>
               <span class="ruby-ivar">@activate_agents</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;default_batch_size&quot;</span>
+              <span class="ruby-ivar">@default_batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">val</span>)
+            <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;default_batch_sleep_time&quot;</span>
+              <span class="ruby-ivar">@default_batch_sleep_time</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;topicprefix&quot;</span>, <span class="ruby-string">&quot;topicsep&quot;</span>, <span class="ruby-string">&quot;queueprefix&quot;</span>, <span class="ruby-string">&quot;rpchelptemplate&quot;</span>, <span class="ruby-string">&quot;helptemplatedir&quot;</span>
               <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Use of deprecated &#39;#{key}&#39; option.  This option is ignored and should be removed from &#39;#{configfile}&#39;&quot;</span>)
             <span class="ruby-keyword">else</span>
@@ -1088,15 +932,21 @@
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&#39;The %s config file does not specify a libdir setting, cannot continue&#39;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configfile</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@libdir</span>.<span class="ruby-identifier">empty?</span>
-
     <span class="ruby-identifier">read_plugin_config_dir</span>(<span class="ruby-node">&quot;#{@configdir}/plugin.d&quot;</span>)
 
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Identities can only match /\w\.\-/&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
 
     <span class="ruby-ivar">@configured</span> = <span class="ruby-keyword">true</span>
 
-    <span class="ruby-ivar">@libdir</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Cannot find libdir: #{dir}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)}
+    <span class="ruby-identifier">libdirs</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span>
+      <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Cannot find libdir: #{dir}&quot;</span>)
+      <span class="ruby-keyword">end</span>
+
+      <span class="ruby-comment"># remove the old one if it exists, we&#39;re moving it to the front</span>
+      <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span> <span class="ruby-identifier">elem</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">dir</span> }
+      <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">dir</span>
+    <span class="ruby-keyword">end</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@logger_type</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;syslog&quot;</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The sylog logger is not usable on the Windows platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
@@ -1114,14 +964,14 @@
     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot find config file &#39;#{configfile}&#39;&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- loadconfig-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- loadconfig-method -->
+      </div>
 
     
       <div id="method-i-read_plugin_config_dir" class="method-detail ">
@@ -1143,7 +993,7 @@
 
           
           <div class="method-source-code" id="read_plugin_config_dir-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 210</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 227</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">read_plugin_config_dir</span>(<span class="ruby-identifier">dir</span>)
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">dir</span>)
 
@@ -1163,14 +1013,14 @@
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- read_plugin_config_dir-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- read_plugin_config_dir-method -->
+      </div>
 
     
       <div id="method-i-set_config_defaults" class="method-detail ">
@@ -1192,7 +1042,7 @@
 
           
           <div class="method-source-code" id="set_config_defaults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 166</span>
+            <pre><span class="ruby-comment"># File lib/mcollective/config.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">set_config_defaults</span>(<span class="ruby-identifier">configfile</span>)
   <span class="ruby-ivar">@stomp</span> = <span class="ruby-constant">Hash</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@subscribe</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
@@ -1217,7 +1067,6 @@
   <span class="ruby-ivar">@keeplogs</span> = <span class="ruby-value">5</span>
   <span class="ruby-ivar">@max_log_size</span> = <span class="ruby-value">2097152</span>
   <span class="ruby-ivar">@rpclimitmethod</span> = <span class="ruby-value">:first</span>
-  <span class="ruby-ivar">@libdir</span> = <span class="ruby-constant">Array</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-ivar">@fact_cache_time</span> = <span class="ruby-value">300</span>
   <span class="ruby-ivar">@loglevel</span> = <span class="ruby-string">&quot;info&quot;</span>
   <span class="ruby-ivar">@logfacility</span> = <span class="ruby-string">&quot;user&quot;</span>
@@ -1235,27 +1084,29 @@
   <span class="ruby-ivar">@soft_shutdown</span> = <span class="ruby-keyword">false</span>
   <span class="ruby-ivar">@soft_shutdown_timeout</span> = <span class="ruby-keyword">nil</span>
   <span class="ruby-ivar">@activate_agents</span> = <span class="ruby-keyword">true</span>
+  <span class="ruby-ivar">@connection_timeout</span> = <span class="ruby-keyword">nil</span>
+  <span class="ruby-ivar">@default_batch_size</span> = <span class="ruby-value">0</span>
+  <span class="ruby-ivar">@default_batch_sleep_time</span> = <span class="ruby-value">1</span>
 <span class="ruby-keyword">end</span></pre>
-          </div><!-- set_config_defaults-source -->
+          </div>
           
         </div>
 
         
 
         
-      </div><!-- set_config_defaults-method -->
+      </div>
 
     
-    </section><!-- public-instance-method-details -->
+    </section>
   
-  </section><!-- 5Buntitled-5D -->
+  </section>
+</main>
 
-</div><!-- documentation -->
 
-
-<footer id="validator-badges">
-  <p><a href="http://validator.w3.org/check/referer">[Validate]</a>
-  <p>Generated by <a href="https://github.com/rdoc/rdoc">RDoc</a> 4.0.0.
-  <p>Generated with the <a href="http://deveiate.org/projects/Darkfish-Rdoc/">Darkfish Rdoc Generator</a> 3.
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
