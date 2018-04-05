@@ -1,0 +1,4 @@
+#!/usr/bin/dh-exec --with=install
+debian/README-plugins.md => /usr/share/mcollective/plugins/README.md
+etc/facts.yaml.dist etc/mcollective/
+etc/*.erb etc/mcollective/

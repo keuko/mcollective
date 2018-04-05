@@ -1,0 +1,3 @@
+#!/usr/bin/dh-exec --with=install
+etc/server.cfg.dist => usr/share/mcollective/server.cfg
+bin/mcollectived usr/sbin/

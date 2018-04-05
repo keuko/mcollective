@@ -3,17 +3,13 @@
 %:
 	dh $@ --buildsystem=ruby --with ruby
 
-override_dh_auto_install:
-	cp $(CURDIR)/etc/server.cfg.dist $(CURDIR)/debian/mcollective/usr/share/mcollective/server.cfg
-	cp $(CURDIR)/etc/client.cfg.dist $(CURDIR)/debian/mcollective-client/usr/share/mcollective-client/client.cfg
-	cp $(CURDIR)/etc/facts.yaml.dist $(CURDIR)/debian/mcollective-common/etc/mcollective/facts.yaml
-	cp $(CURDIR)/etc/rpc-help.erb $(CURDIR)/debian/mcollective-common/etc/mcollective/rpc-help.erb
-	cp -R  $(CURDIR)/lib/* $(CURDIR)/debian/mcollective-common/usr/lib/ruby/vendor_ruby/
-	cp -R $(CURDIR)/plugins $(CURDIR)/debian/mcollective-common/usr/share/mcollective/
-	cp $(CURDIR)/bin/mco $(CURDIR)/debian/mcollective-client/usr/bin/
-	cp $(CURDIR)/bin/mcollectived $(CURDIR)/debian/mcollective/usr/sbin/
-	cp -R $(CURDIR)/doc/* $(CURDIR)/debian/mcollective-doc/usr/share/doc/mcollective-doc/
+override_dh_fixperms:
+	dh_fixperms
+	chmod -x $(CURDIR)/debian/mcollective-common/usr/lib/ruby/vendor_ruby/mcollective/util.rb
 
+override_dh_auto_install:
+	cp -R  $(CURDIR)/lib/* $(CURDIR)/debian/mcollective-common/usr/lib/ruby/vendor_ruby/
+	cp $(CURDIR)/bin/mco $(CURDIR)/debian/mcollective-client/usr/bin/
 
 override_dh_installinit:
-	dh_installinit --error-handler=true
+	dh_installinit --error-handler=true --no-enable

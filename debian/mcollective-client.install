@@ -1,0 +1,2 @@
+#!/usr/bin/dh-exec --with=install
+etc/client.cfg.dist => /usr/share/mcollective-client/client.cfg
