@@ -2,6 +2,16 @@ Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Contact: R.I.Pienaar <rip@devco.net>
 Source: https://github.com/puppetlabs/marionette-collective
 Upstream-Name: Mcollective
+Files-Excluded: doc/js/*
+ lib/mcollective/vendor/systemu/*
+ lib/mcollective/vendor/load_systemu.rb
+ ext/activemq/*
+ ext/action_helpers/*
+ ext/solaris*
+ ext/windows/*
+ ext/redhat/*
+ ext/osx/*
+ ext/openbsd/*
 
 Files: *
 Copyright: 2010-2018 Puppet Labs
