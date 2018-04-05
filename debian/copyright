@@ -1,15 +1,15 @@
-Format: http://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
+Format: https://www.debian.org/doc/packaging-manuals/copyright-format/1.0/
 Upstream-Contact: R.I.Pienaar <rip@devco.net>
-Source: http://downloads.puppetlabs.com/mcollective/
+Source: https://github.com/puppetlabs/marionette-collective
 Upstream-Name: Mcollective
 
 Files: *
-Copyright: 2010-2011 Puppet Labs
-License: Apache
+Copyright: 2010-2018 Puppet Labs
+License: Apache-2.0
 
 Files: ext/stompclient
 Copyright: R.I.Pienaar <rip@devco.net>
-License: Apache
+License: Apache-2.0
 
 Files: ext/action_helpers/perl/lib/MCollective/Action.pm
 Copyright: 2011 Richard Clamp <richardc@unixbeard.net>
@@ -18,9 +18,9 @@ License: Artistic or GPL-1
 Files: debian/*
 Copyright: 2010-2011 Riccardo Setti <giskard@debian.org>
            2011 Jonas Genannt <jonas.genannt@capi2name.de>
-License: Apache
+License: Apache-2.0
 
-License: Apache
+License: Apache-2.0
  Licensed under the Apache License, Version 2.0 (the "License");
  you may not use this file except in compliance with the License.
  You may obtain a copy of the License at
