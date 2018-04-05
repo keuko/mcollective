@@ -155,28 +155,28 @@ module MCollective
     # Picks a config file defaults to ~/.mcollective
     # else /etc/mcollective/client.cfg
     def self.config_file_for_user
-      # expand_path is pretty lame, it relies on HOME environment
-      # which isnt't always there so just handling all exceptions
-      # here as cant find reverting to default
-      begin
-        config = File.expand_path("~/.mcollective")
+      # the set of acceptable config files
+      config_paths = []
 
-        unless File.readable?(config) && File.file?(config)
-          if self.windows?
-            config = File.join(self.windows_prefix, "etc", "client.cfg")
-          else
-            config = "/etc/mcollective/client.cfg"
-          end
-        end
-      rescue Exception => e
-        if self.windows?
-          config = File.join(self.windows_prefix, "etc", "client.cfg")
-        else
-          config = "/etc/mcollective/client.cfg"
-        end
+      # user dotfile
+      begin
+        # File.expand_path will raise if HOME isn't set, catch it
+        user_path = File.expand_path("~/.mcollective")
+        config_paths << user_path
+      rescue Exception
       end
 
-      return config
+      # standard locations
+      if self.windows?
+        config_paths << File.join(self.windows_prefix, 'etc', 'client.cfg')
+      else
+        config_paths << '/etc/puppetlabs/mcollective/client.cfg'
+        config_paths << '/etc/mcollective/client.cfg'
+      end
+
+      # use the first readable config file, or if none are the first listed
+      found = config_paths.find_index { |file| File.readable?(file) } || 0
+      return config_paths[found]
     end
 
     # Creates a standard options hash
@@ -519,6 +519,61 @@ module MCollective
     def self.field_number(field_size, max_size=90)
       number = (max_size/field_size).to_i
       (number == 0) ? 1 : number
+    end
+    
+    def self.get_hidden_input_on_windows()
+      require 'Win32API'
+      # Hook into getch from crtdll. Keep reading all keys till return
+      # or newline is hit.
+      # If key is backspace or delete, then delete the character and update
+      # the buffer.
+      input = ''
+      while char = Win32API.new("crtdll", "_getch", [ ], "I").Call do
+        break if char == 10 || char == 13 # return or newline
+        if char == 127 || char == 8 # backspace and delete
+          if input.length > 0
+            input.slice!(-1, 1)
+          end
+        else
+          input << char.chr
+        end
+      end
+      char = ''
+      input
+    end
+
+    def self.get_hidden_input_on_unix()
+      unless $stdin.tty?
+        raise 'Could not hook to stdin to hide input. If using SSH, try using -t flag while connecting to server.'
+      end
+      unless system 'stty -echo -icanon'
+        raise 'Could not hide input using stty command.'
+      end
+      input = $stdin.gets
+      ensure
+        unless system 'stty echo icanon'
+          raise 'Could not enable echoing of input. Try executing `stty echo icanon` to debug.'
+        end
+      input
+    end
+
+    def self.get_hidden_input(message='Please enter data: ')
+      unless message.nil?
+        print message
+      end
+      if versioncmp(ruby_version, '1.9.3') >= 0
+        require 'io/console'
+        input = $stdin.noecho(&:gets)
+      else
+        # Use hacks to get hidden input on Ruby <1.9.3
+        if self.windows?
+          input = self.get_hidden_input_on_windows()
+        else
+          input = self.get_hidden_input_on_unix()
+        end
+      end
+      input.chomp! if input
+      input
     end
   end
 end

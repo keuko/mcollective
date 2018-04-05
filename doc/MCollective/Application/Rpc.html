@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MCollective::Application::Rpc - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../Application.html">MCollective::Application</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-main">#main</a>
+    
+    <li ><a href="#method-i-post_option_parser">#post_option_parser</a>
+    
+    <li ><a href="#method-i-string_to_ddl_type">#string_to_ddl_type</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MCollective::Application::Rpc">
+  <h1 id="class-MCollective::Application::Rpc" class="class">
+    class MCollective::Application::Rpc
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-main" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">main</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="main-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/application/rpc.rb, line 80</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
+  <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:agent</span>])
+
+  <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">agent_filter</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:agent</span>])
+
+  <span class="ruby-identifier">string_to_ddl_type</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>], <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>])) <span class="ruby-keyword">if</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">ddl</span>
+
+  <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">validate_request</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>])
+
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">reply_to</span>
+    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>][<span class="ruby-value">:process_results</span>] = <span class="ruby-keyword">true</span>
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Request sent with id: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>]) <span class="ruby-operator">+</span> <span class="ruby-node">&quot; replies to #{mc.reply_to}&quot;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span><span class="ruby-identifier">configuration</span>[<span class="ruby-value">:show_results</span>]
+    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>][<span class="ruby-value">:process_results</span>] = <span class="ruby-keyword">false</span>
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Request sent with id: &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">discover_args</span> = {<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}
+
+    <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">detect_and_set_stdin_discovery</span>
+
+    <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">discover</span> <span class="ruby-identifier">discover_args</span>
+
+    <span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>])
+
+    <span class="ruby-identifier">printrpcstats</span> <span class="ruby-value">:summarize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>, <span class="ruby-value">:caption</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{configuration[:agent]}##{configuration[:action]} call stats&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">discover</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+
+    <span class="ruby-identifier">halt</span> <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">stats</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-post_option_parser" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">post_option_parser</span><span
+            class="method-args">(configuration)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="post_option_parser-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/application/rpc.rb, line 28</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
+  <span class="ruby-comment"># handle the alternative format that optparse cant parse</span>
+  <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:agent</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:action</span>))
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">2</span>
+      <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:agent</span>] = <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
+
+      <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>] = <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>]
+      <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
+
+      <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)=(.+)$/</span>
+          <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>] = [] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:arguments</span>)
+          <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+        <span class="ruby-keyword">else</span>
+          <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Could not parse --arg #{v}&quot;</span>)
+          <span class="ruby-identifier">exit</span>(<span class="ruby-value">1</span>)
+        <span class="ruby-keyword">end</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;No agent, action and arguments specified&quot;</span>)
+      <span class="ruby-identifier">exit</span>(<span class="ruby-value">1</span>)
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-comment"># convert arguments to symbols for keys to comply with simplerpc conventions</span>
+  <span class="ruby-identifier">args</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>].<span class="ruby-identifier">clone</span>
+  <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>] = {}
+
+  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)=(.+)$/</span>
+      <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:arguments</span>][<span class="ruby-node">$1</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-node">$2</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-string_to_ddl_type" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">string_to_ddl_type</span><span
+            class="method-args">(arguments, ddl)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="string_to_ddl_type-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/application/rpc.rb, line 64</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">string_to_ddl_type</span>(<span class="ruby-identifier">arguments</span>, <span class="ruby-identifier">ddl</span>)
+  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">empty?</span>
+
+  <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:input</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+      <span class="ruby-keyword">case</span> <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:input</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:type</span>]
+        <span class="ruby-keyword">when</span> <span class="ruby-value">:boolean</span>
+          <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">DDL</span>.<span class="ruby-identifier">string_to_boolean</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>])
+
+        <span class="ruby-keyword">when</span> <span class="ruby-value">:number</span>, <span class="ruby-value">:integer</span>, <span class="ruby-value">:float</span>
+          <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">DDL</span>.<span class="ruby-identifier">string_to_number</span>(<span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">key</span>])
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

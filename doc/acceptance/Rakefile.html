@@ -1,0 +1,740 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>Rakefile - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../";
+</script>
+
+<script src="../js/jquery.js"></script>
+<script src="../js/darkfish.js"></script>
+
+<link href="../css/fonts.css" rel="stylesheet">
+<link href="../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="file">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../table_of_contents.html#pages">Pages</a>
+    <a href="../table_of_contents.html#classes">Classes</a>
+    <a href="../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="project-metadata">
+    <div id="fileindex-section" class="nav-section">
+  <h3>Pages</h3>
+
+  <ul class="link-list">
+  
+    <li><a href="../CONTRIBUTING_md.html">CONTRIBUTING</a>
+  
+    <li><a href="../COPYING.html">COPYING</a>
+  
+    <li><a href="../Gemfile.html">Gemfile</a>
+  
+    <li><a href="../MAINTAINERS.html">MAINTAINERS</a>
+  
+    <li><a href="../README_md.html">README</a>
+  
+    <li><a href="../Rakefile.html">Rakefile</a>
+  
+    <li><a href="../acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="../acceptance/README_md.html">README</a>
+  
+    <li><a href="../acceptance/Rakefile.html">Rakefile</a>
+  
+    <li><a href="../acceptance/config/nodes/centos-5-x86_64_yaml.html">centos-5-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/centos-6-x86_64_yaml.html">centos-6-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/debian-6-x86_64_yaml.html">debian-6-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/debian-7-x86_64_yaml.html">debian-7-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/debian-8-x86_64_yaml.html">debian-8-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/fedora-20-x86_64_yaml.html">fedora-20-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/fedora-21-x86_64_yaml.html">fedora-21-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/redhat-5-x86_64_yaml.html">redhat-5-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/redhat-6-x86_64_yaml.html">redhat-6-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/redhat-7-x86_64_yaml.html">redhat-7-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/ubuntu-1204-x86_64_yaml.html">ubuntu-1204-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/ubuntu-1404-x86_64_yaml.html">ubuntu-1404-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/ubuntu-1410-x86_64_yaml.html">ubuntu-1410-x86_64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003r2x64-rubyx64_yaml.html">win2003r2x64-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003r2x64-rubyx86_yaml.html">win2003r2x64-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003r2x86-rubyx86_yaml.html">win2003r2x86-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003x64-rubyx64_yaml.html">win2003x64-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003x64-rubyx86_yaml.html">win2003x64-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2003x86-rubyx86_yaml.html">win2003x86-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2008-rubyx64_yaml.html">win2008-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2008-rubyx86_yaml.html">win2008-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2008r2-rubyx64_yaml.html">win2008r2-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2008r2-rubyx86_yaml.html">win2008r2-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2012-rubyx64_yaml.html">win2012-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2012-rubyx86_yaml.html">win2012-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2012r2-rubyx64_yaml.html">win2012r2-rubyx64.yaml</a>
+  
+    <li><a href="../acceptance/config/nodes/win2012r2-rubyx86_yaml.html">win2012r2-rubyx86.yaml</a>
+  
+    <li><a href="../acceptance/files/activemq_xml.html">activemq.xml</a>
+  
+    <li><a href="../acceptance/files/ca_crt_pem.html">ca_crt.pem</a>
+  
+    <li><a href="../acceptance/files/client_cfg.html">client.cfg</a>
+  
+    <li><a href="../acceptance/files/client_crt.html">client.crt</a>
+  
+    <li><a href="../acceptance/files/client_key.html">client.key</a>
+  
+    <li><a href="../acceptance/files/server_crt.html">server.crt</a>
+  
+    <li><a href="../acceptance/files/server_key.html">server.key</a>
+  
+    <li><a href="../acceptance/files/windows-client_cfg.html">windows-client.cfg</a>
+  
+    <li><a href="../acceptance/ssl/ca/ca_crl_pem.html">ca_crl.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/ca_crt_pem.html">ca_crt.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/ca_key_pem.html">ca_key.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/ca_pub_pem.html">ca_pub.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/inventory_txt.html">inventory</a>
+  
+    <li><a href="../acceptance/ssl/ca/private/ca_pass.html">ca.pass</a>
+  
+    <li><a href="../acceptance/ssl/ca/serial.html">serial</a>
+  
+    <li><a href="../acceptance/ssl/ca/signed/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/signed/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/signed/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../acceptance/ssl/ca/signed/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../acceptance/ssl/certs/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../acceptance/ssl/certs/ca_pem.html">ca.pem</a>
+  
+    <li><a href="../acceptance/ssl/certs/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../acceptance/ssl/certs/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../acceptance/ssl/certs/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../acceptance/ssl/crl_pem.html">crl.pem</a>
+  
+    <li><a href="../acceptance/ssl/private_keys/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../acceptance/ssl/private_keys/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../acceptance/ssl/private_keys/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../acceptance/ssl/private_keys/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../acceptance/ssl/public_keys/activemq_pem.html">activemq.pem</a>
+  
+    <li><a href="../acceptance/ssl/public_keys/mcollective-client_pem.html">mcollective-client.pem</a>
+  
+    <li><a href="../acceptance/ssl/public_keys/mcollective-server_pem.html">mcollective-server.pem</a>
+  
+    <li><a href="../acceptance/ssl/public_keys/socks_local_pem.html">socks.local.pem</a>
+  
+    <li><a href="../etc/client_cfg_dist.html">client.cfg.dist</a>
+  
+    <li><a href="../etc/facts_yaml_dist.html">facts.yaml.dist</a>
+  
+    <li><a href="../etc/server_cfg_dist.html">server.cfg.dist</a>
+  
+    <li><a href="../etc/ssl/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li><a href="../etc/ssl/clients/PLACEHOLDER.html">PLACEHOLDER</a>
+  
+    <li><a href="../lib/mcollective/agent/rpcutil_ddl.html">rpcutil.ddl</a>
+  
+    <li><a href="../lib/mcollective/aggregate/average_ddl.html">average.ddl</a>
+  
+    <li><a href="../lib/mcollective/aggregate/sum_ddl.html">sum.ddl</a>
+  
+    <li><a href="../lib/mcollective/aggregate/summary_ddl.html">summary.ddl</a>
+  
+    <li><a href="../lib/mcollective/connector/activemq_ddl.html">activemq.ddl</a>
+  
+    <li><a href="../lib/mcollective/connector/rabbitmq_ddl.html">rabbitmq.ddl</a>
+  
+    <li><a href="../lib/mcollective/data/agent_data_ddl.html">agent_data.ddl</a>
+  
+    <li><a href="../lib/mcollective/data/collective_data_ddl.html">collective_data.ddl</a>
+  
+    <li><a href="../lib/mcollective/data/fact_data_ddl.html">fact_data.ddl</a>
+  
+    <li><a href="../lib/mcollective/data/fstat_data_ddl.html">fstat_data.ddl</a>
+  
+    <li><a href="../lib/mcollective/discovery/flatfile_ddl.html">flatfile.ddl</a>
+  
+    <li><a href="../lib/mcollective/discovery/mc_ddl.html">mc.ddl</a>
+  
+    <li><a href="../lib/mcollective/discovery/stdin_ddl.html">stdin.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/array_validator_ddl.html">array_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/ipv4address_validator_ddl.html">ipv4address_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/ipv6address_validator_ddl.html">ipv6address_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/length_validator_ddl.html">length_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/regex_validator_ddl.html">regex_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/shellsafe_validator_ddl.html">shellsafe_validator.ddl</a>
+  
+    <li><a href="../lib/mcollective/validator/typecheck_validator_ddl.html">typecheck_validator.ddl</a>
+  
+    <li><a href="../mcollective_init.html">mcollective.init</a>
+  
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-label="Page acceptance/Rakefile">
+
+<p>require &#39;rake/clean&#39; require &#39;pp&#39; require &#39;yaml&#39;
+require &#39;securerandom&#39; require &#39;fileutils&#39; require
+&#39;beaker-hostgenerator&#39;</p>
+
+<p>$LOAD_PATH &lt;&lt; File.expand_path(File.join(File.dirname(__FILE__),
+&#39;lib&#39;)) require &#39;puppet/acceptance/git_utils&#39; extend <a
+href="../Puppet/Acceptance/GitUtils.html">Puppet::Acceptance::GitUtils</a></p>
+
+<p>ONE_DAY_IN_SECS = 24 * 60 * 60 REPO_CONFIGS_DIR = “repo-configs”
+CLEAN.include(&#39;*.tar&#39;, REPO_CONFIGS_DIR,
+&#39;merged_options.rb&#39;)</p>
+
+<p># If elsewhere we&#39;re depending on internal network resources # then
+assume we can depend on them here EPEL_MIRROR = <a
+href="'BEAKER_EPEL_MIRROR'">ENV</a></p>
+
+<p># Default test target if none specified DEFAULT_MASTER_TEST_TARGET =
+&#39;redhat7-64m&#39; DEFAULT_TEST_TARGETS =
+“#{DEFAULT_MASTER_TEST_TARGET}a-windows2012r2-64mco_master.a” module
+HarnessOptions</p>
+
+<pre class="ruby"><span class="ruby-constant">DEFAULTS</span> = {
+  :<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;git&#39;</span>,
+  :<span class="ruby-identifier">helper</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&#39;lib/helper.rb&#39;</span>],
+  :<span class="ruby-identifier">tests</span>  =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&#39;tests&#39;</span>],
+  :<span class="ruby-identifier">log_level</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;debug&#39;</span>,
+  :<span class="ruby-identifier">color</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+  :<span class="ruby-identifier">root_keys</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  :<span class="ruby-identifier">ssh</span> =<span class="ruby-operator">&gt;</span> {
+    :<span class="ruby-identifier">keys</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&quot;id_rsa_acceptance&quot;</span>, <span class="ruby-node">&quot;#{ENV[&#39;HOME&#39;]}/.ssh/id_rsa-acceptance&quot;</span>],
+  },
+  :<span class="ruby-identifier">xml</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  :<span class="ruby-identifier">timesync</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
+  :<span class="ruby-identifier">repo_proxy</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  :<span class="ruby-identifier">add_el_extras</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+  :<span class="ruby-identifier">preserve_hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;onfail&#39;</span>,
+  :<span class="ruby-identifier">forge_host</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;forge-aio01-petest.puppetlabs.com&#39;</span>,
+  :<span class="ruby-string">&#39;master-start-curl-retries&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>,
+}
+
+<span class="ruby-keyword">class</span> <span class="ruby-constant">Aggregator</span>
+  <span class="ruby-identifier">attr_reader</span> :<span class="ruby-identifier">mode</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">mode</span>)
+    <span class="ruby-ivar">@mode</span> = <span class="ruby-identifier">mode</span>
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_options</span>(<span class="ruby-identifier">file_path</span>)
+    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">file_path</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span> <span class="ruby-identifier">file_path</span>
+      <span class="ruby-identifier">options</span> = <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file_path</span>), <span class="ruby-identifier">binding</span>)
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;No options file found at #{File.expand_path(file_path)}&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-identifier">options</span> <span class="ruby-operator">||</span> {}
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_mode_options</span>
+    <span class="ruby-identifier">get_options</span>(<span class="ruby-node">&quot;./config/#{mode}/options.rb&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">get_local_options</span>
+    <span class="ruby-identifier">get_options</span>(<span class="ruby-string">&quot;./local_options.rb&quot;</span>)
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-keyword">def</span> <span class="ruby-identifier">final_options</span>(<span class="ruby-identifier">intermediary_options</span> = {})
+    <span class="ruby-identifier">mode_options</span> = <span class="ruby-identifier">get_mode_options</span>
+    <span class="ruby-identifier">local_overrides</span> = <span class="ruby-identifier">get_local_options</span>
+    <span class="ruby-identifier">final_options</span> = <span class="ruby-constant">DEFAULTS</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">mode_options</span>)
+    <span class="ruby-identifier">final_options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">intermediary_options</span>)
+    <span class="ruby-identifier">final_options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">local_overrides</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-identifier">final_options</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">options</span>(<span class="ruby-identifier">mode</span>, <span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">final_options</span> = <span class="ruby-constant">Aggregator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">mode</span>).<span class="ruby-identifier">final_options</span>(<span class="ruby-identifier">options</span>)
+  <span class="ruby-identifier">final_options</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>def beaker_test(mode = :packages, options = {})</p>
+
+<pre>delete_options = options.delete(:__delete_options__) || []
+final_options = HarnessOptions.options(mode, options)
+preserve_config = final_options.delete(:__preserve_config__)
+
+if mode == :git
+  # Build up project git urls based on git server and fork env variables or defaults
+  final_options[:install].map! do |install|
+    raise(ArgumentError, &quot;Missing Git URL within options hash. Install URL is nil.&quot;) if install.nil?
+    if md = /^(\w+)#(\w+)$/.match(install)
+      project, project_sha = md.captures
+      &quot;#{build_giturl(project)}##{project_sha}&quot;
+    elsif md = /^(\w+)$/.match(install)
+      project = md[1]
+      &quot;#{build_giturl(project)}##{sha}&quot;
+    else
+      install
+    end
+  end
+end
+
+delete_options.each do |delete_me|
+  final_options.delete(delete_me)
+end
+
+options_file = &#39;merged_options.rb&#39;
+File.open(options_file, &#39;w&#39;) do |merged|
+  merged.puts &lt;&lt;-EOS</pre>
+
+<p># Copy this file to local_options.rb and adjust as needed if you wish to
+run # with some local overrides. EOS</p>
+
+<pre>  merged.puts(final_options.pretty_inspect)
+end
+
+tests = ENV[&#39;TESTS&#39;] || ENV[&#39;TEST&#39;]
+tests_opt = &quot;--tests=#{tests}&quot; if tests
+
+target = ENV[&#39;TEST_TARGET&#39;]
+if config and File.exists?(config)
+  config_opt = &quot;--hosts=#{config}&quot;
+else
+  if agent_target = ENV[&#39;TEST_TARGET&#39;]
+    master_target = ENV[&#39;MASTER_TEST_TARGET&#39;] || DEFAULT_MASTER_TEST_TARGET
+    targets = &quot;#{master_target}-#{agent_target}&quot;
+  else
+    targets = DEFAULT_TEST_TARGETS
+  end
+
+  if !targets.include? &#39;mco_master&#39;
+    targets = targets.gsub( /([^\d]+)$/, &#39;mco_master.\1&#39;)
+  end
+
+  cli = BeakerHostGenerator::CLI.new([targets, &#39;--disable-default-role&#39;, &#39;--osinfo-version&#39;, &#39;1&#39;])
+  ENV[&#39;BEAKER_HOSTS&#39;] = &quot;tmp/#{targets}-#{SecureRandom.uuid}.yaml&quot;
+  FileUtils.mkdir_p(&#39;tmp&#39;)
+  File.open(config, &#39;w&#39;) do |fh|
+    fh.print(cli.execute)
+  end
+  config_opt = &quot;--hosts=#{config}&quot;
+end
+
+overriding_options = ENV[&#39;OPTIONS&#39;]
+
+args = [&quot;--options-file&quot;, options_file, config_opt, tests_opt, overriding_options].compact
+
+begin
+  sh(&quot;beaker&quot;, *args)
+ensure
+  preserve_configuration(final_options, options_file) if preserve_config
+end</pre>
+
+<p>end</p>
+
+<p>def preserve_configuration(final_options, options_file)</p>
+
+<pre class="ruby"><span class="ruby-keyword">if</span> (<span class="ruby-identifier">hosts_file</span> = <span class="ruby-identifier">config</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">final_options</span>[:<span class="ruby-identifier">hosts_file</span>]) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">hosts_file</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/preserved_config/</span>
+  <span class="ruby-identifier">cp</span>(<span class="ruby-identifier">hosts_file</span>, <span class="ruby-string">&quot;log/latest/config.yml&quot;</span>)
+  <span class="ruby-identifier">generate_config_for_latest_hosts</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">mv</span>(<span class="ruby-identifier">options_file</span>, <span class="ruby-string">&quot;log/latest&quot;</span>)
+</pre>
+
+<p>end</p>
+
+<p>def generate_config_for_latest_hosts</p>
+
+<pre class="ruby"><span class="ruby-identifier">preserved_config_hash</span> = { <span class="ruby-string">&#39;HOSTS&#39;</span> =<span class="ruby-operator">&gt;</span> {} }
+
+<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\nPreserving configuration so that any preserved nodes can be tested again locally...&quot;</span>
+
+<span class="ruby-identifier">config_hash</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-string">&#39;log/latest/config.yml&#39;</span>)
+<span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">config_hash</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">config_hash</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&#39;HOSTS&#39;</span>)
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Warning: No HOSTS configuration found in log/latest/config.yml&quot;</span>
+  <span class="ruby-keyword">return</span>
+<span class="ruby-keyword">else</span>
+  <span class="ruby-identifier">nodes</span> = <span class="ruby-identifier">config_hash</span>[<span class="ruby-string">&#39;HOSTS&#39;</span>].<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node_label</span>,<span class="ruby-identifier">hash</span><span class="ruby-operator">|</span>
+    {
+      :<span class="ruby-identifier">node_label</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node_label</span>,
+      :<span class="ruby-identifier">roles</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;roles&#39;</span>],
+      :<span class="ruby-identifier">platform</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hash</span>[<span class="ruby-string">&#39;platform&#39;</span>]
+    }
+  <span class="ruby-keyword">end</span>
+
+  <span class="ruby-identifier">pre_suite_log</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-string">&#39;log/latest/pre_suite-run.log&#39;</span>)
+  <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node_info</span><span class="ruby-operator">|</span>
+    <span class="ruby-identifier">host_regex</span> = <span class="ruby-node">/^([\w.]+) \(#{node_info[:node_label]}\)/</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">matched</span> = <span class="ruby-identifier">host_regex</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">pre_suite_log</span>)
+      <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">matched</span>[<span class="ruby-value">1</span>]
+      <span class="ruby-identifier">fqdn</span> = (<span class="ruby-identifier">hostname</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/\./</span>) <span class="ruby-operator">?</span>
+        <span class="ruby-identifier">hostname</span> <span class="ruby-operator">:</span>
+        <span class="ruby-node">&quot;#{hostname}.delivery.puppetlabs.net&quot;</span>
+    <span class="ruby-keyword">elsif</span> <span class="ruby-node">/^#{node_info[:node_label]} /</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">pre_suite_log</span>)
+      <span class="ruby-identifier">fqdn</span> = <span class="ruby-node">&quot;#{node_info[:node_label]}&quot;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* Couldn&#39;t find any log lines for #{host_regex}, assuming #{fqdn} is the fqdn&quot;</span>
+    <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">fqdn</span>
+      <span class="ruby-identifier">preserved_config_hash</span>[<span class="ruby-string">&#39;HOSTS&#39;</span>][<span class="ruby-identifier">fqdn</span>] = {
+        <span class="ruby-string">&#39;roles&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node_info</span>[:<span class="ruby-identifier">roles</span>],
+        <span class="ruby-string">&#39;platform&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node_info</span>[:<span class="ruby-identifier">platform</span>],
+      }
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;* Couldn&#39;t match #{node_info[:node_label]} in pre_suite-run.log&quot;</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">pp</span> <span class="ruby-identifier">preserved_config_hash</span>
+
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-string">&#39;log/latest/preserved_config.yaml&#39;</span>, <span class="ruby-string">&#39;w&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">config_file</span><span class="ruby-operator">|</span>
+    <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">preserved_config_hash</span>, <span class="ruby-identifier">config_file</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>rescue Errno::ENOENT =&gt; e</p>
+
+<pre class="ruby"><span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Warning: Couldn&#39;t generate preserved_config.yaml #{e}&quot;</span>
+</pre>
+
+<p>end</p>
+
+<p>def list_preserved_configurations(secs_ago = ONE_DAY_IN_SECS)</p>
+
+<pre class="ruby"><span class="ruby-identifier">preserved</span> = {}
+<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-string">&#39;log  _*&#39;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dir</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">preserved_config_path</span> = <span class="ruby-node">&quot;#{dir}/preserved_config.yaml&quot;</span>
+  <span class="ruby-identifier">yesterday</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">secs_ago</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">preserved_config</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">preserved_config_path</span>)
+    <span class="ruby-identifier">directory</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">dir</span>)
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">directory</span>.<span class="ruby-identifier">ctime</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">yesterday</span>
+      <span class="ruby-identifier">hosts</span> = []
+      <span class="ruby-identifier">preserved_config</span> = <span class="ruby-constant">YAML</span>.<span class="ruby-identifier">load_file</span>(<span class="ruby-identifier">preserved_config_path</span>).<span class="ruby-identifier">to_hash</span>
+      <span class="ruby-identifier">preserved_config</span>[<span class="ruby-string">&#39;HOSTS&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">hostname</span>,<span class="ruby-identifier">values</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{hostname}: #{values[&#39;platform&#39;]}, #{values[&#39;roles&#39;]}&quot;</span>
+      <span class="ruby-keyword">end</span>
+      <span class="ruby-identifier">preserved</span>[<span class="ruby-identifier">hosts</span>] = <span class="ruby-identifier">directory</span>.<span class="ruby-identifier">to_path</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">preserved</span>.<span class="ruby-identifier">map</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span> [<span class="ruby-identifier">v</span>,<span class="ruby-identifier">k</span>] }.<span class="ruby-identifier">sort</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">a</span>,<span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">a</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>[<span class="ruby-value">0</span>] }.<span class="ruby-identifier">reverse</span>
+</pre>
+
+<p>end</p>
+
+<p>def list_preserved_hosts(secs_ago = ONE_DAY_IN_SECS)</p>
+
+<pre class="ruby"><span class="ruby-identifier">hosts</span> = <span class="ruby-constant">Set</span>.<span class="ruby-identifier">new</span>
+<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-string">&#39;log/   pre*suite*run.log&#39;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">log</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">yesterday</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">secs_ago</span>.<span class="ruby-identifier">to_i</span>
+  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">log</span>, <span class="ruby-string">&#39;r&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">ctime</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">yesterday</span>
+      <span class="ruby-identifier">file</span>.<span class="ruby-identifier">each_line</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span><span class="ruby-operator">|</span>
+        <span class="ruby-identifier">matchdata</span> = <span class="ruby-regexp">/^(\w+)(?:\.[\w.]+)? \(.*?\) \d\d:\d\d:\d\d\$/</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">line</span>.<span class="ruby-identifier">encode!</span>(<span class="ruby-string">&#39;UTF-8&#39;</span>, <span class="ruby-string">&#39;UTF-8&#39;</span>, :<span class="ruby-identifier">invalid</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">replace</span>))
+        <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">matchdata</span>[<span class="ruby-value">1</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">matchdata</span>
+      <span class="ruby-keyword">end</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">hosts</span>
+</pre>
+
+<p>end</p>
+
+<p>def release_hosts(hosts = nil, secs_ago = ONE_DAY_IN_SECS)</p>
+
+<pre class="ruby"><span class="ruby-identifier">secs_ago</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">ONE_DAY_IN_SECS</span>
+<span class="ruby-identifier">hosts</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">list_preserved_hosts</span>(<span class="ruby-identifier">secs_ago</span>)
+
+<span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">h</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;.&#39;</span>).<span class="ruby-identifier">first</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Releaseing &#39;#{hostname}&#39;&quot;</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">%x`curl -X DELETE --url http://vcloud.delivery.puppetlabs.net/vm/#{hostname}`</span>
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>def print_preserved(preserved)</p>
+
+<pre class="ruby"><span class="ruby-identifier">preserved</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">entry</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;##{i}: #{entry[0]}&quot;</span>
+  <span class="ruby-identifier">entry</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">each</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">h</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;  #{h}&quot;</span> }
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>def beaker_run_type</p>
+
+<pre class="ruby"><span class="ruby-identifier">type</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;TYPE&#39;</span>] <span class="ruby-operator">||</span> :<span class="ruby-identifier">packages</span>
+<span class="ruby-identifier">type</span> = <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>
+</pre>
+
+<p>end</p>
+
+<p>def sha</p>
+
+<pre class="ruby"><span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;SHA&#39;</span>]
+</pre>
+
+<p>end</p>
+
+<p>def config</p>
+
+<pre class="ruby"><span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;BEAKER_HOSTS&#39;</span>]
+</pre>
+
+<p>end</p>
+
+<p>namespace :ci do</p>
+
+<pre>task :check_env do
+  raise(USAGE) unless sha
+end
+
+namespace :test do
+  USAGE = &lt;&lt;-EOS</pre>
+
+<p>Requires commit SHA to be put under test as environment variable:
+SHA=&#39;&lt;sha&gt;&#39;. Also must set BEAKER_HOSTS=config/nodes/foo.yaml
+or include it in an options.rb for <a href="../Beaker.html">Beaker</a>, or
+specify TEST_TARGET in a form beaker-hostgenerator accepts, e.g.
+`ubuntu1604-64a`. The TEST_TARGET must include the `mco_master` role, e.g.
+`ubuntu1604-64mco_master.a`. You may override the default master test
+target by specifying MASTER_TEST_TARGET. You may set
+TESTS=path/to/test,and/more/tests. You may set additional <a
+href="../Beaker.html">Beaker</a> OPTIONS=&#39;–more –options&#39; If
+testing from git checkouts, you may optionally set the github fork to
+checkout from using PUPPET_FORK=&#39;some-other-puppet-fork&#39; (you may
+change the HIERA_FORK and FACTER_FORK as well if you wish). You may also
+optionally set the git server to checkout repos from using
+GIT_SERVER=&#39;some.git.mirror&#39;. Or you may set
+PUPPET_GIT_SERVER=&#39;my.host.with.git.daemon&#39;, specifically, if you
+have set up a `git daemon` to pull local commits from.  (You will need to
+allow the git daemon to serve the repo (see `git help daemon` and the
+docs/acceptance_tests.md for more details)). If there is a <a
+href="../Beaker.html">Beaker</a> options hash in a ./local_options.rb, it
+will be included.  Commandline options set through the above environment
+variables will override settings in this file. EOS</p>
+
+<pre>desc &lt;&lt;-EOS</pre>
+
+<p>Run the acceptance tests through <a href="../Beaker.html">Beaker</a> and
+install packages on the configuration targets. #{USAGE} EOS</p>
+
+<pre>task :packages =&gt; &#39;ci:check_env&#39; do
+  beaker_test
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Run the acceptance tests through <a href="../Beaker.html">Beaker</a> and
+install packages as part of the AIO puppet-agent installation. #{USAGE} EOS</p>
+
+<pre>task :aio =&gt; &#39;ci:check_env&#39; do
+  beaker_test(:aio)
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Run the acceptance tests through <a href="../Beaker.html">Beaker</a> and
+install packages as part of the AIO puppet-agent installation, testing
+against puppet-master-passenger. #{USAGE} EOS</p>
+
+<pre>task :passenger =&gt; &#39;ci:check_env&#39; do
+  beaker_test(:passenger)
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Run the acceptance tests through <a href="../Beaker.html">Beaker</a> and
+install from git on the configuration targets. #{USAGE} EOS</p>
+
+<pre>  task :git =&gt; &#39;ci:check_env&#39; do
+    beaker_test(:git)
+  end
+end
+
+desc &quot;Capture the master and agent hostname from the latest log and construct a preserved_config.yaml for re-running against preserved hosts without provisioning.&quot;
+task :extract_preserved_config do
+  generate_config_for_latest_hosts
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Run an acceptance test for a given node configuration and preserve the
+hosts. Defaults to a packages run, but you can set it to &#39;git&#39; with
+TYPE=&#39;git&#39;. #{USAGE}</p>
+
+<pre>EOS
+task :test_and_preserve_hosts =&gt; &#39;ci:check_env&#39;  do
+  beaker_test(beaker_run_type, :preserve_hosts =&gt; &#39;always&#39;, :__preserve_config__ =&gt; true)
+end
+
+desc &quot;List acceptance runs from the past day which had hosts preserved.&quot;
+task :list_preserved do
+  preserved = list_preserved_configurations
+  print_preserved(preserved)
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Shutdown and destroy any hosts that we have preserved for testing.  These
+should be reaped daily by scripts, but this will free up resources
+immediately. Specify a list of comma separated HOST_NAMES if you have a set
+of dynamic vcloud host names you want to purge outside of what can be
+grepped from the logs. You can go back through the last SECS_AGO logs. 
+Default is one day ago in secs.</p>
+
+<pre>EOS
+task :release_hosts do
+  host_names = ENV[&#39;HOST_NAMES&#39;].split(&#39;,&#39;) if ENV[&#39;HOST_NAMES&#39;]
+  secs_ago = ENV[&#39;SECS_AGO&#39;]
+  release_hosts(host_names, secs_ago)
+end
+
+task :destroy_preserved_hosts =&gt; &#39;ci:release_hosts&#39; do
+  puts &quot;Note: we are now releasing hosts back to the vcloud pooling api rather than destroying them directly.  The rake task for this is ci:release_hosts&quot;
+end
+
+desc &lt;&lt;-EOS</pre>
+
+<p>Rerun an acceptance test using the last captured preserved_config.yaml to
+skip provisioning. Or specify a CONFIG_NUMBER from `rake
+ci:list_preserved`. Defaults to a packages run, but you can set it to
+&#39;git&#39; with TYPE=&#39;git&#39;.</p>
+
+<pre class="ruby"><span class="ruby-constant">EOS</span>
+<span class="ruby-identifier">task</span> :<span class="ruby-identifier">test_against_preserved_hosts</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">config_number</span> = (<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;CONFIG_NUMBER&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>
+  <span class="ruby-identifier">preserved</span> = <span class="ruby-identifier">list_preserved_configurations</span>
+  <span class="ruby-identifier">print_preserved</span>(<span class="ruby-identifier">preserved</span>)
+  <span class="ruby-identifier">config_path</span> = <span class="ruby-identifier">preserved</span>[<span class="ruby-identifier">config_number</span>][<span class="ruby-value">0</span>]
+
+  <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Using ##{config_number}: #{config_path}&quot;</span>
+
+  <span class="ruby-identifier">options</span> = {
+    :<span class="ruby-identifier">hosts_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{config_path}/preserved_config.yaml&quot;</span>,
+    :<span class="ruby-identifier">no_provision</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
+    :<span class="ruby-identifier">preserve_hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;always&#39;</span>,
+  }
+  <span class="ruby-identifier">run_type</span> = <span class="ruby-identifier">beaker_run_type</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">run_type</span> <span class="ruby-operator">==</span> :<span class="ruby-identifier">packages</span>
+    <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(:<span class="ruby-identifier">pre_suite</span> =<span class="ruby-operator">&gt;</span> [
+      <span class="ruby-string">&#39;setup/packages/pre-suite/015_PackageHostsPresets.rb&#39;</span>,
+      <span class="ruby-string">&#39;setup/packages/pre-suite/045_EnsureMasterStartedOnPassenger.rb&#39;</span>,
+    ])
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">options</span>.<span class="ruby-identifier">merge!</span>(:<span class="ruby-identifier">__delete_options__</span> =<span class="ruby-operator">&gt;</span> [:<span class="ruby-identifier">pre_suite</span>])
+  <span class="ruby-keyword">end</span>
+  <span class="ruby-identifier">beaker_test</span>(<span class="ruby-identifier">beaker_run_type</span>, <span class="ruby-identifier">options</span>)
+<span class="ruby-keyword">end</span>
+</pre>
+
+<p>end</p>
+
+<p>task :default do</p>
+
+<pre class="ruby"><span class="ruby-identifier">sh</span>(<span class="ruby-string">&#39;rake -T&#39;</span>)
+</pre>
+
+<p>end</p>
+
+<p>task :spec do</p>
+
+<pre class="ruby"><span class="ruby-identifier">sh</span>(<span class="ruby-string">&#39;rspec lib&#39;</span>)
+</pre>
+
+<p>end</p>
+</main>
+
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

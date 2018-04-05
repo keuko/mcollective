@@ -1,0 +1,573 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MCollective::Connector::Rabbitmq::EventLogger - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../../";
+</script>
+
+<script src="../../../js/jquery.js"></script>
+<script src="../../../js/darkfish.js"></script>
+
+<link href="../../../css/fonts.css" rel="stylesheet">
+<link href="../../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../../table_of_contents.html#pages">Pages</a>
+    <a href="../../../table_of_contents.html#classes">Classes</a>
+    <a href="../../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-i-on_connected">#on_connected</a>
+    
+    <li ><a href="#method-i-on_connectfail">#on_connectfail</a>
+    
+    <li ><a href="#method-i-on_connecting">#on_connecting</a>
+    
+    <li ><a href="#method-i-on_disconnect">#on_disconnect</a>
+    
+    <li ><a href="#method-i-on_hbfire">#on_hbfire</a>
+    
+    <li ><a href="#method-i-on_hbread_fail">#on_hbread_fail</a>
+    
+    <li ><a href="#method-i-on_hbwrite_fail">#on_hbwrite_fail</a>
+    
+    <li ><a href="#method-i-on_miscerr">#on_miscerr</a>
+    
+    <li ><a href="#method-i-on_ssl_connected">#on_ssl_connected</a>
+    
+    <li ><a href="#method-i-on_ssl_connectfail">#on_ssl_connectfail</a>
+    
+    <li ><a href="#method-i-on_ssl_connecting">#on_ssl_connecting</a>
+    
+    <li ><a href="#method-i-stomp_url">#stomp_url</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MCollective::Connector::Rabbitmq::EventLogger">
+  <h1 id="class-MCollective::Connector::Rabbitmq::EventLogger" class="class">
+    class MCollective::Connector::Rabbitmq::EventLogger
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-on_connected" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_connected</span><span
+            class="method-args">(params=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_connected-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 14</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connected</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Connected to #{stomp_url(params)}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_connectfail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_connectfail</span><span
+            class="method-args">(params=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_connectfail-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 24</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connectfail</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;TCP Connection to #{stomp_url(params)} failed on attempt #{params[:cur_conattempts]}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_connecting" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_connecting</span><span
+            class="method-args">(params=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_connecting-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 9</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connecting</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;TCP Connection attempt %d to %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_conattempts</span>], <span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>)])
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_disconnect" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_disconnect</span><span
+            class="method-args">(params=nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_disconnect-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 19</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_disconnect</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Disconnected from #{stomp_url(params)}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_hbfire" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_hbfire</span><span
+            class="method-args">(params, srind, curt)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p><a href="../../Log.html">Log</a> heart beat fires</p>
+          
+          
+
+          
+          <div class="method-source-code" id="on_hbfire-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 81</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbfire</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>)
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">srind</span>
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;receive_fire&quot;</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Received heartbeat from %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
+    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;send_fire&quot;</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Publishing heartbeat to %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_hbread_fail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_hbread_fail</span><span
+            class="method-args">(params, ticker_data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Stomp 1.1+ - heart beat read (receive) failed.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="on_hbread_fail-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 49</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbread_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&quot;lock_fail&quot;</span>]
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-comment"># failure is disabled</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;lock_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>]
+      <span class="ruby-comment"># we&#39;re about to force a disconnect</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+      <span class="ruby-comment"># failure is disabled</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;read_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>]
+      <span class="ruby-comment"># we&#39;re about to force a reconnect</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_hbwrite_fail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_hbwrite_fail</span><span
+            class="method-args">(params, ticker_data)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Stomp 1.1+ - heart beat send (transmit) failed.</p>
+          
+          
+
+          
+          <div class="method-source-code" id="on_hbwrite_fail-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 75</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbwrite_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat write failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_miscerr" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_miscerr</span><span
+            class="method-args">(params, errstr)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_miscerr-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 29</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_miscerr</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">errstr</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Unexpected error on connection #{stomp_url(params)}: #{errstr}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_ssl_connected" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_ssl_connected</span><span
+            class="method-args">(params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_ssl_connected-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 39</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connected</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;SSL session established with #{stomp_url(params)}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_ssl_connectfail" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_ssl_connectfail</span><span
+            class="method-args">(params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_ssl_connectfail-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 44</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connectfail</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;SSL session creation with #{stomp_url(params)} failed: #{params[:ssl_exception]}&quot;</span>)
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-on_ssl_connecting" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">on_ssl_connecting</span><span
+            class="method-args">(params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="on_ssl_connecting-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 34</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connecting</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Establishing SSL session with #{stomp_url(params)}&quot;</span>)
+<span class="ruby-keyword">rescue</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-stomp_url" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">stomp_url</span><span
+            class="method-args">(params)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="stomp_url-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 91</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>)
+  <span class="ruby-string">&quot;%s://%s@%s:%d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_ssl</span>] <span class="ruby-operator">?</span> <span class="ruby-string">&quot;stomp+ssl&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;stomp&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_login</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_host</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_port</span>]]
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

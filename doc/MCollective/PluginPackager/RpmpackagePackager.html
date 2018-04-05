@@ -1,0 +1,350 @@
+<!DOCTYPE html>
+
+<html>
+<head>
+<meta charset="UTF-8">
+
+<title>class MCollective::PluginPackager::RpmpackagePackager - mcollective version 2.12.0</title>
+
+<script type="text/javascript">
+  var rdoc_rel_prefix = "../../";
+</script>
+
+<script src="../../js/jquery.js"></script>
+<script src="../../js/darkfish.js"></script>
+
+<link href="../../css/fonts.css" rel="stylesheet">
+<link href="../../css/rdoc.css" rel="stylesheet">
+
+
+
+<body id="top" role="document" class="class">
+<nav role="navigation">
+  <div id="project-navigation">
+    <div id="home-section" role="region" title="Quick navigation" class="nav-section">
+  <h2>
+    <a href="../../index.html" rel="home">Home</a>
+  </h2>
+
+  <div id="table-of-contents-navigation">
+    <a href="../../table_of_contents.html#pages">Pages</a>
+    <a href="../../table_of_contents.html#classes">Classes</a>
+    <a href="../../table_of_contents.html#methods">Methods</a>
+  </div>
+</div>
+
+    <div id="search-section" role="search" class="project-section initially-hidden">
+  <form action="#" method="get" accept-charset="utf-8">
+    <div id="search-field-wrapper">
+      <input id="search-field" role="combobox" aria-label="Search"
+             aria-autocomplete="list" aria-controls="search-results"
+             type="text" name="search" placeholder="Search" spellcheck="false"
+             title="Type to search, Up and Down to navigate, Enter to load">
+    </div>
+
+    <ul id="search-results" aria-label="Search Results"
+        aria-busy="false" aria-expanded="false"
+        aria-atomic="false" class="initially-hidden"></ul>
+  </form>
+</div>
+
+  </div>
+
+  
+
+  <div id="class-metadata">
+    
+    <div id="parent-class-section" class="nav-section">
+  <h3>Parent</h3>
+
+  
+  <p class="link"><a href="../../Object.html">Object</a>
+  
+</div>
+
+    
+    
+    <!-- Method Quickref -->
+<div id="method-list-section" class="nav-section">
+  <h3>Methods</h3>
+
+  <ul class="link-list" role="directory">
+    
+    <li ><a href="#method-c-new">::new</a>
+    
+    <li ><a href="#method-i-create_packages">#create_packages</a>
+    
+    <li ><a href="#method-i-rpmdir">#rpmdir</a>
+    
+    <li ><a href="#method-i-select_command">#select_command</a>
+    
+    <li ><a href="#method-i-srpmdir">#srpmdir</a>
+    
+  </ul>
+</div>
+
+  </div>
+</nav>
+
+<main role="main" aria-labelledby="class-MCollective::PluginPackager::RpmpackagePackager">
+  <h1 id="class-MCollective::PluginPackager::RpmpackagePackager" class="class">
+    class MCollective::PluginPackager::RpmpackagePackager
+  </h1>
+
+  <section class="description">
+    
+  </section>
+
+  
+  
+  
+  <section id="5Buntitled-5D" class="documentation-section">
+    
+
+    
+
+    
+
+    
+
+    
+     <section id="public-class-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Class Methods</h3>
+       </header>
+
+    
+      <div id="method-c-new" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">new</span><span
+            class="method-args">(plugin, pluginpath = nil, signature = nil, verbose = false, keep_artifacts = nil, module_template = nil)</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="new-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/rpmpackage_packager.rb, line 6</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@buildtool</span> = <span class="ruby-identifier">select_command</span>
+    <span class="ruby-ivar">@plugin</span> = <span class="ruby-identifier">plugin</span>
+    <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}-#{@plugin.metadata[:name]}&quot;</span>
+    <span class="ruby-ivar">@package_name_and_version</span> = <span class="ruby-node">&quot;#{@package_name}-#{@plugin.metadata[:version]}&quot;</span>
+    <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
+    <span class="ruby-ivar">@libdir</span> = <span class="ruby-identifier">pluginpath</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;/usr/libexec/mcollective/mcollective/&#39;</span>
+    <span class="ruby-ivar">@signature</span> = <span class="ruby-identifier">signature</span>
+    <span class="ruby-ivar">@rpmdir</span> = <span class="ruby-identifier">rpmdir</span>
+    <span class="ruby-ivar">@srpmdir</span> = <span class="ruby-identifier">srpmdir</span>
+    <span class="ruby-ivar">@keep_artifacts</span> = <span class="ruby-identifier">keep_artifacts</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cannot build package. &#39;rpmbuild&#39; or &#39;rpmbuild-md5&#39; is not present on the system&quot;</span>)
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+     <section id="public-instance-5Buntitled-5D-method-details" class="method-section">
+       <header>
+         <h3>Public Instance Methods</h3>
+       </header>
+
+    
+      <div id="method-i-create_packages" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">create_packages</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Build Process :</p>
+<ul><li>
+<p>create temporary buildroot</p>
+</li><li>
+<p>create the spec file</p>
+</li><li>
+<p>create the tarball</p>
+</li><li>
+<p>run the build script</p>
+</li><li>
+<p>move pacakges to cwd</p>
+</li><li>
+<p>clean up</p>
+</li></ul>
+          
+          
+
+          
+          <div class="method-source-code" id="create_packages-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/rpmpackage_packager.rb, line 48</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_packages</span>
+  <span class="ruby-keyword">begin</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Building packages for #{@package_name} plugin.&quot;</span>
+
+    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">&#39;mcollective_packager&#39;</span>)
+    <span class="ruby-identifier">prepare_tmpdirs</span>
+
+    <span class="ruby-identifier">make_spec_file</span>
+    <span class="ruby-identifier">run_build</span>
+    <span class="ruby-identifier">move_packages</span>
+
+    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Completed building all packages for #{@package_name} plugin.&quot;</span>
+  <span class="ruby-keyword">ensure</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@keep_artifacts</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Keeping build artifacts&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Build artifacts saved - #{@tmpdir}&quot;</span>
+    <span class="ruby-keyword">else</span>
+      <span class="ruby-identifier">cleanup_tmpdirs</span>
+    <span class="ruby-keyword">end</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-rpmdir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">rpmdir</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="rpmdir-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/rpmpackage_packager.rb, line 33</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">rpmdir</span>
+  <span class="ruby-value">%x`rpm --eval &#39;%_rpmdir&#39;`</span>.<span class="ruby-identifier">chomp</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-select_command" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">select_command</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          <p>Determine the build tool present on the system</p>
+          
+          
+
+          
+          <div class="method-source-code" id="select_command-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/rpmpackage_packager.rb, line 23</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">select_command</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">command_available?</span>(<span class="ruby-string">&#39;rpmbuild-md5&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;rpmbuild-md5&#39;</span>
+  <span class="ruby-keyword">elsif</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">command_available?</span>(<span class="ruby-string">&#39;rpmbuild&#39;</span>)
+    <span class="ruby-keyword">return</span> <span class="ruby-string">&#39;rpmbuild&#39;</span>
+  <span class="ruby-keyword">else</span>
+    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+  <span class="ruby-keyword">end</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+      <div id="method-i-srpmdir" class="method-detail ">
+        
+        <div class="method-heading">
+          <span class="method-name">srpmdir</span><span
+            class="method-args">()</span>
+          
+          <span class="method-click-advice">click to toggle source</span>
+          
+        </div>
+        
+
+        <div class="method-description">
+          
+          
+          
+          
+
+          
+          <div class="method-source-code" id="srpmdir-source">
+            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/rpmpackage_packager.rb, line 37</span>
+<span class="ruby-keyword">def</span> <span class="ruby-identifier">srpmdir</span>
+  <span class="ruby-value">%x`rpm --eval &#39;%_srcrpmdir&#39;`</span>.<span class="ruby-identifier">chomp</span>
+<span class="ruby-keyword">end</span></pre>
+          </div>
+          
+        </div>
+
+        
+
+        
+      </div>
+
+    
+    </section>
+  
+  </section>
+</main>
+
+
+<footer id="validator-badges" role="contentinfo">
+  <p><a href="http://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
+</footer>
+

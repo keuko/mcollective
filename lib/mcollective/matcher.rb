@@ -10,8 +10,8 @@ module MCollective
   # char = A-Z | a-z | < | > | => | =< | _ | - |* | / { A-Z | a-z | < | > | => | =< | _ | - | * | / | }
   # int = 0|1|2|3|4|5|6|7|8|9{|0|1|2|3|4|5|6|7|8|9|0}
   module Matcher
-    autoload :Parser, "mcollective/matcher/parser"
-    autoload :Scanner, "mcollective/matcher/scanner"
+    require "mcollective/matcher/parser"
+    require "mcollective/matcher/scanner"
 
     # Helper creates a hash from a function call string
     def self.create_function_hash(function_call)
@@ -134,14 +134,20 @@ module MCollective
     # includes a function
     def self.eval_compound_fstatement(function_hash)
       l_compare = execute_function(function_hash)
+      r_compare = function_hash["r_compare"]
+      operator = function_hash["operator"]
 
       # Break out early and return false if the function returns nil
-      return false unless l_compare
+      if l_compare.nil?
+        return false
+      end
 
       # Prevent unwanted discovery by limiting comparison operators
       # on Strings and Booleans
-      if((l_compare.is_a?(String) || l_compare.is_a?(TrueClass) || l_compare.is_a?(FalseClass)) && function_hash["operator"].match(/<|>/))
-        Log.debug "Cannot do > and < comparison on Booleans and Strings '#{l_compare} #{function_hash["operator"]} #{function_hash["r_compare"]}'"
+      if((l_compare.is_a?(String) || l_compare.is_a?(TrueClass) ||
+          l_compare.is_a?(FalseClass)) && function_hash["operator"].match(/<|>/))
+        Log.debug("Cannot do > and < comparison on Booleans and Strings " +
+                  "'#{l_compare} #{function_hash["operator"]} #{function_hash["r_compare"]}'")
         return false
       end
 
@@ -151,29 +157,56 @@ module MCollective
         return false
       end
 
-      # Escape strings for evaluation
-      function_hash["r_compare"] = "\"#{function_hash["r_compare"]}\"" if(l_compare.is_a?(String)  && !(function_hash["operator"] =~ /=~|!=~/))
-
       # Do a regex comparison if right compare string is a regex
-      if function_hash["operator"] =~ /(=~|!=~)/
+      if operator=~ /(=~|!=~)/
         # Fail if left compare value isn't a string
         unless l_compare.is_a?(String)
           Log.debug("Cannot do a regex check on a non string value.")
           return false
         else
-          compare_result = l_compare.match(function_hash["r_compare"])
+          result = l_compare.match(r_compare)
           # Flip return value for != operator
           if function_hash["operator"] == "!=~"
-            !((compare_result.nil?) ? false : true)
+            return !result
           else
-            (compare_result.nil?) ? false : true
+            return !!result
           end
         end
-        # Otherwise evaluate the logical comparison
+        # Otherwise do a normal comparison while taking the type into account
       else
-        l_compare = "\"#{l_compare}\"" if l_compare.is_a?(String)
-        result = eval("#{l_compare} #{function_hash["operator"]} #{function_hash["r_compare"]}")
-        (result.nil?) ? false : result
+        if l_compare.is_a? String
+          r_compare = r_compare.to_s
+        elsif r_compare.is_a? String
+          if l_compare.is_a? Numeric
+            r_compare = r_compare.strip
+            begin
+              r_compare = Integer(r_compare)
+            rescue ArgumentError
+              begin
+                r_compare = Float(r_compare)
+              rescue ArgumentError
+                raise ArgumentError, "invalid numeric value: #{r_compare}"
+              end
+            end
+          elsif l_compare.is_a? TrueClass or l_compare.is_a? FalseClass
+            r_compare = r_compare.strip
+            if r_compare == true.to_s
+              r_compare = true
+            elsif r_compare == false.to_s
+              r_compare = false
+            else
+              raise ArgumentError, "invalid boolean value: #{r_compare}"
+            end
+          end
+        end
+        operator = operator.strip
+        if operator =~ /(?:(!=|<=|>=|<|>)|==?)/
+          operator = $1 ? $1.to_sym : :==
+        else
+          raise ArgumentError, "invalid operator: #{operator}"
+        end
+        result = l_compare.send(operator, r_compare)
+        return result
       end
     end
 

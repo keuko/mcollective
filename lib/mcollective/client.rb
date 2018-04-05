@@ -1,21 +1,44 @@
 module MCollective
   # Helpers for writing clients that can talk to agents, do discovery and so forth
   class Client
-    attr_accessor :options, :stats, :discoverer
+    attr_accessor :options, :stats, :discoverer, :connection_timeout
 
-    def initialize(configfile)
+    def initialize(options)
       @config = Config.instance
-      @config.loadconfig(configfile) unless @config.configured
+      @options = nil
+
+      if options.is_a?(String)
+        # String is the path to a config file
+        @config.loadconfig(options) unless @config.configured
+      elsif options.is_a?(Hash)
+        @config.loadconfig(options[:config]) unless @config.configured
+        @options = options
+        @connection_timeout = options[:connection_timeout]
+      else
+        raise "Invalid parameter passed to Client constructor. Valid types are Hash or String"
+      end
+
+      @connection_timeout ||= @config.connection_timeout
 
       @connection = PluginManager["connector_plugin"]
       @security = PluginManager["security_plugin"]
 
       @security.initiated_by = :client
-      @options = nil
       @subscriptions = {}
 
       @discoverer = Discovery.new(self)
-      @connection.connect
+
+      # Time box the connection if a timeout has been specified
+      # connection_timeout defaults to nil which means it will try forever if
+      # not specified
+      begin
+        Timeout::timeout(@connection_timeout, ClientTimeoutError) do
+          @connection.connect
+        end
+      rescue ClientTimeoutError => e
+        Log.error("Timeout occured while trying to connect to middleware")
+        raise e
+      end
     end
 
     @@request_sequence = 0
@@ -43,10 +66,7 @@ module MCollective
     # responses and doesn't execute any passed in code blocks for responses
     def sendreq(msg, agent, filter = {})
       request = createreq(msg, agent, filter)
-
-      Log.debug("Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}")
-
-      request.publish
+      publish(request)
       request.requestid
     end
 
@@ -101,9 +121,12 @@ module MCollective
         reply.expected_msgid = requestid
 
         reply.decode!
+
         unless reply.requestid == requestid
           raise(MsgDoesNotMatchRequestID, "Message reqid #{reply.requestid} does not match our reqid #{requestid}")
         end
+
+        Log.debug("Received reply to #{reply.requestid} from #{reply.payload[:senderid]}")
       rescue SecurityValidationFailed => e
         Log.warn("Ignoring a message that did not pass security validations")
         retry
@@ -122,7 +145,7 @@ module MCollective
     # of the discovery being cancelled soon as it reached the
     # requested limit of hosts
     def discover(filter, timeout, limit=0)
-      discovered = @discoverer.discover(filter, timeout, limit)
+      @discoverer.discover(filter.merge({'collective' => collective}), timeout, limit)
     end
 
     # Send a request, performs the passed block for each response
@@ -133,10 +156,10 @@ module MCollective
     #
     # It returns a hash of times and timeouts for discovery and total run is taken from the options
     # hash which in turn is generally built using MCollective::Optionparser
-    def req(body, agent=nil, options=false, waitfor=0, &block)
+    def req(body, agent=nil, options=false, waitfor=[], &block)
       if body.is_a?(Message)
         agent = body.agent
-        waitfor = body.discovered_hosts.size || 0
+        waitfor = body.discovered_hosts || []
         @options = body.options
       end
 
@@ -144,11 +167,10 @@ module MCollective
       threaded = @options[:threaded]
       timeout = @discoverer.discovery_timeout(@options[:timeout], @options[:filter])
       request = createreq(body, agent, @options[:filter])
-      publish_timeout = @options[:publish_timeout]
+      publish_timeout = @options[:publish_timeout] || @config.publish_timeout
       stat = {:starttime => Time.now.to_f, :discoverytime => 0, :blocktime => 0, :totaltime => 0}
       STDOUT.sync = true
       hosts_responded = 0
-
 
       begin
         if threaded
@@ -199,12 +221,16 @@ module MCollective
       Log.debug("Starting publishing with publish timeout of #{publish_timeout}")
       begin
         Timeout.timeout(publish_timeout) do
-          Log.debug("Sending request #{request.requestid} to the #{request.agent} agent with ttl #{request.ttl} in collective #{request.collective}")
-          request.publish
+          publish(request)
         end
       rescue Timeout::Error => e
         Log.warn("Could not publish all messages. Publishing timed out.")
       end
+    end
+
+    def publish(request)
+      Log.info("Sending request #{request.requestid} for agent '#{request.agent}' with ttl #{request.ttl} in collective '#{request.collective}'")
+      request.publish
     end
 
     # Starts the response receiver routine
@@ -212,16 +238,47 @@ module MCollective
     def start_receiver(requestid, waitfor, timeout, &block)
       Log.debug("Starting response receiver with timeout of #{timeout}")
       hosts_responded = 0
+
+      if (waitfor.is_a?(Array))
+        unfinished = Hash.new(0)
+        waitfor.each {|w| unfinished[w] += 1}
+      else
+        unfinished = []
+      end
+
       begin
         Timeout.timeout(timeout) do
-          begin
+          loop do
             resp = receive(requestid)
-            yield resp.payload
+
+            if block.arity == 2
+              yield resp.payload, resp
+            else
+              yield resp.payload
+            end
+
             hosts_responded += 1
-          end while (waitfor == 0 || hosts_responded < waitfor)
+
+            if (waitfor.is_a?(Array))
+              sender = resp.payload[:senderid]
+              if unfinished[sender] <= 1
+                unfinished.delete(sender)
+              else
+                unfinished[sender] -= 1
+              end
+
+              break if !waitfor.empty? && unfinished.empty?
+            else
+              break unless waitfor == 0 || hosts_responded < waitfor
+            end
+          end
         end
       rescue Timeout::Error => e
-        if (waitfor > hosts_responded)
+        if waitfor.is_a?(Array)
+          if !unfinished.empty?
+            Log.warn("Could not receive all responses. Did not receive responses from #{unfinished.keys.join(', ')}")
+          end
+        elsif (waitfor > hosts_responded)
           Log.warn("Could not receive all responses. Expected : #{waitfor}. Received : #{hosts_responded}")
         end
       end
@@ -234,6 +291,7 @@ module MCollective
       stat[:blocktime] = stat[:totaltime] - stat[:discoverytime]
       stat[:responses] = hosts_responded
       stat[:noresponsefrom] = []
+      stat[:unexpectedresponsefrom] = []
       stat[:requestid] = requestid
 
       @stats = stat
@@ -273,6 +331,17 @@ module MCollective
         puts("\nNo response from:\n")
 
         stats[:noresponsefrom].each do |c|
+          puts if c % 4 == 1
+          printf("%30s", c)
+        end
+
+        puts
+      end
+
+      if stats[:unexpectedresponsefrom].size > 0
+        puts("\nUnexpected response from:\n")
+
+        stats[:unexpectedresponsefrom].each do |c|
           puts if c % 4 == 1
           printf("%30s", c)
         end

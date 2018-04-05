@@ -46,8 +46,9 @@ rescue LoadError
 end
 
 if (defined?(RbConfig) ? RbConfig : Config)::CONFIG['host_os'] =~ /mswin|win32|dos|mingw|cygwin/i
-    $stderr.puts "install.rb does not support Microsoft Windows. See ext/windows/README.md for information on installing on Microsoft Windows."
-    exit(-1)
+  WINDOWS = TRUE
+else
+  WINDOWS = FALSE
 end
 
 PREREQS = %w{}
@@ -109,7 +110,7 @@ end
 #
 def prepare_installation
   InstallOptions.configs = true
-
+  InstallOptions.batch_files = true
   # Only try to do docs if we're sure they have rdoc
   if $haverdoc
     InstallOptions.rdoc = true
@@ -148,6 +149,9 @@ def prepare_installation
     opts.on('--plugindir[=OPTIONAL]', 'Installation directory for plugins', 'Default /usr/libexec/mcollective') do |plugindir|
       InstallOptions.plugindir = plugindir
     end
+    opts.on('--no-batch-files', 'Prevents installation of batch files for windows', 'Default off') do |batch_files|
+      InstallOptions.batch_files = false
+    end
     opts.on('--quick', 'Performs a quick installation. Only the', 'installation is done.') do |quick|
       InstallOptions.rdoc    = false
       InstallOptions.ri      = false
@@ -157,6 +161,12 @@ def prepare_installation
       InstallOptions.rdoc    = true
       InstallOptions.ri      = true
       InstallOptions.configs = true
+    end
+    if WINDOWS
+      InstallOptions.service_files = true
+      opts.on('--[no-]service-files', 'Installation of windows service files', 'Default is to install the windows service files') do |service_files|
+        InstallOptions.service_files = service_files
+      end
     end
     opts.separator("")
     opts.on_tail('--help', "Shows this help text.") do
@@ -223,11 +233,13 @@ def prepare_installation
     destdir = ''
   end
 
-  configdir   = File.join(destdir, configdir)
-  bindir      = File.join(destdir, bindir)
-  sbindir     = File.join(destdir, sbindir)
-  sitelibdir  = File.join(destdir, sitelibdir)
-  plugindir   = File.join(destdir, plugindir)
+  unless destdir.empty?
+    configdir   = File.join(destdir, configdir)
+    bindir      = File.join(destdir, bindir)
+    sbindir     = File.join(destdir, sbindir)
+    sitelibdir  = File.join(destdir, sitelibdir)
+    plugindir   = File.join(destdir, plugindir)
+  end
 
   makedirs(configdir) if InstallOptions.configs
   makedirs(bindir)
@@ -271,7 +283,7 @@ def install_binfile(from, op_file, target)
 
   File.open(from) do |ip|
     File.open(tmp_file.path, "w") do |op|
-      op.puts "#!#{ruby}"
+      op.puts "#!#{ruby}" unless WINDOWS
       contents = ip.readlines
       contents.shift if contents[0] =~ /^#!/
       op.write contents.join
@@ -284,6 +296,7 @@ end
 
 # Change directory into the mcollective root so we don't get the wrong files for install.
 cd File.dirname(__FILE__) do
+  prepare_installation
   # Set these values to what you want installed.
   configs = glob(%w{etc/*.dist})
   erbs = glob(%w{etc/*.erb})
@@ -293,14 +306,21 @@ cd File.dirname(__FILE__) do
   libs = glob(%w{lib/**/*})
   plugins = glob(%w{plugins/**/*})
 
-  check_prereqs
-  prepare_installation
+  if WINDOWS && InstallOptions.batch_files
+    if InstallOptions.service_files
+       windows_bins = glob(%w{ext/windows/*.bat ext/windows/*.rb})
+    else
+       windows_bins = glob(%w{ext/windows/mco.bat})
+    end
+  end
 
+  check_prereqs
   build_rdoc(rdoc) if InstallOptions.rdoc
   do_configs(configs, InstallOptions.configdir, 'etc/|\.dist') if InstallOptions.configs
   do_configs(erbs, InstallOptions.configdir) if InstallOptions.configs
   do_bins(bins, InstallOptions.bindir)
   do_bins(sbins, InstallOptions.sbindir)
+  do_bins(windows_bins, InstallOptions.bindir, 'ext/windows/') if WINDOWS && InstallOptions.batch_files
   do_libs(libs, InstallOptions.sitelibdir)
   do_libs(plugins, InstallOptions.plugindir, 'plugins/')
 end

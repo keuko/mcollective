@@ -1,8 +1,8 @@
 module MCollective
   module PluginPackager
     # Plugin definition classes
-    autoload :AgentDefinition, "mcollective/pluginpackager/agent_definition"
-    autoload :StandardDefinition, "mcollective/pluginpackager/standard_definition"
+    require "mcollective/pluginpackager/agent_definition"
+    require "mcollective/pluginpackager/standard_definition"
 
     # Package implementation plugins
     def self.load_packagers
@@ -84,6 +84,15 @@ module MCollective
           dependency
         end
       end.reject{ |dependency| dependency == nil }
+    end
+
+    # Return the path to a plugin's core directories
+    def self.get_plugin_path(target)
+      if (File.exists?(File.join(target, "lib", "mcollective")))
+        return File.join(target, "lib", "mcollective")
+      end
+
+      return target
     end
   end
 end

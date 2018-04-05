@@ -64,6 +64,7 @@ module MCollective
         func = false
         current_token_value = ""
         j = @token_index
+        escaped = false
 
         begin
           if (@arguments[j] == "/")
@@ -89,7 +90,6 @@ module MCollective
                   break
                 end
               end until (j >= @arguments.size) || (@arguments[j] =~ /\//)
-            else
               while (j < @arguments.size) && ((@arguments[j] != " ") && (@arguments[j] != ")"))
                 current_token_value << @arguments[j]
                 j += 1
@@ -100,32 +100,69 @@ module MCollective
               # Identify and tokenize regular expressions by ignoring everything between /'s
               if @arguments[j] == '/'
                 current_token_value << '/'
-                j+=1
+                j += 1
                 while(j < @arguments.size && @arguments[j] != '/')
+                  if  @arguments[j] == '\\'
+                    # eat the escape char
+                    current_token_value << @arguments[j]
+                    j += 1
+                    escaped = true
+                  end
+
                   current_token_value << @arguments[j]
                   j += 1
                 end
                 current_token_value << @arguments[j] if @arguments[j]
                 break
               end
-              if @arguments[j+1] == "("
+
+              if @arguments[j] == "("
                 func = true
-                be_greedy = true
-              end
-              current_token_value << @arguments[j]
-              if be_greedy
-                while !(j+1 >= @arguments.size) && @arguments[j] != ')'
-                  j += 1
+
+                current_token_value << @arguments[j]
+                j += 1
+
+                while j < @arguments.size
                   current_token_value << @arguments[j]
+                  if @arguments[j] == ')'
+                    j += 1
+                    break
+                  end
+                  j += 1
                 end
-                j += 1
-                be_greedy = false
+              elsif @arguments[j] == '"' || @arguments[j] == "'"
+                escaped = true
+                escaped_with = @arguments[j]
+
+                j += 1 # step over first " or '
+                @white_spaces += 1
+                # identified "..." or '...'
+                while j < @arguments.size
+                  if  @arguments[j] == '\\'
+                    # eat the escape char but don't add it to the token, or we
+                    # end up with \\\"
+                    j += 1
+                    @white_spaces += 1
+                    unless j < @arguments.size
+                      break
+                    end
+                  elsif @arguments[j] == escaped_with
+                    j += 1
+                    @white_spaces += 1
+                    break
+                  end
+                  current_token_value << @arguments[j]
+                  j += 1
+                end
               else
+                current_token_value << @arguments[j]
                 j += 1
               end
+
               if(@arguments[j] == ' ')
                 break if(is_klass?(j) && !(@arguments[j-1] =~ /=|<|>/))
               end
+
               if( (@arguments[j] == ' ') && (@seperation_counter < 2) && !(current_token_value.match(/^.+(=|<|>).+$/)) )
                 if((index = lookahead(j)))
                   j = index
@@ -152,12 +189,15 @@ module MCollective
         else
           if func
             if current_token_value.match(/^.+?\((\s*(')[^']*(')\s*(,\s*(')[^']*('))*)?\)(\.[a-zA-Z0-9_]+)?((!=|<=|>=|=|>|<).+)?$/) ||
-              current_token_value.match(/^.+?\((\s*(")[^"]*(")\s*(,\s*(")[^"]*("))*)?\)(\.[a-zA-Z0-9_]+)?((!=|<=|>=|=|>|<).+)?$/)
+               current_token_value.match(/^.+?\((\s*(")[^"]*(")\s*(,\s*(")[^"]*("))*)?\)(\.[a-zA-Z0-9_]+)?((!=|<=|>=|=|>|<).+)?$/)
               return "fstatement", current_token_value
             else
               return "bad_token", [@token_index - current_token_value.size + 1, @token_index]
             end
           else
+            if escaped
+              return "statement", current_token_value
+            end
             slash_err = false
             current_token_value.split('').each do |c|
               if c == '/'
