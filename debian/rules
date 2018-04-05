@@ -1,7 +1,7 @@
 #!/usr/bin/make -f
 
 %:
-	dh $@ --buildsystem=ruby --with ruby,systemd
+	dh $@ --buildsystem=ruby --with ruby
 
 override_dh_auto_install:
 	cp $(CURDIR)/etc/server.cfg.dist $(CURDIR)/debian/mcollective/usr/share/mcollective/server.cfg
