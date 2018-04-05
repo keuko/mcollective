@@ -2,7 +2,9 @@ Source: mcollective
 Section: utils
 Priority: optional
 Maintainer: Puppet Package Maintainers <pkg-puppet-devel@lists.alioth.debian.org>
-Uploaders: Jonas Genannt <jonas.genannt@capi2name.de>, Micah Anderson <micah@debian.org>
+Uploaders: Jonas Genannt <jonas.genannt@capi2name.de>,
+           Micah Anderson <micah@debian.org>,
+           Sebastien Badia <sbadia@debian.org>
 Build-Depends: debhelper (>= 11~), dh-systemd (>= 1.5), gem2deb (>= 0.3.0~)
 Standards-Version: 4.1.3
 Homepage: http://projects.puppetlabs.com/projects/mcollective
@@ -13,9 +15,9 @@ XS-Ruby-Versions: all
 Package: mcollective
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
-Depends: ${misc:Depends},
- ruby | ruby-interpreter,
- mcollective-common (>= ${source:Version})
+Depends: mcollective-common (>= ${source:Version}),
+         ruby | ruby-interpreter,
+         ${misc:Depends}
 Suggests: activemq, facter, puppet
 Recommends: mcollective-client
 Description: Marionette Collective clustering framework - server
@@ -28,7 +30,9 @@ Package: mcollective-client
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
 Suggests: mcollective
-Depends: ${misc:Depends}, ruby | ruby-interpreter, mcollective-common (>= ${source:Version})
+Depends: mcollective-common (>= ${source:Version}),
+         ruby | ruby-interpreter,
+         ${misc:Depends}
 Description: Marionette Collective clustering framework - clients
  The Marionette Collective is a framework for building server
  orchestration and parallel job execution systems.
@@ -40,7 +44,11 @@ Package: mcollective-common
 Architecture: all
 XB-Ruby-Versions: ${ruby:Versions}
 Suggests: mcollective-doc
-Depends: ${misc:Depends}, ruby | ruby-interpreter, ruby-stomp (>> 1.2.10-1~), ruby-systemu, ruby-json
+Depends: ruby | ruby-interpreter,
+         ruby-json,
+         ruby-stomp (>> 1.2.10-1~),
+         ruby-systemu,
+         ${misc:Depends}
 Description: Marionette Collective clustering framework - common files
  The Marionette Collective is a framework for building server
  orchestration and parallel job execution systems.
