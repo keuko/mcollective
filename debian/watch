@@ -1,3 +1,3 @@
 version=4
-opts=pgpmode=auto,compression=xz,repacksuffix=+dfsg \
+opts=pgpmode=auto,compression=xz,repacksuffix=+dfsg,dversionmangle=s/\+dfsg// \
   https://downloads.puppetlabs.com/mcollective/mcollective-([\d\.]*)\.tar\.gz
