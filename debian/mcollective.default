@@ -1,2 +1,0 @@
-# Change to yes, to enable Mcollective on boot
-RUN=no
