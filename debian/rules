@@ -14,6 +14,9 @@ override_dh_auto_install:
 override_dh_installinit:
 	dh_installinit --error-handler=true --no-enable
 
+override_dh_installchangelogs:
+	dh_installchangelogs debian/upstream/changelog/changelog.upstream
+
 override_dh_installman:
 	pandoc -s -t man $(CURDIR)/debian/man/mcollectived.md -o $(CURDIR)/debian/man/mcollectived.1
 	pandoc -s -t man $(CURDIR)/debian/man/mco.md -o $(CURDIR)/debian/man/mco.1
