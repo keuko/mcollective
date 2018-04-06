@@ -17,6 +17,7 @@ mcollective (2.12.0+dfsg-1) unstable; urgency=medium
     + Remove section about ext/action_helpers (repack)
   * d/examples: Remove un-used mcollective-common.examples
   * d/rules: Remove deprecated dh-systemd rules
+  * d/changelog: Added upstream changelog
   * d/watch:
     + Bump to version 4 switch to https and test pgpmode
     + Fixes watch file (opts=pgpmode=auto)
@@ -27,7 +28,7 @@ mcollective (2.12.0+dfsg-1) unstable; urgency=medium
   * d/patches: Fix lintian issue with documentation (privacy-breach-generic)
   * d/tests: Added dep8 autopkgtest testsuite (Closes: LP1679336)
 
- -- Sebastien Badia <sbadia@debian.org>  Fri, 06 Apr 2018 01:30:36 +0200
+ -- Sebastien Badia <sbadia@debian.org>  Fri, 06 Apr 2018 11:43:02 +0200
 
 mcollective (2.6.0+dfsg-2.1) unstable; urgency=medium
 

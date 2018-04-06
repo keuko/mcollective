@@ -11,7 +11,7 @@ mcollective (2.12.0+dfsg-1) unstable; urgency=medium
 
    * <https://puppet.com/docs/mcollective/current/deploy/plugins.html#about-the-libdir>
 
- -- Sebastien Badia <sbadia@debian.org>  Fri, 06 Apr 2018 01:30:36 +0200
+ -- Sebastien Badia <sbadia@debian.org>  Fri, 06 Apr 2018 11:43:02 +0200
 
 mcollective (2.0.0+dfsg-1) unstable; urgency=low
 
