@@ -1,4 +1,6 @@
-#!/bin/sh
+#!/bin/bash
+
+set -x
 
 # Enable rabbitmq plugins
 rabbitmq-plugins enable rabbitmq_management
@@ -67,6 +69,9 @@ factsource = yaml
 plugin.yaml = /etc/mcollective/facts.yaml
 EOC
 systemctl restart mcollective
+
+systemctl status rabbitmq-server
+systemctl status mcollective
 
 # And test a basic ping
 mco ping
