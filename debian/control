@@ -56,8 +56,9 @@ Description: Marionette Collective clustering framework - common files
  This package provides common files for MCollective.
 
 Package: mcollective-doc
-Architecture: all
 Section: doc
+Architecture: all
+Multi-Arch: foreign
 Depends: ${misc:Depends}
 Description: Marionette Collective clustering framework - documentation
  The Marionette Collective is a framework for building server
