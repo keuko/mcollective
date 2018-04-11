@@ -1,3 +1,12 @@
+mcollective (2.12.0+dfsg-2) unstable; urgency=medium
+
+  * d/tests: Allow stderr during ci tests (debci)
+  * d/control:
+    + Make mcollective-doc Multi-Arch: foreign
+    + Bump to Standards-Version 4.1.4 (no changes needed)
+
+ -- Sebastien Badia <sbadia@debian.org>  Wed, 11 Apr 2018 11:02:05 +0200
+
 mcollective (2.12.0+dfsg-1) unstable; urgency=medium
 
   * New upstream version 2.12.0+dfsg
