@@ -1,3 +1,9 @@
+mcollective (2.12.1+dfsg-1) unstable; urgency=medium
+
+  * New upstream version 2.12.1+dfsg
+
+ -- Sebastien Badia <sbadia@debian.org>  Sun, 29 Apr 2018 14:39:24 +0200
+
 mcollective (2.12.0+dfsg-2) unstable; urgency=medium
 
   * d/tests: Allow stderr during ci tests (debci)
