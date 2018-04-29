@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>fact_data.ddl - mcollective version 2.12.0</title>
+<title>fact_data.ddl - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
@@ -268,23 +268,23 @@
 <p>dataquery :description =&gt; “Fact” do</p>
 
 <pre class="ruby"><span class="ruby-identifier">input</span> :<span class="ruby-identifier">query</span>,
-      :<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Fact Path&#39;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Path to a fact, eg network.eth0.address&#39;</span>,
+      :<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Fact Path'</span>,
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Path to a fact, eg network.eth0.address'</span>,
       :<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
       :<span class="ruby-identifier">validation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/./</span>,
       :<span class="ruby-identifier">maxlength</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">256</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">exists</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Fact is present&#39;</span>,
-      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;exists&#39;</span>
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Fact is present'</span>,
+      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'exists'</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">value</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Fact value&#39;</span>,
-      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;value&#39;</span>
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Fact value'</span>,
+      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'value'</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">value_encoding</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Encoding of the fact value (text/plain or application/json)&#39;</span>,
-      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;value_encoding&#39;</span>
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Encoding of the fact value (text/plain or application/json)'</span>,
+      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'value_encoding'</span>
 </pre>
 
 <p>end</p>

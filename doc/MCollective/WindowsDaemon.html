@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::WindowsDaemon - mcollective version 2.12.0</title>
+<title>class MCollective::WindowsDaemon - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -184,10 +184,10 @@
   <span class="ruby-ivar">@runner</span> = <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">nil</span>)
   <span class="ruby-ivar">@runner</span>.<span class="ruby-identifier">main_loop</span>
 
-  <span class="ruby-comment"># On shut down there may be threads outside of the runner&#39;s context that are</span>
+  <span class="ruby-comment"># On shut down there may be threads outside of the runner's context that are</span>
   <span class="ruby-comment"># in a sleeping state, causing the stop action to wait for them to cleanly exit.</span>
   <span class="ruby-comment"># We get around this by iterating the list of threads and killing everything that</span>
-  <span class="ruby-comment"># isn&#39;t the main thread, letting us shut down cleanly.</span>
+  <span class="ruby-comment"># isn't the main thread, letting us shut down cleanly.</span>
   <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">t</span> <span class="ruby-operator">!=</span> <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">current</span>
       <span class="ruby-identifier">t</span>.<span class="ruby-identifier">kill</span>

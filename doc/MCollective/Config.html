@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Config - mcollective version 2.12.0</title>
+<title>class MCollective::Config - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -856,7 +856,7 @@
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;libdir&quot;</span>
               <span class="ruby-identifier">paths</span> = <span class="ruby-identifier">val</span>.<span class="ruby-identifier">split</span>(<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">PATH_SEPARATOR</span>)
               <span class="ruby-identifier">paths</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
-                <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;libdir paths should be absolute paths but &#39;%s&#39; is relative&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">path</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">path</span>)
+                <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;libdir paths should be absolute paths but '%s' is relative&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">path</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">path</span>)
 
                 <span class="ruby-identifier">libdirs</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">path</span>
               <span class="ruby-keyword">end</span>
@@ -921,12 +921,12 @@
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;default_batch_sleep_time&quot;</span>
               <span class="ruby-ivar">@default_batch_sleep_time</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">val</span>)
             <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;topicprefix&quot;</span>, <span class="ruby-string">&quot;topicsep&quot;</span>, <span class="ruby-string">&quot;queueprefix&quot;</span>, <span class="ruby-string">&quot;rpchelptemplate&quot;</span>, <span class="ruby-string">&quot;helptemplatedir&quot;</span>
-              <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Use of deprecated &#39;#{key}&#39; option.  This option is ignored and should be removed from &#39;#{configfile}&#39;&quot;</span>)
+              <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Use of deprecated '#{key}' option.  This option is ignored and should be removed from '#{configfile}'&quot;</span>)
             <span class="ruby-keyword">else</span>
-              <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown config parameter &#39;#{key}&#39;&quot;</span>)
+              <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown config parameter '#{key}'&quot;</span>)
             <span class="ruby-keyword">end</span>
           <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-            <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse value for configuration option &#39;#{key}&#39; with value &#39;#{val}&#39;&quot;</span>
+            <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse value for configuration option '#{key}' with value '#{val}'&quot;</span>
           <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
@@ -934,7 +934,7 @@
 
     <span class="ruby-identifier">read_plugin_config_dir</span>(<span class="ruby-node">&quot;#{@configdir}/plugin.d&quot;</span>)
 
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Identities can only match /\w\.\-/&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Identities can only match /\w\.\-/'</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
 
     <span class="ruby-ivar">@configured</span> = <span class="ruby-keyword">true</span>
 
@@ -943,7 +943,7 @@
         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Cannot find libdir: #{dir}&quot;</span>)
       <span class="ruby-keyword">end</span>
 
-      <span class="ruby-comment"># remove the old one if it exists, we&#39;re moving it to the front</span>
+      <span class="ruby-comment"># remove the old one if it exists, we're moving it to the front</span>
       <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">elem</span><span class="ruby-operator">|</span> <span class="ruby-identifier">elem</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">dir</span> }
       <span class="ruby-identifier">$LOAD_PATH</span>.<span class="ruby-identifier">unshift</span> <span class="ruby-identifier">dir</span>
     <span class="ruby-keyword">end</span>
@@ -961,7 +961,7 @@
 
     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;The Marionette Collective version #{MCollective::VERSION} started by #{$0} using config file #{configfile}&quot;</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot find config file &#39;#{configfile}&#39;&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot find config file '#{configfile}'&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

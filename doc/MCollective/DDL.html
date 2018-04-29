@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::DDL - mcollective version 2.12.0</title>
+<title>module MCollective::DDL - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -92,8 +92,8 @@ the behavior of your agent or other plugins</p>
 constructing outputs, producing online help, informing the various display
 routines and so forth.</p>
 
-<p>A sample <a href="DDL.html">DDL</a> for an agent be seen below, you&#39;d
-put this in your agent dir as &lt;agent name&gt;.ddl</p>
+<p>A sample <a href="DDL.html">DDL</a> for an agent be seen below, you’d put
+this in your agent dir as &lt;agent name&gt;.ddl</p>
 
 <pre class="ruby"> <span class="ruby-identifier">metadata</span> :<span class="ruby-identifier">name</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;SimpleRPC Service Agent&quot;</span>,
           :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agent to manage services using the Puppet service provider&quot;</span>,
@@ -110,7 +110,7 @@ put this in your agent dir as &lt;agent name&gt;.ddl</p>
           :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Service Name&quot;</span>,
           :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The service to get the status for&quot;</span>,
           :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-          :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^[a-zA-Z\-_\d]+$&#39;</span>,
+          :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[a-zA-Z\-_\d]+$'</span>,
           :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
           :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>
 
@@ -131,11 +131,11 @@ class here that inherits from <a href="DDL/Base.html">Base</a> and add
 their specific behavior.</p>
 
 <p><a href="DDL/Base.html">Base</a> defines a specific behavior for input,
-output and metadata which we&#39;d like to keep standard across plugin
-types so do not completely override the behavior of input.  The methods are
-written that they will gladly store extra content though so you add, do not
-remove.  See the <a href="DDL/AgentDDL.html">AgentDDL</a> class for an
-example where agents want a :required argument to be always set.</p>
+output and metadata which we'd like to keep standard across plugin types so
+do not completely override the behavior of input.  The methods are written
+that they will gladly store extra content though so you add, do not remove.
+See the <a href="DDL/AgentDDL.html">AgentDDL</a> class for an example where
+agents want a :required argument to be always set.</p>
 
   </section>
 
@@ -223,14 +223,14 @@ example where agents want a :required argument to be always set.</p>
         <div class="method-description">
           
           <p>There used to be only one big nasty <a href="DDL.html">DDL</a> class with a
-bunch of mashed together behaviors.  It&#39;s been around for ages and we
-would rather not ask all the users to change their <a
+bunch of mashed together behaviors.  It’s been around for ages and we would
+rather not ask all the users to change their <a
 href="DDL.html#method-c-new">::new</a> calls to some other factory method
 that would have this exact same behavior.</p>
 
 <p>So we override the behavior of new which is a hugely sucky thing to do but
-ultimately it&#39;s what would be least disrupting to code out there today.
-We did though change <a href="DDL.html">DDL</a> to a module to make it
+ultimately it’s what would be least disrupting to code out there today.  We
+did though change <a href="DDL.html">DDL</a> to a module to make it
 possibly a little less suprising, possibly.</p>
           
           
@@ -264,7 +264,7 @@ possibly a little less suprising, possibly.</p>
 
         <div class="method-description">
           
-          <p>As we&#39;re taking arguments on the command line we need a way to input
+          <p>As we’re taking arguments on the command line we need a way to input
 booleans, true on the cli is a string so this method will take the ddl,
 find all arguments that are supposed to be boolean and if they are the
 strings “true”/“yes” or “false”/“no” turn them into the matching boolean</p>

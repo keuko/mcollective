@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Client - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::Client - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -481,7 +481,7 @@ array with filtering enabled based on the standard command line use.</p>
 <pre class="ruby"><span class="ruby-identifier">rpc</span> = <span class="ruby-constant">RPC</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;rpctest&quot;</span>, :<span class="ruby-identifier">configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;client.cfg&quot;</span>, :<span class="ruby-identifier">options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>)
 </pre>
 
-<p>You typically would not call this directly you&#39;d use <a
+<p>You typically would not call this directly you’d use <a
 href="../RPC.html#method-i-rpcclient">MCollective::RPC#rpcclient</a>
 instead which is a wrapper around this that can be used as a Mixin</p>
           
@@ -936,7 +936,7 @@ only with direct addressing mode</p>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-keyword">if</span> (<span class="ruby-identifier">batch_size</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span>)
-      <span class="ruby-comment"># determine batch_size as a percentage of the discovered array&#39;s size</span>
+      <span class="ruby-comment"># determine batch_size as a percentage of the discovered array's size</span>
       <span class="ruby-identifier">batch_size</span> = (<span class="ruby-identifier">discovered</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">/</span> <span class="ruby-value">100.0</span> <span class="ruby-operator">*</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>)).<span class="ruby-identifier">ceil</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">batch_size</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">batch_size</span>)
@@ -1158,8 +1158,8 @@ already has other filter options setup you can do:</p>
 <p>puppet.custom_request(“runonce”, {}, [“your.box.com”], {:identity =&gt;
 “your.box.com”})</p>
 
-<p>This will do runonce action on just &#39;your.box.com&#39;, no discovery
-will be done and after receiving just one response it will stop waiting for
+<p>This will do runonce action on just ‘your.box.com’, no discovery will be
+done and after receiving just one response it will stop waiting for
 responses</p>
 
 <p>If direct_addressing is enabled in the config file you can provide an empty
@@ -1193,7 +1193,7 @@ mode with direct addressing disabled an exception will be raise</p>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-comment"># ensure that all filters at least restrict the call to the agent we&#39;re a proxy for</span>
+  <span class="ruby-comment"># ensure that all filters at least restrict the call to the agent we're a proxy for</span>
   <span class="ruby-identifier">custom_filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@agent</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">custom_filter</span>[<span class="ruby-string">&quot;agent&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@agent</span>)
   <span class="ruby-identifier">custom_options</span>[<span class="ruby-value">:filter</span>] = <span class="ruby-identifier">custom_filter</span>
 
@@ -1244,12 +1244,12 @@ mode with direct addressing disabled an exception will be raise</p>
           
           <p>Detects data on STDIN and sets the STDIN discovery method</p>
 
-<p>IF the discovery method hasn&#39;t been explicitly overridden</p>
+<p>IF the discovery method hasn’t been explicitly overridden</p>
 
-<pre>and we&#39;re not being run interactively,
+<pre>and we're not being run interactively,
 and someone has piped us some data</pre>
 
-<p>Then we assume it&#39;s a discovery list - this can be either:</p>
+<p>Then we assume it’s a discovery list - this can be either:</p>
 
 <pre>- list of hosts in plaintext
 - JSON that came from another rpc or printrpc</pre>
@@ -1263,8 +1263,8 @@ and someone has piped us some data</pre>
             <pre><span class="ruby-comment"># File lib/mcollective/rpc/client.rb, line 479</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">detect_and_set_stdin_discovery</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">default_discovery_method</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@stdin</span>.<span class="ruby-identifier">tty?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@stdin</span>.<span class="ruby-identifier">eof?</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovery_method</span> = <span class="ruby-string">&#39;stdin&#39;</span>
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovery_options</span> = <span class="ruby-string">&#39;auto&#39;</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovery_method</span> = <span class="ruby-string">'stdin'</span>
+    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovery_options</span> = <span class="ruby-string">'auto'</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -1409,10 +1409,10 @@ the :verbose flag is passed in.</p>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-comment"># if the requested limit is a pure number and not a percent</span>
-    <span class="ruby-comment"># and if we&#39;re configured to use the first found hosts as the</span>
+    <span class="ruby-comment"># and if we're configured to use the first found hosts as the</span>
     <span class="ruby-comment"># limit method then pass in the limit thus minimizing the amount</span>
     <span class="ruby-comment"># of work we do in the discover phase and speeding it up significantly</span>
-    <span class="ruby-identifier">filter</span> = <span class="ruby-ivar">@filter</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-string">&#39;collective&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@collective</span>})
+    <span class="ruby-identifier">filter</span> = <span class="ruby-ivar">@filter</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-string">'collective'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@collective</span>})
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@limit_method</span> <span class="ruby-operator">==</span> <span class="ruby-value">:first</span> <span class="ruby-keyword">and</span> <span class="ruby-ivar">@limit_targets</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Integer</span>)
       <span class="ruby-ivar">@discovered_agents</span> = <span class="ruby-ivar">@client</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">discovery_timeout</span>, <span class="ruby-ivar">@limit_targets</span>)
     <span class="ruby-keyword">else</span>
@@ -1668,7 +1668,7 @@ setting it on the client.</p>
         <div class="method-description">
           
           <p>for requests that do not care for results just return the request id and
-don&#39;t do any of the response processing.</p>
+don’t do any of the response processing.</p>
 
 <p>We send the :process_results flag with to the nodes so they can make
 decisions based on that.</p>
@@ -1794,14 +1794,14 @@ href="Client.html#method-i-method_missing">#method_missing</a></p>
           <p>if an identity filter is supplied and it is all strings no regex we can use
 that as discovery data, technically the identity filter is then redundant
 if we are in direct addressing mode and we could empty it out but this use
-case should only really be for a few -I&#39;s on the CLI</p>
+case should only really be for a few -I’s on the CLI</p>
 
 <p>For safety we leave the filter in place for now, that way we can support
 this enhancement also in broadcast mode.</p>
 
-<p>This is only needed for the &#39;mc&#39; discovery method, other methods
-might change the concept of identity to mean something else so we should
-pass the full identity filter to them</p>
+<p>This is only needed for the ‘mc’ discovery method, other methods might
+change the concept of identity to mean something else so we should pass the
+full identity filter to them</p>
           
           
 
@@ -1883,8 +1883,8 @@ href="Client.html#attribute-i-limit_targets">#limit_targets</a> is set</p>
           
           <p>Sets and sanity checks the <a
 href="Client.html#attribute-i-limit_targets">#limit_targets</a> variable
-used to restrict how many nodes we&#39;ll target Limit targets can be reset
-by passing nil or false</p>
+used to restrict how many nodes we’ll target Limit targets can be reset by
+passing nil or false</p>
           
           
 
@@ -1981,9 +1981,9 @@ you can call remote actions easily:</p>
 <pre class="ruby"><span class="ruby-identifier">ret</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">echo</span>(:<span class="ruby-identifier">msg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;hello world&quot;</span>)
 </pre>
 
-<p>This will call the &#39;echo&#39; action of the &#39;rpctest&#39; agent and
-return the result as an array, the array will be a simplified result set
-from the usual full <a
+<p>This will call the ‘echo’ action of the ‘rpctest’ agent and return the
+result as an array, the array will be a simplified result set from the
+usual full <a
 href="../Client.html#method-i-req">MCollective::Client#req</a> with
 additional error codes and error text:</p>
 
@@ -1996,9 +1996,9 @@ additional error codes and error text:</p>
 
 <p>}</p>
 
-<p>If :statuscode is 0 then everything went find, if it&#39;s 1 then you
-supplied the correct arguments etc but the request could not be completed,
-you&#39;ll find a human parsable reason in :statusmsg then.</p>
+<p>If :statuscode is 0 then everything went find, if it’s 1 then you supplied
+the correct arguments etc but the request could not be completed, you’ll
+find a human parsable reason in :statusmsg then.</p>
 
 <p>Codes 2 to 5 maps directly to <a
 href="../UnknownRPCAction.html">UnknownRPCAction</a>, <a
@@ -2019,7 +2019,7 @@ can pass in a block:</p>
 
 <p>In this case resp will the result from <a
 href="../Client.html#method-i-req">MCollective::Client#req</a>.  Instead of
-returning simple text and codes as above you&#39;ll also need to handle the
+returning simple text and codes as above you’ll also need to handle the
 following exceptions:</p>
 
 <p><a href="../UnknownRPCAction.html">UnknownRPCAction</a> - There is no
@@ -2031,17 +2031,17 @@ did not pass validation <a
 href="../UnknownRPCError.html">UnknownRPCError</a> - Some other error
 prevented the agent from running</p>
 
-<p>During calls a progress indicator will be shown of how many results
-we&#39;ve received against how many nodes were discovered, you can disable
-this by setting progress to false:</p>
+<p>During calls a progress indicator will be shown of how many results we’ve
+received against how many nodes were discovered, you can disable this by
+setting progress to false:</p>
 
 <pre class="ruby"><span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
 </pre>
 
 <p>This supports a 2nd mode where it will send the SimpleRPC request and never
-handle the responses.  It&#39;s a bit like UDP, it sends the request with
-the filter attached and you only get back the requestid, you have no
-indication about results.</p>
+handle the responses.  It’s a bit like UDP, it sends the request with the
+filter attached and you only get back the requestid, you have no indication
+about results.</p>
 
 <p>You can invoke this using:</p>
 
@@ -2095,9 +2095,9 @@ at a time</p>
   <span class="ruby-comment"># that will only match the one node.</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@limit_targets</span>
     <span class="ruby-identifier">target_nodes</span> = <span class="ruby-identifier">pick_nodes_from_discovered</span>(<span class="ruby-ivar">@limit_targets</span>)
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Picked #{target_nodes.join(&#39;,&#39;)} as limited target(s)&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Picked #{target_nodes.join(',')} as limited target(s)&quot;</span>)
 
-    <span class="ruby-identifier">custom_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">target_nodes</span>, {<span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">/^(#{target_nodes.join(&#39;|&#39;)})$/</span>}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+    <span class="ruby-identifier">custom_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">target_nodes</span>, {<span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">/^(#{target_nodes.join('|')})$/</span>}, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">batch_mode</span>
     <span class="ruby-identifier">call_agent_batched</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">args</span>, <span class="ruby-identifier">options</span>, <span class="ruby-identifier">batch_size</span>, <span class="ruby-identifier">batch_sleep_time</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">else</span>
@@ -2129,8 +2129,8 @@ at a time</p>
           
           <p>Creates a suitable request hash for the SimpleRPC agent.</p>
 
-<p>You&#39;d use this if you ever wanted to take care of sending requests on
-your own - perhaps via Client#sendreq if you didn&#39;t care for responses.</p>
+<p>You’d use this if you ever wanted to take care of sending requests on your
+own - perhaps via Client#sendreq if you didn’t care for responses.</p>
 
 <p>In that case you can just do:</p>
 
@@ -2155,7 +2155,7 @@ code requires such a thing</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">new_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">data</span>)
   <span class="ruby-identifier">callerid</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">callerid</span>
 
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid received from security plugin is not valid&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">callerid</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">'callerid received from security plugin is not valid'</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">callerid</span>)
 
   {<span class="ruby-value">:agent</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@agent</span>,
    <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">action</span>,

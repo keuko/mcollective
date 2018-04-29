@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::AgentDDL - mcollective version 2.12.0</title>
+<title>class MCollective::DDL::AgentDDL - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -133,7 +133,7 @@ store” do</p>
        :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
        :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^[\w\-\.]+$&#39;</span>,
+       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[\w\-\.]+$'</span>,
        :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
        :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">40</span>,
        :<span class="ruby-identifier">default</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;fqdn&quot;</span>
@@ -381,7 +381,7 @@ the action to attach inputs and validation to the actions</p>
   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Functions supplied to aggregate should be a hash&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
 
   <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">function</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:args</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">function</span>[<span class="ruby-value">:args</span>]
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;aggregate method for action &#39;%s&#39; missing a function parameter&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:action</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;aggregate method for action '%s' missing a function parameter&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:action</span>]
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">||=</span> []
@@ -542,7 +542,7 @@ href="AgentDDL.html#method-i-summarize">summarize</a> block</p>
             <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 139</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@process_aggregate_functions</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">is_function?</span>(<span class="ruby-identifier">name</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>, <span class="ruby-node">&quot;undefined local variable or method `#{name}&#39;&quot;</span>, <span class="ruby-identifier">caller</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>, <span class="ruby-node">&quot;undefined local variable or method `#{name}'&quot;</span>, <span class="ruby-identifier">caller</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">return</span> {<span class="ruby-value">:function</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:args</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>}
@@ -599,7 +599,7 @@ our fail-fast approach to input validation</p>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compat_arg</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Setting default value for input &#39;%s&#39; to &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]])
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Setting default value for input '%s' to '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]])
       <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">compat_arg</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -689,10 +689,10 @@ requests are equivelant</p>
 
 <p>The case where both :fact and “fact” is in the <a
 href="../DDL.html">DDL</a> cannot be handled correctly and this code will
-assume the caller means “fact” in that case.  There&#39;s no way to
-represent such a request in JSON and just in general sounds like a bad
-idea, so a warning is logged which would in default client configuration
-appear on the clients display</p>
+assume the caller means “fact” in that case.  There’s no way to represent
+such a request in JSON and just in general sounds like a bad idea, so a
+warning is logged which would in default client configuration appear on the
+clients display</p>
           
           
 
@@ -749,7 +749,7 @@ call to an agent should be allowed based on action name and inputs.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_rpc_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
   <span class="ruby-comment"># is the action known?</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@pluginname} but it&#39;s not declared in the DDL&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@pluginname} but it's not declared in the DDL&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>] <span class="ruby-operator">||</span> {}

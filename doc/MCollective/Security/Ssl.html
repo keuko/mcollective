@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Security::Ssl - mcollective version 2.12.0</title>
+<title>class MCollective::Security::Ssl - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -125,7 +125,7 @@ client id create one pair and share it with all clients:</p>
 openssl rsa -in john-private.pem -out john-public.pem -outform PEM -pubout</pre>
 
 <p>Each user has a unique userid, this is based on the name of the public key.
-In this example case the userid would be &#39;john-public&#39;.</p>
+In this example case the userid would be ‘john-public’.</p>
 
 <p>Store these somewhere like:</p>
 
@@ -180,7 +180,7 @@ reverse</p>
 </pre>
 
 <p>else the default is Marshal.  Use YAML if you wish to write a client using
-a language other than Ruby that doesn&#39;t support Marshal.</p>
+a language other than Ruby that doesn’t support Marshal.</p>
 
 <p>Validation is as default and is provided by <a
 href="Base.html">MCollective::Security::Base</a></p>
@@ -230,13 +230,13 @@ href="Base.html">MCollective::Security::Base</a></p>
             <pre><span class="ruby-comment"># File lib/mcollective/security/ssl.rb, line 188</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">callerid</span>
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@initiated_by</span> <span class="ruby-operator">==</span> <span class="ruby-value">:client</span>
-    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(client_public_key).gsub(/\.pem$/, &#39;&#39;)}&quot;</span>
+    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(client_public_key).gsub(/\.pem$/, '')}&quot;</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Invalid callerid generated from client public key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment"># servers need to set callerid as well, not usually needed but</span>
-    <span class="ruby-comment"># would be if you&#39;re doing registration or auditing or generating</span>
+    <span class="ruby-comment"># would be if you're doing registration or auditing or generating</span>
     <span class="ruby-comment"># requests for some or other reason</span>
-    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(server_public_key).gsub(/\.pem$/, &#39;&#39;)}&quot;</span>
+    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(server_public_key).gsub(/\.pem$/, '')}&quot;</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Invalid callerid generated from server public key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">id</span>)
   <span class="ruby-keyword">end</span>
 

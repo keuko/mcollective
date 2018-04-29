@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>rpcutil.ddl - mcollective version 2.12.0</title>
+<title>rpcutil.ddl - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
@@ -329,7 +329,7 @@ store” do</p>
        :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
        :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^[\w\-\.]+$&#39;</span>,
+       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[\w\-\.]+$'</span>,
        :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
        :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">40</span>
 
@@ -357,7 +357,7 @@ fact store” do</p>
       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Comma-separated list of facts&quot;</span>,
       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Facts to retrieve&quot;</span>,
       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^\s*[\w\.\-]+(\s*,\s*[\w\.\-]+)*$&#39;</span>,
+      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^\s*[\w\.\-]+(\s*,\s*[\w\.\-]+)*$'</span>,
       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
       :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>
 
@@ -402,7 +402,7 @@ daemon” do</p>
        :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Passed Filter&quot;</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">filtered</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Didn&#39;t pass filter checks&quot;</span>,
+       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Didn't pass filter checks&quot;</span>,
        :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Failed Filter&quot;</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">starttime</span>,
@@ -458,7 +458,7 @@ specific config property” do</p>
       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Configuration Item&quot;</span>,
       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The item to retrieve from the server&quot;</span>,
       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^.+$&#39;</span>,
+      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^.+$'</span>,
       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
       :<span class="ruby-identifier">maxlength</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-value">50</span>
 
@@ -485,7 +485,7 @@ specific config property” do</p>
       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Data Source&quot;</span>,
       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The data plugin to retrieve information from&quot;</span>,
       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^\w+$&#39;</span>,
+      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^\w+$'</span>,
       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
       :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">50</span>
 
@@ -493,7 +493,7 @@ specific config property” do</p>
       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Query&quot;</span>,
       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The query argument to supply to the data plugin&quot;</span>,
       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;^.+$&#39;</span>,
+      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^.+$'</span>,
       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
       :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>
 </pre>

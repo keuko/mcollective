@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Generators::Base - mcollective version 2.12.0</title>
+<title>class MCollective::Generators::Base - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -307,7 +307,7 @@
     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.rb&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@plugin</span>}
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created #{@mod_name} file : #{File.join(dirname, &quot;#{@plugin_name}.rb&quot;)}&quot;</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate &#39;#{@plugin_name}&#39; : plugin directory already exists.&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate '#{@plugin_name}' : plugin directory already exists.&quot;</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span>(<span class="ruby-ivar">@plugin_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-ivar">@plugin_name</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate plugin - #{e}&quot;</span>

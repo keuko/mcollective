@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::PluginPackager::ModulepackagePackager - mcollective version 2.12.0</title>
+<title>class MCollective::PluginPackager::ModulepackagePackager - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -131,10 +131,10 @@
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">assert_new_enough_puppet</span>
   <span class="ruby-ivar">@plugin</span> = <span class="ruby-identifier">plugin</span>
-  <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}_#{@plugin.metadata[:name]}&quot;</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/-/</span>, <span class="ruby-string">&#39;_&#39;</span>)
+  <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}_#{@plugin.metadata[:name]}&quot;</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/-/</span>, <span class="ruby-string">'_'</span>)
   <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
   <span class="ruby-ivar">@keep_artifacts</span> = <span class="ruby-identifier">keep_artifacts</span>
-  <span class="ruby-ivar">@module_template</span> = <span class="ruby-identifier">module_template</span> <span class="ruby-operator">||</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;module&#39;</span>)
+  <span class="ruby-ivar">@module_template</span> = <span class="ruby-identifier">module_template</span> <span class="ruby-operator">||</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">'templates'</span>, <span class="ruby-string">'module'</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -171,7 +171,7 @@
 <ul><li>
 <p>create module directory</p>
 </li><li>
-<p>run &#39;puppet module build&#39;</p>
+<p>run ‘puppet module build’</p>
 </li><li>
 <p>move generated package back to cwd</p>
 </li></ul>
@@ -185,7 +185,7 @@
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Building module for #{@package_name} plugin.&quot;</span>
 
-    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">&#39;mcollective_packager&#39;</span>)
+    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">'mcollective_packager'</span>)
     <span class="ruby-identifier">make_module</span>
     <span class="ruby-identifier">run_build</span>
     <span class="ruby-identifier">move_package</span>
@@ -193,7 +193,7 @@
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Completed building module for #{@package_name} plugin.&quot;</span>
   <span class="ruby-keyword">ensure</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@keep_artifacts</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Keeping build artifacts&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">'Keeping build artifacts'</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Build artifacts saved - #{@tmpdir}&quot;</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">cleanup_tmpdirs</span>

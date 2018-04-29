@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Message - mcollective version 2.12.0</title>
+<title>class MCollective::Message - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -629,20 +629,20 @@ will be generated</p>
     <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">decodemsg</span>(<span class="ruby-keyword">self</span>)
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
-      <span class="ruby-comment"># If we&#39;re a server receiving a request, reraise</span>
+      <span class="ruby-comment"># If we're a server receiving a request, reraise</span>
       <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
     <span class="ruby-keyword">else</span>
-      <span class="ruby-comment"># We&#39;re in the client, log and carry on as best we can</span>
+      <span class="ruby-comment"># We're in the client, log and carry on as best we can</span>
 
       <span class="ruby-comment"># Note: mc_sender is unverified.  The verified identity is in the</span>
       <span class="ruby-comment"># payload we just failed to decode</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to decode a message from &#39;#{headers[&quot;mc_sender&quot;]}&#39;: #{e}&quot;</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to decode a message from '#{headers[&quot;mc_sender&quot;]}': #{e}&quot;</span>)
       <span class="ruby-keyword">return</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'callerid in request is not valid, surpressing reply to potentially forged request'</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
   <span class="ruby-keyword">end</span>
 
   [<span class="ruby-value">:collective</span>, <span class="ruby-value">:agent</span>, <span class="ruby-value">:filter</span>, <span class="ruby-value">:requestid</span>, <span class="ruby-value">:ttl</span>, <span class="ruby-value">:msgtime</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span>
@@ -684,7 +684,7 @@ will be generated</p>
   <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;@&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:callerid</span>)
   <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:senderid</span>]
 
-  <span class="ruby-node">&quot;#{requestid} for agent &#39;#{agent}&#39; in collective &#39;#{collective}&#39; from #{cid}&quot;</span>
+  <span class="ruby-node">&quot;#{requestid} for agent '#{agent}' in collective '#{collective}' from #{cid}&quot;</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -720,7 +720,7 @@ will be generated</p>
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
     <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot encode a reply message if no request has been associated with it&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">request</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in original request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">'callerid in original request is not valid, surpressing reply to potentially forged request'</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
 
       <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:requestid</span>]
       <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
@@ -801,7 +801,7 @@ optimizing their behavior like by ignoring messages not directed at us.</p>
           <div class="method-source-code" id="publish-source">
             <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 228</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>
-  <span class="ruby-comment"># If we&#39;ve been specificaly told about hosts that were discovered</span>
+  <span class="ruby-comment"># If we've been specificaly told about hosts that were discovered</span>
   <span class="ruby-comment"># use that information to do P2P calls if appropriate else just</span>
   <span class="ruby-comment"># send it as is.</span>
   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
@@ -810,7 +810,7 @@ optimizing their behavior like by ignoring messages not directed at us.</p>
     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Handling #{requestid} as a direct request&quot;</span>)
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&#39;connector_plugin&#39;</span>].<span class="ruby-identifier">publish</span>(<span class="ruby-keyword">self</span>)
+  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">'connector_plugin'</span>].<span class="ruby-identifier">publish</span>(<span class="ruby-keyword">self</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1001,7 +1001,7 @@ when someone might assume direct_addressing is enabled when its not.</p>
         <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_validate</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
 
         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_has_output?</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">value</span>)
-          <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">validation_fail!</span>(<span class="ruby-value">:PLMC41</span>, <span class="ruby-string">&quot;Data plugin &#39;%{functionname}()&#39; does not return a &#39;%{value}&#39; value&quot;</span>, <span class="ruby-value">:error</span>, {<span class="ruby-value">:functionname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">functionname</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>})
+          <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">validation_fail!</span>(<span class="ruby-value">:PLMC41</span>, <span class="ruby-string">&quot;Data plugin '%{functionname}()' does not return a '%{value}' value&quot;</span>, <span class="ruby-value">:error</span>, {<span class="ruby-value">:functionname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">functionname</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>})
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>

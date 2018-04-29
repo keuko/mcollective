@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Client - mcollective version 2.12.0</title>
+<title>class MCollective::Client - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -456,7 +456,7 @@ being cancelled soon as it reached the requested limit of hosts</p>
           <div class="method-source-code" id="discover-source">
             <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 147</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>=<span class="ruby-value">0</span>)
-  <span class="ruby-ivar">@discoverer</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-string">&#39;collective&#39;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>}), <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>)
+  <span class="ruby-ivar">@discoverer</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>.<span class="ruby-identifier">merge</span>({<span class="ruby-string">'collective'</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>}), <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -601,7 +601,7 @@ way</p>
           <div class="method-source-code" id="publish-source">
             <pre><span class="ruby-comment"># File lib/mcollective/client.rb, line 231</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>(<span class="ruby-identifier">request</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Sending request #{request.requestid} for agent &#39;#{request.agent}&#39; with ttl #{request.ttl} in collective &#39;#{request.collective}&#39;&quot;</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Sending request #{request.requestid} for agent '#{request.agent}' with ttl #{request.ttl} in collective '#{request.collective}'&quot;</span>)
   <span class="ruby-identifier">request</span>.<span class="ruby-identifier">publish</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -629,10 +629,10 @@ way</p>
           
           <p>Blocking call that waits for ever for a message to arrive.</p>
 
-<p>If you give it a requestid this means you&#39;ve previously send a request
-with that ID and now you just want replies that matches that id, in that
-case the current connection will just ignore all messages not directed at
-it and keep waiting for more till it finds a matching message.</p>
+<p>If you give it a requestid this means you’ve previously send a request with
+that ID and now you just want replies that matches that id, in that case
+the current connection will just ignore all messages not directed at it and
+keep waiting for more till it finds a matching message.</p>
           
           
 
@@ -757,8 +757,8 @@ href="Optionparser.html">MCollective::Optionparser</a></p>
 
         <div class="method-description">
           
-          <p>Sends a request and returns the generated request id, doesn&#39;t wait for
-responses and doesn&#39;t execute any passed in code blocks for responses</p>
+          <p>Sends a request and returns the generated request id, doesn’t wait for
+responses and doesn’t execute any passed in code blocks for responses</p>
           
           
 
@@ -882,7 +882,7 @@ received responses.</p>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">waitfor</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
       <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">unfinished</span>.<span class="ruby-identifier">empty?</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Could not receive all responses. Did not receive responses from #{unfinished.keys.join(&#39;, &#39;)}&quot;</span>)
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Could not receive all responses. Did not receive responses from #{unfinished.keys.join(', ')}&quot;</span>)
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">waitfor</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts_responded</span>)
       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Could not receive all responses. Expected : #{waitfor}. Received : #{hosts_responded}&quot;</span>)
@@ -954,7 +954,7 @@ received responses.</p>
         <div class="method-description">
           
           <p>Starts the client receiver and publisher in threads. This is activated when
-the &#39;threader_client&#39; configuration option is set.</p>
+the ‘threader_client’ configuration option is set.</p>
           
           
 
@@ -968,7 +968,7 @@ the &#39;threader_client&#39; configuration option is set.</p>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment"># When the client is threaded we add the publishing timeout to</span>
-  <span class="ruby-comment"># the agent timeout so that the receiver doesn&#39;t time out before</span>
+  <span class="ruby-comment"># the agent timeout so that the receiver doesn't time out before</span>
   <span class="ruby-comment"># publishing has finished in cases where publish_timeout &gt;= timeout.</span>
   <span class="ruby-identifier">total_timeout</span> = <span class="ruby-identifier">publish_timeout</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">timeout</span>
   <span class="ruby-identifier">hosts_responded</span> = <span class="ruby-value">0</span>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Activemq - mcollective version 2.12.0</title>
+<title>class MCollective::Connector::Activemq - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -135,7 +135,7 @@ from the more generic stomp connector.</p>
 <pre>- Agents use /topic/&lt;collective&gt;.&lt;agent&gt;.agent
 - Replies use temp-topics so they are private and transient.
 - Point to Point messages using topics are supported by subscribing to
-  /queue/&lt;collective&gt;.nodes with a selector &quot;mc_identity = &#39;identity&#39;</pre>
+  /queue/&lt;collective&gt;.nodes with a selector &quot;mc_identity = 'identity'</pre>
 
 <p>The use of temp-topics for the replies is a huge improvement over the old
 style. In the old way all clients got replies for all clients that were
@@ -176,11 +176,11 @@ port will default to 61613 if not specified.</p>
 
 <p>The ssl options are only usable in version of the <a
 href="Activemq/Stomp.html">Stomp</a> gem newer than 1.2.2 where these will
-imply full <a href="../SSL.html">SSL</a> validation will be done and
-you&#39;ll only be able to connect to a ActiveMQ server that has a cert
-signed by the same CA.  If you only set ssl = true and do not supply the
-cert, key and ca properties or if you have an older gem it will fall back
-to unverified mode only if ssl.fallback is true</p>
+imply full <a href="../SSL.html">SSL</a> validation will be done and you’ll
+only be able to connect to a ActiveMQ server that has a cert signed by the
+same CA.  If you only set ssl = true and do not supply the cert, key and ca
+properties or if you have an older gem it will fall back to unverified mode
+only if ssl.fallback is true</p>
 
 <p>In addition you can set the following options for the rubygem:</p>
 
@@ -353,8 +353,8 @@ operation</p>
 
     <span class="ruby-identifier">pools</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.pool.size&quot;</span>))
     <span class="ruby-identifier">hosts</span> = []
-    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">&#39;&#39;</span>
-    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">''</span>
+    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">''</span>
     <span class="ruby-identifier">prompt_for_username</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_user&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
     <span class="ruby-identifier">prompt_for_password</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_password&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
     
@@ -405,7 +405,7 @@ operation</p>
     <span class="ruby-identifier">connection</span> = {<span class="ruby-value">:hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts</span>}
 
     <span class="ruby-comment"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
-    <span class="ruby-comment"># these can be guessed, the documentation isn&#39;t clear</span>
+    <span class="ruby-comment"># these can be guessed, the documentation isn't clear</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:use_exponential_back_off</span>] = <span class="ruby-ivar">@use_exponential_back_off</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:initial_reconnect_delay</span>] = <span class="ruby-ivar">@initial_reconnect_delay</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:back_off_multiplier</span>] = <span class="ruby-ivar">@back_off_multiplier</span>
@@ -634,8 +634,8 @@ operation</p>
           
           <p>Returns the name of the certficate file used by ActiveMQ Will first check
 if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_CERT exists,
-where X is the ActiveMQ pool number. If the environment variable
-doesn&#39;t exist, it will try and load the value from the config.</p>
+where X is the ActiveMQ pool number. If the environment variable doesn’t
+exist, it will try and load the value from the config.</p>
           
           
 
@@ -710,8 +710,8 @@ option, accepts an optional default.</p>
           
           <p>Returns the name of the private key file used by ActiveMQ Will first check
 if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_KEY exists, where
-X is the ActiveMQ pool number. If the environment variable doesn&#39;t
-exist, it will try and load the value from the config.</p>
+X is the ActiveMQ pool number. If the environment variable doesn’t exist,
+it will try and load the value from the config.</p>
           
           
 
@@ -848,7 +848,7 @@ exist, it will try and load the value from the config.</p>
             <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 540</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:directed</span>, <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:reply</span>, <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{@config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective '#{collective}' known collectives are '#{@config.collectives.join ', '}'&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
 
   <span class="ruby-identifier">agents_multiplex</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.agents_multiplex&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
   <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}}
@@ -876,7 +876,7 @@ exist, it will try and load the value from the config.</p>
 
     <span class="ruby-keyword">when</span> <span class="ruby-value">:directed</span>
       <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:nodes</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;selector&quot;</span>] = <span class="ruby-node">&quot;mc_identity = &#39;#{@config.identity}&#39;&quot;</span>
+      <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;selector&quot;</span>] = <span class="ruby-node">&quot;mc_identity = '#{@config.identity}'&quot;</span>
       <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_directed_to_identity&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">collective</span>
   <span class="ruby-keyword">end</span>
 
@@ -923,14 +923,14 @@ exist, it will try and load the value from the config.</p>
     <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>] = <span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>)
 
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to ActiveMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to ActiveMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
 
       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>))
 
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to ActiveMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to ActiveMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
 
     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
   <span class="ruby-keyword">end</span>
@@ -986,10 +986,10 @@ exist, it will try and load the value from the config.</p>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment"># We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;MESSAGE&#39;</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unexpected &#39;#{msg.command}&#39; frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'MESSAGE'</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unexpected '#{msg.command}' frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnexpectedMessageType</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>),
-      <span class="ruby-node">&quot;Received frame of type &#39;#{msg.command}&#39; expected &#39;MESSAGE&#39;&quot;</span>
+      <span class="ruby-node">&quot;Received frame of type '#{msg.command}' expected 'MESSAGE'&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base64</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>)
@@ -1199,7 +1199,7 @@ exist, it will try and load the value from the config.</p>
   <span class="ruby-keyword">elsif</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
     <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don&#39;t now how to create a target for message type #{msg.type}&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don't now how to create a target for message type #{msg.type}&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>

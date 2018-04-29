@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::PluginManager - mcollective version 2.12.0</title>
+<title>module MCollective::PluginManager - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -159,10 +159,10 @@ which point the plugin class is not final.</p>
 and not the plugins, we there for only initialize the classes when they get
 requested via []</p>
 
-<p>By default all plugin instances are cached and returned later so
-there&#39;s always a single instance.  You can pass :single_instance =&gt;
-false when calling this to instruct it to always return a new instance when
-a copy is requested.  This only works with sending a <a
+<p>By default all plugin instances are cached and returned later so there’s
+always a single instance.  You can pass :single_instance =&gt; false when
+calling this to instruct it to always return a new instance when a copy is
+requested.  This only works with sending a <a
 href="../String.html">String</a> for :class.</p>
           
           
@@ -180,7 +180,7 @@ href="../String.html">String</a> for :class.</p>
   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
 
 
-  <span class="ruby-comment"># If we get a string then store &#39;nil&#39; as the instance, signalling that we&#39;ll</span>
+  <span class="ruby-comment"># If we get a string then store 'nil' as the instance, signalling that we'll</span>
   <span class="ruby-comment"># create the class later on demand.</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
     <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single</span>}
@@ -226,7 +226,7 @@ href="../String.html">String</a> for :class.</p>
   <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:class</span>]
 
   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:single</span>]
-    <span class="ruby-comment"># Create an instance of the class if one hasn&#39;t been done before</span>
+    <span class="ruby-comment"># Create an instance of the class if one hasn't been done before</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
       <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
@@ -487,7 +487,7 @@ in all libdirs and load them from disk.</p>
 
         <div class="method-description">
           
-          <p>Grep&#39;s over the plugin list and returns the list found</p>
+          <p>Grep’s over the plugin list and returns the list found</p>
           
           
 

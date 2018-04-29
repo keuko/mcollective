@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Puppet::Acceptance::InstallUtils - mcollective version 2.12.0</title>
+<title>module Puppet::Acceptance::InstallUtils - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -148,12 +148,12 @@ duplicate of the <a href="../../Gemfile.html">Gemfile</a> logic.</p>
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/install_utils.rb, line 165</span>
       <span class="ruby-keyword">def</span> <span class="ruby-identifier">configure_gem_mirror</span>(<span class="ruby-identifier">hosts</span>)
         <span class="ruby-identifier">hosts</span> = [<span class="ruby-identifier">hosts</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
-        <span class="ruby-identifier">gem_source</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;GEM_SOURCE&#39;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&#39;https://rubygems.org&#39;</span>
+        <span class="ruby-identifier">gem_source</span> = <span class="ruby-constant">ENV</span>[<span class="ruby-string">'GEM_SOURCE'</span>] <span class="ruby-operator">||</span> <span class="ruby-string">'https://rubygems.org'</span>
 
         <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
           <span class="ruby-identifier">gem</span> = <span class="ruby-constant">Puppet</span><span class="ruby-operator">::</span><span class="ruby-constant">Acceptance</span><span class="ruby-operator">::</span><span class="ruby-constant">CommandUtils</span>.<span class="ruby-identifier">gem_command</span>(<span class="ruby-identifier">host</span>)
           <span class="ruby-identifier">gem_version</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{gem} --version&quot;</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
-          <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&#39;platform&#39;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/win/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">gem_version</span> <span class="ruby-operator">&lt;</span> <span class="ruby-string">&#39;2.6.8&#39;</span> <span class="ruby-keyword">then</span>
+          <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">'platform'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/win/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">gem_version</span> <span class="ruby-operator">&lt;</span> <span class="ruby-string">'2.6.8'</span> <span class="ruby-keyword">then</span>
             <span class="ruby-comment"># The vendored gem command does not have an updated</span>
             <span class="ruby-comment"># TLS cert on Windows.</span>
             <span class="ruby-comment"># http://guides.rubygems.org/ssl-certificate-update</span>
@@ -180,7 +180,7 @@ DKqC5JlR3XC321Y9YeRq4VzW9v493kHMB65jUr9TU/Qr6cf9tveCX4XSQRjbgbME
 HMUfpIBvFSDJ3gyICh3WZlXi/EjJKSZp4A==
 -----END CERTIFICATE-----
 EOS</span>
-            <span class="ruby-identifier">p</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{gem} which rubygems&quot;</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">&#39;rubygems.rb&#39;</span>, <span class="ruby-string">&#39;rubygems/ssl_certs&#39;</span>)
+            <span class="ruby-identifier">p</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{gem} which rubygems&quot;</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">sub</span>(<span class="ruby-string">'rubygems.rb'</span>, <span class="ruby-string">'rubygems/ssl_certs'</span>)
             <span class="ruby-identifier">create_remote_file</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{p}/geotrustglobal.pem&quot;</span>, <span class="ruby-identifier">geotrust_ca</span>)
           <span class="ruby-keyword">end</span>
           <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{gem} source --clear-all&quot;</span>
@@ -267,10 +267,10 @@ EOS</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch_remote_dir</span>(<span class="ruby-identifier">url</span>, <span class="ruby-identifier">dst_dir</span>)
   <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">notify</span> <span class="ruby-node">&quot;fetch_remote_dir (url: #{url}, dst_dir #{dst_dir})&quot;</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">url</span>[<span class="ruby-value">-1</span>, <span class="ruby-value">1</span>] <span class="ruby-operator">!~</span> <span class="ruby-regexp">/\//</span>
-    <span class="ruby-identifier">url</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&#39;/&#39;</span>
+    <span class="ruby-identifier">url</span> <span class="ruby-operator">+=</span> <span class="ruby-string">'/'</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">url</span> = <span class="ruby-constant">URI</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">url</span>)
-  <span class="ruby-identifier">chunks</span> = <span class="ruby-identifier">url</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
+  <span class="ruby-identifier">chunks</span> = <span class="ruby-identifier">url</span>.<span class="ruby-identifier">path</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">'/'</span>)
   <span class="ruby-identifier">dst</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dst_dir</span>, <span class="ruby-identifier">chunks</span>.<span class="ruby-identifier">last</span>)
   <span class="ruby-comment">#determine directory structure to cut</span>
   <span class="ruby-comment">#only want to keep the last directory, thus cut total number of dirs - 2 (hostname + last dir name)</span>
@@ -287,7 +287,7 @@ EOS</span>
     <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-identifier">line</span>)
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">$?</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Failed to fetch_remote_dir &#39;#{url}&#39; (exit code #{$?}&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Failed to fetch_remote_dir '#{url}' (exit code #{$?}&quot;</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">dst</span>
 <span class="ruby-keyword">end</span></pre>
@@ -344,7 +344,7 @@ and a[1] is the package name (when they are different).</pre>
   <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">package_hash</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">platform_key</span>,<span class="ruby-identifier">package_list</span><span class="ruby-operator">|</span>
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span> = <span class="ruby-constant">PLATFORM_PATTERNS</span>[<span class="ruby-identifier">platform_key</span>]
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">host</span>[<span class="ruby-string">&#39;platform&#39;</span>])
+        <span class="ruby-keyword">if</span> <span class="ruby-identifier">pattern</span>.<span class="ruby-identifier">match</span>(<span class="ruby-identifier">host</span>[<span class="ruby-string">'platform'</span>])
           <span class="ruby-identifier">package_list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cmd_pkg</span><span class="ruby-operator">|</span>
             <span class="ruby-keyword">if</span> <span class="ruby-identifier">cmd_pkg</span>.<span class="ruby-identifier">kind_of?</span>(<span class="ruby-constant">Array</span>)
               <span class="ruby-identifier">command</span>, <span class="ruby-identifier">package</span> = <span class="ruby-identifier">cmd_pkg</span>
@@ -353,13 +353,13 @@ and a[1] is the package name (when they are different).</pre>
             <span class="ruby-keyword">end</span>
             <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">check_if_exists</span> <span class="ruby-operator">||</span> <span class="ruby-operator">!</span><span class="ruby-identifier">host</span>.<span class="ruby-identifier">check_for_package</span>(<span class="ruby-identifier">command</span>)
               <span class="ruby-identifier">host</span>.<span class="ruby-identifier">logger</span>.<span class="ruby-identifier">notify</span>(<span class="ruby-node">&quot;Installing #{package}&quot;</span>)
-              <span class="ruby-identifier">additional_switches</span> = <span class="ruby-string">&#39;--allow-unauthenticated&#39;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">platform_key</span> <span class="ruby-operator">==</span> <span class="ruby-value">:debian</span>
+              <span class="ruby-identifier">additional_switches</span> = <span class="ruby-string">'--allow-unauthenticated'</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">platform_key</span> <span class="ruby-operator">==</span> <span class="ruby-value">:debian</span>
               <span class="ruby-identifier">host</span>.<span class="ruby-identifier">install_package</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">additional_switches</span>)
             <span class="ruby-keyword">end</span>
           <span class="ruby-keyword">end</span>
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown platform &#39;#{platform_key}&#39; in package_hash&quot;</span>)
+        <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown platform '#{platform_key}' in package_hash&quot;</span>)
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -403,12 +403,12 @@ and a[1] is the package name (when they are different).</pre>
   <span class="ruby-comment"># `start /w` blocks until installation is complete, but needs to be wrapped in `cmd.exe /c`</span>
   <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;cmd.exe /c start /w msiexec /qn /i #{opts[:url]} /L*V C:\\\\Windows\\\\Temp\\\\Puppet-Install.log&quot;</span>
 
-  <span class="ruby-comment"># make sure the background service isn&#39;t running while the test executes</span>
+  <span class="ruby-comment"># make sure the background service isn't running while the test executes</span>
   <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-string">&quot;net stop puppet&quot;</span>
 
   <span class="ruby-comment"># make sure install is sane, beaker has already added puppet and ruby</span>
   <span class="ruby-comment"># to PATH in ~/.ssh/environment</span>
-  <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;--version&#39;</span>)
+  <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'--version'</span>)
   <span class="ruby-identifier">ruby</span> = <span class="ruby-constant">Puppet</span><span class="ruby-operator">::</span><span class="ruby-constant">Acceptance</span><span class="ruby-operator">::</span><span class="ruby-constant">CommandUtils</span>.<span class="ruby-identifier">ruby_command</span>(<span class="ruby-identifier">host</span>)
   <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;#{ruby} --version&quot;</span>
 <span class="ruby-keyword">end</span></pre>
@@ -443,22 +443,22 @@ and a[1] is the package name (when they are different).</pre>
           <div class="method-source-code" id="install_repos_on-source">
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/install_utils.rb, line 119</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">install_repos_on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">project</span>, <span class="ruby-identifier">sha</span>, <span class="ruby-identifier">repo_configs_dir</span>)
-  <span class="ruby-identifier">platform</span> = <span class="ruby-identifier">host</span>[<span class="ruby-string">&#39;platform&#39;</span>].<span class="ruby-identifier">with_version_codename</span>
+  <span class="ruby-identifier">platform</span> = <span class="ruby-identifier">host</span>[<span class="ruby-string">'platform'</span>].<span class="ruby-identifier">with_version_codename</span>
   <span class="ruby-identifier">platform_configs_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">repo_configs_dir</span>,<span class="ruby-identifier">platform</span>)
-  <span class="ruby-identifier">tld</span>     = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;nightly&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;ravi.puppetlabs.com&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;builds.puppetlabs.lan&#39;</span>
-  <span class="ruby-identifier">project</span> = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;nightly&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">project</span> <span class="ruby-operator">+</span> <span class="ruby-string">&#39;-latest&#39;</span>        <span class="ruby-operator">:</span>  <span class="ruby-identifier">project</span>
-  <span class="ruby-identifier">sha</span>     = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;nightly&#39;</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span>                        <span class="ruby-operator">:</span>  <span class="ruby-identifier">sha</span>
+  <span class="ruby-identifier">tld</span>     = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">'nightly'</span> <span class="ruby-operator">?</span> <span class="ruby-string">'ravi.puppetlabs.com'</span> <span class="ruby-operator">:</span> <span class="ruby-string">'builds.puppetlabs.lan'</span>
+  <span class="ruby-identifier">project</span> = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">'nightly'</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">project</span> <span class="ruby-operator">+</span> <span class="ruby-string">'-latest'</span>        <span class="ruby-operator">:</span>  <span class="ruby-identifier">project</span>
+  <span class="ruby-identifier">sha</span>     = <span class="ruby-identifier">sha</span> <span class="ruby-operator">==</span> <span class="ruby-string">'nightly'</span> <span class="ruby-operator">?</span> <span class="ruby-keyword">nil</span>                        <span class="ruby-operator">:</span>  <span class="ruby-identifier">sha</span>
 
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">platform</span>
   <span class="ruby-keyword">when</span> <span class="ruby-regexp">/^(fedora|el|centos)-(\d+)-(.+)$/</span>
-    <span class="ruby-identifier">variant</span> = ((<span class="ruby-node">$1</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;centos&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-string">&#39;el&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-node">$1</span>)
-    <span class="ruby-identifier">fedora_prefix</span> = ((<span class="ruby-identifier">variant</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;fedora&#39;</span>) <span class="ruby-operator">?</span> <span class="ruby-string">&#39;f&#39;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>)
+    <span class="ruby-identifier">variant</span> = ((<span class="ruby-node">$1</span> <span class="ruby-operator">==</span> <span class="ruby-string">'centos'</span>) <span class="ruby-operator">?</span> <span class="ruby-string">'el'</span> <span class="ruby-operator">:</span> <span class="ruby-node">$1</span>)
+    <span class="ruby-identifier">fedora_prefix</span> = ((<span class="ruby-identifier">variant</span> <span class="ruby-operator">==</span> <span class="ruby-string">'fedora'</span>) <span class="ruby-operator">?</span> <span class="ruby-string">'f'</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>)
     <span class="ruby-identifier">version</span> = <span class="ruby-node">$2</span>
     <span class="ruby-identifier">arch</span> = <span class="ruby-node">$3</span>
 
     <span class="ruby-identifier">repo_filename</span> = <span class="ruby-string">&quot;pl-%s%s-%s-%s%s-%s.repo&quot;</span> <span class="ruby-operator">%</span> [
       <span class="ruby-identifier">project</span>,
-      <span class="ruby-identifier">sha</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;-&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sha</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+      <span class="ruby-identifier">sha</span> <span class="ruby-operator">?</span> <span class="ruby-string">'-'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sha</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>,
       <span class="ruby-identifier">variant</span>,
       <span class="ruby-identifier">fedora_prefix</span>,
       <span class="ruby-identifier">version</span>,
@@ -474,7 +474,7 @@ and a[1] is the package name (when they are different).</pre>
 
     <span class="ruby-identifier">list_filename</span> = <span class="ruby-string">&quot;pl-%s%s-%s.list&quot;</span> <span class="ruby-operator">%</span> [
       <span class="ruby-identifier">project</span>,
-      <span class="ruby-identifier">sha</span> <span class="ruby-operator">?</span> <span class="ruby-string">&#39;-&#39;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sha</span> <span class="ruby-operator">:</span> <span class="ruby-string">&#39;&#39;</span>,
+      <span class="ruby-identifier">sha</span> <span class="ruby-operator">?</span> <span class="ruby-string">'-'</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">sha</span> <span class="ruby-operator">:</span> <span class="ruby-string">''</span>,
       <span class="ruby-identifier">version</span>
     ]
     <span class="ruby-identifier">list_url</span> = <span class="ruby-string">&quot;http://%s/%s/%s/repo_configs/deb/%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">tld</span>, <span class="ruby-identifier">project</span>, <span class="ruby-identifier">sha</span>, <span class="ruby-identifier">list_filename</span>]
@@ -516,17 +516,17 @@ and a[1] is the package name (when they are different).</pre>
           <div class="method-source-code" id="stop_firewall_on-source">
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/install_utils.rb, line 104</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">stop_firewall_on</span>(<span class="ruby-identifier">host</span>)
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&#39;platform&#39;</span>]
+  <span class="ruby-keyword">case</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">'platform'</span>]
   <span class="ruby-keyword">when</span> <span class="ruby-regexp">/debian/</span>
-    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-string">&#39;iptables -F&#39;</span>
+    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-string">'iptables -F'</span>
   <span class="ruby-keyword">when</span> <span class="ruby-regexp">/fedora|el-7/</span>
-    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;resource&#39;</span>, <span class="ruby-string">&#39;service&#39;</span>, <span class="ruby-string">&#39;firewalld&#39;</span>, <span class="ruby-string">&#39;ensure=stopped&#39;</span>)
+    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'resource'</span>, <span class="ruby-string">'service'</span>, <span class="ruby-string">'firewalld'</span>, <span class="ruby-string">'ensure=stopped'</span>)
   <span class="ruby-keyword">when</span> <span class="ruby-regexp">/el|centos/</span>
-    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;resource&#39;</span>, <span class="ruby-string">&#39;service&#39;</span>, <span class="ruby-string">&#39;iptables&#39;</span>, <span class="ruby-string">&#39;ensure=stopped&#39;</span>)
+    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'resource'</span>, <span class="ruby-string">'service'</span>, <span class="ruby-string">'iptables'</span>, <span class="ruby-string">'ensure=stopped'</span>)
   <span class="ruby-keyword">when</span> <span class="ruby-regexp">/ubuntu/</span>
-    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;resource&#39;</span>, <span class="ruby-string">&#39;service&#39;</span>, <span class="ruby-string">&#39;ufw&#39;</span>, <span class="ruby-string">&#39;ensure=stopped&#39;</span>)
+    <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'resource'</span>, <span class="ruby-string">'service'</span>, <span class="ruby-string">'ufw'</span>, <span class="ruby-string">'ensure=stopped'</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">notify</span>(<span class="ruby-node">&quot;Not sure how to clear firewall on #{host[&#39;platform&#39;]}&quot;</span>)
+    <span class="ruby-identifier">logger</span>.<span class="ruby-identifier">notify</span>(<span class="ruby-node">&quot;Not sure how to clear firewall on #{host['platform']}&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
