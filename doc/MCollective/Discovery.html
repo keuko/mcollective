@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Discovery - mcollective version 2.12.0</title>
+<title>class MCollective::Discovery - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -198,19 +198,19 @@ stupid things in the presense of a agent filter</p>
   <span class="ruby-identifier">capabilities</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">discovery_interface</span>[<span class="ruby-value">:capabilities</span>]
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:classes</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use class filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use class filters while using the '%s' discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">empty?</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:facts</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use fact filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;fact&quot;</span>].<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use fact filters while using the '%s' discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;fact&quot;</span>].<span class="ruby-identifier">empty?</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:identity</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use identity filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use identity filters while using the '%s' discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">empty?</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">capabilities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:compound</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use compound filters while using the &#39;%s&#39; discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use compound filters while using the '%s' discovery method&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">discovery_method</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -511,8 +511,8 @@ stupid things in the presense of a agent filter</p>
 
         <div class="method-description">
           
-          <p>checks if compound filters are used and then forces the &#39;mc&#39;
-discovery plugin</p>
+          <p>checks if compound filters are used and then forces the ‘mc’ discovery
+plugin</p>
           
           
 

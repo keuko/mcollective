@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Security::Aes_security - mcollective version 2.12.0</title>
+<title>class MCollective::Security::Aes_security - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -253,7 +253,7 @@ plugin.aes.server_public = /etc/mcollective/ssl/server-public.pem</pre>
     <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{certname_from_certificate(ssl_cert)}&quot;</span>
   <span class="ruby-keyword">rescue</span>
     <span class="ruby-comment"># If the public key is not a certificate, use the file name as callerid</span>
-    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(key).gsub(/\.pem$/, &#39;&#39;)}&quot;</span>
+    <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;cert=#{File.basename(key).gsub(/\.pem$/, '')}&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">id</span>
@@ -292,7 +292,7 @@ plugin.aes.server_public = /etc/mcollective/ssl/server-public.pem</pre>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^cert=([\w\.\-]+)/</span>
     <span class="ruby-keyword">return</span> <span class="ruby-node">$1</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format: &#39;#{id}&#39;, ignoring&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format: '#{id}', ignoring&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -330,7 +330,7 @@ plugin.aes.server_public = /etc/mcollective/ssl/server-public.pem</pre>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">id</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\/CN=([\w\.\-]+)/</span>
     <span class="ruby-keyword">return</span> <span class="ruby-node">$1</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format in an SSL certificate: &#39;#{id}&#39;, ignoring&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Received a callerid in an unexpected format in an SSL certificate: '#{id}', ignoring&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -478,7 +478,7 @@ plugin.aes.client_public config option</p>
   <span class="ruby-identifier">body</span> = <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>)
 
   <span class="ruby-identifier">should_process_msg?</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:requestid</span>])
-  <span class="ruby-comment"># if we get a message that has a pubkey attached and we&#39;re set to learn</span>
+  <span class="ruby-comment"># if we get a message that has a pubkey attached and we're set to learn</span>
   <span class="ruby-comment"># then add it to the client_cert_dir this should only happen on servers</span>
   <span class="ruby-comment"># since clients will get replies using their own pubkeys</span>
   <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.learn_pubkeys&quot;</span>, <span class="ruby-keyword">false</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">body</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:sslpubkey</span>)
@@ -487,14 +487,14 @@ plugin.aes.client_public config option</p>
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">certfile</span>)
       <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.insecure_learning&quot;</span>, <span class="ruby-keyword">false</span>))
         <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.ca_cert&quot;</span>, <span class="ruby-keyword">nil</span>)
-          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot verify certificate for &#39;#{certname}&#39;. No CA certificate specified.&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot verify certificate for '#{certname}'. No CA certificate specified.&quot;</span>
         <span class="ruby-keyword">end</span>
 
         <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">validate_certificate</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:sslpubkey</span>], <span class="ruby-identifier">certname</span>)
-          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate &#39;#{certname}&#39; against CA&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate '#{certname}' against CA&quot;</span>
         <span class="ruby-keyword">end</span>
 
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate &#39;#{certname}&#39; against CA&quot;</span>)
+        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate '#{certname}' against CA&quot;</span>)
       <span class="ruby-keyword">else</span>
         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Insecure key learning is not a secure method of key distribution. Do NOT use this mode in sensitive environments.&quot;</span>)
       <span class="ruby-keyword">end</span>
@@ -515,15 +515,15 @@ plugin.aes.client_public config option</p>
     <span class="ruby-identifier">certfile</span> = <span class="ruby-node">&quot;#{client_cert_dir}/#{certname}.pem&quot;</span>
     <span class="ruby-comment"># if aes.ca_cert is set every certificate is validated before we try and use it</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-string">&quot;aes.ca_cert&quot;</span>, <span class="ruby-keyword">nil</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">validate_certificate</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">certfile</span>), <span class="ruby-identifier">certname</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate &#39;#{certname}&#39; against CA&quot;</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unable to validate certificate '#{certname}' against CA&quot;</span>
     <span class="ruby-keyword">end</span>
     <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-identifier">deserialize</span>(<span class="ruby-identifier">decrypt</span>(<span class="ruby-identifier">cryptdata</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:callerid</span>]))
 
-    <span class="ruby-comment"># If we got a hash it&#39;s possible that this is a message with secure</span>
+    <span class="ruby-comment"># If we got a hash it's possible that this is a message with secure</span>
     <span class="ruby-comment"># TTL and message time, attempt to decode that and transform into a</span>
     <span class="ruby-comment"># traditional message.</span>
     <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># If it&#39;s not a hash it might be a old style message like old discovery</span>
+    <span class="ruby-comment"># If it's not a hash it might be a old style message like old discovery</span>
     <span class="ruby-comment"># ones that would just be a string so we allow that unaudited but only</span>
     <span class="ruby-comment"># if enforce_ttl is disabled.  This is primarly to allow a mixed old and</span>
     <span class="ruby-comment"># new plugin infrastructure to work</span>
@@ -816,7 +816,7 @@ callerid</p>
           <div class="method-source-code" id="public_key_path_for_client-source">
             <pre><span class="ruby-comment"># File lib/mcollective/security/aes_security.rb, line 329</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">public_key_path_for_client</span>(<span class="ruby-identifier">clientid</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown callerid format in &#39;#{clientid}&#39;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">clientid</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^cert=(.+)$/</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown callerid format in '#{clientid}'&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">clientid</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^cert=(.+)$/</span>)
 
   <span class="ruby-identifier">clientid</span> = <span class="ruby-node">$1</span>
 
@@ -1063,7 +1063,7 @@ violations</p>
   <span class="ruby-identifier">ssl_certname</span> = <span class="ruby-identifier">certname_from_certificate</span>(<span class="ruby-identifier">ssl_cert</span>)
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">certid</span> <span class="ruby-operator">!=</span> <span class="ruby-identifier">ssl_certname</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;certname &#39;#{certid}&#39; doesn&#39;t match certificate &#39;#{ssl_certname}&#39;&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;certname '#{certid}' doesn't match certificate '#{ssl_certname}'&quot;</span>)
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
 
@@ -1072,10 +1072,10 @@ violations</p>
   <span class="ruby-identifier">ca_cert</span>.<span class="ruby-identifier">add_file</span> <span class="ruby-identifier">cert_file</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ca_cert</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-identifier">ssl_cert</span>)
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate &#39;#{ssl_certname}&#39; against CA&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Verified certificate '#{ssl_certname}' against CA&quot;</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment"># TODO add cert id</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unable to validate certificate &#39;#{ssl_certname}&#39;&#39; against CA&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unable to validate certificate '#{ssl_certname}'' against CA&quot;</span>)
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>collective_data.ddl - mcollective version 2.12.0</title>
+<title>collective_data.ddl - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
@@ -268,15 +268,15 @@
 <p>dataquery :description =&gt; “Collective” do</p>
 
 <pre class="ruby"><span class="ruby-identifier">input</span> :<span class="ruby-identifier">query</span>,
-      :<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Collective&#39;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Collective name to ask about, eg mcollective&#39;</span>,
+      :<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Collective'</span>,
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Collective name to ask about, eg mcollective'</span>,
       :<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
       :<span class="ruby-identifier">validation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/./</span>,
       :<span class="ruby-identifier">maxlength</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">256</span>
 
 <span class="ruby-identifier">output</span> :<span class="ruby-identifier">member</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;Node is a member of the named collective&#39;</span>,
-      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;member&#39;</span>
+      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'Node is a member of the named collective'</span>,
+      :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'member'</span>
 </pre>
 
 <p>end</p>

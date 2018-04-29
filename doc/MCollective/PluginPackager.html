@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::PluginPackager - mcollective version 2.12.0</title>
+<title>module MCollective::PluginPackager - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -281,7 +281,7 @@
           
           <p>Filter out platform specific dependencies Given a list of dependencies
 named - debian::foo redhat::bar <a
-href="PluginPackager.html#method-c-filter_dependencies">::filter_dependencies</a>(&#39;debian&#39;,
+href="PluginPackager.html#method-c-filter_dependencies">::filter_dependencies</a>(‘debian’,
 dependencies) will return foo.</p>
           
           
@@ -368,7 +368,7 @@ dependencies) will return foo.</p>
 
         <div class="method-description">
           
-          <p>Return the path to a plugin&#39;s core directories</p>
+          <p>Return the path to a plugin’s core directories</p>
           
           
 
@@ -446,7 +446,7 @@ dependencies) will return foo.</p>
           <div class="method-source-code" id="safe_system-source">
             <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 64</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">safe_system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(&#39; &#39;)}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(' ')}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
           

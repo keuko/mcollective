@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Inventory - mcollective version 2.12.0</title>
+<title>class MCollective::Application::Inventory - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -231,19 +231,19 @@
     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Retrieving collective info....&quot;</span>
     <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
 
-    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;graph {&#39;</span>
+    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'graph {'</span>
 
     <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;   subgraph &quot;%s&quot; {&#39;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span> ]
+      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'   subgraph &quot;%s&quot; {'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span> ]
 
       <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>][<span class="ruby-identifier">collective</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;      &quot;%s&quot; -- &quot;%s&quot;&#39;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">member</span>, <span class="ruby-identifier">collective</span> ]
+        <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'      &quot;%s&quot; -- &quot;%s&quot;'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">member</span>, <span class="ruby-identifier">collective</span> ]
       <span class="ruby-keyword">end</span>
 
-      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;   }&#39;</span>
+      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'   }'</span>
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;}&#39;</span>
+    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'}'</span>
 
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Graph of #{collectives[:total_nodes]} nodes has been written to #{file}&quot;</span>
   <span class="ruby-keyword">end</span>
@@ -449,7 +449,7 @@ BODY</span>
           <div class="method-source-code" id="formatted_inventory-source">
             <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 291</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">formatted_inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;formatr&#39;</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'formatr'</span>
 
   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to give a block to formatted_inventory&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
 
@@ -733,7 +733,7 @@ BODY</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                      Version: #{nodestats[:version]}&quot;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Start Time: #{Time.at(nodestats[:starttime])}&quot;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Config File: #{nodestats[:configfile]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Collectives: #{data[:collectives].join(&#39;, &#39;)}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:collectives</span>)
+        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Collectives: #{data[:collectives].join(', ')}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:collectives</span>)
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;              Main Collective: #{data[:main_collective]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:main_collective</span>)
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Process ID: #{nodestats[:pid]}&quot;</span>
         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;               Total Messages: #{nodestats[:total]}&quot;</span>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Gemfile - mcollective version 2.12.0</title>
+<title>Gemfile - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -256,36 +256,36 @@
 
 <main role="main" aria-label="Page Gemfile">
 
-<p>source <a href="'GEM_SOURCE'">ENV</a> || &#39;<a
-href="https://rubygems.org">rubygems.org</a>&#39;</p>
+<p>source <a href="'GEM_SOURCE'">ENV</a> || ‘<a
+href="https://rubygems.org">rubygems.org</a>’</p>
 
-<p>gem &#39;stomp&#39;, &#39;&gt;= 1.4.4&#39;</p>
+<p>gem ‘stomp’, ‘&gt;= 1.4.4’</p>
 
 <p>if RUBY_VERSION =~ /^1.8/</p>
 
-<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;systemu&#39;</span>, <span class="ruby-string">&#39;2.6.4&#39;</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;json&#39;</span>, <span class="ruby-string">&#39;~&gt; 1.8.3&#39;</span>
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'systemu'</span>, <span class="ruby-string">'2.6.4'</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'json'</span>, <span class="ruby-string">'~&gt; 1.8.3'</span>
 </pre>
 
 <p>else</p>
 
-<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;systemu&#39;</span>
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'systemu'</span>
 </pre>
 
 <p>end</p>
 
 <p>if RUBY_VERSION =~ /^2.4/</p>
 
-<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;json&#39;</span>, <span class="ruby-string">&#39;~&gt; 2.1.0&#39;</span>
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'json'</span>, <span class="ruby-string">'~&gt; 2.1.0'</span>
 </pre>
 
 <p>end</p>
 
 <p>group :dev do</p>
 
-<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;rake&#39;</span>, <span class="ruby-string">&#39;~&gt; 10.4&#39;</span>
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">'rake'</span>, <span class="ruby-string">'~&gt; 10.4'</span>
 <span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_VERSION</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^2\.[0-9]\.[0-9]/</span>
-  <span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;rubocop&#39;</span>, <span class="ruby-string">&#39;~&gt; 0.48.1&#39;</span>, :<span class="ruby-identifier">platforms</span> =<span class="ruby-operator">&gt;</span> [:<span class="ruby-identifier">ruby</span>]
+  <span class="ruby-identifier">gem</span> <span class="ruby-string">'rubocop'</span>, <span class="ruby-string">'~&gt; 0.48.1'</span>, :<span class="ruby-identifier">platforms</span> =<span class="ruby-operator">&gt;</span> [:<span class="ruby-identifier">ruby</span>]
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -294,14 +294,14 @@ href="https://rubygems.org">rubygems.org</a>&#39;</p>
 <p>group :test do</p>
 
 <pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_VERSION</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^1\.8/</span>
-  <span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;rdoc&#39;</span>, <span class="ruby-string">&#39;~&gt; 4.2.2&#39;</span>
+  <span class="ruby-identifier">gem</span> <span class="ruby-string">'rdoc'</span>, <span class="ruby-string">'~&gt; 4.2.2'</span>
 <span class="ruby-keyword">else</span>
-  <span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;rdoc&#39;</span>
+  <span class="ruby-identifier">gem</span> <span class="ruby-string">'rdoc'</span>
 <span class="ruby-keyword">end</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;yarjuf&#39;</span>, <span class="ruby-string">&quot;~&gt; 1.0&quot;</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;rspec&#39;</span>, <span class="ruby-string">&#39;~&gt; 2.11.0&#39;</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;mocha&#39;</span>, <span class="ruby-string">&#39;~&gt; 0.10.0&#39;</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&#39;mcollective-test&#39;</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'yarjuf'</span>, <span class="ruby-string">&quot;~&gt; 1.0&quot;</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'rspec'</span>, <span class="ruby-string">'~&gt; 2.11.0'</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'mocha'</span>, <span class="ruby-string">'~&gt; 0.10.0'</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">'mcollective-test'</span>
 </pre>
 
 <p>end</p>

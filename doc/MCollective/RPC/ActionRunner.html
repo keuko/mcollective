@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::ActionRunner - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::ActionRunner - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -444,7 +444,7 @@ the external application</p>
     <span class="ruby-identifier">command_file_new_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">command_file_new</span>)
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">command_file_new_exists</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_file_old_exists</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found &#39;implemented_by&#39; scripts found in two locations #{command_file_old} and #{command_file_new}&quot;</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found 'implemented_by' scripts found in two locations #{command_file_old} and #{command_file_new}&quot;</span>)
       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_new}&quot;</span>)
       <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_new</span>
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_file_old_exists</span>

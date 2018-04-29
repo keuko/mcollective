@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Helpers - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::Helpers - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -145,15 +145,15 @@
   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;RPC Options&quot;</span>
 
   <span class="ruby-comment"># add SimpleRPC specific options to all clients that use our library</span>
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--np&#39;</span>, <span class="ruby-string">&#39;--no-progress&#39;</span>, <span class="ruby-string">&#39;Do not show the progress bar&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--np'</span>, <span class="ruby-string">'--no-progress'</span>, <span class="ruby-string">'Do not show the progress bar'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--one&#39;</span>, <span class="ruby-string">&#39;-1&#39;</span>, <span class="ruby-string">&#39;Send request to only one discovered nodes&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--one'</span>, <span class="ruby-string">'-1'</span>, <span class="ruby-string">'Send request to only one discovered nodes'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-value">1</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--batch SIZE&#39;</span>, <span class="ruby-string">&#39;Do requests in batches&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--batch SIZE'</span>, <span class="ruby-string">'Do requests in batches'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-comment"># validate batch string. Is it x% where x &gt; 0 or is it an integer</span>
     <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)$/</span>)
       <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_size</span>] = <span class="ruby-identifier">v</span>
@@ -162,15 +162,15 @@
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--batch-sleep SECONDS&#39;</span>, <span class="ruby-constant">Float</span>, <span class="ruby-string">&#39;Sleep time between batches&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--batch-sleep SECONDS'</span>, <span class="ruby-constant">Float</span>, <span class="ruby-string">'Sleep time between batches'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_sleep_time</span>] = <span class="ruby-identifier">v</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--limit-seed NUMBER&#39;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&#39;Seed value for deterministic random batching&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--limit-seed NUMBER'</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">'Seed value for deterministic random batching'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:limit_seed</span>] = <span class="ruby-identifier">v</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--limit-nodes COUNT&#39;</span>, <span class="ruby-string">&#39;--ln&#39;</span>, <span class="ruby-string">&#39;--limit&#39;</span>, <span class="ruby-string">&#39;Send request to only a subset of nodes, can be a percentage&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--limit-nodes COUNT'</span>, <span class="ruby-string">'--ln'</span>, <span class="ruby-string">'--limit'</span>, <span class="ruby-string">'Send request to only a subset of nodes, can be a percentage'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Invalid limit specified: #{v} valid limits are /^\d+%*$/&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+%*$/</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>
@@ -180,19 +180,19 @@
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--json&#39;</span>, <span class="ruby-string">&#39;-j&#39;</span>, <span class="ruby-string">&#39;Produce JSON output&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--json'</span>, <span class="ruby-string">'-j'</span>, <span class="ruby-string">'Produce JSON output'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
     <span class="ruby-identifier">options</span>[<span class="ruby-value">:output_format</span>] = <span class="ruby-value">:json</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--display MODE&#39;</span>, <span class="ruby-string">&#39;Influence how results are displayed. One of ok, all or failed&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--display MODE'</span>, <span class="ruby-string">'Influence how results are displayed. One of ok, all or failed'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;all&quot;</span>
       <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-value">:always</span>
     <span class="ruby-keyword">else</span>
       <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">intern</span>
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;--display has to be one of &#39;ok&#39;, &#39;all&#39; or &#39;failed&#39;&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>])
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;--display has to be one of 'ok', 'all' or 'failed'&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>])
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -416,9 +416,9 @@ flags:</p>
 <span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">exim</span>.<span class="ruby-identifier">mailq</span>, :<span class="ruby-identifier">verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
 </pre>
 
-<p>If you&#39;ve asked it to flatten the result it will not print sender
-hostnames, it will just print the result as if it&#39;s one huge result,
-handy for things like showing a combined mailq.</p>
+<p>If you’ve asked it to flatten the result it will not print sender
+hostnames, it will just print the result as if it’s one huge result, handy
+for things like showing a combined mailq.</p>
           
           
 
@@ -574,7 +574,7 @@ handy for things like showing a combined mailq.</p>
   <span class="ruby-comment"># only print good data, ignore data that results from failure</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-      <span class="ruby-comment"># figure out the lengths of the display as strings, we&#39;ll use</span>
+      <span class="ruby-comment"># figure out the lengths of the display as strings, we'll use</span>
       <span class="ruby-comment"># it later to correctly justify the output</span>
       <span class="ruby-identifier">lengths</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword">begin</span>

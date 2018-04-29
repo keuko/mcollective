@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::Matcher - mcollective version 2.12.0</title>
+<title>module MCollective::Matcher - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -215,17 +215,17 @@ language</p>
     <span class="ruby-comment"># double qoutes. We do this to handle the case where params</span>
     <span class="ruby-comment"># contain escaped qoutes.</span>
     <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>].<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;)&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
-    <span class="ruby-identifier">func_quotes</span> = <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/(&#39;|&quot;)/</span>)
+    <span class="ruby-identifier">func_quotes</span> = <span class="ruby-identifier">func_hash</span>[<span class="ruby-string">&quot;params&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-regexp">/('|&quot;)/</span>)
 
     <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&#39;|&quot;/</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/'|&quot;/</span>)
         <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">i</span>)
         <span class="ruby-keyword">break</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">reverse</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&#39;|&quot;/</span>)
+      <span class="ruby-keyword">if</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/'|&quot;/</span>)
         <span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-identifier">func_quotes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>)
         <span class="ruby-keyword">break</span>
       <span class="ruby-keyword">end</span>
@@ -282,7 +282,7 @@ function</p>
   <span class="ruby-keyword">if</span>((<span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">TrueClass</span>) <span class="ruby-operator">||</span>
       <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">FalseClass</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">function_hash</span>[<span class="ruby-string">&quot;operator&quot;</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/&lt;|&gt;/</span>))
     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cannot do &gt; and &lt; comparison on Booleans and Strings &quot;</span> <span class="ruby-operator">+</span>
-              <span class="ruby-node">&quot;&#39;#{l_compare} #{function_hash[&quot;operator&quot;]} #{function_hash[&quot;r_compare&quot;]}&#39;&quot;</span>)
+              <span class="ruby-node">&quot;'#{l_compare} #{function_hash[&quot;operator&quot;]} #{function_hash[&quot;r_compare&quot;]}'&quot;</span>)
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">end</span>
 
@@ -294,7 +294,7 @@ function</p>
 
   <span class="ruby-comment"># Do a regex comparison if right compare string is a regex</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">operator</span><span class="ruby-operator">=~</span> <span class="ruby-regexp">/(=~|!=~)/</span>
-    <span class="ruby-comment"># Fail if left compare value isn&#39;t a string</span>
+    <span class="ruby-comment"># Fail if left compare value isn't a string</span>
     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">l_compare</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cannot do a regex check on a non string value.&quot;</span>)
       <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
@@ -422,14 +422,14 @@ function</p>
           <div class="method-source-code" id="execute_function-source">
             <pre><span class="ruby-comment"># File lib/mcollective/matcher.rb, line 78</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">execute_function</span>(<span class="ruby-identifier">function_hash</span>)
-  <span class="ruby-comment"># In the case where a data plugin isn&#39;t present there are two ways we can handle</span>
+  <span class="ruby-comment"># In the case where a data plugin isn't present there are two ways we can handle</span>
   <span class="ruby-comment"># the raised exception. The function result can either be false or the entire</span>
   <span class="ruby-comment"># expression can fail.</span>
   <span class="ruby-comment">#</span>
   <span class="ruby-comment"># In the case where we return the result as false it opens us op to unexpected</span>
   <span class="ruby-comment"># negation behavior.</span>
   <span class="ruby-comment">#</span>
-  <span class="ruby-comment">#   !foo(&#39;bar&#39;).name = bar</span>
+  <span class="ruby-comment">#   !foo('bar').name = bar</span>
   <span class="ruby-comment">#</span>
   <span class="ruby-comment"># In this case the user would expect discovery to match on all machines where</span>
   <span class="ruby-comment"># the name value of the foo function does not equal bar. If a non existent function</span>
@@ -453,7 +453,7 @@ function</p>
     <span class="ruby-keyword">return</span> <span class="ruby-identifier">result</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NoMethodError</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;cannot execute discovery function &#39;#{function_hash[&quot;name&quot;]}&#39;. data plugin not found&quot;</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;cannot execute discovery function '#{function_hash[&quot;name&quot;]}'. data plugin not found&quot;</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::SSL - mcollective version 2.12.0</title>
+<title>class MCollective::SSL - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -249,7 +249,7 @@ decrypted using a private key</p>
   <span class="ruby-comment"># The Base 64 character set is A-Z a-z 0-9 + / =</span>
   <span class="ruby-comment"># Also allow for whitespace, but raise if we get anything else</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">string</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/^[A-Za-z0-9+\/=\s]+$/</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;invalid base64&#39;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'invalid base64'</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
 <span class="ruby-keyword">end</span></pre>
@@ -360,7 +360,7 @@ decrypted using a private key</p>
   <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span>
   <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-identifier">cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cipher</span>
 
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher &#39;#{@ssl_cipher}&#39; is not supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher '#{@ssl_cipher}' is not supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -400,7 +400,7 @@ from OpenSSL::BN</p>
           <div class="method-source-code" id="uuid-source">
             <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 218</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>(<span class="ruby-identifier">string</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">string</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Random</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&#39;H*&#39;</span>).<span class="ruby-identifier">shift</span>
+  <span class="ruby-identifier">string</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Random</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'H*'</span>).<span class="ruby-identifier">shift</span>
 
   <span class="ruby-identifier">uuid_name_space_dns</span> = [<span class="ruby-value">0x6b</span>, <span class="ruby-value">0xa7</span>, <span class="ruby-value">0xb8</span>, <span class="ruby-value">0x10</span>, <span class="ruby-value">0x9d</span>, <span class="ruby-value">0xad</span>, <span class="ruby-value">0x11</span>, <span class="ruby-value">0xd1</span>, <span class="ruby-value">0x80</span>, <span class="ruby-value">0xb4</span>, <span class="ruby-value">0x00</span>, <span class="ruby-value">0xc0</span>, <span class="ruby-value">0x4f</span>, <span class="ruby-value">0xd4</span>, <span class="ruby-value">0x30</span>, <span class="ruby-value">0xc8</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">chr</span>}.<span class="ruby-identifier">join</span>
 
@@ -420,10 +420,10 @@ from OpenSSL::BN</p>
   <span class="ruby-identifier">bytes</span>[<span class="ruby-value">8</span>] <span class="ruby-operator">|=</span> <span class="ruby-value">0x80</span>
 
   <span class="ruby-identifier">bytes</span> = [<span class="ruby-value">4</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">6</span>].<span class="ruby-identifier">collect</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-string">&#39;C*&#39;</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&#39;H*&#39;</span>)
+    <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-string">'C*'</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'H*'</span>)
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;-&#39;</span>)
+  <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'-'</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -821,7 +821,7 @@ passphrase to read the private key</p>
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
 
   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find key #{key}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{type} key file &#39;#{key}&#39; is empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">zero?</span>(<span class="ruby-identifier">key</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{type} key file '#{key}' is empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">zero?</span>(<span class="ruby-identifier">key</span>)
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:public</span>
     <span class="ruby-keyword">begin</span>

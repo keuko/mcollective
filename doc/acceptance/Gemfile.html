@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Gemfile - mcollective version 2.12.0</title>
+<title>Gemfile - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -258,15 +258,15 @@
 
 <p># Specifies a gem mirror; duplicated in acceptance setup # to ensure a
 similar environment on acceptance hosts. source <a
-href="'GEM_SOURCE'">ENV</a> || &#39;<a
-href="https://rubygems.org">rubygems.org</a>&#39;</p>
+href="'GEM_SOURCE'">ENV</a> || ‘<a
+href="https://rubygems.org">rubygems.org</a>’</p>
 
 <p>def location_for(place, fake_version = nil)</p>
 
 <pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-identifier">place</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^(git:[^#]*)#(.*)/</span>
   [<span class="ruby-identifier">fake_version</span>, { :<span class="ruby-identifier">git</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, :<span class="ruby-identifier">branch</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }].<span class="ruby-identifier">compact</span>
 <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">place</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^file:\/\/(.*)/</span>
-  [<span class="ruby-string">&#39;&gt;= 0&#39;</span>, { :<span class="ruby-identifier">path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-node">$1</span>), :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }]
+  [<span class="ruby-string">'&gt;= 0'</span>, { :<span class="ruby-identifier">path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-node">$1</span>), :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }]
 <span class="ruby-keyword">else</span>
   [<span class="ruby-identifier">place</span>, { :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }]
 <span class="ruby-keyword">end</span>
@@ -279,7 +279,7 @@ href="https://rubygems.org">rubygems.org</a>&#39;</p>
 href="'BEAKER_HOSTGENERATOR_VERSION'">location_for(ENV</a> || “~&gt; 0.8”)
 gem “beaker-abs”, *<a href="'BEAKER_ABS_VERSION'">location_for(ENV</a> ||
 “~&gt; 0.2”) gem “rake” gem “httparty”, :require =&gt; false gem
-&#39;uuidtools&#39;, :require =&gt; false</p>
+‘uuidtools’, :require =&gt; false</p>
 
 <p>group(:test) do</p>
 

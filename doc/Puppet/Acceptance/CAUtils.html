@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Puppet::Acceptance::CAUtils - mcollective version 2.12.0</title>
+<title>module Puppet::Acceptance::CAUtils - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -127,13 +127,13 @@
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/common_utils.rb, line 70</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">clean_cert</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">cn</span>, <span class="ruby-identifier">check</span> = <span class="ruby-keyword">true</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">master</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">master</span>[<span class="ruby-value">:is_puppetserver</span>]
-      <span class="ruby-identifier">on</span> <span class="ruby-identifier">master</span>, <span class="ruby-identifier">puppet_resource</span>(<span class="ruby-string">&quot;service&quot;</span>, <span class="ruby-identifier">master</span>[<span class="ruby-string">&#39;puppetservice&#39;</span>], <span class="ruby-string">&quot;ensure=stopped&quot;</span>)
+      <span class="ruby-identifier">on</span> <span class="ruby-identifier">master</span>, <span class="ruby-identifier">puppet_resource</span>(<span class="ruby-string">&quot;service&quot;</span>, <span class="ruby-identifier">master</span>[<span class="ruby-string">'puppetservice'</span>], <span class="ruby-string">&quot;ensure=stopped&quot;</span>)
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;cert&#39;</span>, <span class="ruby-string">&#39;clean&#39;</span>, <span class="ruby-identifier">cn</span>), <span class="ruby-value">:acceptable_exit_codes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">check</span> <span class="ruby-operator">?</span> [<span class="ruby-value">0</span>] <span class="ruby-operator">:</span> [<span class="ruby-value">0</span>, <span class="ruby-value">24</span>])
+  <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'cert'</span>, <span class="ruby-string">'clean'</span>, <span class="ruby-identifier">cn</span>), <span class="ruby-value">:acceptable_exit_codes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">check</span> <span class="ruby-operator">?</span> [<span class="ruby-value">0</span>] <span class="ruby-operator">:</span> [<span class="ruby-value">0</span>, <span class="ruby-value">24</span>])
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">check</span>
     <span class="ruby-identifier">assert_match</span>(<span class="ruby-node">/remov.*Certificate.*#{cn}/i</span>, <span class="ruby-identifier">stdout</span>, <span class="ruby-string">&quot;Should see a log message that certificate request was removed.&quot;</span>)
-    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;cert&#39;</span>, <span class="ruby-string">&#39;list&#39;</span>, <span class="ruby-string">&#39;--all&#39;</span>))
+    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'cert'</span>, <span class="ruby-string">'list'</span>, <span class="ruby-string">'--all'</span>))
     <span class="ruby-identifier">assert_no_match</span>(<span class="ruby-node">/#{cn}/</span>, <span class="ruby-identifier">stdout</span>, <span class="ruby-string">&quot;Should not see certificate in list anymore.&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
@@ -172,8 +172,8 @@
   <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;All: Clear agent only ssl settings (do not clear master)&quot;</span>
   <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
     <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">master</span>
-    <span class="ruby-identifier">ssldir</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;agent --configprint ssldir&#39;</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
-    <span class="ruby-identifier">on</span>( <span class="ruby-identifier">host</span>, <span class="ruby-identifier">host_command</span>(<span class="ruby-node">&quot;rm -rf &#39;#{ssldir}&#39;&quot;</span>) )
+    <span class="ruby-identifier">ssldir</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'agent --configprint ssldir'</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
+    <span class="ruby-identifier">on</span>( <span class="ruby-identifier">host</span>, <span class="ruby-identifier">host_command</span>(<span class="ruby-node">&quot;rm -rf '#{ssldir}'&quot;</span>) )
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -207,21 +207,21 @@
           <div class="method-source-code" id="initialize_ssl-source">
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/common_utils.rb, line 23</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize_ssl</span>
-  <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-string">&#39;facter hostname&#39;</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">strip</span>
-  <span class="ruby-identifier">fqdn</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-string">&#39;facter fqdn&#39;</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">strip</span>
+  <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-string">'facter hostname'</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">strip</span>
+  <span class="ruby-identifier">fqdn</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-string">'facter fqdn'</span>).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">strip</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">master</span>.<span class="ruby-identifier">use_service_scripts?</span>
     <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Ensure puppet is stopped&quot;</span>
     <span class="ruby-comment"># Passenger, in particular, must be shutdown for the cert setup steps to work,</span>
     <span class="ruby-comment"># but any running puppet master will interfere with webrick starting up and</span>
     <span class="ruby-comment"># potentially ignore the puppet.conf changes.</span>
-    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;resource&#39;</span>, <span class="ruby-string">&#39;service&#39;</span>, <span class="ruby-identifier">master</span>[<span class="ruby-string">&#39;puppetservice&#39;</span>], <span class="ruby-string">&quot;ensure=stopped&quot;</span>))
+    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'resource'</span>, <span class="ruby-string">'service'</span>, <span class="ruby-identifier">master</span>[<span class="ruby-string">'puppetservice'</span>], <span class="ruby-string">&quot;ensure=stopped&quot;</span>))
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Clear SSL on all hosts&quot;</span>
   <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">ssldir</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;agent --configprint ssldir&#39;</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
-    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;rm -rf &#39;#{ssldir}&#39;&quot;</span>)
+    <span class="ruby-identifier">ssldir</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'agent --configprint ssldir'</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
+    <span class="ruby-identifier">on</span>(<span class="ruby-identifier">host</span>, <span class="ruby-node">&quot;rm -rf '#{ssldir}'&quot;</span>)
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Master: Start Puppet Master&quot;</span> <span class="ruby-keyword">do</span>
@@ -230,14 +230,14 @@
         <span class="ruby-value">:dns_alt_names</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;puppet,#{hostname},#{fqdn}&quot;</span>,
       },
       <span class="ruby-value">:__service_args__</span> =<span class="ruby-operator">&gt;</span> {
-        <span class="ruby-comment"># apache2 service scripts can&#39;t restart if we&#39;ve removed the ssl dir</span>
+        <span class="ruby-comment"># apache2 service scripts can't restart if we've removed the ssl dir</span>
         <span class="ruby-value">:bypass_service_script</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
       },
     }
     <span class="ruby-identifier">with_puppet_running_on</span>(<span class="ruby-identifier">master</span>, <span class="ruby-identifier">master_opts</span>) <span class="ruby-keyword">do</span>
 
       <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&#39;roles&#39;</span>].<span class="ruby-identifier">include?</span> <span class="ruby-string">&#39;master&#39;</span>
+        <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">'roles'</span>].<span class="ruby-identifier">include?</span> <span class="ruby-string">'master'</span>
 
         <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Agents: Run agent --test first time to gen CSR&quot;</span>
         <span class="ruby-identifier">on</span> <span class="ruby-identifier">host</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-node">&quot;agent --test --server #{master}&quot;</span>), <span class="ruby-value">:acceptable_exit_codes</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">1</span>]
@@ -286,13 +286,13 @@
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">master</span>.<span class="ruby-identifier">is_pe?</span>
   <span class="ruby-identifier">clear_agent_ssl</span>
 
-  <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">master</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-string">&#39;facter hostname&#39;</span>)
-  <span class="ruby-identifier">fqdn</span> = <span class="ruby-identifier">master</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-string">&#39;facter fqdn&#39;</span>)
+  <span class="ruby-identifier">hostname</span> = <span class="ruby-identifier">master</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-string">'facter hostname'</span>)
+  <span class="ruby-identifier">fqdn</span> = <span class="ruby-identifier">master</span>.<span class="ruby-identifier">execute</span>(<span class="ruby-string">'facter fqdn'</span>)
 
   <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Clear old agent certificates from master&quot;</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">agents</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
       <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">agent</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">master</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">is_using_passenger?</span>
-      <span class="ruby-identifier">agent_cn</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;agent --configprint certname&#39;</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
+      <span class="ruby-identifier">agent_cn</span> = <span class="ruby-identifier">on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'agent --configprint certname'</span>)).<span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">chomp</span>
       <span class="ruby-identifier">clean_cert</span>(<span class="ruby-identifier">master</span>, <span class="ruby-identifier">agent_cn</span>, <span class="ruby-keyword">false</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">agent_cn</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -309,7 +309,7 @@
       <span class="ruby-identifier">agents</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
         <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">agent</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">master</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">is_using_passenger?</span>
         <span class="ruby-identifier">step</span> <span class="ruby-string">&quot;Agents: Run agent --test once to obtain auto-signed cert&quot;</span> <span class="ruby-keyword">do</span>
-          <span class="ruby-identifier">on</span> <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">&#39;agent&#39;</span>, <span class="ruby-node">&quot;--test --server #{master}&quot;</span>), <span class="ruby-value">:acceptable_exit_codes</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">0</span>,<span class="ruby-value">2</span>]
+          <span class="ruby-identifier">on</span> <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">puppet</span>(<span class="ruby-string">'agent'</span>, <span class="ruby-node">&quot;--test --server #{master}&quot;</span>), <span class="ruby-value">:acceptable_exit_codes</span> =<span class="ruby-operator">&gt;</span> [<span class="ruby-value">0</span>,<span class="ruby-value">2</span>]
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>

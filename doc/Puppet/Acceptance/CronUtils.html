@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Puppet::Acceptance::CronUtils - mcollective version 2.12.0</title>
+<title>module Puppet::Acceptance::CronUtils - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -122,9 +122,9 @@
           <div class="method-source-code" id="clean-source">
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/common_utils.rb, line 4</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">clean</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">o</span>={})
-  <span class="ruby-identifier">o</span> = {<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;tstuser&#39;</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">o</span>)
+  <span class="ruby-identifier">o</span> = {<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'tstuser'</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">o</span>)
   <span class="ruby-identifier">run_cron_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:remove</span>, <span class="ruby-identifier">o</span>[<span class="ruby-value">:user</span>])
-  <span class="ruby-identifier">apply_manifest_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">%Q[user { &#39;%s&#39;: ensure =&gt; absent, managehome =&gt; false }]</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">o</span>[<span class="ruby-value">:user</span>])
+  <span class="ruby-identifier">apply_manifest_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">%Q[user { '%s': ensure =&gt; absent, managehome =&gt; false }]</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">o</span>[<span class="ruby-value">:user</span>])
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -157,13 +157,13 @@
           <div class="method-source-code" id="setup-source">
             <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/common_utils.rb, line 10</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">setup</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">o</span>={})
-  <span class="ruby-identifier">o</span> = {<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;tstuser&#39;</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">o</span>)
-  <span class="ruby-identifier">apply_manifest_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">%Q[user { &#39;%s&#39;: ensure =&gt; present, managehome =&gt; false }]</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">o</span>[<span class="ruby-value">:user</span>])
+  <span class="ruby-identifier">o</span> = {<span class="ruby-value">:user</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'tstuser'</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">o</span>)
+  <span class="ruby-identifier">apply_manifest_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">%Q[user { '%s': ensure =&gt; present, managehome =&gt; false }]</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">o</span>[<span class="ruby-value">:user</span>])
   <span class="ruby-identifier">apply_manifest_on</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">%Q[case $operatingsystem {
-                               centos, redhat: {$cron = &#39;cronie&#39;}
-                               solaris: { $cron = &#39;core-os&#39; }
-                               default: {$cron =&#39;cron&#39;} }
-                               package {&#39;cron&#39;: name=&gt; $cron, ensure=&gt;present, }]</span>)
+                               centos, redhat: {$cron = 'cronie'}
+                               solaris: { $cron = 'core-os' }
+                               default: {$cron ='cron'} }
+                               package {'cron': name=&gt; $cron, ensure=&gt;present, }]</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           

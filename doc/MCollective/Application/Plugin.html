@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Plugin - mcollective version 2.12.0</title>
+<title>class MCollective::Application::Plugin - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -169,14 +169,14 @@
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
 
-      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a plugin named &#39;%s&#39; in any supported plugin type&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_plugin_type</span>
+      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a plugin named '%s' in any supported plugin type&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_plugin_type</span>
       <span class="ruby-identifier">ddl</span> = <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>], <span class="ruby-identifier">found_plugin_type</span>)
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">help</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:rpctemplate</span>])
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a &#39;%s&#39; plugin named &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
+      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a '%s' plugin named '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">'/'</span>)
     <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">else</span>
@@ -241,27 +241,27 @@
           <div class="method-source-code" id="generate_command-source">
             <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 170</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_command</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;undefined plugin type. cannot generate plugin. valid types are &#39;agent&#39; and &#39;data&#39;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-string">&quot;target&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;undefined plugin type. cannot generate plugin. valid types are 'agent' and 'data'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-string">&quot;target&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span>
 
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>]
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;No plugin name specified. Using &#39;new_plugin&#39;&quot;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;No plugin name specified. Using 'new_plugin'&quot;</span>
     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] = <span class="ruby-string">&quot;new_plugin&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">load_plugin_config_values</span>
 
   <span class="ruby-keyword">case</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">downcase</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;agent&#39;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'agent'</span>
     <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">AgentGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:actions</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
-  <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;data&#39;</span>
+  <span class="ruby-keyword">when</span> <span class="ruby-string">'data'</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;data plugin must have at least one output&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>]
     <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">DataGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid plugin type. cannot generate plugin &#39;#{configuration[:target]}&#39;&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid plugin type. cannot generate plugin '#{configuration[:target]}'&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -404,9 +404,9 @@ possible to override metadata values in a local client config file.</p>
 
         <div class="method-description">
           
-          <p><a href="../Agents.html">Agents</a> are just called &#39;agent&#39; but
-newer plugin types are called plugin_plugintype for example facter_facts
-etc so this will first try the old way then the new way.</p>
+          <p><a href="../Agents.html">Agents</a> are just called 'agent' but newer
+plugin types are called plugin_plugintype for example facter_facts etc so
+this will first try the old way then the new way.</p>
           
           
 
@@ -455,14 +455,14 @@ etc so this will first try the old way then the new way.</p>
           <div class="method-source-code" id="main-source">
             <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 357</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-    <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;No action specified, please run &#39;mco help plugin&#39; for help&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:action</span>)
+    <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;No action specified, please run 'mco help plugin' for help&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:action</span>)
 
     <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;#{configuration[:action]}_command&quot;</span>
 
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">cmd</span>
       <span class="ruby-identifier">send</span> <span class="ruby-identifier">cmd</span>
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">abort</span> <span class="ruby-node">&quot;Invalid action #{configuration[:action]}, please run &#39;mco help plugin&#39; for help.&quot;</span>
+      <span class="ruby-identifier">abort</span> <span class="ruby-node">&quot;Invalid action #{configuration[:action]}, please run 'mco help plugin' for help.&quot;</span>
     <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -564,7 +564,7 @@ etc so this will first try the old way then the new way.</p>
 
         <div class="method-description">
           
-          <p>Handle alternative format that optparser can&#39;t parse.</p>
+          <p>Handle alternative format that optparser can’t parse.</p>
           
           
 
@@ -590,7 +590,7 @@ etc so this will first try the old way then the new way.</p>
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">argument</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(actions|outputs)=(.+)/i</span>)
           <span class="ruby-identifier">configuration</span>[<span class="ruby-node">$1</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">to_sym</span>]= <span class="ruby-node">$2</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
         <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse --arg &#39;#{argument}&#39;&quot;</span>
+          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse --arg '#{argument}'&quot;</span>
         <span class="ruby-keyword">end</span>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
@@ -642,7 +642,7 @@ etc so this will first try the old way then the new way.</p>
 
   <span class="ruby-comment"># Deprecation warning for --iteration</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>]
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Warning. The --iteration flag has been deprecated. Please use --revision instead.&#39;</span>
+    <span class="ruby-identifier">puts</span> <span class="ruby-string">'Warning. The --iteration flag has been deprecated. Please use --revision instead.'</span>
     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>]
   <span class="ruby-keyword">end</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Security::Base - mcollective version 2.12.0</title>
+<title>class MCollective::Security::Base - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -235,8 +235,8 @@ MCollective::Security::PSK plugin.</p>
 
         <div class="method-description">
           
-          <p>Initializes configuration and logging as well as prepare a zero&#39;d hash
-of stats various security methods and filter validators should increment
+          <p>Initializes configuration and logging as well as prepare a zero’d hash of
+stats various security methods and filter validators should increment
 stats, see <a href="Psk.html">MCollective::Security::Psk</a> for a sample</p>
           
           
@@ -361,7 +361,7 @@ id, security plugins can provide their own means of doing ids.</p>
           <div class="method-source-code" id="create_request-source">
             <pre><span class="ruby-comment"># File lib/mcollective/security/base.rb, line 177</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">reqid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">initiated_by</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">60</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoding a request for agent &#39;#{target_agent}&#39; in collective #{target_collective} with request id #{reqid}&quot;</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Encoding a request for agent '#{target_agent}' in collective #{target_collective} with request id #{reqid}&quot;</span>)
 
   {<span class="ruby-value">:body</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>,
    <span class="ruby-value">:senderid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">identity</span>,
@@ -598,7 +598,7 @@ agent with a supplied name</p>
 <p>identity - the configured identity of the system</p>
 </li></ul>
 
-<p>TODO: Support REGEX and/or multiple filter keys to be AND&#39;d</p>
+<p>TODO: Support REGEX and/or multiple filter keys to be AND’d</p>
           
           
 
@@ -688,7 +688,7 @@ agent with a supplied name</p>
 
     <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;identity&quot;</span>
       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">empty?</span>
-        <span class="ruby-comment"># Identity filters should not be &#39;and&#39; but &#39;or&#39; as each node can only have one identity</span>
+        <span class="ruby-comment"># Identity filters should not be 'and' but 'or' as each node can only have one identity</span>
         <span class="ruby-identifier">matched</span> = <span class="ruby-identifier">filter</span>[<span class="ruby-identifier">key</span>].<span class="ruby-identifier">select</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">has_identity?</span>(<span class="ruby-identifier">f</span>)}.<span class="ruby-identifier">size</span>
 
         <span class="ruby-keyword">if</span> <span class="ruby-identifier">matched</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>

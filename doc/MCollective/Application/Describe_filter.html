@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Describe_filter - mcollective version 2.12.0</title>
+<title>class MCollective::Application::Describe_filter - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -222,12 +222,12 @@
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;fstatement&quot;</span>
       <span class="ruby-identifier">v</span> = <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]
-      <span class="ruby-identifier">result_string</span> = <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;Execute the Data Query &#39;#{v[&quot;name&quot;]}&#39;&quot;</span>
+      <span class="ruby-identifier">result_string</span> = <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;Execute the Data Query '#{v[&quot;name&quot;]}'&quot;</span>
       <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>[<span class="ruby-string">&quot;params&quot;</span>]
         <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; with parameters (#{v[&quot;params&quot;]})&quot;</span>
       <span class="ruby-keyword">end</span>
       <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;. &quot;</span>
-      <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;Check if the query&#39;s &#39;#{v[&quot;value&quot;]}&#39; value #{v[&quot;operator&quot;]} &#39;#{v[&quot;r_compare&quot;]}&#39;  &quot;</span>
+      <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;Check if the query's '#{v[&quot;value&quot;]}' value #{v[&quot;operator&quot;]} '#{v[&quot;r_compare&quot;]}'  &quot;</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_string</span>
     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;(&quot;</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;(&quot;</span>

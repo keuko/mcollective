@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Reply - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::Reply - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -428,7 +428,7 @@ error</p>
             <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 21</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize_data</span>
   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@action</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No action &#39;%s&#39; defined for agent &#39;%s&#39; in the DDL&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">pluginname</span>]
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No action '%s' defined for agent '%s' in the DDL&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">pluginname</span>]
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-identifier">interface</span> = <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-ivar">@action</span>)

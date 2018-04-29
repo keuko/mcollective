@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>README - mcollective version 2.12.0</title>
+<title>README - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -294,8 +294,8 @@ setup</em> section.</p>
 
 <h1 id="label-SSL+setup">SSL setup<span><a href="#label-SSL+setup">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>/ssl is a puppet master&#39;s ssl directory. Selected files from this have
-been copied into the files/ directory, either directly as .pem files, or
+<p>/ssl is a puppet master’s ssl directory. Selected files from this have been
+copied into the files/ directory, either directly as .pem files, or
 combined into java truststores.</p>
 
 <p>Commands used to set it up:</p>
@@ -305,7 +305,7 @@ puppet cert --ssldir=`pwd`/ssl generate activemq
 puppet cert --ssldir=`pwd`/ssl generate mcollective-client
 puppet cert --ssldir=`pwd`/ssl generate mcollective-server
 
-keytool -storepasswd -storepass notsecret -import -alias &#39;puppet ca&#39; -file ssl/ca/ca_crt.pem -keystore files/activemq.truststore
+keytool -storepasswd -storepass notsecret -import -alias 'puppet ca' -file ssl/ca/ca_crt.pem -keystore files/activemq.truststore
 cat ssl/private_keys/activemq.pem ssl/certs/activemq.pem &gt; activemq.combined.pem
 openssl pkcs12 -password pass:notsecret -export -in activemq.combined.pem -out activemq.p12 -name activemq.example.com
 keytool -importkeystore -destkeystore files/activemq.keystore -deststorepass notsecret -srckeystore activemq.p12 -srcstoretype PKCS12 -srcstorepass notsecret -alias activemq.example.com

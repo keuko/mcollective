@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Security::Psk - mcollective version 2.12.0</title>
+<title>class MCollective::Security::Psk - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -161,7 +161,7 @@ of uid to do authorization.</p>
       <span class="ruby-identifier">id</span>  = <span class="ruby-node">&quot;gid=#{Process.gid}&quot;</span>
 
     <span class="ruby-keyword">when</span> <span class="ruby-value">:group</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use the &#39;group&#39; callertype for the PSK security plugin on the Windows platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use the 'group' callertype for the PSK security plugin on the Windows platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
 
       <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;group=#{Etc.getgrgid(Process.gid).name}&quot;</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::PluginPackager::DebpackagePackager - mcollective version 2.12.0</title>
+<title>class MCollective::PluginPackager::DebpackagePackager - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -129,15 +129,15 @@
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/debpackage_packager.rb, line 6</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">command_available?</span>(<span class="ruby-string">&#39;debuild&#39;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">command_available?</span>(<span class="ruby-string">'debuild'</span>)
     <span class="ruby-ivar">@plugin</span> = <span class="ruby-identifier">plugin</span>
     <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
-    <span class="ruby-ivar">@libdir</span> = <span class="ruby-identifier">pluginpath</span> <span class="ruby-operator">||</span> <span class="ruby-string">&#39;/usr/share/mcollective/plugins/mcollective/&#39;</span>
+    <span class="ruby-ivar">@libdir</span> = <span class="ruby-identifier">pluginpath</span> <span class="ruby-operator">||</span> <span class="ruby-string">'/usr/share/mcollective/plugins/mcollective/'</span>
     <span class="ruby-ivar">@signature</span> = <span class="ruby-identifier">signature</span>
     <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}-#{@plugin.metadata[:name]}&quot;</span>
     <span class="ruby-ivar">@keep_artifacts</span> = <span class="ruby-identifier">keep_artifacts</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cannot build package. &#39;debuild&#39; is not present on the system.&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cannot build package. 'debuild' is not present on the system.&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -203,7 +203,7 @@
   <span class="ruby-keyword">begin</span>
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Building packages for #{@package_name} plugin.&quot;</span>
 
-    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">&#39;mcollective_packager&#39;</span>)
+    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">'mcollective_packager'</span>)
     <span class="ruby-ivar">@build_dir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@tmpdir</span>, <span class="ruby-node">&quot;#{@package_name}_#{@plugin.metadata[:version]}&quot;</span>)
     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span>(<span class="ruby-ivar">@build_dir</span>)
 
@@ -221,10 +221,10 @@
     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Completed building all packages for #{@package_name} plugin.&quot;</span>
   <span class="ruby-keyword">ensure</span>
     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@keep_artifacts</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Keeping build artifacts.&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">'Keeping build artifacts.'</span>
       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Build artifacts saved - #{@tmpdir}&quot;</span>
     <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Removing build artifacts.&#39;</span>
+      <span class="ruby-identifier">puts</span> <span class="ruby-string">'Removing build artifacts.'</span>
       <span class="ruby-identifier">cleanup_tmpdirs</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>

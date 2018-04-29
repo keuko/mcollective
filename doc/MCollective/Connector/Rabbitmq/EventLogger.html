@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Rabbitmq::EventLogger - mcollective version 2.12.0</title>
+<title>class MCollective::Connector::Rabbitmq::EventLogger - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
@@ -327,22 +327,22 @@
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&quot;lock_fail&quot;</span>]
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
       <span class="ruby-comment"># failure is disabled</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;lock_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>]
-      <span class="ruby-comment"># we&#39;re about to force a disconnect</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">'lock_fail_count'</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>]
+      <span class="ruby-comment"># we're about to force a disconnect</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
     <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
       <span class="ruby-comment"># failure is disabled</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;read_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>]
-      <span class="ruby-comment"># we&#39;re about to force a reconnect</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">'read_fail_count'</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>]
+      <span class="ruby-comment"># we're about to force a reconnect</span>
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
     <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
@@ -378,7 +378,7 @@
           <div class="method-source-code" id="on_hbwrite_fail-source">
             <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 75</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbwrite_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat write failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat write failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
 <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

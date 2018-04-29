@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Discovery::Flatfile - mcollective version 2.12.0</title>
+<title>class MCollective::Discovery::Flatfile - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -143,7 +143,7 @@
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-node">/^#/</span>)
       <span class="ruby-keyword">next</span>
     <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Identities can only match /^[\w\.\-]+$/&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Identities can only match /^[\w\.\-]+$/'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
     <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
   <span class="ruby-keyword">end</span>
 

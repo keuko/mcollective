@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class Dir - mcollective version 2.12.0</title>
+<title>class Dir - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -197,8 +197,8 @@
           <div class="method-source-code" id="tmpdir-source">
             <pre><span class="ruby-comment"># File lib/mcollective/monkey_patches.rb, line 111</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">tmpdir</span>
-  <span class="ruby-identifier">tmp</span> = <span class="ruby-string">&#39;.&#39;</span>
-  <span class="ruby-keyword">for</span> <span class="ruby-identifier">dir</span> <span class="ruby-keyword">in</span> [<span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;TMPDIR&#39;</span>], <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;TMP&#39;</span>], <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;TEMP&#39;</span>], <span class="ruby-string">&#39;/tmp&#39;</span>]
+  <span class="ruby-identifier">tmp</span> = <span class="ruby-string">'.'</span>
+  <span class="ruby-keyword">for</span> <span class="ruby-identifier">dir</span> <span class="ruby-keyword">in</span> [<span class="ruby-constant">ENV</span>[<span class="ruby-string">'TMPDIR'</span>], <span class="ruby-constant">ENV</span>[<span class="ruby-string">'TMP'</span>], <span class="ruby-constant">ENV</span>[<span class="ruby-string">'TEMP'</span>], <span class="ruby-string">'/tmp'</span>]
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">dir</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">stat</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">stat</span>(<span class="ruby-identifier">dir</span>) <span class="ruby-keyword">and</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">directory?</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">stat</span>.<span class="ruby-identifier">writable?</span>
       <span class="ruby-identifier">tmp</span> = <span class="ruby-identifier">dir</span>
       <span class="ruby-keyword">break</span>

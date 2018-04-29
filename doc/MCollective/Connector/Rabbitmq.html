@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Rabbitmq - mcollective version 2.12.0</title>
+<title>class MCollective::Connector::Rabbitmq - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -244,8 +244,8 @@
 
     <span class="ruby-identifier">pools</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;rabbitmq.pool.size&quot;</span>))
     <span class="ruby-identifier">hosts</span> = []
-    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">&#39;&#39;</span>
-    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">''</span>
+    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">''</span>
     <span class="ruby-identifier">prompt_for_username</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.prompt_user&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
     <span class="ruby-identifier">prompt_for_password</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.prompt_password&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span>
@@ -295,7 +295,7 @@
     <span class="ruby-identifier">connection</span> = {<span class="ruby-value">:hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts</span>}
 
     <span class="ruby-comment"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
-    <span class="ruby-comment"># these can be guessed, the documentation isn&#39;t clear</span>
+    <span class="ruby-comment"># these can be guessed, the documentation isn't clear</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:use_exponential_back_off</span>] = <span class="ruby-ivar">@use_exponential_back_off</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:initial_reconnect_delay</span>] = <span class="ruby-ivar">@initial_reconnect_delay</span>
     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:back_off_multiplier</span>] = <span class="ruby-ivar">@back_off_multiplier</span>
@@ -526,8 +526,8 @@
           
           <p>Returns the name of the certificate file used by RabbitMQ Will first check
 if an environment variable MCOLLECTIVE_RABBITMQ_POOLX_SSL_CERT exists,
-where X is the RabbitMQ pool number. If the environment variable
-doesn&#39;t exist, it will try and load the value from the config.</p>
+where X is the RabbitMQ pool number. If the environment variable doesn’t
+exist, it will try and load the value from the config.</p>
           
           
 
@@ -602,8 +602,8 @@ option, accepts an optional default.</p>
           
           <p>Returns the name of the private key file used by RabbitMQ Will first check
 if an environment variable MCOLLECTIVE_RABBITMQ_POOLX_SSL_KEY exists, where
-X is the RabbitMQ pool number. If the environment variable doesn&#39;t
-exist, it will try and load the value from the config.</p>
+X is the RabbitMQ pool number. If the environment variable doesn’t exist,
+it will try and load the value from the config.</p>
           
           
 
@@ -683,7 +683,7 @@ exist, it will try and load the value from the config.</p>
             <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 386</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">reply_to</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">node</span>=<span class="ruby-keyword">nil</span>)
   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:directed</span>, <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:reply</span>, <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{@config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective '#{collective}' known collectives are '#{@config.collectives.join ', '}'&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
 
   <span class="ruby-identifier">agents_multiplex</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.agents_multiplex&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
   <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}, <span class="ruby-value">:id</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}
@@ -764,14 +764,14 @@ exist, it will try and load the value from the config.</p>
     <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
       <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>)
 
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to RabbitMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to RabbitMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
 
       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>)
 
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to RabbitMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to RabbitMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
 
     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
   <span class="ruby-keyword">end</span>
@@ -825,13 +825,13 @@ exist, it will try and load the value from the config.</p>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">MessageNotReceived</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>), <span class="ruby-string">&quot;No message received from RabbitMQ.&quot;</span>
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Received a processing error from RabbitMQ: &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">chomp</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/Processing error/</span>
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Received a processing error from RabbitMQ: '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>.<span class="ruby-identifier">chomp</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/Processing error/</span>
 
   <span class="ruby-comment"># We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;MESSAGE&#39;</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unexpected &#39;#{msg.command}&#39; frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'MESSAGE'</span>
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unexpected '#{msg.command}' frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnexpectedMessageType</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>),
-      <span class="ruby-node">&quot;Received frame of type &#39;#{msg.command}&#39; expected &#39;MESSAGE&#39;&quot;</span>
+      <span class="ruby-node">&quot;Received frame of type '#{msg.command}' expected 'MESSAGE'&quot;</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base64</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>)
@@ -997,17 +997,17 @@ exist, it will try and load the value from the config.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
     <span class="ruby-comment"># On rabbitmq if you send a message with a reply-to: header set to</span>
-    <span class="ruby-comment"># &#39;/temp-queue/*&#39; it automatically creates a private queue, munges</span>
+    <span class="ruby-comment"># '/temp-queue/*' it automatically creates a private queue, munges</span>
     <span class="ruby-comment"># the reply-to: header to point to this private queue, and</span>
     <span class="ruby-comment"># subscribes you to it.  As such you should never attempt to</span>
-    <span class="ruby-comment"># SUBSCRIBE or UNSUBSCRIBE to &#39;/temp-queue/*&#39; directly as that&#39;ll</span>
+    <span class="ruby-comment"># SUBSCRIBE or UNSUBSCRIBE to '/temp-queue/*' directly as that'll</span>
     <span class="ruby-comment"># cause great pain and suffering.</span>
     <span class="ruby-comment"># https://www.rabbitmq.com/stomp.html#d.tqd</span>
 
-    <span class="ruby-comment"># The exception to this is in &#39;use_reply_exchange&#39; mode, when the</span>
+    <span class="ruby-comment"># The exception to this is in 'use_reply_exchange' mode, when the</span>
     <span class="ruby-comment"># reply-to will be set to a queue in an explicit exchange.</span>
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_reply_exchange&quot;</span>, <span class="ruby-keyword">false</span>)
-      <span class="ruby-comment"># We aren&#39;t in &#39;use_reply_exchange&#39; mode, don&#39;t subscribe.</span>
+      <span class="ruby-comment"># We aren't in 'use_reply_exchange' mode, don't subscribe.</span>
       <span class="ruby-keyword">return</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
@@ -1060,7 +1060,7 @@ exist, it will try and load the value from the config.</p>
     <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>, <span class="ruby-identifier">node</span>)
 
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don&#39;t now how to create a target for message type #{msg.type}&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don't now how to create a target for message type #{msg.type}&quot;</span>
 
   <span class="ruby-keyword">end</span>
 
@@ -1106,7 +1106,7 @@ exist, it will try and load the value from the config.</p>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
     <span class="ruby-comment"># For a more detailed discussion of this logic, please see #subscribe</span>
     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;rabbitmq.use_reply_exchange&quot;</span>, <span class="ruby-keyword">false</span>)
-      <span class="ruby-comment"># We shouldn&#39;t try to unsubscribe from a &#39;/temp-queue/*&#39; queue.</span>
+      <span class="ruby-comment"># We shouldn't try to unsubscribe from a '/temp-queue/*' queue.</span>
       <span class="ruby-keyword">return</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>

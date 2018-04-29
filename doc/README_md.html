@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>README - mcollective version 2.12.0</title>
+<title>README - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -317,8 +317,8 @@ acceptance/files/client.crt
 * Change the <code>activemq.pool.1.ssl.{ca,cert,key}</code> paths to
 <code>~/.puppetlabs/etc/mcollective/{ca_crt.pem,client.crt,client.key}</code>.
 Note that <code>~</code> needs to be expanded to the full path. Also, that
-<code>client.pem</code> doesn&#39;t point to an actual file is intentional
-(I don&#39;t fully understand why).</p>
+<code>client.pem</code> doesn’t point to an actual file is intentional (I
+don’t fully understand why).</p>
 
 <p>Create <code>server.cfg</code>, updating <code>&lt;user&gt;</code>: “`
 main_collective = mcollective collectives = mcollective logger_type =
@@ -343,7 +343,7 @@ plugin.activemq.pool.1.ssl.key =
 
 <p>The configuration above uses <code>activemq</code> as the name of the
 ActiveMQ broker. <a href="MCollective.html">MCollective</a> will enforce
-that the SSL certificate presented by the server matches the name it&#39;s
+that the SSL certificate presented by the server matches the name it’s
 trying to connect to. To use the configuration above, traffic to
 <code>activemq</code> must be redirected to the local host. On most
 machines, that can be accomplished with <code> sudo echo &quot;127.0.0.1  

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::Base - mcollective version 2.12.0</title>
+<title>class MCollective::DDL::Base - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -112,13 +112,13 @@ JSON though today there are some Ruby Symbols in them which might be fixed
 laster on.</p>
 
 <p>The Hash being built should be stored in @entities, the format is generally
-not prescribed but there&#39;s a definite feel to how <a
+not prescribed but there’s a definite feel to how <a
 href="../DDL.html">DDL</a> files look so study the agent and discovery ones
 to see how the structure applies to very different use cases.</p>
 
 <p>For every plugin type you should have a single word name - that corresponds
 to the directory in the libdir where these plugins live.  If you need
-anything above and beyond &#39;metadata&#39; in your plugin <a
+anything above and beyond ‘metadata’ in your plugin <a
 href="../DDL.html">DDL</a> then add a PlugintypeDDL class here and add your
 specific behaviors to those.</p>
 
@@ -358,11 +358,11 @@ be loaded either from the config dir and if that does not exist, default to
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">template</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;metadata-help.erb&quot;</span>
     <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-string">&quot;metadata-help.erb&quot;</span>)
     <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">metadata_template</span>)
-    <span class="ruby-identifier">metastring</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">metadata_template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">&#39;%&#39;</span>)
+    <span class="ruby-identifier">metastring</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">metadata_template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">'%'</span>)
     <span class="ruby-identifier">metastring</span> = <span class="ruby-identifier">metastring</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
   <span class="ruby-keyword">end</span>
 
-  <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">&#39;%&#39;</span>)
+  <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">'%'</span>)
   <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -460,7 +460,7 @@ be loaded either from the config dir and if that does not exist, default to
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddlfile</span> = <span class="ruby-identifier">findddlfile</span>
     <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">ddlfile</span>), <span class="ruby-identifier">ddlfile</span>, <span class="ruby-value">1</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can&#39;t find DDL for #{@plugintype} plugin &#39;#{@pluginname}&#39;&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can't find DDL for #{@plugintype} plugin '#{@pluginname}'&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -574,7 +574,7 @@ be loaded either from the config dir and if that does not exist, default to
           <div class="method-source-code" id="requires-source">
             <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 191</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">requires</span>(<span class="ruby-identifier">requirement</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement should be a hash in the form :item =&gt; &#39;requirement&#39;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement should be a hash in the form :item =&gt; 'requirement'&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
 
   <span class="ruby-identifier">valid_requirements</span> = [<span class="ruby-value">:mcollective</span>]
 
@@ -654,8 +654,8 @@ be loaded either from the config dir and if that does not exist, default to
 
         <div class="method-description">
           
-          <p>validate strings, lists and booleans, we&#39;ll add more types of
-validators when all the use cases are clear</p>
+          <p>validate strings, lists and booleans, we’ll add more types of validators
+when all the use cases are clear</p>
 
 <p>only does validation for arguments actually given, since some might be
 optional.  We validate the presense of the argument earlier so this is a
@@ -724,7 +724,7 @@ safe assumption, just to skip them.</p>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_requirements</span>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">requirement</span> = <span class="ruby-ivar">@requirements</span>[<span class="ruby-value">:mcollective</span>]
     <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">mcollective_version</span>, <span class="ruby-identifier">requirement</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;%s plugin &#39;%s&#39; requires MCollective version %s or newer&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-ivar">@pluginname</span>, <span class="ruby-identifier">requirement</span>]
+      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;%s plugin '%s' requires MCollective version %s or newer&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-ivar">@pluginname</span>, <span class="ruby-identifier">requirement</span>]
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
 

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Logfile - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::Logfile - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -137,7 +137,7 @@
   <span class="ruby-identifier">logfile</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;rpcaudit.logfile&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;/var/log/puppetlabs/mcollective/mcollective-audit.log&quot;</span>
 
   <span class="ruby-identifier">now</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-  <span class="ruby-comment"># Already told timezone to be in UTC so we don&#39;t look it up again</span>
+  <span class="ruby-comment"># Already told timezone to be in UTC so we don't look it up again</span>
   <span class="ruby-comment"># This avoids platform specific timezone representation issues</span>
   <span class="ruby-identifier">now_iso8601</span> = <span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y-%m-%d %H:%M:%S UTC&quot;</span>)
 

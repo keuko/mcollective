@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Activemq::DummyError - mcollective version 2.12.0</title>
+<title>class MCollective::Connector::Activemq::DummyError - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
@@ -77,7 +77,7 @@
     
 <p>Older stomp gems do not have these error classes, in order to be able to
 handle these exceptions if they are present and still support older gems
-we&#39;re assigning the constants to a dummy exception that will never be
+we’re assigning the constants to a dummy exception that will never be
 thrown by us.  End result is that the code catching these exceptions become
 noops on older gems but on newer ones they become usable and handle those
 new errors intelligently</p>

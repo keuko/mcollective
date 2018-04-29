@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Progress - mcollective version 2.12.0</title>
+<title>class MCollective::RPC::Progress - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -141,7 +141,7 @@ p.twirl(i+1, 100) + “r”};puts</p>
           <div class="method-source-code" id="new-source">
             <pre><span class="ruby-comment"># File lib/mcollective/rpc/progress.rb, line 15</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">size</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-ivar">@twirl</span> = [<span class="ruby-string">&#39;|&#39;</span>, <span class="ruby-string">&#39;/&#39;</span>, <span class="ruby-string">&#39;-&#39;</span>, <span class="ruby-string">&quot;\\&quot;</span>, <span class="ruby-string">&#39;|&#39;</span>, <span class="ruby-string">&#39;/&#39;</span>, <span class="ruby-string">&#39;-&#39;</span>, <span class="ruby-string">&quot;\\&quot;</span>]
+  <span class="ruby-ivar">@twirl</span> = [<span class="ruby-string">'|'</span>, <span class="ruby-string">'/'</span>, <span class="ruby-string">'-'</span>, <span class="ruby-string">&quot;\\&quot;</span>, <span class="ruby-string">'|'</span>, <span class="ruby-string">'/'</span>, <span class="ruby-string">'-'</span>, <span class="ruby-string">&quot;\\&quot;</span>]
   <span class="ruby-ivar">@twirldex</span> = <span class="ruby-value">0</span>
 
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">size</span>
@@ -150,7 +150,7 @@ p.twirl(i+1, 100) + “r”};puts</p>
     <span class="ruby-identifier">cols</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">terminal_dimensions</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">-</span> <span class="ruby-value">22</span>
 
     <span class="ruby-comment"># Defaults back to old behavior if it</span>
-    <span class="ruby-comment"># couldn&#39;t figure out the size or if</span>
+    <span class="ruby-comment"># couldn't figure out the size or if</span>
     <span class="ruby-comment"># its more than 60 wide</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">cols</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
       <span class="ruby-ivar">@size</span> = <span class="ruby-value">0</span>

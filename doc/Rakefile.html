@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Rakefile - mcollective version 2.12.0</title>
+<title>Rakefile - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
@@ -263,12 +263,12 @@
 
 <p>begin</p>
 
-<pre class="ruby"><span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">&#39;ext&#39;</span>, <span class="ruby-string">&#39;packaging.rake&#39;</span>)
+<pre class="ruby"><span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging.rake'</span>)
 </pre>
 
 <p>rescue LoadError end</p>
 
-<p>def announce(msg=&#39;&#39;)</p>
+<p>def announce(msg=”)</p>
 
 <pre class="ruby"><span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;================&quot;</span>
 <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>
@@ -279,17 +279,17 @@
 
 <p>def safe_system *args</p>
 
-<pre class="ruby"><span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(&#39; &#39;)}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<pre class="ruby"><span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(' ')}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 </pre>
 
 <p>end</p>
 
 <p>def load_tools</p>
 
-<pre class="ruby"><span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">&#39;ext&#39;</span>, <span class="ruby-string">&#39;packaging&#39;</span>))
+<pre class="ruby"><span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging'</span>))
   <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:bootstrap&quot;</span>].<span class="ruby-identifier">invoke</span>
   <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">&#39;ext&#39;</span>, <span class="ruby-string">&#39;packaging.rake&#39;</span>)
+    <span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging.rake'</span>)
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">LoadError</span>
     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Could not load packaging tools. exiting&quot;</span>
     <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
@@ -320,8 +320,8 @@
 <span class="ruby-identifier">announce</span>(<span class="ruby-node">&quot;Building debian packages for #{@build.project}-#{@build.version}-#{@build.release}&quot;</span>)
 <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:deb&quot;</span>].<span class="ruby-identifier">invoke</span>
 
-<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;SIGNED&#39;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;1&#39;</span>
-  <span class="ruby-identifier">deb_flag</span> = <span class="ruby-node">&quot;-k#{ENV[&#39;SIGNWITH&#39;]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;SIGNWITH&#39;</span>]
+<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNED'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>
+  <span class="ruby-identifier">deb_flag</span> = <span class="ruby-node">&quot;-k#{ENV['SIGNWITH']}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNWITH'</span>]
   <span class="ruby-identifier">safe_system</span> <span class="ruby-node">%Q{/usr/bin/debsign #{deb_flag} pkg/deb  .changes}</span>
 <span class="ruby-keyword">end</span>
 <span class="ruby-identifier">move_artifacts</span>
@@ -362,7 +362,7 @@
 <span class="ruby-identifier">announce</span>(<span class="ruby-node">&quot;Building RPM for #{@build.project}-#{@build.version}-#{@build.release}&quot;</span>)
 <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:rpm&quot;</span>].<span class="ruby-identifier">invoke</span>
 <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:srpm&quot;</span>].<span class="ruby-identifier">invoke</span>
-<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">&#39;SIGNED&#39;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;1&#39;</span>
+<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNED'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>
   <span class="ruby-identifier">safe_system</span> <span class="ruby-string">%Q{/usr/bin/rpm --sign pkg/   *.rpm}</span>
 <span class="ruby-keyword">end</span>
 <span class="ruby-identifier">move_artifacts</span>
@@ -409,10 +409,10 @@
 
 <p>end</p>
 
-<p>desc &#39;run static analysis with rubocop&#39; task(:rubocop) do</p>
+<p>desc ‘run static analysis with rubocop’ task(:rubocop) do</p>
 
 <pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_VERSION</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/1.8/</span>
-  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;rubocop&#39;</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'rubocop'</span>
   <span class="ruby-identifier">cli</span> = <span class="ruby-constant">RuboCop</span><span class="ruby-operator">::</span><span class="ruby-constant">CLI</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">exit</span> <span class="ruby-identifier">cli</span>.<span class="ruby-identifier">run</span>(<span class="ruby-node">%w(-D -f s)</span>)
 <span class="ruby-keyword">else</span>

@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Agents - mcollective version 2.12.0</title>
+<title>class MCollective::Agents - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -183,7 +183,7 @@ load and manage instances of plugins.</p>
             <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 5</span>
 <span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agents</span> = {})
   <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;Configuration has not been loaded, can&#39;t load agents&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;Configuration has not been loaded, can't load agents&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
 
   <span class="ruby-identifier">@@agents</span> = <span class="ruby-identifier">agents</span>
 

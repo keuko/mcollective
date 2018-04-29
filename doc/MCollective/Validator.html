@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::Validator - mcollective version 2.12.0</title>
+<title>module MCollective::Validator - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -289,7 +289,7 @@ href="Validator.html#method-c-validate">::validate</a></p>
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">has_validator?</span>(<span class="ruby-identifier">method</span>)
     <span class="ruby-identifier">validator</span> = <span class="ruby-constant">Validator</span>[<span class="ruby-identifier">method</span>].<span class="ruby-identifier">validate</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-node">&quot;Unknown validator: &#39;#{method}&#39;.&quot;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-node">&quot;Unknown validator: '#{method}'.&quot;</span>
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>

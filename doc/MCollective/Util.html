@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::Util - mcollective version 2.12.0</title>
+<title>module MCollective::Util - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
@@ -182,7 +182,7 @@
 
         <div class="method-description">
           
-          <p>we should really use Pathname#absolute? but it&#39;s not in all the ruby
+          <p>we should really use Pathname#absolute? but it’s not in all the ruby
 versions we support and it comes down to roughly this</p>
           
           
@@ -254,13 +254,13 @@ by default.</p>
   <span class="ruby-identifier">console_cols</span> = <span class="ruby-value">80</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">console_cols</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">0</span>
 
   <span class="ruby-identifier">text</span> = <span class="ruby-identifier">text</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
-  <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">piece</span> = <span class="ruby-string">''</span>
   <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span>
 
   <span class="ruby-identifier">text</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span>
 
-    <span class="ruby-keyword">while</span> <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">whitespace</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39; &#39;</span>
+    <span class="ruby-keyword">while</span> <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">&lt;</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">whitespace</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">==</span> <span class="ruby-string">' '</span>
       <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
     <span class="ruby-keyword">end</span>
 
@@ -272,7 +272,7 @@ by default.</p>
 
     <span class="ruby-comment"># If text was snipped from the previous line, prepend it to the</span>
     <span class="ruby-comment"># current line after any current indentation.</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">''</span>
       <span class="ruby-comment"># Reset whitespaces to 0 if there are more whitespaces than there are</span>
       <span class="ruby-comment"># console columns</span>
       <span class="ruby-identifier">whitespace</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">whitespace</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">console_cols</span>
@@ -287,7 +287,7 @@ by default.</p>
       <span class="ruby-identifier">line</span>.<span class="ruby-identifier">insert</span>(<span class="ruby-identifier">whitespace</span>, <span class="ruby-node">&quot;#{piece} &quot;</span>)
     <span class="ruby-keyword">end</span>
 
-    <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-identifier">piece</span> = <span class="ruby-string">''</span>
 
     <span class="ruby-comment"># Compare the line length to the allowed line length.</span>
     <span class="ruby-comment"># If it exceeds it, snip the offending text from the line</span>
@@ -295,7 +295,7 @@ by default.</p>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">line</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;</span> (<span class="ruby-identifier">console_cols</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">preamble</span>)
       <span class="ruby-identifier">reverse</span> = <span class="ruby-identifier">console_cols</span>
 
-      <span class="ruby-keyword">while</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">reverse</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39; &#39;</span>
+      <span class="ruby-keyword">while</span> <span class="ruby-identifier">line</span>[<span class="ruby-identifier">reverse</span>].<span class="ruby-identifier">chr</span> <span class="ruby-operator">!=</span> <span class="ruby-string">' '</span>
         <span class="ruby-identifier">reverse</span> <span class="ruby-operator">-=</span> <span class="ruby-value">1</span>
       <span class="ruby-keyword">end</span>
 
@@ -305,13 +305,13 @@ by default.</p>
     <span class="ruby-comment"># If a snippet exists when all the columns in the text have been</span>
     <span class="ruby-comment"># updated, create a new line and append the snippet to it, using</span>
     <span class="ruby-comment"># the same left alignment as the last line in the text.</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>
-      <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] = <span class="ruby-node">&quot;#{&#39; &#39; * (whitespace)}#{piece}&quot;</span>
-      <span class="ruby-identifier">piece</span> = <span class="ruby-string">&#39;&#39;</span>
+    <span class="ruby-keyword">if</span> <span class="ruby-identifier">piece</span> <span class="ruby-operator">!=</span> <span class="ruby-string">''</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>].<span class="ruby-identifier">nil?</span>
+      <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span><span class="ruby-operator">+</span><span class="ruby-value">1</span>] = <span class="ruby-node">&quot;#{' ' * (whitespace)}#{piece}&quot;</span>
+      <span class="ruby-identifier">piece</span> = <span class="ruby-string">''</span>
     <span class="ruby-keyword">end</span>
 
     <span class="ruby-comment"># Add the preamble to the line and add it to the text</span>
-    <span class="ruby-identifier">line</span> = ((<span class="ruby-string">&#39; &#39;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">preamble</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>)
+    <span class="ruby-identifier">line</span> = ((<span class="ruby-string">' '</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">preamble</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">line</span>)
     <span class="ruby-identifier">text</span>[<span class="ruby-identifier">i</span>] = <span class="ruby-identifier">line</span>
   <span class="ruby-keyword">end</span>
 
@@ -471,7 +471,7 @@ empty string</p>
 
   <span class="ruby-comment"># user dotfile</span>
   <span class="ruby-keyword">begin</span>
-    <span class="ruby-comment"># File.expand_path will raise if HOME isn&#39;t set, catch it</span>
+    <span class="ruby-comment"># File.expand_path will raise if HOME isn't set, catch it</span>
     <span class="ruby-identifier">user_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-string">&quot;~/.mcollective&quot;</span>)
     <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">user_path</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
@@ -479,10 +479,10 @@ empty string</p>
 
   <span class="ruby-comment"># standard locations</span>
   <span class="ruby-keyword">if</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
-    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">&#39;etc&#39;</span>, <span class="ruby-string">&#39;client.cfg&#39;</span>)
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>, <span class="ruby-string">'etc'</span>, <span class="ruby-string">'client.cfg'</span>)
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/etc/puppetlabs/mcollective/client.cfg&#39;</span>
-    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&#39;/etc/mcollective/client.cfg&#39;</span>
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'/etc/puppetlabs/mcollective/client.cfg'</span>
+    <span class="ruby-identifier">config_paths</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">'/etc/mcollective/client.cfg'</span>
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-comment"># use the first readable config file, or if none are the first listed</span>
@@ -732,12 +732,12 @@ kind of goes with the other classes here</p>
           
           <div class="method-source-code" id="get_hidden_input-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 560</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-identifier">message</span>=<span class="ruby-string">&#39;Please enter data: &#39;</span>)
+<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-identifier">message</span>=<span class="ruby-string">'Please enter data: '</span>)
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">message</span>.<span class="ruby-identifier">nil?</span>
     <span class="ruby-identifier">print</span> <span class="ruby-identifier">message</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">ruby_version</span>, <span class="ruby-string">&#39;1.9.3&#39;</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;io/console&#39;</span>
+  <span class="ruby-keyword">if</span> <span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">ruby_version</span>, <span class="ruby-string">'1.9.3'</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+    <span class="ruby-identifier">require</span> <span class="ruby-string">'io/console'</span>
     <span class="ruby-identifier">input</span> = <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">noecho</span>(<span class="ruby-operator">&amp;</span><span class="ruby-value">:gets</span>)
   <span class="ruby-keyword">else</span>
     <span class="ruby-comment"># Use hacks to get hidden input on Ruby &lt;1.9.3</span>
@@ -782,15 +782,15 @@ kind of goes with the other classes here</p>
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 545</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_unix</span>()
   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">tty?</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not hook to stdin to hide input. If using SSH, try using -t flag while connecting to server.&#39;</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Could not hook to stdin to hide input. If using SSH, try using -t flag while connecting to server.'</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">&#39;stty -echo -icanon&#39;</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not hide input using stty command.&#39;</span>
+  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">'stty -echo -icanon'</span>
+    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Could not hide input using stty command.'</span>
   <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">input</span> = <span class="ruby-identifier">$stdin</span>.<span class="ruby-identifier">gets</span>
   <span class="ruby-keyword">ensure</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">&#39;stty echo icanon&#39;</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Could not enable echoing of input. Try executing `stty echo icanon` to debug.&#39;</span>
+    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-string">'stty echo icanon'</span>
+      <span class="ruby-identifier">raise</span> <span class="ruby-string">'Could not enable echoing of input. Try executing `stty echo icanon` to debug.'</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-identifier">input</span>
 <span class="ruby-keyword">end</span></pre>
@@ -825,12 +825,12 @@ kind of goes with the other classes here</p>
           <div class="method-source-code" id="get_hidden_input_on_windows-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 524</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_hidden_input_on_windows</span>()
-  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;Win32API&#39;</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'Win32API'</span>
   <span class="ruby-comment"># Hook into getch from crtdll. Keep reading all keys till return</span>
   <span class="ruby-comment"># or newline is hit.</span>
   <span class="ruby-comment"># If key is backspace or delete, then delete the character and update</span>
   <span class="ruby-comment"># the buffer.</span>
-  <span class="ruby-identifier">input</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">input</span> = <span class="ruby-string">''</span>
   <span class="ruby-keyword">while</span> <span class="ruby-identifier">char</span> = <span class="ruby-constant">Win32API</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;crtdll&quot;</span>, <span class="ruby-string">&quot;_getch&quot;</span>, [ ], <span class="ruby-string">&quot;I&quot;</span>).<span class="ruby-constant">Call</span> <span class="ruby-keyword">do</span>
     <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">10</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">13</span> <span class="ruby-comment"># return or newline</span>
     <span class="ruby-keyword">if</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">127</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">char</span> <span class="ruby-operator">==</span> <span class="ruby-value">8</span> <span class="ruby-comment"># backspace and delete</span>
@@ -841,7 +841,7 @@ kind of goes with the other classes here</p>
       <span class="ruby-identifier">input</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">char</span>.<span class="ruby-identifier">chr</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">char</span> = <span class="ruby-string">&#39;&#39;</span>
+  <span class="ruby-identifier">char</span> = <span class="ruby-string">''</span>
   <span class="ruby-identifier">input</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -870,8 +870,8 @@ kind of goes with the other classes here</p>
           <p>Finds out if this <a href="../MCollective.html">MCollective</a> has an
 agent by the name passed</p>
 
-<p>If the passed name starts with a / it&#39;s assumed to be regex and will
-use regex to match</p>
+<p>If the passed name starts with a / it’s assumed to be regex and will use
+regex to match</p>
           
           
 
@@ -920,8 +920,8 @@ use regex to match</p>
 text file with just a list of classes, recipes, roles etc.  This is ala the
 classes.txt from puppet.</p>
 
-<p>If the passed name starts with a / it&#39;s assumed to be regex and will
-use regex to match</p>
+<p>If the passed name starts with a / it’s assumed to be regex and will use
+regex to match</p>
           
           
 
@@ -943,7 +943,7 @@ use regex to match</p>
       <span class="ruby-keyword">end</span>
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Parsing classes file &#39;#{cfile}&#39; failed: #{e.class}: #{e}&quot;</span>)
+    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Parsing classes file '#{cfile}' failed: #{e.class}: #{e}&quot;</span>)
   <span class="ruby-keyword">end</span>
 
   <span class="ruby-keyword">false</span>
@@ -973,8 +973,8 @@ use regex to match</p>
           
           <p>Compares fact == value,</p>
 
-<p>If the passed value starts with a / it&#39;s assumed to be regex and will
-use regex to match</p>
+<p>If the passed value starts with a / it’s assumed to be regex and will use
+regex to match</p>
           
           
 
@@ -984,7 +984,7 @@ use regex to match</p>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">value</span>, <span class="ruby-identifier">operator</span>)
 
   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Comparing #{fact} #{operator} #{value}&quot;</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;where :fact = &#39;#{fact}&#39;, :operator = &#39;#{operator}&#39;, :value = &#39;#{value}&#39;&quot;</span>)
+  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;where :fact = '#{fact}', :operator = '#{operator}', :value = '#{value}'&quot;</span>)
 
   <span class="ruby-identifier">fact</span> = <span class="ruby-constant">Facts</span>[<span class="ruby-identifier">fact</span>]
   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">nil?</span>
@@ -1024,8 +1024,8 @@ use regex to match</p>
           
           <p>Checks if the configured identity matches the one supplied</p>
 
-<p>If the passed name starts with a / it&#39;s assumed to be regex and will
-use regex to match</p>
+<p>If the passed name starts with a / it’s assumed to be regex and will use
+regex to match</p>
           
           
 
@@ -1117,7 +1117,7 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
       {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">c</span>}
     <span class="ruby-keyword">end</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective '#{collective}' known collectives are '#{config.collectives.join ', '}'&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
 
     [{<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agent</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">type</span>, <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collective</span>}]
   <span class="ruby-keyword">end</span>
@@ -1187,15 +1187,15 @@ href="PluginManager.html#method-c-loadclass">MCollective::PluginManager.loadclas
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 238</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">parse_fact_string</span>(<span class="ruby-identifier">fact</span>)
   <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*=&gt;[ ]*(.+)/</span>
-    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&gt;=&#39;</span> }
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'&gt;='</span> }
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*=&lt;[ ]*(.+)/</span>
-    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;&lt;=&#39;</span> }
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'&lt;='</span> }
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^ ]+?)[ ]*(&lt;=|&gt;=|&lt;|&gt;|!=|==|=~)[ ]*(.+)/</span>
     <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$3</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span> }
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)[ ]*=[ ]*\/(.+)\/$/</span>
-    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;/#{$2}/&quot;</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;=~&#39;</span> }
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;/#{$2}/&quot;</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'=~'</span> }
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">fact</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^([^= ]+?)[ ]*=[ ]*(.+)/</span>
-    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&#39;==&#39;</span> }
+    <span class="ruby-keyword">return</span> {<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:operator</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'=='</span> }
   <span class="ruby-keyword">else</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse fact #{fact} it does not appear to be in a valid format&quot;</span>
   <span class="ruby-keyword">end</span>
@@ -1257,10 +1257,10 @@ here to aid testing</p>
 
         <div class="method-description">
           
-          <p>On windows ^c can&#39;t interrupt the VM if its blocking on IO, so this
-sets up a dummy thread that sleeps and this will have the end result of
-being interruptable at least once a second.  This is a common pattern found
-in Rails etc</p>
+          <p>On windows ^c can’t interrupt the VM if its blocking on IO, so this sets up
+a dummy thread that sleeps and this will have the end result of being
+interruptable at least once a second.  This is a common pattern found in
+Rails etc</p>
           
           
 
@@ -1293,10 +1293,9 @@ in Rails etc</p>
 
         <div class="method-description">
           
-          <p>Escapes a string so it&#39;s safe to use in system() or backticks</p>
+          <p>Escapes a string so it’s safe to use in system() or backticks</p>
 
-<p>Taken from Shellwords#shellescape since it&#39;s only in a few ruby
-versions</p>
+<p>Taken from Shellwords#shellescape since it’s only in a few ruby versions</p>
           
           
 
@@ -1304,7 +1303,7 @@ versions</p>
           <div class="method-source-code" id="shellescape-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 257</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">shellescape</span>(<span class="ruby-identifier">str</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&#39;&#39;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">empty?</span>
+  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;''&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">str</span>.<span class="ruby-identifier">empty?</span>
 
   <span class="ruby-identifier">str</span> = <span class="ruby-identifier">str</span>.<span class="ruby-identifier">dup</span>
 
@@ -1314,7 +1313,7 @@ versions</p>
 
   <span class="ruby-comment"># A LF cannot be escaped with a backslash because a backslash + LF</span>
   <span class="ruby-comment"># combo is regarded as line continuation and simply ignored.</span>
-  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/\n/</span>, <span class="ruby-string">&quot;&#39;\n&#39;&quot;</span>)
+  <span class="ruby-identifier">str</span>.<span class="ruby-identifier">gsub!</span>(<span class="ruby-regexp">/\n/</span>, <span class="ruby-string">&quot;'\n'&quot;</span>)
 
   <span class="ruby-keyword">return</span> <span class="ruby-identifier">str</span>
 <span class="ruby-keyword">end</span></pre>
@@ -1356,7 +1355,7 @@ will return TrueClass Any other value will return FalseClass</p>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">clean_val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(0|no|false|n|f)$/i</span>
     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
   <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot convert string value &#39;#{clean_val}&#39; into a boolean.&quot;</span>)
+    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Cannot convert string value '#{clean_val}' into a boolean.&quot;</span>)
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
           </div>
@@ -1494,8 +1493,7 @@ will return TrueClass Any other value will return FalseClass</p>
           
           <p>Figures out the columns and lines of the current tty</p>
 
-<p>Returns [0, 0] if it can&#39;t figure it out or if you&#39;re not running
-on a tty</p>
+<p>Returns [0, 0] if it can’t figure it out or if you’re not running on a tty</p>
           
           
 
@@ -1513,7 +1511,7 @@ on a tty</p>
   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">environment</span>[<span class="ruby-string">&quot;TERM&quot;</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&quot;tput&quot;</span>)
     <span class="ruby-keyword">return</span> [<span class="ruby-value">%x`tput cols`</span>.<span class="ruby-identifier">to_i</span>, <span class="ruby-value">%x`tput lines`</span>.<span class="ruby-identifier">to_i</span>]
 
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">&#39;stty&#39;</span>)
+  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_in_path?</span>(<span class="ruby-string">'stty'</span>)
     <span class="ruby-keyword">return</span> <span class="ruby-value">%x`stty size`</span>.<span class="ruby-identifier">scan</span>(<span class="ruby-regexp">/\d+/</span>).<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">s</span><span class="ruby-operator">|</span> <span class="ruby-identifier">s</span>.<span class="ruby-identifier">to_i</span> }
   <span class="ruby-keyword">else</span>
     <span class="ruby-keyword">return</span> [<span class="ruby-value">0</span>, <span class="ruby-value">0</span>]
@@ -1604,12 +1602,12 @@ on a tty</p>
     <span class="ruby-identifier">b</span> = <span class="ruby-identifier">bx</span>.<span class="ruby-identifier">shift</span>
 
     <span class="ruby-keyword">if</span>( <span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">b</span> )                 <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;-&#39;</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
-    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">'-'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">'-'</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">'-'</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">'-'</span>)             <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span>) <span class="ruby-keyword">then</span> <span class="ruby-keyword">next</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">-1</span>
+    <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">b</span> <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span> )            <span class="ruby-keyword">then</span> <span class="ruby-keyword">return</span> <span class="ruby-value">1</span>
     <span class="ruby-keyword">elsif</span> (<span class="ruby-identifier">a</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>) <span class="ruby-keyword">then</span>
       <span class="ruby-keyword">if</span>( <span class="ruby-identifier">a</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^0/</span> <span class="ruby-keyword">or</span> <span class="ruby-identifier">b</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^0/</span> ) <span class="ruby-keyword">then</span>
         <span class="ruby-keyword">return</span> <span class="ruby-identifier">a</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span> <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">upcase</span>
@@ -1653,7 +1651,7 @@ on a tty</p>
           <div class="method-source-code" id="windows-3F-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 273</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows?</span>
-  <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">&#39;host_os&#39;</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin|win32|dos|mingw|cygwin/i</span>)
+  <span class="ruby-operator">!</span><span class="ruby-operator">!</span>(<span class="ruby-constant">RbConfig</span><span class="ruby-operator">::</span><span class="ruby-constant">CONFIG</span>[<span class="ruby-string">'host_os'</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/mswin|win32|dos|mingw|cygwin/i</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>
           
@@ -1686,7 +1684,7 @@ on a tty</p>
           <div class="method-source-code" id="windows_prefix-source">
             <pre><span class="ruby-comment"># File lib/mcollective/util.rb, line 150</span>
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">windows_prefix</span>
-  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;win32/dir&#39;</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">'win32/dir'</span>
   <span class="ruby-identifier">prefix</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">Dir</span><span class="ruby-operator">::</span><span class="ruby-constant">COMMON_APPDATA</span>, <span class="ruby-string">&quot;PuppetLabs&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
 <span class="ruby-keyword">end</span></pre>
           </div>

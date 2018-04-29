@@ -4,7 +4,7 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Validator::ShellsafeValidator - mcollective version 2.12.0</title>
+<title>class MCollective::Validator::ShellsafeValidator - mcollective version 2.12.1</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
@@ -129,7 +129,7 @@
 <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">validator</span>)
   <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-string">&quot;value should be a String&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
 
-  [<span class="ruby-string">&#39;`&#39;</span>, <span class="ruby-string">&#39;$&#39;</span>, <span class="ruby-string">&#39;;&#39;</span>, <span class="ruby-string">&#39;|&#39;</span>, <span class="ruby-string">&#39;&amp;&amp;&#39;</span>, <span class="ruby-string">&#39;&gt;&#39;</span>, <span class="ruby-string">&#39;&lt;&#39;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chr</span><span class="ruby-operator">|</span>
+  [<span class="ruby-string">'`'</span>, <span class="ruby-string">'$'</span>, <span class="ruby-string">';'</span>, <span class="ruby-string">'|'</span>, <span class="ruby-string">'&amp;&amp;'</span>, <span class="ruby-string">'&gt;'</span>, <span class="ruby-string">'&lt;'</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">chr</span><span class="ruby-operator">|</span>
     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-node">&quot;value should not have #{chr} in it&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">validator</span>.<span class="ruby-identifier">match</span>(<span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">escape</span>(<span class="ruby-identifier">chr</span>))
   <span class="ruby-keyword">end</span>
 <span class="ruby-keyword">end</span></pre>
