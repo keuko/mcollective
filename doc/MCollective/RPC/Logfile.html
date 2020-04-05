@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Logfile - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::Logfile - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -95,8 +99,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -132,19 +134,19 @@
 
           
           <div class="method-source-code" id="audit_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/audit/logfile.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
-  <span class="ruby-identifier">logfile</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;rpcaudit.logfile&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;/var/log/puppetlabs/mcollective/mcollective-audit.log&quot;</span>
-
-  <span class="ruby-identifier">now</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-  <span class="ruby-comment"># Already told timezone to be in UTC so we don't look it up again</span>
-  <span class="ruby-comment"># This avoids platform specific timezone representation issues</span>
-  <span class="ruby-identifier">now_iso8601</span> = <span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y-%m-%d %H:%M:%S UTC&quot;</span>)
-
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">logfile</span>, <span class="ruby-string">&quot;a&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;[#{now_iso8601}] reqid=#{request.uniqid}: reqtime=#{request.time} caller=#{request.caller}@#{request.sender} agent=#{request.agent} action=#{request.action} data=#{request.data.pretty_print_inspect}&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/audit/logfile.rb</span>
+<span class="line-num">12</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+<span class="line-num">13</span>   <span class="ruby-identifier">logfile</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;rpcaudit.logfile&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;/var/log/puppetlabs/mcollective/mcollective-audit.log&quot;</span>
+<span class="line-num">14</span> 
+<span class="line-num">15</span>   <span class="ruby-identifier">now</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+<span class="line-num">16</span>   <span class="ruby-comment"># Already told timezone to be in UTC so we don&#39;t look it up again</span>
+<span class="line-num">17</span>   <span class="ruby-comment"># This avoids platform specific timezone representation issues</span>
+<span class="line-num">18</span>   <span class="ruby-identifier">now_iso8601</span> = <span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">strftime</span>(<span class="ruby-string">&quot;%Y-%m-%d %H:%M:%S UTC&quot;</span>)
+<span class="line-num">19</span> 
+<span class="line-num">20</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">logfile</span>, <span class="ruby-string">&quot;a&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">21</span>     <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;[#{now_iso8601}] reqid=#{request.uniqid}: reqtime=#{request.time} caller=#{request.caller}@#{request.sender} agent=#{request.agent} action=#{request.action} data=#{request.data.pretty_print_inspect}&quot;</span>)
+<span class="line-num">22</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">23</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -162,8 +164,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

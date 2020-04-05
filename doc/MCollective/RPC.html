@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::RPC - mcollective version 2.12.1</title>
+<title>module MCollective::RPC - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -92,14 +96,10 @@
 
   <section class="description">
     
-<p>Toolset to create a standard interface of client and agent using an <a
-href="RPC.html">RPC</a> metaphor, standard compliant agents will make it
-easier to create generic clients like web interfaces etc</p>
+<p>Toolset to create a standard interface of client and agent using an <a href="RPC.html"><code>RPC</code></a> metaphor, standard compliant agents will make it easier to create generic clients like web interfaces etc</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -141,13 +141,13 @@ easier to create generic clients like web interfaces etc</p>
 
           
           <div class="method-source-code" id="const_missing-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 175</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">const_missing</span>(<span class="ruby-identifier">const_name</span>)
-  <span class="ruby-keyword">super</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">const_name</span> <span class="ruby-operator">==</span> <span class="ruby-value">:DDL</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;MCollective::RPC::DDL is deprecatd, please use MCollective::DDL instead&quot;</span>)
-  <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">DDL</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">175</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">const_missing</span>(<span class="ruby-identifier">const_name</span>)
+<span class="line-num">176</span>   <span class="ruby-keyword">super</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">const_name</span> <span class="ruby-operator">==</span> <span class="ruby-value">:DDL</span>
+<span class="line-num">177</span> 
+<span class="line-num">178</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;MCollective::RPC::DDL is deprecatd, please use MCollective::DDL instead&quot;</span>)
+<span class="line-num">179</span>   <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">DDL</span>
+<span class="line-num">180</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -171,18 +171,16 @@ easier to create generic clients like web interfaces etc</p>
 
         <div class="method-description">
           
-          <p>means for other classes to drop discovered hosts into this module its a bit
-hacky but needed so that the mixin methods like printrpcstats can easily
-get access to it without users having to pass it around in params.</p>
+          <p>means for other classes to drop discovered hosts into this module its a bit hacky but needed so that the mixin methods like printrpcstats can easily get access to it without users having to pass it around in params.</p>
           
           
 
           
           <div class="method-source-code" id="discovered-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 107</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discovered</span>(<span class="ruby-identifier">discovered</span>)
-  <span class="ruby-identifier">@@discovered</span> = <span class="ruby-identifier">discovered</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">107</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">discovered</span>(<span class="ruby-identifier">discovered</span>)
+<span class="line-num">108</span>   <span class="ruby-identifier">@@discovered</span> = <span class="ruby-identifier">discovered</span>
+<span class="line-num">109</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -206,18 +204,16 @@ get access to it without users having to pass it around in params.</p>
 
         <div class="method-description">
           
-          <p>means for other classes to drop stats into this module its a bit hacky but
-needed so that the mixin methods like printrpcstats can easily get access
-to it without users having to pass it around in params.</p>
+          <p>means for other classes to drop stats into this module its a bit hacky but needed so that the mixin methods like printrpcstats can easily get access to it without users having to pass it around in params.</p>
           
           
 
           
           <div class="method-source-code" id="stats-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 99</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">stats</span>(<span class="ruby-identifier">stats</span>)
-  <span class="ruby-identifier">@@stats</span> = <span class="ruby-identifier">stats</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num"> 99</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">stats</span>(<span class="ruby-identifier">stats</span>)
+<span class="line-num">100</span>   <span class="ruby-identifier">@@stats</span> = <span class="ruby-identifier">stats</span>
+<span class="line-num">101</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -249,22 +245,20 @@ to it without users having to pass it around in params.</p>
 
         <div class="method-description">
           
-          <p>Wrapper for <a
-href="Util.html#method-c-empty_filter-3F">MCollective::Util.empty_filter?</a>
-to make clients less fugly to write - ticket #18</p>
+          <p>Wrapper for <a href="Util.html#method-c-empty_filter-3F"><code>MCollective::Util.empty_filter?</code></a> to make clients less fugly to write - ticket #18</p>
           
           
 
           
           <div class="method-source-code" id="empty_filter-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 167</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:filter</span>)
-    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>])
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">167</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">empty_filter?</span>(<span class="ruby-identifier">options</span>)
+<span class="line-num">168</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:filter</span>)
+<span class="line-num">169</span>     <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>])
+<span class="line-num">170</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">171</span>     <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter?</span>(<span class="ruby-identifier">options</span>)
+<span class="line-num">172</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">173</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -288,10 +282,9 @@ to make clients less fugly to write - ticket #18</p>
 
         <div class="method-description">
           
-          <p>Prints the result of an <a href="RPC.html">RPC</a> call.</p>
+          <p>Prints the result of an <a href="RPC.html"><code>RPC</code></a> call.</p>
 
-<p>In the default quiet mode - no flattening or verbose - only results that
-produce an error will be printed</p>
+<p>In the default quiet mode - no flattening or verbose - only results that produce an error will be printed</p>
 
 <p>To get details of each result run with the -v command line option.</p>
           
@@ -299,25 +292,25 @@ produce an error will be printed</p>
 
           
           <div class="method-source-code" id="printrpc-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 146</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">printrpc</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
-  <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
-  <span class="ruby-identifier">verbose</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">verbose</span>
-  <span class="ruby-identifier">flatten</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:flatten</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
-  <span class="ruby-identifier">format</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>]
-  <span class="ruby-identifier">forced_mode</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:force_display_mode</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">result_text</span> =  <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, {<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">verbose</span>, <span class="ruby-value">:flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">flatten</span>, <span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">format</span>, <span class="ruby-value">:force_display_mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">forced_mode</span>})
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\n%s\n&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">result_text</span> ]
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-comment"># when we get just one result to print dont pad them all with</span>
-    <span class="ruby-comment"># blank spaces etc, just print the individual result with no</span>
-    <span class="ruby-comment"># padding</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_text</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">146</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">printrpc</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+<span class="line-num">147</span>   <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">148</span>   <span class="ruby-identifier">verbose</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">verbose</span>
+<span class="line-num">149</span>   <span class="ruby-identifier">flatten</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:flatten</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+<span class="line-num">150</span>   <span class="ruby-identifier">format</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>]
+<span class="line-num">151</span>   <span class="ruby-identifier">forced_mode</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:force_display_mode</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">false</span>
+<span class="line-num">152</span> 
+<span class="line-num">153</span>   <span class="ruby-identifier">result_text</span> =  <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, {<span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">verbose</span>, <span class="ruby-value">:flatten</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">flatten</span>, <span class="ruby-value">:format</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">format</span>, <span class="ruby-value">:force_display_mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">forced_mode</span>})
+<span class="line-num">154</span> 
+<span class="line-num">155</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
+<span class="line-num">156</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\n%s\n&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">result_text</span> ]
+<span class="line-num">157</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">158</span>     <span class="ruby-comment"># when we get just one result to print dont pad them all with</span>
+<span class="line-num">159</span>     <span class="ruby-comment"># blank spaces etc, just print the individual result with no</span>
+<span class="line-num">160</span>     <span class="ruby-comment"># padding</span>
+<span class="line-num">161</span>     <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_text</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">162</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">163</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -341,41 +334,38 @@ produce an error will be printed</p>
 
         <div class="method-description">
           
-          <p>Prints stats, requires stats to be saved from elsewhere using the <a
-href="RPC.html#method-c-stats">::stats</a> method.</p>
+          <p>Prints stats, requires stats to be saved from elsewhere using the <a href="RPC.html#method-c-stats"><code>MCollective::RPC.stats</code></a> method.</p>
 
-<p>If you’ve passed -v on the command line a detailed stat block will be
-printed, else just a one liner.</p>
+<p>If you&#39;ve passed -v on the command line a detailed stat block will be printed, else just a one liner.</p>
 
 <p>You can pass flags into it:</p>
 
-<pre class="ruby"><span class="ruby-identifier">printrpcstats</span> :<span class="ruby-identifier">caption</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Foo&quot;</span>, :<span class="ruby-identifier">summarize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+<pre class="ruby"><span class="ruby-identifier">printrpcstats</span> <span class="ruby-value">:caption</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Foo&quot;</span>, <span class="ruby-value">:summarize</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>
 </pre>
 
-<p>This will use “Foo” as the caption to the stats in verbose mode and print
-out any aggregate summary information if present</p>
+<p>This will use “Foo” as the caption to the stats in verbose mode and print out any aggregate summary information if present</p>
           
           
 
           
           <div class="method-source-code" id="printrpcstats-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 123</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">printrpcstats</span>(<span class="ruby-identifier">flags</span>={})
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
-
-  <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:summarize</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:caption</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;rpc stats&quot;</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
-
-  <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">stats</span> = <span class="ruby-identifier">@@stats</span>
-  <span class="ruby-keyword">rescue</span>
-    <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;no stats to display&quot;</span>)
-    <span class="ruby-keyword">return</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">puts</span> <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">report</span>(<span class="ruby-identifier">flags</span>[<span class="ruby-value">:caption</span>], <span class="ruby-identifier">flags</span>[<span class="ruby-value">:summarize</span>], <span class="ruby-identifier">verbose</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">123</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">printrpcstats</span>(<span class="ruby-identifier">flags</span>={})
+<span class="line-num">124</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:output_format</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:console</span>
+<span class="line-num">125</span> 
+<span class="line-num">126</span>   <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:summarize</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:caption</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;rpc stats&quot;</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
+<span class="line-num">127</span> 
+<span class="line-num">128</span>   <span class="ruby-identifier">verbose</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] <span class="ruby-keyword">rescue</span> <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">129</span> 
+<span class="line-num">130</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">131</span>     <span class="ruby-identifier">stats</span> = <span class="ruby-identifier">@@stats</span>
+<span class="line-num">132</span>   <span class="ruby-keyword">rescue</span>
+<span class="line-num">133</span>     <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;no stats to display&quot;</span>)
+<span class="line-num">134</span>     <span class="ruby-keyword">return</span>
+<span class="line-num">135</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">136</span> 
+<span class="line-num">137</span>   <span class="ruby-identifier">puts</span> <span class="ruby-identifier">stats</span>.<span class="ruby-identifier">report</span>(<span class="ruby-identifier">flags</span>[<span class="ruby-value">:caption</span>], <span class="ruby-identifier">flags</span>[<span class="ruby-value">:summarize</span>], <span class="ruby-identifier">verbose</span>)
+<span class="line-num">138</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -401,7 +391,7 @@ out any aggregate summary information if present</p>
           
           <p>Wrapper to create clients, supposed to be used as a mixin:</p>
 
-<p>include <a href="RPC.html">MCollective::RPC</a></p>
+<p>include <a href="RPC.html"><code>MCollective::RPC</code></a></p>
 
 <p>exim = rpcclient(“exim”) printrpc exim.mailq</p>
 
@@ -420,53 +410,49 @@ out any aggregate summary information if present</p>
 :options =&gt; options
 :exit_on_failure =&gt; true</pre>
 
-<p>Options would be a build up options hash from the <a
-href="Optionparser.html">Optionparser</a> you can use the rpcoptions helper
-to create this</p>
+<p>Options would be a build up options hash from the <a href="Optionparser.html"><code>Optionparser</code></a> you can use the rpcoptions helper to create this</p>
 
-<p>:exit_on_failure is true by default, and causes the application to exit if
-there is a failure constructing the <a href="RPC.html">RPC</a> client. Set
-this flag to false to cause an Exception to be raised instead.</p>
+<p>:exit_on_failure is true by default, and causes the application to exit if there is a failure constructing the <a href="RPC.html"><code>RPC</code></a> client. Set this flag to false to cause an Exception to be raised instead.</p>
           
           
 
           
           <div class="method-source-code" id="rpcclient-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 60</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rpcclient</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">flags</span> = {})
-  <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:configfile</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">config_file_for_user</span>
-  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:options</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">nil</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:exit_on_failure</span>)
-    <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:exit_on_failure</span>]
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-comment"># We exit on failure by default for CLI-friendliness</span>
-    <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>
-      <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:config</span>], <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">options</span>)
-      <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">configfile</span>)
-      <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">exit_on_failure</span>
-      <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Could not create RPC client: #{e}&quot;</span>)
-      <span class="ruby-identifier">exit!</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-    <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">rpc</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">rpc</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">60</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rpcclient</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">flags</span> = {})
+<span class="line-num">61</span>   <span class="ruby-identifier">configfile</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:configfile</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">config_file_for_user</span>
+<span class="line-num">62</span>   <span class="ruby-identifier">options</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:options</span>] <span class="ruby-operator">||</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">63</span> 
+<span class="line-num">64</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>.<span class="ruby-identifier">key?</span>(<span class="ruby-value">:exit_on_failure</span>)
+<span class="line-num">65</span>     <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:exit_on_failure</span>]
+<span class="line-num">66</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">67</span>     <span class="ruby-comment"># We exit on failure by default for CLI-friendliness</span>
+<span class="line-num">68</span>     <span class="ruby-identifier">exit_on_failure</span> = <span class="ruby-keyword">true</span>
+<span class="line-num">69</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">70</span> 
+<span class="line-num">71</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">72</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>
+<span class="line-num">73</span>       <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:config</span>], <span class="ruby-value">:options</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">options</span>)
+<span class="line-num">74</span>       <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
+<span class="line-num">75</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">76</span>       <span class="ruby-identifier">rpc</span> = <span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:configfile</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">configfile</span>)
+<span class="line-num">77</span>       <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">rpc</span>.<span class="ruby-identifier">options</span>
+<span class="line-num">78</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">79</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">80</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">exit_on_failure</span>
+<span class="line-num">81</span>       <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Could not create RPC client: #{e}&quot;</span>)
+<span class="line-num">82</span>       <span class="ruby-identifier">exit!</span>
+<span class="line-num">83</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">84</span>       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+<span class="line-num">85</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">86</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">87</span> 
+<span class="line-num">88</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">89</span>     <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">rpc</span>)
+<span class="line-num">90</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">91</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">rpc</span>
+<span class="line-num">92</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">93</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -490,27 +476,26 @@ this flag to false to cause an Exception to be raised instead.</p>
 
         <div class="method-description">
           
-          <p>Creates a standard options hash, pass in a block to add extra headings etc
-see <a href="Optionparser.html">Optionparser</a></p>
+          <p>Creates a standard options hash, pass in a block to add extra headings etc see <a href="Optionparser.html"><code>Optionparser</code></a></p>
           
           
 
           
           <div class="method-source-code" id="rpcoptions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rpcoptions</span>
-  <span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:progress_bar</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
-
-  <span class="ruby-identifier">options</span> = <span class="ruby-identifier">oparser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-      <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc.rb</span>
+<span class="line-num">21</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rpcoptions</span>
+<span class="line-num">22</span>   <span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:progress_bar</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
+<span class="line-num">23</span> 
+<span class="line-num">24</span>   <span class="ruby-identifier">options</span> = <span class="ruby-identifier">oparser</span>.<span class="ruby-identifier">parse</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
+<span class="line-num">25</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">26</span>       <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+<span class="line-num">27</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">28</span> 
+<span class="line-num">29</span>     <span class="ruby-constant">Helpers</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+<span class="line-num">30</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">31</span> 
+<span class="line-num">32</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">options</span>
+<span class="line-num">33</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -528,8 +513,8 @@ see <a href="Optionparser.html">Optionparser</a></p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

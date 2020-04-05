@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Agents - mcollective version 2.12.1</title>
+<title>class MCollective::Agents - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -103,14 +107,10 @@
 
   <section class="description">
     
-<p>A collection of agents, loads them, reloads them and dispatches messages to
-them. It uses the <a href="PluginManager.html">PluginManager</a> to store,
-load and manage instances of plugins.</p>
+<p>A collection of agents, loads them, reloads them and dispatches messages to them. It uses the <a href="PluginManager.html"><code>PluginManager</code></a> to store, load and manage instances of plugins.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -147,10 +147,10 @@ load and manage instances of plugins.</p>
 
           
           <div class="method-source-code" id="agentlist-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 145</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">agentlist</span>
-  <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">keys</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">145</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">agentlist</span>
+<span class="line-num">146</span>   <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">keys</span>
+<span class="line-num">147</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -180,15 +180,15 @@ load and manage instances of plugins.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">agents</span> = {})
-  <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;Configuration has not been loaded, can't load agents&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
-
-  <span class="ruby-identifier">@@agents</span> = <span class="ruby-identifier">agents</span>
-
-  <span class="ruby-identifier">loadagents</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num"> 5</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">agents</span> = {})
+<span class="line-num"> 6</span>   <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num"> 7</span>   <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;Configuration has not been loaded, can&#39;t load agents&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+<span class="line-num"> 8</span> 
+<span class="line-num"> 9</span>   <span class="ruby-identifier">@@agents</span> = <span class="ruby-identifier">agents</span>
+<span class="line-num">10</span> 
+<span class="line-num">11</span>   <span class="ruby-identifier">loadagents</span>
+<span class="line-num">12</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -220,27 +220,26 @@ load and manage instances of plugins.</p>
 
         <div class="method-description">
           
-          <p>Checks if a plugin should be activated by calling activate? on it if it
-responds to that method else always activate it</p>
+          <p>Checks if a plugin should be activated by calling activate? on it if it responds to that method else always activate it</p>
           
           
 
           
           <div class="method-source-code" id="activate_agent-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 85</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agent</span>)
-  <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;MCollective&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;Agent&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">capitalize</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;activate?&quot;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">activate?</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{klass} does not have an activate? method, activating as default&quot;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Agent activation check for #{agent} failed: #{e.class}: #{e}&quot;</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">85</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">activate_agent?</span>(<span class="ruby-identifier">agent</span>)
+<span class="line-num">86</span>   <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Kernel</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;MCollective&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;Agent&quot;</span>).<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">capitalize</span>)
+<span class="line-num">87</span> 
+<span class="line-num">88</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;activate?&quot;</span>)
+<span class="line-num">89</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">activate?</span>
+<span class="line-num">90</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">91</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{klass} does not have an activate? method, activating as default&quot;</span>)
+<span class="line-num">92</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">93</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">94</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">95</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Agent activation check for #{agent} failed: #{e.class}: #{e}&quot;</span>)
+<span class="line-num">96</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="line-num">97</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -264,16 +263,16 @@ responds to that method else always activate it</p>
 
         <div class="method-description">
           
-          <p>Builds a class name string given a <a href="Agent.html">Agent</a> name</p>
+          <p>Builds a class name string given a <a href="Agent.html"><code>Agent</code></a> name</p>
           
           
 
           
           <div class="method-source-code" id="class_for_agent-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 78</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agent</span>)
-  <span class="ruby-node">&quot;MCollective::Agent::#{agent.capitalize}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">78</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">class_for_agent</span>(<span class="ruby-identifier">agent</span>)
+<span class="line-num">79</span>   <span class="ruby-node">&quot;MCollective::Agent::#{agent.capitalize}&quot;</span>
+<span class="line-num">80</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -303,15 +302,15 @@ responds to that method else always activate it</p>
 
           
           <div class="method-source-code" id="clear-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">clear!</span>
-  <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
-    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span> <span class="ruby-node">&quot;#{agent}_agent&quot;</span>
-    <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:broadcast</span>))
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">@@agents</span> = {}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">15</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">clear!</span>
+<span class="line-num">16</span>   <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">each_key</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+<span class="line-num">17</span>     <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span> <span class="ruby-node">&quot;#{agent}_agent&quot;</span>
+<span class="line-num">18</span>     <span class="ruby-constant">Util</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-value">:broadcast</span>))
+<span class="line-num">19</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">20</span> 
+<span class="line-num">21</span>   <span class="ruby-identifier">@@agents</span> = {}
+<span class="line-num">22</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -335,39 +334,38 @@ responds to that method else always activate it</p>
 
         <div class="method-description">
           
-          <p>Dispatches a message to an agent, accepts a block that will get run if
-there are any replies to process from the agent</p>
+          <p>Dispatches a message to an agent, accepts a block that will get run if there are any replies to process from the agent</p>
           
           
 
           
           <div class="method-source-code" id="dispatch-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 118</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dispatch</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Dispatching a message to agent #{request.agent}&quot;</span>)
-
-  <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">agent</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{request.agent}_agent&quot;</span>]
-
-      <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-identifier">replies</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">connection</span>)
-
-        <span class="ruby-comment"># Agents can decide if they wish to reply or not,</span>
-        <span class="ruby-comment"># returning nil will mean nothing goes back to the</span>
-        <span class="ruby-comment"># requestor</span>
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">replies</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
-          <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">replies</span>)
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Timeout while handling message for #{request.agent}&quot;</span>)
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Execution of #{request.agent} failed: #{e}&quot;</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t\t&quot;</span>))
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">118</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">dispatch</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+<span class="line-num">119</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Dispatching a message to agent #{request.agent}&quot;</span>)
+<span class="line-num">120</span> 
+<span class="line-num">121</span>   <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+<span class="line-num">122</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">123</span>       <span class="ruby-identifier">agent</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{request.agent}_agent&quot;</span>]
+<span class="line-num">124</span> 
+<span class="line-num">125</span>       <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-identifier">timeout</span>(<span class="ruby-identifier">agent</span>.<span class="ruby-identifier">timeout</span>) <span class="ruby-keyword">do</span>
+<span class="line-num">126</span>         <span class="ruby-identifier">replies</span> = <span class="ruby-identifier">agent</span>.<span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">connection</span>)
+<span class="line-num">127</span> 
+<span class="line-num">128</span>         <span class="ruby-comment"># Agents can decide if they wish to reply or not,</span>
+<span class="line-num">129</span>         <span class="ruby-comment"># returning nil will mean nothing goes back to the</span>
+<span class="line-num">130</span>         <span class="ruby-comment"># requestor</span>
+<span class="line-num">131</span>         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">replies</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">132</span>           <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">replies</span>)
+<span class="line-num">133</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">134</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">135</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Timeout</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">136</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Timeout while handling message for #{request.agent}&quot;</span>)
+<span class="line-num">137</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">138</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Execution of #{request.agent} failed: #{e}&quot;</span>)
+<span class="line-num">139</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t\t&quot;</span>))
+<span class="line-num">140</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">141</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">142</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -397,17 +395,17 @@ there are any replies to process from the agent</p>
 
           
           <div class="method-source-code" id="findagentfile-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 100</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
-  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">agentfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-node">&quot;#{agentname}.rb&quot;</span>])
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">agentfile</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agentname} at #{agentfile}&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">agentfile</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">100</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">101</span>   <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+<span class="line-num">102</span>     <span class="ruby-identifier">agentfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-node">&quot;#{agentname}.rb&quot;</span>])
+<span class="line-num">103</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">agentfile</span>)
+<span class="line-num">104</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{agentname} at #{agentfile}&quot;</span>)
+<span class="line-num">105</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">agentfile</span>
+<span class="line-num">106</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">107</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">108</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="line-num">109</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -437,10 +435,10 @@ there are any replies to process from the agent</p>
 
           
           <div class="method-source-code" id="include-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 112</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">112</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">include?</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">113</span>   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+<span class="line-num">114</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -470,41 +468,41 @@ there are any replies to process from the agent</p>
 
           
           <div class="method-source-code" id="loadagent-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>)
-  <span class="ruby-identifier">agentfile</span> = <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">agentfile</span>
-  <span class="ruby-identifier">classname</span> = <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agentname</span>)
-
-  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">single_instance</span> = [<span class="ruby-string">&quot;registration&quot;</span>, <span class="ruby-string">&quot;discovery&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-
-    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">classname</span>)
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agentname</span>)
-      <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{agentname}_agent&quot;</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">classname</span>, <span class="ruby-value">:single_instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single_instance</span>}
-
-      <span class="ruby-comment"># Attempt to instantiate the agent once so any validation and hooks get run</span>
-      <span class="ruby-comment"># this does a basic sanity check on the agent as a whole, if this fails it</span>
-      <span class="ruby-comment"># will be removed from the plugin list</span>
-      <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>]
-
-      <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agentname</span>, <span class="ruby-value">:broadcast</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
-
-      <span class="ruby-identifier">@@agents</span>[<span class="ruby-identifier">agentname</span>] = {<span class="ruby-value">:file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">agentfile</span>}
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Not activating agent #{agentname} due to agent policy in activate? method&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Loading agent #{agentname} failed: #{e}&quot;</span>)
-    <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">42</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">loadagent</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">43</span>   <span class="ruby-identifier">agentfile</span> = <span class="ruby-identifier">findagentfile</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">44</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">agentfile</span>
+<span class="line-num">45</span>   <span class="ruby-identifier">classname</span> = <span class="ruby-identifier">class_for_agent</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">46</span> 
+<span class="line-num">47</span>   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+<span class="line-num">48</span> 
+<span class="line-num">49</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">50</span>     <span class="ruby-identifier">single_instance</span> = [<span class="ruby-string">&quot;registration&quot;</span>, <span class="ruby-string">&quot;discovery&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">51</span> 
+<span class="line-num">52</span>     <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">classname</span>)
+<span class="line-num">53</span> 
+<span class="line-num">54</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">activate_agent?</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">55</span>       <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;#{agentname}_agent&quot;</span>, <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">classname</span>, <span class="ruby-value">:single_instance</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">single_instance</span>}
+<span class="line-num">56</span> 
+<span class="line-num">57</span>       <span class="ruby-comment"># Attempt to instantiate the agent once so any validation and hooks get run</span>
+<span class="line-num">58</span>       <span class="ruby-comment"># this does a basic sanity check on the agent as a whole, if this fails it</span>
+<span class="line-num">59</span>       <span class="ruby-comment"># will be removed from the plugin list</span>
+<span class="line-num">60</span>       <span class="ruby-constant">PluginManager</span>[<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>]
+<span class="line-num">61</span> 
+<span class="line-num">62</span>       <span class="ruby-constant">Util</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">make_subscriptions</span>(<span class="ruby-identifier">agentname</span>, <span class="ruby-value">:broadcast</span>)) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">@@agents</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">agentname</span>)
+<span class="line-num">63</span> 
+<span class="line-num">64</span>       <span class="ruby-identifier">@@agents</span>[<span class="ruby-identifier">agentname</span>] = {<span class="ruby-value">:file</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">agentfile</span>}
+<span class="line-num">65</span>       <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">66</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">67</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Not activating agent #{agentname} due to agent policy in activate? method&quot;</span>)
+<span class="line-num">68</span>       <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="line-num">69</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">70</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">71</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Loading agent #{agentname} failed: #{e}&quot;</span>)
+<span class="line-num">72</span>     <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+<span class="line-num">73</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="line-num">74</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">75</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -534,22 +532,22 @@ there are any replies to process from the agent</p>
 
           
           <div class="method-source-code" id="loadagents-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agents.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadagents</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Reloading all agents from disk&quot;</span>)
-
-  <span class="ruby-identifier">clear!</span>
-
-  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">agentdir</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent&quot;</span>
-    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">agentdir</span>)
-
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agentdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp">/\.rb$/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">agentname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">&quot;.rb&quot;</span>)
-      <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agents.rb</span>
+<span class="line-num">25</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">loadagents</span>
+<span class="line-num">26</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Reloading all agents from disk&quot;</span>)
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-identifier">clear!</span>
+<span class="line-num">29</span> 
+<span class="line-num">30</span>   <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+<span class="line-num">31</span>     <span class="ruby-identifier">agentdir</span> = <span class="ruby-node">&quot;#{libdir}/mcollective/agent&quot;</span>
+<span class="line-num">32</span>     <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">agentdir</span>)
+<span class="line-num">33</span> 
+<span class="line-num">34</span>     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">agentdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp">/\.rb$/</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agent</span><span class="ruby-operator">|</span>
+<span class="line-num">35</span>       <span class="ruby-identifier">agentname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-string">&quot;.rb&quot;</span>)
+<span class="line-num">36</span>       <span class="ruby-identifier">loadagent</span>(<span class="ruby-identifier">agentname</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-node">&quot;#{agentname}_agent&quot;</span>)
+<span class="line-num">37</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">38</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">39</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -567,8 +565,8 @@ there are any replies to process from the agent</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

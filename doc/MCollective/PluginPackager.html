@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::PluginPackager - mcollective version 2.12.1</title>
+<title>module MCollective::PluginPackager - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -97,8 +101,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -134,10 +136,10 @@
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;#{klass}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">12</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">13</span>   <span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;#{klass}&quot;</span>)
+<span class="line-num">14</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -167,10 +169,10 @@
 
           
           <div class="method-source-code" id="check_dir_present-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">check_dir_present</span>(<span class="ruby-identifier">path</span>)
-  (<span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;*&quot;</span>)).<span class="ruby-identifier">empty?</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">31</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">check_dir_present</span>(<span class="ruby-identifier">path</span>)
+<span class="line-num">32</span>   (<span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">path</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-string">&quot;*&quot;</span>)).<span class="ruby-identifier">empty?</span>)
+<span class="line-num">33</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -200,16 +202,16 @@
 
           
           <div class="method-source-code" id="command_available-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 54</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">command_available?</span>(<span class="ruby-identifier">build_tool</span>)
-  <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;PATH&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">PATH_SEPARATOR</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">builder</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">build_tool</span>)
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">builder</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">54</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">command_available?</span>(<span class="ruby-identifier">build_tool</span>)
+<span class="line-num">55</span>   <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;PATH&quot;</span>].<span class="ruby-identifier">split</span>(<span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">PATH_SEPARATOR</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">path</span><span class="ruby-operator">|</span>
+<span class="line-num">56</span>     <span class="ruby-identifier">builder</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">build_tool</span>)
+<span class="line-num">57</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">builder</span>)
+<span class="line-num">58</span>       <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">59</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">60</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">61</span>   <span class="ruby-keyword">false</span>
+<span class="line-num">62</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -224,7 +226,7 @@
         
         <div class="method-heading">
           <span class="method-name">execute_verbosely</span><span
-            class="method-args">(verbose, &block)</span>
+            class="method-args">(verbose, &amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -239,23 +241,23 @@
 
           
           <div class="method-source-code" id="execute_verbosely-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">execute_verbosely</span>(<span class="ruby-identifier">verbose</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">verbose</span>
-    <span class="ruby-identifier">old_stdout</span> = <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">clone</span>
-    <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;/dev/null&quot;</span>, <span class="ruby-string">&quot;w&quot;</span>))
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-identifier">old_stdout</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-keyword">ensure</span>
-      <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-identifier">old_stdout</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">36</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">execute_verbosely</span>(<span class="ruby-identifier">verbose</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">37</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">verbose</span>
+<span class="line-num">38</span>     <span class="ruby-identifier">old_stdout</span> = <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">clone</span>
+<span class="line-num">39</span>     <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;/dev/null&quot;</span>, <span class="ruby-string">&quot;w&quot;</span>))
+<span class="line-num">40</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">41</span>       <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
+<span class="line-num">42</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">43</span>       <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-identifier">old_stdout</span>
+<span class="line-num">44</span>       <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+<span class="line-num">45</span>     <span class="ruby-keyword">ensure</span>
+<span class="line-num">46</span>       <span class="ruby-identifier">$stdout</span>.<span class="ruby-identifier">reopen</span> <span class="ruby-identifier">old_stdout</span>
+<span class="line-num">47</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">48</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">49</span>     <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
+<span class="line-num">50</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">51</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -279,30 +281,27 @@
 
         <div class="method-description">
           
-          <p>Filter out platform specific dependencies Given a list of dependencies
-named - debian::foo redhat::bar <a
-href="PluginPackager.html#method-c-filter_dependencies">::filter_dependencies</a>(‘debian’,
-dependencies) will return foo.</p>
+          <p>Filter out platform specific dependencies Given a list of dependencies named - debian::foo redhat::bar <a href="PluginPackager.html#method-c-filter_dependencies"><code>PluginPackager.filter_dependencies</code></a>(&#39;debian&#39;, dependencies) will return foo.</p>
           
           
 
           
           <div class="method-source-code" id="filter_dependencies-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 74</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">filter_dependencies</span>(<span class="ruby-identifier">prefix</span>, <span class="ruby-identifier">dependencies</span>)
-  <span class="ruby-identifier">dependencies</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dependency</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">dependency</span>[<span class="ruby-value">:name</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\w+)::(\w+)/</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">prefix</span> <span class="ruby-operator">==</span> <span class="ruby-node">$1</span>
-        <span class="ruby-identifier">dependency</span>[<span class="ruby-value">:name</span>] = <span class="ruby-node">$2</span>
-        <span class="ruby-identifier">dependency</span>
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">nil</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">dependency</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dependency</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dependency</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> }
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">74</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">filter_dependencies</span>(<span class="ruby-identifier">prefix</span>, <span class="ruby-identifier">dependencies</span>)
+<span class="line-num">75</span>   <span class="ruby-identifier">dependencies</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">dependency</span><span class="ruby-operator">|</span>
+<span class="line-num">76</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">dependency</span>[<span class="ruby-value">:name</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\w+)::(\w+)/</span>
+<span class="line-num">77</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">prefix</span> <span class="ruby-operator">==</span> <span class="ruby-node">$1</span>
+<span class="line-num">78</span>         <span class="ruby-identifier">dependency</span>[<span class="ruby-value">:name</span>] = <span class="ruby-node">$2</span>
+<span class="line-num">79</span>         <span class="ruby-identifier">dependency</span>
+<span class="line-num">80</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">81</span>         <span class="ruby-keyword">nil</span>
+<span class="line-num">82</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">83</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">84</span>       <span class="ruby-identifier">dependency</span>
+<span class="line-num">85</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">86</span>   <span class="ruby-keyword">end</span>.<span class="ruby-identifier">reject</span>{ <span class="ruby-operator">|</span><span class="ruby-identifier">dependency</span><span class="ruby-operator">|</span> <span class="ruby-identifier">dependency</span> <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span> }
+<span class="line-num">87</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -326,25 +325,25 @@ dependencies) will return foo.</p>
 
         <div class="method-description">
           
-          <p>Fetch and return metadata from plugin <a href="DDL.html">DDL</a></p>
+          <p>Fetch and return metadata from plugin <a href="DDL.html"><code>DDL</code></a></p>
           
           
 
           
           <div class="method-source-code" id="get_metadata-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_metadata</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">type</span>)
-  <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;package&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-keyword">false</span>)
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">ddl_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">type</span>, <span class="ruby-string">&quot;*.ddl&quot;</span>)).<span class="ruby-identifier">first</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;failed to load ddl file in plugin directory : #{File.join(path, type)}&quot;</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-identifier">ddl_file</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">meta</span>, <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">requirements</span>[<span class="ruby-value">:mcollective</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">17</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">get_metadata</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">type</span>)
+<span class="line-num">18</span>   <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-string">&quot;package&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-keyword">false</span>)
+<span class="line-num">19</span> 
+<span class="line-num">20</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">21</span>     <span class="ruby-identifier">ddl_file</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">path</span>, <span class="ruby-identifier">type</span>, <span class="ruby-string">&quot;*.ddl&quot;</span>)).<span class="ruby-identifier">first</span>)
+<span class="line-num">22</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
+<span class="line-num">23</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;failed to load ddl file in plugin directory : #{File.join(path, type)}&quot;</span>
+<span class="line-num">24</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">25</span>   <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">instance_eval</span> <span class="ruby-identifier">ddl_file</span>
+<span class="line-num">26</span> 
+<span class="line-num">27</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">meta</span>, <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">requirements</span>[<span class="ruby-value">:mcollective</span>]
+<span class="line-num">28</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -368,20 +367,20 @@ dependencies) will return foo.</p>
 
         <div class="method-description">
           
-          <p>Return the path to a plugin’s core directories</p>
+          <p>Return the path to a plugin&#39;s core directories</p>
           
           
 
           
           <div class="method-source-code" id="get_plugin_path-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 90</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">get_plugin_path</span>(<span class="ruby-identifier">target</span>)
-  <span class="ruby-keyword">if</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-string">&quot;lib&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)))
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-string">&quot;lib&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">90</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">get_plugin_path</span>(<span class="ruby-identifier">target</span>)
+<span class="line-num">91</span>   <span class="ruby-keyword">if</span> (<span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-string">&quot;lib&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)))
+<span class="line-num">92</span>     <span class="ruby-keyword">return</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">target</span>, <span class="ruby-string">&quot;lib&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
+<span class="line-num">93</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">94</span> 
+<span class="line-num">95</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>
+<span class="line-num">96</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -411,10 +410,10 @@ dependencies) will return foo.</p>
 
           
           <div class="method-source-code" id="load_packagers-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_packagers</span>
-  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;pluginpackager&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num"> 8</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">load_packagers</span>
+<span class="line-num"> 9</span>   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;pluginpackager&quot;</span>)
+<span class="line-num">10</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -444,10 +443,10 @@ dependencies) will return foo.</p>
 
           
           <div class="method-source-code" id="safe_system-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager.rb, line 64</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">safe_system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(' ')}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager.rb</span>
+<span class="line-num">64</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">safe_system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="line-num">65</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(&#39; &#39;)}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span> <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>
+<span class="line-num">66</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -465,8 +464,8 @@ dependencies) will return foo.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::DataDDL - mcollective version 2.12.1</title>
+<title>class MCollective::DDL::DataDDL - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -89,11 +93,9 @@
 
   <section class="description">
     
-<p>A <a href="../DDL.html">DDL</a> file for the data query plugins.</p>
+<p>A <a href="../DDL.html"><code>DDL</code></a> file for the data query plugins.</p>
 
-<p>Query plugins can today take only one input by convention in the <a
-href="../DDL.html">DDL</a> that is called :query, otherwise the input is
-identical to the standard input.</p>
+<p>Query plugins can today take only one input by convention in the <a href="../DDL.html"><code>DDL</code></a> that is called :query, otherwise the input is identical to the standard input.</p>
 
 <p>metadata    :name        =&gt; “Agent”,</p>
 
@@ -106,17 +108,17 @@ identical to the standard input.</p>
 
 <p>dataquery :description =&gt; “Agent Meta Data” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">input</span> :<span class="ruby-identifier">query</span>,
-      :<span class="ruby-identifier">prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agent Name&quot;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Valid agent name&quot;</span>,
-      :<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-regexp">/^[\w\_]+$/</span>,
-      :<span class="ruby-identifier">maxlength</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">20</span>
+<pre class="ruby"><span class="ruby-identifier">input</span> <span class="ruby-value">:query</span>,
+      <span class="ruby-value">:prompt</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Agent Name&quot;</span>,
+      <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Valid agent name&quot;</span>,
+      <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+      <span class="ruby-value">:validation</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-regexp">/^[\w\_]+$/</span>,
+      <span class="ruby-value">:maxlength</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">20</span>
 
-[:<span class="ruby-identifier">license</span>, :<span class="ruby-identifier">timeout</span>, :<span class="ruby-identifier">description</span>, :<span class="ruby-identifier">url</span>, :<span class="ruby-identifier">version</span>, :<span class="ruby-identifier">author</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
+[<span class="ruby-value">:license</span>, <span class="ruby-value">:timeout</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:version</span>, <span class="ruby-value">:author</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">item</span><span class="ruby-operator">|</span>
   <span class="ruby-identifier">output</span> <span class="ruby-identifier">item</span>,
-         :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Agent #{item}&quot;</span>,
-         :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
+         <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;Agent #{item}&quot;</span>,
+         <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">item</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -124,8 +126,6 @@ identical to the standard input.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -147,7 +147,7 @@ identical to the standard input.</p>
         
         <div class="method-heading">
           <span class="method-name">dataquery</span><span
-            class="method-args">(input, &block)</span>
+            class="method-args">(input, &amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -162,19 +162,19 @@ identical to the standard input.</p>
 
           
           <div class="method-source-code" id="dataquery-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dataquery</span>(<span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Data queries need a :description&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Data queries can only have one definition&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>]
-
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>]  = {<span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">input</span>[<span class="ruby-value">:description</span>],
-                       <span class="ruby-value">:input</span> =<span class="ruby-operator">&gt;</span> {},
-                       <span class="ruby-value">:output</span> =<span class="ruby-operator">&gt;</span> {}}
-
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-value">:data</span>
-  <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb</span>
+<span class="line-num">31</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">dataquery</span>(<span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">32</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Data queries need a :description&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
+<span class="line-num">33</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Data queries can only have one definition&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">34</span> 
+<span class="line-num">35</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>]  = {<span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">input</span>[<span class="ruby-value">:description</span>],
+<span class="line-num">36</span>                        <span class="ruby-value">:input</span> <span class="ruby-operator">=&gt;</span> {},
+<span class="line-num">37</span>                        <span class="ruby-value">:output</span> <span class="ruby-operator">=&gt;</span> {}}
+<span class="line-num">38</span> 
+<span class="line-num">39</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-value">:data</span>
+<span class="line-num">40</span>   <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">41</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">42</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -204,10 +204,10 @@ identical to the standard input.</p>
 
           
           <div class="method-source-code" id="dataquery_interface-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb, line 51</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">dataquery_interface</span>
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>] <span class="ruby-operator">||</span> {}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb</span>
+<span class="line-num">51</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">dataquery_interface</span>
+<span class="line-num">52</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:data</span>] <span class="ruby-operator">||</span> {}
+<span class="line-num">53</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -236,18 +236,18 @@ identical to the standard input.</p>
           
             <div class="method-calls-super">
               Calls superclass method
-              <a href="Base.html#method-i-input">MCollective::DDL::Base#input</a>
+              <a href="Base.html#method-i-input"><code>MCollective::DDL::Base#input</code></a>
             </div>
           
 
           
           <div class="method-source-code" id="input-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The only valid input name for a data query is 'query'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">argument</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:query</span>
-
-  <span class="ruby-keyword">super</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/dataddl.rb</span>
+<span class="line-num">44</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+<span class="line-num">45</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The only valid input name for a data query is &#39;query&#39;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">argument</span> <span class="ruby-operator">!=</span> <span class="ruby-value">:query</span>
+<span class="line-num">46</span> 
+<span class="line-num">47</span>   <span class="ruby-keyword">super</span>
+<span class="line-num">48</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -265,8 +265,8 @@ identical to the standard input.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Audit - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::Audit - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -87,37 +91,26 @@
 
   <section class="description">
     
-<p>Auditing of requests is done only for SimpleRPC requests, you provide a
-plugin in the MCollective::Audit::* namespace which the SimpleRPC framework
-calls for each message</p>
+<p>Auditing of requests is done only for SimpleRPC requests, you provide a plugin in the MCollective::Audit::* namespace which the SimpleRPC framework calls for each message</p>
 
-<p>We provide a simple one that logs to a logfile in the class
-MCollective::Audit::Logfile you can create your own:</p>
+<p>We provide a simple one that logs to a logfile in the class MCollective::Audit::Logfile you can create your own:</p>
 
 <p>Create a class in plugins/mcollective/audit/&lt;yourplugin&gt;.rb</p>
 
-<p>You must inherit from <a href="Audit.html">MCollective::RPC::Audit</a>
-which will take care of registering you with the plugin system.</p>
+<p>You must inherit from <a href="Audit.html"><code>MCollective::RPC::Audit</code></a> which will take care of registering you with the plugin system.</p>
 
-<p>Your plugin must provide <a
-href="Audit.html#method-i-audit_request">#audit_request</a>(request,
-connection) the request parameter will be an instance of <a
-href="Request.html">MCollective::RPC::Request</a></p>
+<p>Your plugin must provide <a href="Audit.html#method-i-audit_request"><code>audit_request</code></a>(request, connection) the request parameter will be an instance of <a href="Request.html"><code>MCollective::RPC::Request</code></a></p>
 
 <p>To enable auditing you should set:</p>
 
-<p>rpcaudit = 1 rpcauditprovider = <a href="Logfile.html">Logfile</a></p>
+<p>rpcaudit = 1 rpcauditprovider = <a href="Logfile.html"><code>Logfile</code></a></p>
 
-<p>in the config file this will enable logging using the
-MCollective::Audit::Logile class</p>
+<p>in the config file this will enable logging using the MCollective::Audit::Logile class</p>
 
-<p>The <a href="Audit.html">Audit</a> class acts as a base for audit plugins
-and takes care of registering them with the plugin manager</p>
+<p>The <a href="Audit.html"><code>Audit</code></a> class acts as a base for audit plugins and takes care of registering them with the plugin manager</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -154,10 +147,10 @@ and takes care of registering them with the plugin manager</p>
 
           
           <div class="method-source-code" id="inherited-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/audit.rb, line 29</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;rpcaudit_plugin&quot;</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/audit.rb</span>
+<span class="line-num">29</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">inherited</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">30</span>   <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;rpcaudit_plugin&quot;</span>, <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
+<span class="line-num">31</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -195,10 +188,10 @@ and takes care of registering them with the plugin manager</p>
 
           
           <div class="method-source-code" id="audit_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/audit.rb, line 33</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
-  <span class="ruby-ivar">@log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;audit_request is not implimented in #{this.class}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/audit.rb</span>
+<span class="line-num">33</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">audit_request</span>(<span class="ruby-identifier">request</span>, <span class="ruby-identifier">connection</span>)
+<span class="line-num">34</span>   <span class="ruby-ivar">@log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;audit_request is not implimented in #{this.class}&quot;</span>)
+<span class="line-num">35</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -216,8 +209,8 @@ and takes care of registering them with the plugin manager</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

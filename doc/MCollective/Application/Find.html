@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Find - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Find - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -88,8 +92,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -125,26 +127,26 @@
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/find.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-  <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-
-  <span class="ruby-identifier">starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-
-  <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">detect_and_set_stdin_discovery</span>
-
-  <span class="ruby-identifier">nodes</span> = <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">discover</span>
-
-  <span class="ruby-identifier">discoverytime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">starttime</span>
-
-  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>]
-
-  <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">c</span>}
-
-  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\nDiscovered %s nodes in %.2f seconds using the %s discovery plugin&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">discoverytime</span>, <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">discoverer</span>.<span class="ruby-identifier">discovery_method</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>]
-
-  <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">exit</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">exit</span>(<span class="ruby-value">1</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/find.rb</span>
+<span class="line-num"> 4</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num"> 5</span>   <span class="ruby-identifier">mc</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num"> 6</span> 
+<span class="line-num"> 7</span>   <span class="ruby-identifier">starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+<span class="line-num"> 8</span> 
+<span class="line-num"> 9</span>   <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">detect_and_set_stdin_discovery</span>
+<span class="line-num">10</span> 
+<span class="line-num">11</span>   <span class="ruby-identifier">nodes</span> = <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">discover</span>
+<span class="line-num">12</span> 
+<span class="line-num">13</span>   <span class="ruby-identifier">discoverytime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">starttime</span>
+<span class="line-num">14</span> 
+<span class="line-num">15</span>   <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>]
+<span class="line-num">16</span> 
+<span class="line-num">17</span>   <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span> <span class="ruby-identifier">puts</span> <span class="ruby-identifier">c</span>}
+<span class="line-num">18</span> 
+<span class="line-num">19</span>   <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;\nDiscovered %s nodes in %.2f seconds using the %s discovery plugin&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">discoverytime</span>, <span class="ruby-identifier">mc</span>.<span class="ruby-identifier">client</span>.<span class="ruby-identifier">discoverer</span>.<span class="ruby-identifier">discovery_method</span>] <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>]
+<span class="line-num">20</span> 
+<span class="line-num">21</span>   <span class="ruby-identifier">nodes</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">exit</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">exit</span>(<span class="ruby-value">1</span>)
+<span class="line-num">22</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -162,8 +164,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

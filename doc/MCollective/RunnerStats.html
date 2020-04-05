@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RunnerStats - mcollective version 2.12.1</title>
+<title>class MCollective::RunnerStats - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -101,14 +105,10 @@
 
   <section class="description">
     
-<p>Class to store stats about the mcollectived, it should live in the <a
-href="PluginManager.html">PluginManager</a> so that agents etc can get hold
-of it and return the stats to callers</p>
+<p>Class to store stats about the mcollectived, it should live in the <a href="PluginManager.html"><code>PluginManager</code></a> so that agents etc can get hold of it and return the stats to callers</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -145,19 +145,19 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-ivar">@starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
-  <span class="ruby-ivar">@validated</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@unvalidated</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@filtered</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@passed</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@total</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@replies</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@ttlexpired</span> = <span class="ruby-value">0</span>
-
-  <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num"> 5</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+<span class="line-num"> 6</span>   <span class="ruby-ivar">@starttime</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num"> 7</span>   <span class="ruby-ivar">@validated</span> = <span class="ruby-value">0</span>
+<span class="line-num"> 8</span>   <span class="ruby-ivar">@unvalidated</span> = <span class="ruby-value">0</span>
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@filtered</span> = <span class="ruby-value">0</span>
+<span class="line-num">10</span>   <span class="ruby-ivar">@passed</span> = <span class="ruby-value">0</span>
+<span class="line-num">11</span>   <span class="ruby-ivar">@total</span> = <span class="ruby-value">0</span>
+<span class="line-num">12</span>   <span class="ruby-ivar">@replies</span> = <span class="ruby-value">0</span>
+<span class="line-num">13</span>   <span class="ruby-ivar">@ttlexpired</span> = <span class="ruby-value">0</span>
+<span class="line-num">14</span> 
+<span class="line-num">15</span>   <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">16</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -195,11 +195,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="filtered-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">filtered</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing filtered stat&quot;</span>)
-  <span class="ruby-ivar">@filtered</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">31</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">filtered</span>
+<span class="line-num">32</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing filtered stat&quot;</span>)
+<span class="line-num">33</span>   <span class="ruby-ivar">@filtered</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">34</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -229,11 +229,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="passed-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">passed</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing passed stat&quot;</span>)
-  <span class="ruby-ivar">@passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">25</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">passed</span>
+<span class="line-num">26</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing passed stat&quot;</span>)
+<span class="line-num">27</span>   <span class="ruby-ivar">@passed</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">28</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -263,11 +263,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="received-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 48</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">received</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing total stat&quot;</span>)
-  <span class="ruby-ivar">@total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">48</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">received</span>
+<span class="line-num">49</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing total stat&quot;</span>)
+<span class="line-num">50</span>   <span class="ruby-ivar">@total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">51</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -297,13 +297,13 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="sent-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 54</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">sent</span>
-  <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing replies stat&quot;</span>)
-    <span class="ruby-ivar">@replies</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">54</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">sent</span>
+<span class="line-num">55</span>   <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">56</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing replies stat&quot;</span>)
+<span class="line-num">57</span>     <span class="ruby-ivar">@replies</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">58</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">59</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -333,34 +333,34 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="to_hash-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 62</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_hash</span>
-  <span class="ruby-identifier">stats</span> = {<span class="ruby-value">:validated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@validated</span>,
-    <span class="ruby-value">:unvalidated</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@unvalidated</span>,
-    <span class="ruby-value">:passed</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@passed</span>,
-    <span class="ruby-value">:filtered</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@filtered</span>,
-    <span class="ruby-value">:starttime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@starttime</span>,
-    <span class="ruby-value">:total</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@total</span>,
-    <span class="ruby-value">:ttlexpired</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@ttlexpired</span>,
-    <span class="ruby-value">:replies</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@replies</span>}
-
-  <span class="ruby-identifier">reply</span> = {<span class="ruby-value">:stats</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stats</span>,
-    <span class="ruby-value">:threads</span> =<span class="ruby-operator">&gt;</span> [],
-    <span class="ruby-value">:pid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>,
-    <span class="ruby-value">:times</span> =<span class="ruby-operator">&gt;</span> {} }
-
-  <span class="ruby-operator">::</span><span class="ruby-constant">Process</span>.<span class="ruby-identifier">times</span>.<span class="ruby-identifier">each_pair</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
-    <span class="ruby-identifier">reply</span>[<span class="ruby-value">:times</span>][<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
-  }
-
-  <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">reply</span>[<span class="ruby-value">:threads</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{t.inspect}&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">reply</span>[<span class="ruby-value">:agents</span>] = <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>
-  <span class="ruby-identifier">reply</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">62</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_hash</span>
+<span class="line-num">63</span>   <span class="ruby-identifier">stats</span> = {<span class="ruby-value">:validated</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@validated</span>,
+<span class="line-num">64</span>     <span class="ruby-value">:unvalidated</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@unvalidated</span>,
+<span class="line-num">65</span>     <span class="ruby-value">:passed</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@passed</span>,
+<span class="line-num">66</span>     <span class="ruby-value">:filtered</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@filtered</span>,
+<span class="line-num">67</span>     <span class="ruby-value">:starttime</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@starttime</span>,
+<span class="line-num">68</span>     <span class="ruby-value">:total</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@total</span>,
+<span class="line-num">69</span>     <span class="ruby-value">:ttlexpired</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@ttlexpired</span>,
+<span class="line-num">70</span>     <span class="ruby-value">:replies</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@replies</span>}
+<span class="line-num">71</span> 
+<span class="line-num">72</span>   <span class="ruby-identifier">reply</span> = {<span class="ruby-value">:stats</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">stats</span>,
+<span class="line-num">73</span>     <span class="ruby-value">:threads</span> <span class="ruby-operator">=&gt;</span> [],
+<span class="line-num">74</span>     <span class="ruby-value">:pid</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>,
+<span class="line-num">75</span>     <span class="ruby-value">:times</span> <span class="ruby-operator">=&gt;</span> {} }
+<span class="line-num">76</span> 
+<span class="line-num">77</span>   <span class="ruby-operator">::</span><span class="ruby-constant">Process</span>.<span class="ruby-identifier">times</span>.<span class="ruby-identifier">each_pair</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">78</span>     <span class="ruby-identifier">k</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>
+<span class="line-num">79</span>     <span class="ruby-identifier">reply</span>[<span class="ruby-value">:times</span>][<span class="ruby-identifier">k</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">80</span>   }
+<span class="line-num">81</span> 
+<span class="line-num">82</span>   <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">list</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+<span class="line-num">83</span>     <span class="ruby-identifier">reply</span>[<span class="ruby-value">:threads</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{t.inspect}&quot;</span>
+<span class="line-num">84</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">85</span> 
+<span class="line-num">86</span>   <span class="ruby-identifier">reply</span>[<span class="ruby-value">:agents</span>] = <span class="ruby-constant">Agents</span>.<span class="ruby-identifier">agentlist</span>
+<span class="line-num">87</span>   <span class="ruby-identifier">reply</span>
+<span class="line-num">88</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -390,11 +390,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="ttlexpired-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">ttlexpired</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing ttl expired stat&quot;</span>)
-  <span class="ruby-ivar">@ttlexpired</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">19</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">ttlexpired</span>
+<span class="line-num">20</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing ttl expired stat&quot;</span>)
+<span class="line-num">21</span>   <span class="ruby-ivar">@ttlexpired</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">22</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -424,11 +424,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="unvalidated-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">unvalidated</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing unvalidated stat&quot;</span>)
-  <span class="ruby-ivar">@unvalidated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">42</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">unvalidated</span>
+<span class="line-num">43</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing unvalidated stat&quot;</span>)
+<span class="line-num">44</span>   <span class="ruby-ivar">@unvalidated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -458,11 +458,11 @@ of it and return the stats to callers</p>
 
           
           <div class="method-source-code" id="validated-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runnerstats.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validated</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing validated stat&quot;</span>)
-  <span class="ruby-ivar">@validated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runnerstats.rb</span>
+<span class="line-num">37</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validated</span>
+<span class="line-num">38</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Incrementing validated stat&quot;</span>)
+<span class="line-num">39</span>   <span class="ruby-ivar">@validated</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">40</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -480,8 +480,8 @@ of it and return the stats to callers</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

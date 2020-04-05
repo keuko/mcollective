@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Describe_filter - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Describe_filter - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -94,8 +98,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -131,14 +133,14 @@
 
           
           <div class="method-source-code" id="describe_c_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb, line 53</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">describe_c_filter</span>(<span class="ruby-identifier">classes</span>)
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-C filter expands to the following class checks:&quot;</span>
-  <span class="ruby-identifier">puts</span>
-  <span class="ruby-identifier">classes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_class_string</span>(<span class="ruby-identifier">c</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb</span>
+<span class="line-num">53</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">describe_c_filter</span>(<span class="ruby-identifier">classes</span>)
+<span class="line-num">54</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-C filter expands to the following class checks:&quot;</span>
+<span class="line-num">55</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">56</span>   <span class="ruby-identifier">classes</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">c</span><span class="ruby-operator">|</span>
+<span class="line-num">57</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_class_string</span>(<span class="ruby-identifier">c</span>)
+<span class="line-num">58</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">59</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -168,14 +170,14 @@
 
           
           <div class="method-source-code" id="describe_f_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb, line 45</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">describe_f_filter</span>(<span class="ruby-identifier">facts</span>)
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-F filter expands to the following fact comparisons:&quot;</span>
-  <span class="ruby-identifier">puts</span>
-  <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_fact_string</span>(<span class="ruby-identifier">f</span>[<span class="ruby-value">:fact</span>], <span class="ruby-identifier">f</span>[<span class="ruby-value">:value</span>], <span class="ruby-identifier">f</span>[<span class="ruby-value">:operator</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb</span>
+<span class="line-num">45</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">describe_f_filter</span>(<span class="ruby-identifier">facts</span>)
+<span class="line-num">46</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-F filter expands to the following fact comparisons:&quot;</span>
+<span class="line-num">47</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">48</span>   <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">49</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  &quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_fact_string</span>(<span class="ruby-identifier">f</span>[<span class="ruby-value">:fact</span>], <span class="ruby-identifier">f</span>[<span class="ruby-value">:value</span>], <span class="ruby-identifier">f</span>[<span class="ruby-value">:operator</span>])
+<span class="line-num">50</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">51</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -205,42 +207,42 @@
 
           
           <div class="method-source-code" id="describe_s_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">describe_s_filter</span>(<span class="ruby-identifier">stack</span>)
-  <span class="ruby-identifier">indent</span> = <span class="ruby-string">&quot;  &quot;</span>
-  <span class="ruby-identifier">old_indent</span> = <span class="ruby-string">&quot;  &quot;</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-S Query expands to the following instructions:&quot;</span>
-  <span class="ruby-identifier">puts</span>
-  <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">token</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;statement&quot;</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/(&lt;=|&gt;=|=|=~|=)/</span>
-        <span class="ruby-identifier">op</span> = <span class="ruby-node">$1</span>
-        <span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span> = <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-identifier">op</span>)
-        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_fact_string</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>, <span class="ruby-identifier">op</span>)
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_class_string</span>(<span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>])
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;fstatement&quot;</span>
-      <span class="ruby-identifier">v</span> = <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]
-      <span class="ruby-identifier">result_string</span> = <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;Execute the Data Query '#{v[&quot;name&quot;]}'&quot;</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>[<span class="ruby-string">&quot;params&quot;</span>]
-        <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; with parameters (#{v[&quot;params&quot;]})&quot;</span>
-      <span class="ruby-keyword">end</span>
-      <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;. &quot;</span>
-      <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;Check if the query's '#{v[&quot;value&quot;]}' value #{v[&quot;operator&quot;]} '#{v[&quot;r_compare&quot;]}'  &quot;</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_string</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;(&quot;</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;(&quot;</span>
-      <span class="ruby-identifier">old_indent</span> = <span class="ruby-identifier">indent</span>
-      <span class="ruby-identifier">indent</span> <span class="ruby-operator">*=</span> <span class="ruby-value">2</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;)&quot;</span>
-      <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">old_indent</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;)&quot;</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">upcase</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb</span>
+<span class="line-num"> 9</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">describe_s_filter</span>(<span class="ruby-identifier">stack</span>)
+<span class="line-num">10</span>   <span class="ruby-identifier">indent</span> = <span class="ruby-string">&quot;  &quot;</span>
+<span class="line-num">11</span>   <span class="ruby-identifier">old_indent</span> = <span class="ruby-string">&quot;  &quot;</span>
+<span class="line-num">12</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;-S Query expands to the following instructions:&quot;</span>
+<span class="line-num">13</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">14</span>   <span class="ruby-identifier">stack</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">token</span><span class="ruby-operator">|</span>
+<span class="line-num">15</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;statement&quot;</span>
+<span class="line-num">16</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/(&lt;=|&gt;=|=|=~|=)/</span>
+<span class="line-num">17</span>         <span class="ruby-identifier">op</span> = <span class="ruby-node">$1</span>
+<span class="line-num">18</span>         <span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span> = <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-identifier">op</span>)
+<span class="line-num">19</span>         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_fact_string</span>(<span class="ruby-identifier">k</span>, <span class="ruby-identifier">v</span>, <span class="ruby-identifier">op</span>)
+<span class="line-num">20</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">21</span>         <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">get_class_string</span>(<span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>])
+<span class="line-num">22</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">23</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;fstatement&quot;</span>
+<span class="line-num">24</span>       <span class="ruby-identifier">v</span> = <span class="ruby-identifier">token</span>.<span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]
+<span class="line-num">25</span>       <span class="ruby-identifier">result_string</span> = <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-node">&quot;Execute the Data Query &#39;#{v[&quot;name&quot;]}&#39;&quot;</span>
+<span class="line-num">26</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span>[<span class="ruby-string">&quot;params&quot;</span>]
+<span class="line-num">27</span>         <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot; with parameters (#{v[&quot;params&quot;]})&quot;</span>
+<span class="line-num">28</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">29</span>       <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-string">&quot;. &quot;</span>
+<span class="line-num">30</span>       <span class="ruby-identifier">result_string</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;Check if the query&#39;s &#39;#{v[&quot;value&quot;]}&#39; value #{v[&quot;operator&quot;]} &#39;#{v[&quot;r_compare&quot;]}&#39;  &quot;</span>
+<span class="line-num">31</span>       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">result_string</span>
+<span class="line-num">32</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;(&quot;</span>
+<span class="line-num">33</span>       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;(&quot;</span>
+<span class="line-num">34</span>       <span class="ruby-identifier">old_indent</span> = <span class="ruby-identifier">indent</span>
+<span class="line-num">35</span>       <span class="ruby-identifier">indent</span> <span class="ruby-operator">*=</span> <span class="ruby-value">2</span>
+<span class="line-num">36</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;)&quot;</span>
+<span class="line-num">37</span>       <span class="ruby-identifier">indent</span> = <span class="ruby-identifier">old_indent</span>
+<span class="line-num">38</span>       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;)&quot;</span>
+<span class="line-num">39</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">40</span>       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">indent</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">token</span>.<span class="ruby-identifier">keys</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">upcase</span>
+<span class="line-num">41</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">42</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">43</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -270,23 +272,23 @@
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb, line 61</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>].<span class="ruby-identifier">empty?</span>)
-    <span class="ruby-identifier">describe_f_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>])
-    <span class="ruby-identifier">puts</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">empty?</span>)
-    <span class="ruby-identifier">describe_c_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>])
-    <span class="ruby-identifier">puts</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>)
-    <span class="ruby-identifier">describe_s_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>][<span class="ruby-value">0</span>])
-    <span class="ruby-identifier">puts</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/describe_filter.rb</span>
+<span class="line-num">61</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num">62</span>   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>].<span class="ruby-identifier">empty?</span>)
+<span class="line-num">63</span>     <span class="ruby-identifier">describe_f_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>])
+<span class="line-num">64</span>     <span class="ruby-identifier">puts</span>
+<span class="line-num">65</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">66</span> 
+<span class="line-num">67</span>   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>].<span class="ruby-identifier">empty?</span>)
+<span class="line-num">68</span>     <span class="ruby-identifier">describe_c_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>])
+<span class="line-num">69</span>     <span class="ruby-identifier">puts</span>
+<span class="line-num">70</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">71</span> 
+<span class="line-num">72</span>   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>)
+<span class="line-num">73</span>     <span class="ruby-identifier">describe_s_filter</span>(<span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>][<span class="ruby-value">0</span>])
+<span class="line-num">74</span>     <span class="ruby-identifier">puts</span>
+<span class="line-num">75</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">76</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -304,8 +306,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

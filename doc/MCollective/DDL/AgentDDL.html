@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::AgentDDL - mcollective version 2.12.1</title>
+<title>class MCollective::DDL::AgentDDL - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -109,13 +113,11 @@
 
   <section class="description">
     
-<p>A <a href="../DDL.html">DDL</a> class specific to agent plugins.</p>
+<p>A <a href="../DDL.html"><code>DDL</code></a> class specific to agent plugins.</p>
 
-<p>A full <a href="../DDL.html">DDL</a> can be seen below with all the
-possible bells and whistles present.</p>
+<p>A full <a href="../DDL.html"><code>DDL</code></a> can be seen below with all the possible bells and whistles present.</p>
 
-<p>metadata    :name        =&gt; “Utilities and Helpers for SimpleRPC
-Agents”,</p>
+<p>metadata    :name        =&gt; “Utilities and Helpers for SimpleRPC Agents”,</p>
 
 <pre>:description =&gt; &quot;General helpful actions that expose stats and internals to SimpleRPC clients&quot;,
 :author      =&gt; &quot;R.I.Pienaar &lt;rip@devco.net&gt;&quot;,
@@ -124,31 +126,30 @@ Agents”,</p>
 :url         =&gt; &quot;https://docs.puppetlabs.com/mcollective/&quot;,
 :timeout     =&gt; 10</pre>
 
-<p>action “get_fact”, :description =&gt; “Retrieve a single fact from the fact
-store” do</p>
+<p>action “get_fact”, :description =&gt; “Retrieve a single fact from the fact store” do</p>
 
-<pre class="ruby"> <span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"> <span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
- <span class="ruby-identifier">input</span> :<span class="ruby-identifier">fact</span>,
-       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
-       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[\w\-\.]+$'</span>,
-       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-       :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">40</span>,
-       :<span class="ruby-identifier">default</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;fqdn&quot;</span>
+ <span class="ruby-identifier">input</span> <span class="ruby-value">:fact</span>,
+       <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
+       <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+       <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^[\w\-\.]+$&#39;</span>,
+       <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+       <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">40</span>,
+       <span class="ruby-value">:default</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;fqdn&quot;</span>
 
- <span class="ruby-identifier">output</span> :<span class="ruby-identifier">fact</span>,
-        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact being returned&quot;</span>,
-        :<span class="ruby-identifier">display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Fact&quot;</span>
+ <span class="ruby-identifier">output</span> <span class="ruby-value">:fact</span>,
+        <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The name of the fact being returned&quot;</span>,
+        <span class="ruby-value">:display_as</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Fact&quot;</span>
 
- <span class="ruby-identifier">output</span> :<span class="ruby-identifier">value</span>,
-        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The value of the fact&quot;</span>,
-        :<span class="ruby-identifier">display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>,
-        :<span class="ruby-identifier">default</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;&quot;</span>
+ <span class="ruby-identifier">output</span> <span class="ruby-value">:value</span>,
+        <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The value of the fact&quot;</span>,
+        <span class="ruby-value">:display_as</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>,
+        <span class="ruby-value">:default</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;&quot;</span>
 
 <span class="ruby-identifier">summarize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">value</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:value</span>)
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -156,8 +157,6 @@ store” do</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -199,12 +198,12 @@ store” do</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 41</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">plugintype</span>=<span class="ruby-value">:agent</span>, <span class="ruby-identifier">loadddl</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">nil</span>
-
-  <span class="ruby-keyword">super</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">41</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">plugintype</span>=<span class="ruby-value">:agent</span>, <span class="ruby-identifier">loadddl</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">42</span>   <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-keyword">super</span>
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -227,7 +226,7 @@ store” do</p>
         
         <div class="method-heading">
           <span class="method-name">action</span><span
-            class="method-args">(name, input, &block)</span>
+            class="method-args">(name, input, &amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -236,21 +235,20 @@ store” do</p>
 
         <div class="method-description">
           
-          <p>Creates the definition for an action, you can nest input definitions inside
-the action to attach inputs and validation to the actions</p>
+          <p>Creates the definition for an action, you can nest input definitions inside the action to attach inputs and validation to the actions</p>
 
-<pre class="ruby"><span class="ruby-identifier">action</span> <span class="ruby-string">&quot;status&quot;</span>, :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Restarts a Service&quot;</span> <span class="ruby-keyword">do</span>
-   <span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">action</span> <span class="ruby-string">&quot;status&quot;</span>, <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Restarts a Service&quot;</span> <span class="ruby-keyword">do</span>
+   <span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
    <span class="ruby-identifier">input</span>  <span class="ruby-string">&quot;service&quot;</span>,
-          :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Service Action&quot;</span>,
-          :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The action to perform&quot;</span>,
-          :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">list</span>,
-          :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
-          :<span class="ruby-identifier">list</span>        =<span class="ruby-operator">&gt;</span> [<span class="ruby-string">&quot;start&quot;</span>, <span class="ruby-string">&quot;stop&quot;</span>, <span class="ruby-string">&quot;restart&quot;</span>, <span class="ruby-string">&quot;status&quot;</span>]
+          <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Service Action&quot;</span>,
+          <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The action to perform&quot;</span>,
+          <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:list</span>,
+          <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-value">:list</span>        <span class="ruby-operator">=&gt;</span> [<span class="ruby-string">&quot;start&quot;</span>, <span class="ruby-string">&quot;stop&quot;</span>, <span class="ruby-string">&quot;restart&quot;</span>, <span class="ruby-string">&quot;status&quot;</span>]
 
    <span class="ruby-identifier">output</span> <span class="ruby-string">&quot;status&quot;</span>,
-          :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The status of the service after the action&quot;</span>
+          <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The status of the service after the action&quot;</span>
 
 <span class="ruby-keyword">end</span>
 </pre>
@@ -259,26 +257,26 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="action-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 116</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">action</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Action needs a :description property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@entities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>] = {}
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:action</span>] = <span class="ruby-identifier">name</span>
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:input</span>] = {}
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:output</span>] = {}
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:display</span>] = <span class="ruby-value">:failed</span>
-    <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:description</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-value">:description</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># if a block is passed it might be creating input methods, call it</span>
-  <span class="ruby-comment"># we set @current_entity so the input block can know what its talking</span>
-  <span class="ruby-comment"># to, this is probably an epic hack, need to improve.</span>
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-identifier">name</span>
-  <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">116</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">action</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">input</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">117</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Action needs a :description property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
+<span class="line-num">118</span> 
+<span class="line-num">119</span>   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@entities</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">name</span>)
+<span class="line-num">120</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>] = {}
+<span class="line-num">121</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:action</span>] = <span class="ruby-identifier">name</span>
+<span class="line-num">122</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:input</span>] = {}
+<span class="line-num">123</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:output</span>] = {}
+<span class="line-num">124</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:display</span>] = <span class="ruby-value">:failed</span>
+<span class="line-num">125</span>     <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>][<span class="ruby-value">:description</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-value">:description</span>]
+<span class="line-num">126</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">127</span> 
+<span class="line-num">128</span>   <span class="ruby-comment"># if a block is passed it might be creating input methods, call it</span>
+<span class="line-num">129</span>   <span class="ruby-comment"># we set @current_entity so the input block can know what its talking</span>
+<span class="line-num">130</span>   <span class="ruby-comment"># to, this is probably an epic hack, need to improve.</span>
+<span class="line-num">131</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-identifier">name</span>
+<span class="line-num">132</span>   <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">133</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">134</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -308,10 +306,10 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="action_interface-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 243</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">name</span>)
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> {}
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">243</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">action_interface</span>(<span class="ruby-identifier">name</span>)
+<span class="line-num">244</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">name</span>] <span class="ruby-operator">||</span> {}
+<span class="line-num">245</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -341,10 +339,10 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="actions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 248</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">actions</span>
-  <span class="ruby-ivar">@entities</span>.<span class="ruby-identifier">keys</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">248</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">actions</span>
+<span class="line-num">249</span>   <span class="ruby-ivar">@entities</span>.<span class="ruby-identifier">keys</span>
+<span class="line-num">250</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -359,7 +357,7 @@ the action to attach inputs and validation to the actions</p>
         
         <div class="method-heading">
           <span class="method-name">aggregate</span><span
-            class="method-args">(function, format = {:format => nil})</span>
+            class="method-args">(function, format = {:format =&gt; nil})</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -374,19 +372,19 @@ the action to attach inputs and validation to the actions</p>
 
           
           <div class="method-source-code" id="aggregate-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 70</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">aggregate</span>(<span class="ruby-identifier">function</span>, <span class="ruby-identifier">format</span> = {<span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>})
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Formats supplied to aggregation functions should be a hash&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Formats supplied to aggregation functions must have a :format key&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:format</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Functions supplied to aggregate should be a hash&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">function</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:args</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">function</span>[<span class="ruby-value">:args</span>]
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;aggregate method for action '%s' missing a function parameter&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:action</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">||=</span> []
-  <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">format</span>[<span class="ruby-value">:format</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">function</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">format</span>))
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">70</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">aggregate</span>(<span class="ruby-identifier">function</span>, <span class="ruby-identifier">format</span> = {<span class="ruby-value">:format</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>})
+<span class="line-num">71</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Formats supplied to aggregation functions should be a hash&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">72</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Formats supplied to aggregation functions must have a :format key&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">format</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:format</span>)
+<span class="line-num">73</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Functions supplied to aggregate should be a hash&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">74</span> 
+<span class="line-num">75</span>   <span class="ruby-keyword">unless</span> (<span class="ruby-identifier">function</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:args</span>)) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">function</span>[<span class="ruby-value">:args</span>]
+<span class="line-num">76</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;aggregate method for action &#39;%s&#39; missing a function parameter&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:action</span>]
+<span class="line-num">77</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">78</span> 
+<span class="line-num">79</span>   <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">||=</span> []
+<span class="line-num">80</span>   <span class="ruby-identifier">entities</span>[<span class="ruby-ivar">@current_entity</span>][<span class="ruby-value">:aggregate</span>] <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-identifier">format</span>[<span class="ruby-value">:format</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">function</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">format</span>))
+<span class="line-num">81</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -410,27 +408,26 @@ the action to attach inputs and validation to the actions</p>
 
         <div class="method-description">
           
-          <p>Sets the display preference to either :ok, :failed, :flatten or :always
-operates on action level</p>
+          <p>Sets the display preference to either :ok, :failed, :flatten or :always operates on action level</p>
           
           
 
           
           <div class="method-source-code" id="display-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 85</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">display</span>(<span class="ruby-identifier">pref</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">pref</span> <span class="ruby-operator">==</span> <span class="ruby-value">:flatten</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;The display option :flatten is being deprecated and will be removed in the next minor release.&quot;</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># defaults to old behavior, complain if its supplied and invalid</span>
-  <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:flatten</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">pref</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Display preference #{pref} is not valid, should be :ok, :failed, :flatten or :always&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_entity</span>
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">action</span>][<span class="ruby-value">:display</span>] = <span class="ruby-identifier">pref</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">85</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">display</span>(<span class="ruby-identifier">pref</span>)
+<span class="line-num">86</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">pref</span> <span class="ruby-operator">==</span> <span class="ruby-value">:flatten</span>
+<span class="line-num">87</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;The display option :flatten is being deprecated and will be removed in the next minor release.&quot;</span>)
+<span class="line-num">88</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">89</span> 
+<span class="line-num">90</span>   <span class="ruby-comment"># defaults to old behavior, complain if its supplied and invalid</span>
+<span class="line-num">91</span>   <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:flatten</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">pref</span>)
+<span class="line-num">92</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Display preference #{pref} is not valid, should be :ok, :failed, :flatten or :always&quot;</span>
+<span class="line-num">93</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">94</span> 
+<span class="line-num">95</span>   <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_entity</span>
+<span class="line-num">96</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">action</span>][<span class="ruby-value">:display</span>] = <span class="ruby-identifier">pref</span>
+<span class="line-num">97</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -465,12 +462,12 @@ operates on action level</p>
 
           
           <div class="method-source-code" id="input-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 47</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input needs a :optional property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:optional</span>)
-
-  <span class="ruby-keyword">super</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">47</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+<span class="line-num">48</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input needs a :optional property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:optional</span>)
+<span class="line-num">49</span> 
+<span class="line-num">50</span>   <span class="ruby-keyword">super</span>
+<span class="line-num">51</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -494,19 +491,16 @@ operates on action level</p>
 
         <div class="method-description">
           
-          <p>Checks if a method name matches a aggregate plugin. This is used by method
-missing so that we dont greedily assume that every <a
-href="AgentDDL.html#method-i-method_missing">#method_missing</a> call in an
-agent ddl has hit a aggregate function.</p>
+          <p>Checks if a method name matches a aggregate plugin. This is used by method missing so that we dont greedily assume that every <a href="AgentDDL.html#method-i-method_missing"><code>method_missing</code></a> call in an agent ddl has hit a aggregate function.</p>
           
           
 
           
           <div class="method-source-code" id="is_function-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 150</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">is_function?</span>(<span class="ruby-identifier">method_name</span>)
-  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-string">&quot;aggregate&quot;</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">150</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">is_function?</span>(<span class="ruby-identifier">method_name</span>)
+<span class="line-num">151</span>   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-string">&quot;aggregate&quot;</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">method_name</span>.<span class="ruby-identifier">to_s</span>)
+<span class="line-num">152</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -521,7 +515,7 @@ agent ddl has hit a aggregate function.</p>
         
         <div class="method-heading">
           <span class="method-name">method_missing</span><span
-            class="method-args">(name, *args, &block)</span>
+            class="method-args">(name, *args, &amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -530,23 +524,20 @@ agent ddl has hit a aggregate function.</p>
 
         <div class="method-description">
           
-          <p>If the method name matches a # aggregate function, we return the function
-with args as a hash.  This will only be active if the
-@process_aggregate_functions is set to true which only happens in the <a
-href="AgentDDL.html#method-i-summarize">summarize</a> block</p>
+          <p>If the method name matches a # aggregate function, we return the function with args as a hash.  This will only be active if the @process_aggregate_functions is set to true which only happens in the <a href="AgentDDL.html#method-i-summarize"><code>summarize</code></a> block</p>
           
           
 
           
           <div class="method-source-code" id="method_missing-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 139</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@process_aggregate_functions</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">is_function?</span>(<span class="ruby-identifier">name</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>, <span class="ruby-node">&quot;undefined local variable or method `#{name}'&quot;</span>, <span class="ruby-identifier">caller</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> {<span class="ruby-value">:function</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:args</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">args</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">139</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">method_missing</span>(<span class="ruby-identifier">name</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">140</span>   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@process_aggregate_functions</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">is_function?</span>(<span class="ruby-identifier">name</span>)
+<span class="line-num">141</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">NoMethodError</span>, <span class="ruby-node">&quot;undefined local variable or method `#{name}&#39;&quot;</span>, <span class="ruby-identifier">caller</span>
+<span class="line-num">142</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">143</span> 
+<span class="line-num">144</span>   <span class="ruby-keyword">return</span> {<span class="ruby-value">:function</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">name</span>, <span class="ruby-value">:args</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">args</span>}
+<span class="line-num">145</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -570,40 +561,33 @@ href="AgentDDL.html#method-i-summarize">summarize</a> block</p>
 
         <div class="method-description">
           
-          <p>For a given action and arguments look up the <a href="../DDL.html">DDL</a>
-interface to that action and if any arguments in the <a
-href="../DDL.html">DDL</a> have a :default value assign that to any input
-that does not have an argument in the input arguments</p>
+          <p>For a given action and arguments look up the <a href="../DDL.html"><code>DDL</code></a> interface to that action and if any arguments in the <a href="../DDL.html"><code>DDL</code></a> have a :default value assign that to any input that does not have an argument in the input arguments</p>
 
-<p>This is intended to only be called on clients and not on servers as the
-clients should never be able to publish non compliant requests and the
-servers should really not tamper with incoming requests since doing so
-might raise validation errors that were not raised on the client breaking
-our fail-fast approach to input validation</p>
+<p>This is intended to only be called on clients and not on servers as the clients should never be able to publish non compliant requests and the servers should really not tamper with incoming requests since doing so might raise validation errors that were not raised on the client breaking our fail-fast approach to input validation</p>
           
           
 
           
           <div class="method-source-code" id="set_default_input_arguments-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 163</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_default_input_arguments</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
-  <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>]
-
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>
-
-  <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>)
-      <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compat_arg</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Setting default value for input '%s' to '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]])
-      <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">compat_arg</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">163</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">set_default_input_arguments</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
+<span class="line-num">164</span>   <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>]
+<span class="line-num">165</span> 
+<span class="line-num">166</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>
+<span class="line-num">167</span> 
+<span class="line-num">168</span>   <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+<span class="line-num">169</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>)
+<span class="line-num">170</span>       <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>
+<span class="line-num">171</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">172</span>       <span class="ruby-identifier">compat_arg</span> = <span class="ruby-identifier">key</span>
+<span class="line-num">173</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">174</span> 
+<span class="line-num">175</span>     <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compat_arg</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>].<span class="ruby-identifier">nil?</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
+<span class="line-num">176</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Setting default value for input &#39;%s&#39; to &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]])
+<span class="line-num">177</span>       <span class="ruby-identifier">arguments</span>[<span class="ruby-identifier">compat_arg</span>] = <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:default</span>]
+<span class="line-num">178</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">179</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">180</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -618,7 +602,7 @@ our fail-fast approach to input validation</p>
         
         <div class="method-heading">
           <span class="method-name">summarize</span><span
-            class="method-args">(&block)</span>
+            class="method-args">(&amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -627,30 +611,22 @@ our fail-fast approach to input validation</p>
 
         <div class="method-description">
           
-          <p>Calls the summarize block defined in the ddl. Block will not be called if
-the ddl is getting processed on the server side. This means that aggregate
-plugins only have to be present on the client side.</p>
+          <p>Calls the summarize block defined in the ddl. Block will not be called if the ddl is getting processed on the server side. This means that aggregate plugins only have to be present on the client side.</p>
 
-<p>The @process_aggregate_functions variable is used by the <a
-href="AgentDDL.html#method-i-method_missing">#method_missing</a> block to
-determine if it should kick in, this way we very tightly control where we
-activate the <a
-href="AgentDDL.html#method-i-method_missing">#method_missing</a> behavior
-turning it into a noop otherwise to maximise the chance of providing good
-user feedback</p>
+<p>The @process_aggregate_functions variable is used by the <a href="AgentDDL.html#method-i-method_missing"><code>method_missing</code></a> block to determine if it should kick in, this way we very tightly control where we activate the <a href="AgentDDL.html#method-i-method_missing"><code>method_missing</code></a> behavior turning it into a noop otherwise to maximise the chance of providing good user feedback</p>
           
           
 
           
           <div class="method-source-code" id="summarize-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 61</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">summarize</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-value">:server</span>
-    <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">true</span>
-    <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
-    <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">61</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">summarize</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">62</span>   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">mode</span> <span class="ruby-operator">==</span> <span class="ruby-value">:server</span>
+<span class="line-num">63</span>     <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">true</span>
+<span class="line-num">64</span>     <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span>
+<span class="line-num">65</span>     <span class="ruby-ivar">@process_aggregate_functions</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">66</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">67</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -676,45 +652,37 @@ user feedback</p>
           
           <p>Creates a new set of arguments with string arguments mapped to symbol ones</p>
 
-<p>This is to assist with moving to a JSON pure world where requests might
-come in from REST or other languages, those languages and indeed JSON
-itself does not support symbols.</p>
+<p>This is to assist with moving to a JSON pure world where requests might come in from REST or other languages, those languages and indeed JSON itself does not support symbols.</p>
 
-<p>It ensures a backward compatible mode where for rpcutil both of these
-requests are equivelant</p>
+<p>It ensures a backward compatible mode where for rpcutil both of these requests are equivelant</p>
 
-<pre class="ruby"><span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(:<span class="ruby-identifier">fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
-<span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-string">&quot;fact&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
+<pre class="ruby"><span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-value">:fact</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
+<span class="ruby-identifier">c</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-string">&quot;fact&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;cluster&quot;</span>)
 </pre>
 
-<p>The case where both :fact and “fact” is in the <a
-href="../DDL.html">DDL</a> cannot be handled correctly and this code will
-assume the caller means “fact” in that case.  There’s no way to represent
-such a request in JSON and just in general sounds like a bad idea, so a
-warning is logged which would in default client configuration appear on the
-clients display</p>
+<p>The case where both :fact and “fact” is in the <a href="../DDL.html"><code>DDL</code></a> cannot be handled correctly and this code will assume the caller means “fact” in that case.  There&#39;s no way to represent such a request in JSON and just in general sounds like a bad idea, so a warning is logged which would in default client configuration appear on the clients display</p>
           
           
 
           
           <div class="method-source-code" id="symbolize_basic_input_arguments-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 199</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
-  <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">warned</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;String and Symbol versions of input %s found in the DDL for %s, ensure your DDL keys are unique.&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-ivar">@pluginname</span>])
-      <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">true</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-      [<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>, <span class="ruby-identifier">value</span>]
-    <span class="ruby-keyword">else</span>
-      [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">199</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
+<span class="line-num">200</span>   <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">201</span> 
+<span class="line-num">202</span>   <span class="ruby-constant">Hash</span>[<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span><span class="ruby-operator">|</span>
+<span class="line-num">203</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">warned</span>
+<span class="line-num">204</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;String and Symbol versions of input %s found in the DDL for %s, ensure your DDL keys are unique.&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-ivar">@pluginname</span>])
+<span class="line-num">205</span>       <span class="ruby-identifier">warned</span> = <span class="ruby-keyword">true</span>
+<span class="line-num">206</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">207</span> 
+<span class="line-num">208</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">209</span>       [<span class="ruby-identifier">key</span>.<span class="ruby-identifier">intern</span>, <span class="ruby-identifier">value</span>]
+<span class="line-num">210</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">211</span>       [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>]
+<span class="line-num">212</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">213</span>   <span class="ruby-keyword">end</span>]
+<span class="line-num">214</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -738,37 +706,36 @@ clients display</p>
 
         <div class="method-description">
           
-          <p>Helper to use the <a href="../DDL.html">DDL</a> to figure out if the remote
-call to an agent should be allowed based on action name and inputs.</p>
+          <p>Helper to use the <a href="../DDL.html"><code>DDL</code></a> to figure out if the remote call to an agent should be allowed based on action name and inputs.</p>
           
           
 
           
           <div class="method-source-code" id="validate_rpc_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb, line 218</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_rpc_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
-  <span class="ruby-comment"># is the action known?</span>
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@pluginname} but it's not declared in the DDL&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>] <span class="ruby-operator">||</span> {}
-  <span class="ruby-identifier">compatible_args</span> = <span class="ruby-identifier">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
-
-  <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
-      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-        <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Action #{action} needs a #{key} argument&quot;</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-      <span class="ruby-identifier">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">compatible_args</span>[<span class="ruby-identifier">key</span>])
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/agentddl.rb</span>
+<span class="line-num">218</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_rpc_request</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">arguments</span>)
+<span class="line-num">219</span>   <span class="ruby-comment"># is the action known?</span>
+<span class="line-num">220</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">action</span>)
+<span class="line-num">221</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Attempted to call action #{action} for #{@pluginname} but it&#39;s not declared in the DDL&quot;</span>
+<span class="line-num">222</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">223</span> 
+<span class="line-num">224</span>   <span class="ruby-identifier">input</span> = <span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>] <span class="ruby-operator">||</span> {}
+<span class="line-num">225</span>   <span class="ruby-identifier">compatible_args</span> = <span class="ruby-identifier">symbolize_basic_input_arguments</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">arguments</span>)
+<span class="line-num">226</span> 
+<span class="line-num">227</span>   <span class="ruby-identifier">input</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+<span class="line-num">228</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:optional</span>]
+<span class="line-num">229</span>       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">230</span>         <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-node">&quot;Action #{action} needs a #{key} argument&quot;</span>
+<span class="line-num">231</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">232</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">233</span> 
+<span class="line-num">234</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">compatible_args</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">235</span>       <span class="ruby-identifier">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">compatible_args</span>[<span class="ruby-identifier">key</span>])
+<span class="line-num">236</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">237</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">238</span> 
+<span class="line-num">239</span>   <span class="ruby-keyword">true</span>
+<span class="line-num">240</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -786,8 +753,8 @@ call to an agent should be allowed based on action name and inputs.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

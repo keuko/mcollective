@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Facts - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Facts - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -94,8 +98,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -131,38 +133,38 @@
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/facts.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-  <span class="ruby-identifier">rpcutil</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-  <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">facts</span> = {}
-
-  <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-value">:fact</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>]) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">value</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:data</span>][<span class="ruby-value">:value</span>]
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">value</span>)
-          <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">value</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>]
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">value</span>] = [ <span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>] ]
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not parse facts for #{resp[:senderid]}: #{e.class}: #{e}&quot;</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;No values found for fact #{configuration[:fact]}\n&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">show_single_fact_report</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>], <span class="ruby-identifier">facts</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>])
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">printrpcstats</span>
-
-  <span class="ruby-identifier">halt</span> <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">stats</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/facts.rb</span>
+<span class="line-num">31</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num">32</span>   <span class="ruby-identifier">rpcutil</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num">33</span>   <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">34</span> 
+<span class="line-num">35</span>   <span class="ruby-identifier">facts</span> = {}
+<span class="line-num">36</span> 
+<span class="line-num">37</span>   <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">get_fact</span>(<span class="ruby-value">:fact</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>]) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+<span class="line-num">38</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">39</span>       <span class="ruby-identifier">value</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:data</span>][<span class="ruby-value">:value</span>]
+<span class="line-num">40</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">value</span>
+<span class="line-num">41</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">value</span>)
+<span class="line-num">42</span>           <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">value</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>]
+<span class="line-num">43</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">44</span>           <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">value</span>] = [ <span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>] ]
+<span class="line-num">45</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">46</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">47</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">48</span>       <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not parse facts for #{resp[:senderid]}: #{e.class}: #{e}&quot;</span>
+<span class="line-num">49</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">50</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">51</span> 
+<span class="line-num">52</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">53</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;No values found for fact #{configuration[:fact]}\n&quot;</span>
+<span class="line-num">54</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">55</span>     <span class="ruby-identifier">show_single_fact_report</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>], <span class="ruby-identifier">facts</span>, <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>])
+<span class="line-num">56</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">57</span> 
+<span class="line-num">58</span>   <span class="ruby-identifier">printrpcstats</span>
+<span class="line-num">59</span> 
+<span class="line-num">60</span>   <span class="ruby-identifier">halt</span> <span class="ruby-identifier">rpcutil</span>.<span class="ruby-identifier">stats</span>
+<span class="line-num">61</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -192,10 +194,10 @@
 
           
           <div class="method-source-code" id="post_option_parser-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/facts.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
-  <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>  <span class="ruby-comment"># File lib/mcollective/application/facts.rb</span>
+<span class="line-num">4</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
+<span class="line-num">5</span>   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:fact</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">6</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -225,25 +227,25 @@
 
           
           <div class="method-source-code" id="show_single_fact_report-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/facts.rb, line 12</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">show_single_fact_report</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">facts</span>, <span class="ruby-identifier">verbose</span>=<span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Report for fact: #{fact}\n\n&quot;</span>)
-
-  <span class="ruby-identifier">field_size</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_size</span>(<span class="ruby-identifier">facts</span>.<span class="ruby-identifier">keys</span>)
-  <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">printf</span>(<span class="ruby-node">&quot;        %-#{field_size}s found %d times\n&quot;</span>, <span class="ruby-identifier">k</span>, <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">size</span>)
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">verbose</span>
-      <span class="ruby-identifier">puts</span>
-
-      <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;            #{f}&quot;</span>)
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">puts</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/facts.rb</span>
+<span class="line-num">12</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">show_single_fact_report</span>(<span class="ruby-identifier">fact</span>, <span class="ruby-identifier">facts</span>, <span class="ruby-identifier">verbose</span>=<span class="ruby-keyword">false</span>)
+<span class="line-num">13</span>   <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;Report for fact: #{fact}\n\n&quot;</span>)
+<span class="line-num">14</span> 
+<span class="line-num">15</span>   <span class="ruby-identifier">field_size</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_size</span>(<span class="ruby-identifier">facts</span>.<span class="ruby-identifier">keys</span>)
+<span class="line-num">16</span>   <span class="ruby-identifier">facts</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+<span class="line-num">17</span>     <span class="ruby-identifier">printf</span>(<span class="ruby-node">&quot;        %-#{field_size}s found %d times\n&quot;</span>, <span class="ruby-identifier">k</span>, <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">size</span>)
+<span class="line-num">18</span> 
+<span class="line-num">19</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">verbose</span>
+<span class="line-num">20</span>       <span class="ruby-identifier">puts</span>
+<span class="line-num">21</span> 
+<span class="line-num">22</span>       <span class="ruby-identifier">facts</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">23</span>         <span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;            #{f}&quot;</span>)
+<span class="line-num">24</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">25</span> 
+<span class="line-num">26</span>       <span class="ruby-identifier">puts</span>
+<span class="line-num">27</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">28</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">29</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -273,10 +275,10 @@
 
           
           <div class="method-source-code" id="validate_configuration-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/facts.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_configuration</span>(<span class="ruby-identifier">configuration</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Please specify a fact to report for&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:fact</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/facts.rb</span>
+<span class="line-num"> 8</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_configuration</span>(<span class="ruby-identifier">configuration</span>)
+<span class="line-num"> 9</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Please specify a fact to report for&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:fact</span>)
+<span class="line-num">10</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -294,8 +296,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

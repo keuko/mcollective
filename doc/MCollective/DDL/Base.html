@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::Base - mcollective version 2.12.1</title>
+<title>class MCollective::DDL::Base - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -105,27 +109,14 @@
 
   <section class="description">
     
-<p>The base class for all kinds of <a href="../DDL.html">DDL</a> files.  <a
-href="../DDL.html">DDL</a> files when run gets parsed and builds up a hash
-of the basic primitive types, ideally restricted so it can be converted to
-JSON though today there are some Ruby Symbols in them which might be fixed
-laster on.</p>
+<p>The base class for all kinds of <a href="../DDL.html"><code>DDL</code></a> files.  <a href="../DDL.html"><code>DDL</code></a> files when run gets parsed and builds up a hash of the basic primitive types, ideally restricted so it can be converted to JSON though today there are some Ruby Symbols in them which might be fixed laster on.</p>
 
-<p>The Hash being built should be stored in @entities, the format is generally
-not prescribed but there’s a definite feel to how <a
-href="../DDL.html">DDL</a> files look so study the agent and discovery ones
-to see how the structure applies to very different use cases.</p>
+<p>The Hash being built should be stored in @entities, the format is generally not prescribed but there&#39;s a definite feel to how <a href="../DDL.html"><code>DDL</code></a> files look so study the agent and discovery ones to see how the structure applies to very different use cases.</p>
 
-<p>For every plugin type you should have a single word name - that corresponds
-to the directory in the libdir where these plugins live.  If you need
-anything above and beyond ‘metadata’ in your plugin <a
-href="../DDL.html">DDL</a> then add a PlugintypeDDL class here and add your
-specific behaviors to those.</p>
+<p>For every plugin type you should have a single word name - that corresponds to the directory in the libdir where these plugins live.  If you need anything above and beyond &#39;metadata&#39; in your plugin <a href="../DDL.html"><code>DDL</code></a> then add a PlugintypeDDL class here and add your specific behaviors to those.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -248,18 +239,18 @@ specific behaviors to those.</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 22</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">plugintype</span>=<span class="ruby-value">:agent</span>, <span class="ruby-identifier">loadddl</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-ivar">@entities</span> = {}
-  <span class="ruby-ivar">@meta</span> = {}
-  <span class="ruby-ivar">@usage</span> = <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  <span class="ruby-ivar">@pluginname</span> = <span class="ruby-identifier">plugin</span>
-  <span class="ruby-ivar">@plugintype</span> = <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">to_sym</span>
-  <span class="ruby-ivar">@requirements</span> = {}
-
-  <span class="ruby-identifier">loadddlfile</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">loadddl</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">22</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">plugintype</span>=<span class="ruby-value">:agent</span>, <span class="ruby-identifier">loadddl</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">23</span>   <span class="ruby-ivar">@entities</span> = {}
+<span class="line-num">24</span>   <span class="ruby-ivar">@meta</span> = {}
+<span class="line-num">25</span>   <span class="ruby-ivar">@usage</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">26</span>   <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">27</span>   <span class="ruby-ivar">@pluginname</span> = <span class="ruby-identifier">plugin</span>
+<span class="line-num">28</span>   <span class="ruby-ivar">@plugintype</span> = <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">to_sym</span>
+<span class="line-num">29</span>   <span class="ruby-ivar">@requirements</span> = {}
+<span class="line-num">30</span> 
+<span class="line-num">31</span>   <span class="ruby-identifier">loadddlfile</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">loadddl</span>
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -297,20 +288,20 @@ specific behaviors to those.</p>
 
           
           <div class="method-source-code" id="findddlfile-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 87</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">ddlname</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">ddltype</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">ddlname</span> = <span class="ruby-ivar">@pluginname</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddlname</span>
-  <span class="ruby-identifier">ddltype</span> = <span class="ruby-ivar">@plugintype</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddltype</span>
-
-  <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">ddlfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-identifier">ddltype</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-node">&quot;#{ddlname}.ddl&quot;</span>])
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ddlfile</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{ddlname} ddl at #{ddlfile}&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddlfile</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">87</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">findddlfile</span>(<span class="ruby-identifier">ddlname</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">ddltype</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">88</span>   <span class="ruby-identifier">ddlname</span> = <span class="ruby-ivar">@pluginname</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddlname</span>
+<span class="line-num">89</span>   <span class="ruby-identifier">ddltype</span> = <span class="ruby-ivar">@plugintype</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ddltype</span>
+<span class="line-num">90</span> 
+<span class="line-num">91</span>   <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+<span class="line-num">92</span>     <span class="ruby-identifier">ddlfile</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-identifier">ddltype</span>.<span class="ruby-identifier">to_s</span>, <span class="ruby-node">&quot;#{ddlname}.ddl&quot;</span>])
+<span class="line-num">93</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ddlfile</span>)
+<span class="line-num">94</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found #{ddlname} ddl at #{ddlfile}&quot;</span>)
+<span class="line-num">95</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddlfile</span>
+<span class="line-num">96</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">97</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">98</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span>
+<span class="line-num">99</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -334,37 +325,33 @@ specific behaviors to those.</p>
 
         <div class="method-description">
           
-          <p>Generates help using the template based on the data created with metadata
-and input.</p>
+          <p>Generates help using the template based on the data created with metadata and input.</p>
 
-<p>If no template name is provided one will be chosen based on the plugin
-type.  If the provided template path is not absolute then the template will
-be loaded either from the config dir and if that does not exist, default to
-/etc/mcollective</p>
+<p>If no template name is provided one will be chosen based on the plugin type.  If the provided template path is not absolute then the template will be loaded either from the config dir and if that does not exist, default to /etc/mcollective</p>
           
           
 
           
           <div class="method-source-code" id="help-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">help</span>(<span class="ruby-identifier">template</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">template</span> = <span class="ruby-identifier">template_for_plugintype</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">template</span>
-  <span class="ruby-identifier">template</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-identifier">template</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">template</span>)
-
-  <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">template</span>)
-  <span class="ruby-identifier">meta</span> = <span class="ruby-ivar">@meta</span>
-  <span class="ruby-identifier">entities</span> = <span class="ruby-ivar">@entities</span>
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">template</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;metadata-help.erb&quot;</span>
-    <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-string">&quot;metadata-help.erb&quot;</span>)
-    <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">metadata_template</span>)
-    <span class="ruby-identifier">metastring</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">metadata_template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">'%'</span>)
-    <span class="ruby-identifier">metastring</span> = <span class="ruby-identifier">metastring</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">'%'</span>)
-  <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">42</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">help</span>(<span class="ruby-identifier">template</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">43</span>   <span class="ruby-identifier">template</span> = <span class="ruby-identifier">template_for_plugintype</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">template</span>
+<span class="line-num">44</span>   <span class="ruby-identifier">template</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-identifier">template</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">template</span>)
+<span class="line-num">45</span> 
+<span class="line-num">46</span>   <span class="ruby-identifier">template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">template</span>)
+<span class="line-num">47</span>   <span class="ruby-identifier">meta</span> = <span class="ruby-ivar">@meta</span>
+<span class="line-num">48</span>   <span class="ruby-identifier">entities</span> = <span class="ruby-ivar">@entities</span>
+<span class="line-num">49</span> 
+<span class="line-num">50</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">template</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;metadata-help.erb&quot;</span>
+<span class="line-num">51</span>     <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-string">&quot;metadata-help.erb&quot;</span>)
+<span class="line-num">52</span>     <span class="ruby-identifier">metadata_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">metadata_template</span>)
+<span class="line-num">53</span>     <span class="ruby-identifier">metastring</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">metadata_template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">&#39;%&#39;</span>)
+<span class="line-num">54</span>     <span class="ruby-identifier">metastring</span> = <span class="ruby-identifier">metastring</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="line-num">55</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">56</span> 
+<span class="line-num">57</span>   <span class="ruby-identifier">erb</span> = <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">template</span>, <span class="ruby-value">0</span>, <span class="ruby-string">&#39;%&#39;</span>)
+<span class="line-num">58</span>   <span class="ruby-identifier">erb</span>.<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="line-num">59</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -396,36 +383,36 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="input-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 146</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what entity input #{argument} belongs to&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_entity</span>
-
-  <span class="ruby-identifier">entity</span> = <span class="ruby-ivar">@current_entity</span>
-
-  [<span class="ruby-value">:prompt</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:type</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Input needs a :#{arg} property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-value">:prompt</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:prompt</span>],
-                                         <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:description</span>],
-                                         <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:type</span>],
-                                         <span class="ruby-value">:default</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:default</span>],
-                                         <span class="ruby-value">:optional</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:optional</span>]}
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:type</span>]
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:string</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :string needs a :validation argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:validation</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :string needs a :maxlength argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:maxlength</span>)
-
-      <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:validation</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:validation</span>]
-      <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:maxlength</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:maxlength</span>]
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:list</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :list needs a :list argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:list</span>)
-
-      <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:list</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:list</span>]
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">146</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">input</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+<span class="line-num">147</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what entity input #{argument} belongs to&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_entity</span>
+<span class="line-num">148</span> 
+<span class="line-num">149</span>   <span class="ruby-identifier">entity</span> = <span class="ruby-ivar">@current_entity</span>
+<span class="line-num">150</span> 
+<span class="line-num">151</span>   [<span class="ruby-value">:prompt</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:type</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+<span class="line-num">152</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Input needs a :#{arg} property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
+<span class="line-num">153</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">154</span> 
+<span class="line-num">155</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-value">:prompt</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:prompt</span>],
+<span class="line-num">156</span>                                          <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:description</span>],
+<span class="line-num">157</span>                                          <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:type</span>],
+<span class="line-num">158</span>                                          <span class="ruby-value">:default</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:default</span>],
+<span class="line-num">159</span>                                          <span class="ruby-value">:optional</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:optional</span>]}
+<span class="line-num">160</span> 
+<span class="line-num">161</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:type</span>]
+<span class="line-num">162</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:string</span>
+<span class="line-num">163</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :string needs a :validation argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:validation</span>)
+<span class="line-num">164</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :string needs a :maxlength argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:maxlength</span>)
+<span class="line-num">165</span> 
+<span class="line-num">166</span>       <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:validation</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:validation</span>]
+<span class="line-num">167</span>       <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:maxlength</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:maxlength</span>]
+<span class="line-num">168</span> 
+<span class="line-num">169</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:list</span>
+<span class="line-num">170</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Input type :list needs a :list argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:list</span>)
+<span class="line-num">171</span> 
+<span class="line-num">172</span>       <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">entity</span>][<span class="ruby-value">:input</span>][<span class="ruby-identifier">argument</span>][<span class="ruby-value">:list</span>] = <span class="ruby-identifier">properties</span>[<span class="ruby-value">:list</span>]
+<span class="line-num">173</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">174</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -455,14 +442,14 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="loadddlfile-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 79</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">loadddlfile</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddlfile</span> = <span class="ruby-identifier">findddlfile</span>
-    <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">ddlfile</span>), <span class="ruby-identifier">ddlfile</span>, <span class="ruby-value">1</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can't find DDL for #{@plugintype} plugin '#{@pluginname}'&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">79</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">loadddlfile</span>
+<span class="line-num">80</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddlfile</span> = <span class="ruby-identifier">findddlfile</span>
+<span class="line-num">81</span>     <span class="ruby-identifier">instance_eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">ddlfile</span>), <span class="ruby-identifier">ddlfile</span>, <span class="ruby-value">1</span>)
+<span class="line-num">82</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">83</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Can&#39;t find DDL for #{@plugintype} plugin &#39;#{@pluginname}&#39;&quot;</span>)
+<span class="line-num">84</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">85</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -492,14 +479,14 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="metadata-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 208</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">metadata</span>(<span class="ruby-identifier">meta</span>)
-  [<span class="ruby-value">:name</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:author</span>, <span class="ruby-value">:license</span>, <span class="ruby-value">:version</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Metadata needs a :#{arg} property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@meta</span> = <span class="ruby-identifier">meta</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">208</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">metadata</span>(<span class="ruby-identifier">meta</span>)
+<span class="line-num">209</span>   [<span class="ruby-value">:name</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:author</span>, <span class="ruby-value">:license</span>, <span class="ruby-value">:version</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">arg</span><span class="ruby-operator">|</span>
+<span class="line-num">210</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Metadata needs a :#{arg} property&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">meta</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">arg</span>)
+<span class="line-num">211</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">212</span> 
+<span class="line-num">213</span>   <span class="ruby-ivar">@meta</span> = <span class="ruby-identifier">meta</span>
+<span class="line-num">214</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -531,18 +518,18 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="output-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 179</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">output</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_entity</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a description argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a display_as argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:display_as</span>)
-
-  <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_entity</span>
-
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">action</span>][<span class="ruby-value">:output</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:description</span>],
-                                          <span class="ruby-value">:display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:display_as</span>],
-                                          <span class="ruby-value">:default</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:default</span>]}
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">179</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">output</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">properties</span>)
+<span class="line-num">180</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot figure out what action input #{argument} belongs to&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@current_entity</span>
+<span class="line-num">181</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a description argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:description</span>)
+<span class="line-num">182</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Output #{argument} needs a display_as argument&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">properties</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:display_as</span>)
+<span class="line-num">183</span> 
+<span class="line-num">184</span>   <span class="ruby-identifier">action</span> = <span class="ruby-ivar">@current_entity</span>
+<span class="line-num">185</span> 
+<span class="line-num">186</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-identifier">action</span>][<span class="ruby-value">:output</span>][<span class="ruby-identifier">argument</span>] = {<span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:description</span>],
+<span class="line-num">187</span>                                           <span class="ruby-value">:display_as</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:display_as</span>],
+<span class="line-num">188</span>                                           <span class="ruby-value">:default</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">properties</span>[<span class="ruby-value">:default</span>]}
+<span class="line-num">189</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -572,22 +559,22 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="requires-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 191</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">requires</span>(<span class="ruby-identifier">requirement</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement should be a hash in the form :item =&gt; 'requirement'&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-identifier">valid_requirements</span> = [<span class="ruby-value">:mcollective</span>]
-
-  <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">valid_requirements</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement %s is not a valid requirement, only %s is supported&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">valid_requirements</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;, &quot;</span>)]
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-ivar">@requirements</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">requirement</span>[<span class="ruby-identifier">key</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">validate_requirements</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">191</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">requires</span>(<span class="ruby-identifier">requirement</span>)
+<span class="line-num">192</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement should be a hash in the form :item =&gt; &#39;requirement&#39;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">193</span> 
+<span class="line-num">194</span>   <span class="ruby-identifier">valid_requirements</span> = [<span class="ruby-value">:mcollective</span>]
+<span class="line-num">195</span> 
+<span class="line-num">196</span>   <span class="ruby-identifier">requirement</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">key</span><span class="ruby-operator">|</span>
+<span class="line-num">197</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">valid_requirements</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">198</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Requirement %s is not a valid requirement, only %s is supported&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">valid_requirements</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;, &quot;</span>)]
+<span class="line-num">199</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">200</span> 
+<span class="line-num">201</span>     <span class="ruby-ivar">@requirements</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">requirement</span>[<span class="ruby-identifier">key</span>]
+<span class="line-num">202</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">203</span> 
+<span class="line-num">204</span>   <span class="ruby-identifier">validate_requirements</span>
+<span class="line-num">205</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -617,20 +604,20 @@ be loaded either from the config dir and if that does not exist, default to
 
           
           <div class="method-source-code" id="template_for_plugintype-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 65</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">template_for_plugintype</span>
-  <span class="ruby-keyword">case</span> <span class="ruby-ivar">@plugintype</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:agent</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;rpc-help.erb&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-node">&quot;#{@plugintype}-help.erb&quot;</span>))
-      <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{@plugintype}-help.erb&quot;</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-comment"># Default help template gets loaded if plugintype-help does not exist.</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;metadata-help.erb&quot;</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">65</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">template_for_plugintype</span>
+<span class="line-num">66</span>   <span class="ruby-keyword">case</span> <span class="ruby-ivar">@plugintype</span>
+<span class="line-num">67</span>   <span class="ruby-keyword">when</span> <span class="ruby-value">:agent</span>
+<span class="line-num">68</span>     <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;rpc-help.erb&quot;</span>
+<span class="line-num">69</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">70</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">templatepath</span>(<span class="ruby-node">&quot;#{@plugintype}-help.erb&quot;</span>))
+<span class="line-num">71</span>       <span class="ruby-keyword">return</span> <span class="ruby-node">&quot;#{@plugintype}-help.erb&quot;</span>
+<span class="line-num">72</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">73</span>       <span class="ruby-comment"># Default help template gets loaded if plugintype-help does not exist.</span>
+<span class="line-num">74</span>       <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;metadata-help.erb&quot;</span>
+<span class="line-num">75</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">76</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">77</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -654,43 +641,39 @@ be loaded either from the config dir and if that does not exist, default to
 
         <div class="method-description">
           
-          <p>validate strings, lists and booleans, we’ll add more types of validators
-when all the use cases are clear</p>
+          <p>validate strings, lists and booleans, we&#39;ll add more types of validators when all the use cases are clear</p>
 
-<p>only does validation for arguments actually given, since some might be
-optional.  We validate the presense of the argument earlier so this is a
-safe assumption, just to skip them.</p>
+<p>only does validation for arguments actually given, since some might be optional.  We validate the presense of the argument earlier so this is a safe assumption, just to skip them.</p>
 
-<p>:string can have maxlength and regex.  A maxlength of 0 will bypasss checks
-:list has a array of valid values</p>
+<p>:string can have maxlength and regex.  A maxlength of 0 will bypasss checks :list has a array of valid values</p>
           
           
 
           
           <div class="method-source-code" id="validate_input_argument-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 120</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">argument</span>)
-  <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">load_validators</span>
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:type</span>]
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:string</span>
-    <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-value">:string</span>)
-
-    <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">length</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:maxlength</span>].<span class="ruby-identifier">to_i</span>)
-
-    <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:validation</span>])
-
-  <span class="ruby-keyword">when</span> <span class="ruby-value">:list</span>
-    <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:list</span>])
-
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:type</span>])
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Cannot validate input %s: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">120</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_input_argument</span>(<span class="ruby-identifier">input</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">argument</span>)
+<span class="line-num">121</span>   <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">load_validators</span>
+<span class="line-num">122</span> 
+<span class="line-num">123</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:type</span>]
+<span class="line-num">124</span>   <span class="ruby-keyword">when</span> <span class="ruby-value">:string</span>
+<span class="line-num">125</span>     <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-value">:string</span>)
+<span class="line-num">126</span> 
+<span class="line-num">127</span>     <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">length</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:maxlength</span>].<span class="ruby-identifier">to_i</span>)
+<span class="line-num">128</span> 
+<span class="line-num">129</span>     <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:validation</span>])
+<span class="line-num">130</span> 
+<span class="line-num">131</span>   <span class="ruby-keyword">when</span> <span class="ruby-value">:list</span>
+<span class="line-num">132</span>     <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:list</span>])
+<span class="line-num">133</span> 
+<span class="line-num">134</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">135</span>     <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">argument</span>, <span class="ruby-identifier">input</span>[<span class="ruby-identifier">key</span>][<span class="ruby-value">:type</span>])
+<span class="line-num">136</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">137</span> 
+<span class="line-num">138</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">139</span> <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">140</span>   <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;Cannot validate input %s: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>]
+<span class="line-num">141</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -720,16 +703,16 @@ safe assumption, just to skip them.</p>
 
           
           <div class="method-source-code" id="validate_requirements-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/base.rb, line 101</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_requirements</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">requirement</span> = <span class="ruby-ivar">@requirements</span>[<span class="ruby-value">:mcollective</span>]
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">mcollective_version</span>, <span class="ruby-identifier">requirement</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;%s plugin '%s' requires MCollective version %s or newer&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-ivar">@pluginname</span>, <span class="ruby-identifier">requirement</span>]
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl/base.rb</span>
+<span class="line-num">101</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_requirements</span>
+<span class="line-num">102</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">requirement</span> = <span class="ruby-ivar">@requirements</span>[<span class="ruby-value">:mcollective</span>]
+<span class="line-num">103</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-constant">Util</span>.<span class="ruby-identifier">mcollective_version</span>, <span class="ruby-identifier">requirement</span>) <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+<span class="line-num">104</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">DDLValidationError</span>, <span class="ruby-string">&quot;%s plugin &#39;%s&#39; requires MCollective version %s or newer&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-ivar">@pluginname</span>, <span class="ruby-identifier">requirement</span>]
+<span class="line-num">105</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">106</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">107</span> 
+<span class="line-num">108</span>   <span class="ruby-keyword">true</span>
+<span class="line-num">109</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -747,8 +730,8 @@ safe assumption, just to skip them.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

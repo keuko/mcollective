@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>README - mcollective version 2.12.1</title>
+<title>README - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/jquery.js"></script>
-<script src="./js/darkfish.js"></script>
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -77,6 +81,8 @@
   
     <li><a href="./Gemfile.html">Gemfile</a>
   
+    <li><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
     <li><a href="./MAINTAINERS.html">MAINTAINERS</a>
   
     <li><a href="./README_md.html">README</a>
@@ -84,6 +90,8 @@
     <li><a href="./Rakefile.html">Rakefile</a>
   
     <li><a href="./acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="./acceptance/Gemfile_lock.html">Gemfile.lock</a>
   
     <li><a href="./acceptance/README_md.html">README</a>
   
@@ -271,17 +279,13 @@
 
 <h1 id="label-The+Marionette+Collective">The Marionette Collective<span><a href="#label-The+Marionette+Collective">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>The Marionette Collective aka. mcollective is a framework to build server
-orchestration or parallel job execution systems.</p>
+<p>The Marionette Collective aka. mcollective is a framework to build server orchestration or parallel job execution systems.</p>
 
-<p>For documentation please see <a
-href="https://docs.puppet.com/mcollective">docs.puppet.com/mcollective</a></p>
+<p>For documentation please see <a href="https://docs.puppet.com/mcollective">docs.puppet.com/mcollective</a></p>
 
 <h2 id="label-Developing">Developing<span><a href="#label-Developing">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>The documentation above details how <a
-href="MCollective.html">MCollective</a> works and many of its extension
-points.</p>
+<p>The documentation above details how <a href="MCollective.html"><code>MCollective</code></a> works and many of its extension points.</p>
 
 <h3 id="label-Spec+Tests">Spec Tests<span><a href="#label-Spec+Tests">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
@@ -293,72 +297,27 @@ points.</p>
 
 <h3 id="label-Development+Environment+-28MacOS-29">Development Environment (MacOS)<span><a href="#label-Development+Environment+-28MacOS-29">&para;</a> <a href="#top">&uarr;</a></span></h3>
 
-<p>Setup ActiveMQ using acceptance config: <code> brew install activemq cp
-acceptance/files/activemq.* /usr/local/opt/activemq/libexec/conf activemq
-start </code></p>
+<p>Setup ActiveMQ using acceptance config: <code> brew install activemq cp acceptance/files/activemq.* /usr/local/opt/activemq/libexec/conf activemq start </code></p>
 
-<p>ActiveMQ can later by stopped with <code>activemq stop</code>. ActiveMQ
-logs are located at
-<code>/usr/local/opt/activemq/libexec/data/activemq.log</code>.</p>
+<p>ActiveMQ can later by stopped with <code>activemq stop</code>. ActiveMQ logs are located at <code>/usr/local/opt/activemq/libexec/data/activemq.log</code>.</p>
 
-<p>Setup <a href="MCollective.html">MCollective</a> with acceptance config:
-<code> mkdir -p ~/.puppetlabs/etc/mcollective/ssl-clients cp
-acceptance/files/client.* ~/.puppetlabs/etc/mcollective cp
-acceptance/files/server.* ~/.puppetlabs/etc/mcollective cp
-acceptance/files/ca_crt.pem ~/.puppetlabs/etc/mcollective cp
-acceptance/files/client.crt
-~/.puppetlabs/etc/mcollective/ssl-clients/client.pem ln -s
-~/.puppetlabs/etc/mcollective/client.cfg ~/.mcollective </code></p>
+<p>Setup <a href="MCollective.html"><code>MCollective</code></a> with acceptance config: <code> mkdir -p ~/.puppetlabs/etc/mcollective/ssl-clients cp acceptance/files/client.* ~/.puppetlabs/etc/mcollective cp acceptance/files/server.* ~/.puppetlabs/etc/mcollective cp acceptance/files/ca_crt.pem ~/.puppetlabs/etc/mcollective cp acceptance/files/client.crt ~/.puppetlabs/etc/mcollective/ssl-clients/client.pem ln -s ~/.puppetlabs/etc/mcollective/client.cfg ~/.mcollective </code></p>
 
-<p>Modify <code>client.cfg</code> to work on the local machine: * Change the
-<code>ssl_server_public</code>, <code>ssl_client_private</code>,
-<code>ssl_client_public</code> paths to point to
-<code>~/.puppetlabs/etc/mcollective/{server.crt,client.key,client.pem}</code>.
-* Change the <code>activemq.pool.1.ssl.{ca,cert,key}</code> paths to
-<code>~/.puppetlabs/etc/mcollective/{ca_crt.pem,client.crt,client.key}</code>.
-Note that <code>~</code> needs to be expanded to the full path. Also, that
-<code>client.pem</code> doesn’t point to an actual file is intentional (I
-don’t fully understand why).</p>
+<p>Modify <code>client.cfg</code> to work on the local machine: * Change the <code>ssl_server_public</code>, <code>ssl_client_private</code>, <code>ssl_client_public</code> paths to point to <code>~/.puppetlabs/etc/mcollective/{server.crt,client.key,client.pem}</code>. * Change the <code>activemq.pool.1.ssl.{ca,cert,key}</code> paths to <code>~/.puppetlabs/etc/mcollective/{ca_crt.pem,client.crt,client.key}</code>. Note that <code>~</code> needs to be expanded to the full path. Also, that <code>client.pem</code> doesn&#39;t point to an actual file is intentional (I don&#39;t fully understand why).</p>
 
-<p>Create <code>server.cfg</code>, updating <code>&lt;user&gt;</code>: “`
-main_collective = mcollective collectives = mcollective logger_type =
-console loglevel = info daemonize = 0</p>
+<p>Create <code>server.cfg</code>, updating <code>&lt;user&gt;</code>: “` main_collective = mcollective collectives = mcollective logger_type = console loglevel = info daemonize = 0</p>
 
-<p>securityprovider = ssl plugin.ssl_server_private =
-/Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.key
-plugin.ssl_server_public =
-/Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.crt
-plugin.ssl_client_cert_dir =
-/Users/&lt;user&gt;/.puppetlabs/etc/mcollective/ssl-clients</p>
+<p>securityprovider = ssl plugin.ssl_server_private = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.key plugin.ssl_server_public = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.crt plugin.ssl_client_cert_dir = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/ssl-clients</p>
 
-<p>connector = activemq plugin.activemq.pool.size = 1
-plugin.activemq.pool.1.host = activemq plugin.activemq.pool.1.port = 61613
-plugin.activemq.pool.1.user = mcollective plugin.activemq.pool.1.password =
-marionette plugin.activemq.pool.1.ssl = true plugin.activemq.pool.1.ssl.ca
-= /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/ca_crt.pem
-plugin.activemq.pool.1.ssl.cert =
-/Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.crt
-plugin.activemq.pool.1.ssl.key =
-/Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.key “`</p>
+<p>connector = activemq plugin.activemq.pool.size = 1 plugin.activemq.pool.1.host = activemq plugin.activemq.pool.1.port = 61613 plugin.activemq.pool.1.user = mcollective plugin.activemq.pool.1.password = marionette plugin.activemq.pool.1.ssl = true plugin.activemq.pool.1.ssl.ca = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/ca_crt.pem plugin.activemq.pool.1.ssl.cert = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.crt plugin.activemq.pool.1.ssl.key = /Users/&lt;user&gt;/.puppetlabs/etc/mcollective/server.key “`</p>
 
-<p>The configuration above uses <code>activemq</code> as the name of the
-ActiveMQ broker. <a href="MCollective.html">MCollective</a> will enforce
-that the SSL certificate presented by the server matches the name it’s
-trying to connect to. To use the configuration above, traffic to
-<code>activemq</code> must be redirected to the local host. On most
-machines, that can be accomplished with <code> sudo echo &quot;127.0.0.1  
-activemq&quot; &gt;&gt; /etc/hosts </code></p>
+<p>The configuration above uses <code>activemq</code> as the name of the ActiveMQ broker. <a href="MCollective.html"><code>MCollective</code></a> will enforce that the SSL certificate presented by the server matches the name it&#39;s trying to connect to. To use the configuration above, traffic to <code>activemq</code> must be redirected to the local host. On most machines, that can be accomplished with <code> sudo echo &quot;127.0.0.1   activemq&quot; &gt;&gt; /etc/hosts </code></p>
 
-<p>From the root of this repository, test the setup by running a server <code>
-RUBYLIB=lib bundle exec bin/mcollectived --config
-~/.puppetlabs/etc/mcollective/server.cfg </code> and client <code>
-RUBYLIB=lib bundle exec bin/mco ping </code></p>
+<p>From the root of this repository, test the setup by running a server <code> RUBYLIB=lib bundle exec bin/mcollectived --config ~/.puppetlabs/etc/mcollective/server.cfg </code> and client <code> RUBYLIB=lib bundle exec bin/mco ping </code></p>
 
-<p>Note that it may be useful to change the <code>loglevel</code> in
-<code>client.cfg</code> to debug issues with <code>mco ping</code>.</p>
+<p>Note that it may be useful to change the <code>loglevel</code> in <code>client.cfg</code> to debug issues with <code>mco ping</code>.</p>
 
-<p>To enable specific plugins, you may need to set <code>libdir</code> in
-<code>server.cfg</code> and add plugin-specific configuration.</p>
+<p>To enable specific plugins, you may need to set <code>libdir</code> in <code>server.cfg</code> and add plugin-specific configuration.</p>
 
 <h2 id="label-Contributing">Contributing<span><a href="#label-Contributing">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
@@ -368,8 +327,8 @@ RUBYLIB=lib bundle exec bin/mco ping </code></p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

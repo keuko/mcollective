@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Rakefile - mcollective version 2.12.1</title>
+<title>Rakefile - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/jquery.js"></script>
-<script src="./js/darkfish.js"></script>
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -64,6 +68,8 @@
   
     <li><a href="./Gemfile.html">Gemfile</a>
   
+    <li><a href="./Gemfile_lock.html">Gemfile.lock</a>
+  
     <li><a href="./MAINTAINERS.html">MAINTAINERS</a>
   
     <li><a href="./README_md.html">README</a>
@@ -71,6 +77,8 @@
     <li><a href="./Rakefile.html">Rakefile</a>
   
     <li><a href="./acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="./acceptance/Gemfile_lock.html">Gemfile.lock</a>
   
     <li><a href="./acceptance/README_md.html">README</a>
   
@@ -256,19 +264,11 @@
 
 <main role="main" aria-label="Page Rakefile">
 
-<p>RAKE_ROOT = File.expand_path(File.dirname(__FILE__))</p>
+<p>require &#39;packaging&#39; Pkg::Util::RakeUtils.load_packaging_tasks</p>
 
-<p># Allow override of RELEASE using BUILD_NUMBER <a href=""RELEASE"">ENV</a>
-= <a href=""BUILD_NUMBER"">ENV</a> if <a href=""BUILD_NUMBER"">ENV</a></p>
+<p># Allow override of RELEASE using BUILD_NUMBER <a href=""RELEASE"">ENV</a> = <a href=""BUILD_NUMBER"">ENV</a> if <a href=""BUILD_NUMBER"">ENV</a></p>
 
-<p>begin</p>
-
-<pre class="ruby"><span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging.rake'</span>)
-</pre>
-
-<p>rescue LoadError end</p>
-
-<p>def announce(msg=”)</p>
+<p>def announce(msg=&#39;&#39;)</p>
 
 <pre class="ruby"><span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;================&quot;</span>
 <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">msg</span>
@@ -279,22 +279,7 @@
 
 <p>def safe_system *args</p>
 
-<pre class="ruby"><span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(' ')}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-</pre>
-
-<p>end</p>
-
-<p>def load_tools</p>
-
-<pre class="ruby"><span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging'</span>))
-  <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:bootstrap&quot;</span>].<span class="ruby-identifier">invoke</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">load</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">RAKE_ROOT</span>, <span class="ruby-string">'ext'</span>, <span class="ruby-string">'packaging.rake'</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">LoadError</span>
-    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Could not load packaging tools. exiting&quot;</span>
-    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span>
+<pre class="ruby"><span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-node">&quot;Failed: #{args.join(&#39; &#39;)}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">system</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
 </pre>
 
 <p>end</p>
@@ -302,6 +287,18 @@
 <p>def move_artifacts</p>
 
 <pre class="ruby"><span class="ruby-identifier">mv</span>(<span class="ruby-string">&quot;pkg&quot;</span>, <span class="ruby-string">&quot;build&quot;</span>)
+</pre>
+
+<p>end</p>
+
+<p>namespace :package do</p>
+
+<pre class="ruby"><span class="ruby-identifier">task</span> <span class="ruby-value">:bootstrap</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Bootstrap is no longer needed, using packaging-as-a-gem&#39;</span>
+<span class="ruby-keyword">end</span>
+<span class="ruby-identifier">task</span> <span class="ruby-value">:implode</span> <span class="ruby-keyword">do</span>
+  <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Implode is no longer needed, using packaging-as-a-gem&#39;</span>
+<span class="ruby-keyword">end</span>
 </pre>
 
 <p>end</p>
@@ -314,33 +311,16 @@
 
 <p>end</p>
 
-<p>desc “Create the .debs” task :deb =&gt; :clean do</p>
-
-<pre class="ruby"><span class="ruby-identifier">load_tools</span>
-<span class="ruby-identifier">announce</span>(<span class="ruby-node">&quot;Building debian packages for #{@build.project}-#{@build.version}-#{@build.release}&quot;</span>)
-<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:deb&quot;</span>].<span class="ruby-identifier">invoke</span>
-
-<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNED'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>
-  <span class="ruby-identifier">deb_flag</span> = <span class="ruby-node">&quot;-k#{ENV['SIGNWITH']}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNWITH'</span>]
-  <span class="ruby-identifier">safe_system</span> <span class="ruby-node">%Q{/usr/bin/debsign #{deb_flag} pkg/deb  .changes}</span>
-<span class="ruby-keyword">end</span>
-<span class="ruby-identifier">move_artifacts</span>
-</pre>
-
-<p>end</p>
-
 <p>desc “Build documentation” task :doc =&gt; :clean do</p>
 
-<pre class="ruby"><span class="ruby-identifier">load_tools</span>
-<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:doc&quot;</span>].<span class="ruby-identifier">invoke</span>
+<pre class="ruby"><span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:doc&quot;</span>].<span class="ruby-identifier">invoke</span>
 </pre>
 
 <p>end</p>
 
 <p>desc “Build a gem” task :gem =&gt; :clean do</p>
 
-<pre class="ruby"><span class="ruby-identifier">load_tools</span>
-<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;gem&quot;</span>].<span class="ruby-identifier">reenable</span>
+<pre class="ruby"><span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;gem&quot;</span>].<span class="ruby-identifier">reenable</span>
 <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:gem&quot;</span>].<span class="ruby-identifier">invoke</span>
 </pre>
 
@@ -348,23 +328,8 @@
 
 <p>desc “Create a tarball for this release” task :package =&gt; :clean do</p>
 
-<pre class="ruby"><span class="ruby-identifier">load_tools</span>
-<span class="ruby-identifier">announce</span> <span class="ruby-node">&quot;Creating #{@build.project}-#{@build.version}.tar.gz&quot;</span>
+<pre class="ruby"><span class="ruby-identifier">announce</span> <span class="ruby-node">&quot;Creating #{Pkg::Config.project}-#{Pkg::Config.version}.tar.gz&quot;</span>
 <span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:tar&quot;</span>].<span class="ruby-identifier">invoke</span>
-<span class="ruby-identifier">move_artifacts</span>
-</pre>
-
-<p>end</p>
-
-<p>desc “Creates a RPM” task :rpm =&gt; :clean do</p>
-
-<pre class="ruby"><span class="ruby-identifier">load_tools</span>
-<span class="ruby-identifier">announce</span>(<span class="ruby-node">&quot;Building RPM for #{@build.project}-#{@build.version}-#{@build.release}&quot;</span>)
-<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:rpm&quot;</span>].<span class="ruby-identifier">invoke</span>
-<span class="ruby-constant">Rake</span><span class="ruby-operator">::</span><span class="ruby-constant">Task</span>[<span class="ruby-string">&quot;package:srpm&quot;</span>].<span class="ruby-identifier">invoke</span>
-<span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>[<span class="ruby-string">'SIGNED'</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'1'</span>
-  <span class="ruby-identifier">safe_system</span> <span class="ruby-string">%Q{/usr/bin/rpm --sign pkg/   *.rpm}</span>
-<span class="ruby-keyword">end</span>
 <span class="ruby-identifier">move_artifacts</span>
 </pre>
 
@@ -382,9 +347,9 @@
 <p>namespace :ci do</p>
 
 <pre class="ruby"><span class="ruby-identifier">desc</span> <span class="ruby-string">&quot;Run the specs with CI options&quot;</span>
-<span class="ruby-identifier">task</span> :<span class="ruby-identifier">spec</span> <span class="ruby-keyword">do</span>
+<span class="ruby-identifier">task</span> <span class="ruby-value">:spec</span> <span class="ruby-keyword">do</span>
   <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;LOG_SPEC_ORDER&quot;</span>] = <span class="ruby-string">&quot;true&quot;</span>
-  <span class="ruby-identifier">sh</span> <span class="ruby-string">%Q{rspec -r yarjuf -f JUnit -o result.xml -fp spec}</span>
+  <span class="ruby-identifier">sh</span> <span class="ruby-string">%{rspec -r yarjuf -f JUnit -o result.xml -fp spec}</span>
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -409,10 +374,10 @@
 
 <p>end</p>
 
-<p>desc ‘run static analysis with rubocop’ task(:rubocop) do</p>
+<p>desc &#39;run static analysis with rubocop&#39; task(:rubocop) do</p>
 
 <pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-constant">RUBY_VERSION</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/1.8/</span>
-  <span class="ruby-identifier">require</span> <span class="ruby-string">'rubocop'</span>
+  <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;rubocop&#39;</span>
   <span class="ruby-identifier">cli</span> = <span class="ruby-constant">RuboCop</span><span class="ruby-operator">::</span><span class="ruby-constant">CLI</span>.<span class="ruby-identifier">new</span>
   <span class="ruby-identifier">exit</span> <span class="ruby-identifier">cli</span>.<span class="ruby-identifier">run</span>(<span class="ruby-node">%w(-D -f s)</span>)
 <span class="ruby-keyword">else</span>
@@ -426,8 +391,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

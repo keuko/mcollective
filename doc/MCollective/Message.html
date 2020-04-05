@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Message - mcollective version 2.12.1</title>
+<title>class MCollective::Message - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -115,8 +119,6 @@
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -377,72 +379,56 @@
 
         <div class="method-description">
           
-          <p>payload                  - the message body without headers etc, just the
-text message                  - the original message received from the
-middleware <a href=":base64">options</a>         - if the body base64
-encoded? <a href=":agent">options</a>          - the agent the message is
-for/from <a href=":collective">options</a>     - the collective its
-for/from <a href=":headers">options</a>        - the message headers <a
-href=":type">options</a>           - an indicator about the type of
-message, :message, :request, :direct_request or :reply <a
-href=":request">options</a>        - if this is a reply this should old the
-message we are replying to <a href=":filter">options</a>         - for
-requests, the filter to encode into the message <a
-href=":options">options</a>        - the normal client options hash <a
-href=":ttl">options</a>            - the maximum amount of seconds this
-message can be valid for <a href=":expected_msgid">options</a> - in the
-case of replies this is the msgid it is expecting in the replies <a
-href=":requestid">options</a>      - specific request id to use else one
-will be generated</p>
+          <p>payload                  - the message body without headers etc, just the text message                  - the original message received from the middleware <a href=":base64">options</a>         - if the body base64 encoded? <a href=":agent">options</a>          - the agent the message is for/from <a href=":collective">options</a>     - the collective its for/from <a href=":headers">options</a>        - the message headers <a href=":type">options</a>           - an indicator about the type of message, :message, :request, :direct_request or :reply <a href=":request">options</a>        - if this is a reply this should old the message we are replying to <a href=":filter">options</a>         - for requests, the filter to encode into the message <a href=":options">options</a>        - the normal client options hash <a href=":ttl">options</a>            - the maximum amount of seconds this message can be valid for <a href=":expected_msgid">options</a> - in the case of replies this is the msgid it is expecting in the replies <a href=":requestid">options</a>      - specific request id to use else one will be generated</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 23</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">options</span> = {})
-  <span class="ruby-identifier">options</span> = {<span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-             <span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
-             <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {},
-             <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:message</span>,
-             <span class="ruby-value">:request</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
-             <span class="ruby-value">:filter</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>,
-             <span class="ruby-value">:options</span> =<span class="ruby-operator">&gt;</span> {},
-             <span class="ruby-value">:ttl</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">60</span>,
-             <span class="ruby-value">:expected_msgid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
-             <span class="ruby-value">:requestid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>,
-             <span class="ruby-value">:collective</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
-
-  <span class="ruby-ivar">@payload</span> = <span class="ruby-identifier">payload</span>
-  <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">message</span>
-  <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:requestid</span>]
-  <span class="ruby-ivar">@discovered_hosts</span> = <span class="ruby-keyword">nil</span>
-  <span class="ruby-ivar">@reply_to</span> = <span class="ruby-keyword">nil</span>
-
-  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:type</span>]
-  <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:headers</span>]
-  <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:base64</span>]
-  <span class="ruby-ivar">@filter</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>]
-  <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:expected_msgid</span>]
-  <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:options</span>]
-
-  <span class="ruby-ivar">@ttl</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:ttl</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ttl</span>
-  <span class="ruby-ivar">@msgtime</span> = <span class="ruby-value">0</span>
-
-  <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
-    <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
-    <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
-    <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">collective</span>
-    <span class="ruby-ivar">@type</span> = <span class="ruby-value">:reply</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:agent</span>]
-    <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:collective</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">base64_decode!</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">23</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">options</span> = {})
+<span class="line-num">24</span>   <span class="ruby-identifier">options</span> = {<span class="ruby-value">:base64</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+<span class="line-num">25</span>              <span class="ruby-value">:agent</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>,
+<span class="line-num">26</span>              <span class="ruby-value">:headers</span> <span class="ruby-operator">=&gt;</span> {},
+<span class="line-num">27</span>              <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:message</span>,
+<span class="line-num">28</span>              <span class="ruby-value">:request</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>,
+<span class="line-num">29</span>              <span class="ruby-value">:filter</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>,
+<span class="line-num">30</span>              <span class="ruby-value">:options</span> <span class="ruby-operator">=&gt;</span> {},
+<span class="line-num">31</span>              <span class="ruby-value">:ttl</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">60</span>,
+<span class="line-num">32</span>              <span class="ruby-value">:expected_msgid</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>,
+<span class="line-num">33</span>              <span class="ruby-value">:requestid</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>,
+<span class="line-num">34</span>              <span class="ruby-value">:collective</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">options</span>)
+<span class="line-num">35</span> 
+<span class="line-num">36</span>   <span class="ruby-ivar">@payload</span> = <span class="ruby-identifier">payload</span>
+<span class="line-num">37</span>   <span class="ruby-ivar">@message</span> = <span class="ruby-identifier">message</span>
+<span class="line-num">38</span>   <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:requestid</span>]
+<span class="line-num">39</span>   <span class="ruby-ivar">@discovered_hosts</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">40</span>   <span class="ruby-ivar">@reply_to</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">41</span> 
+<span class="line-num">42</span>   <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:type</span>]
+<span class="line-num">43</span>   <span class="ruby-ivar">@headers</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:headers</span>]
+<span class="line-num">44</span>   <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:base64</span>]
+<span class="line-num">45</span>   <span class="ruby-ivar">@filter</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:filter</span>]
+<span class="line-num">46</span>   <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:expected_msgid</span>]
+<span class="line-num">47</span>   <span class="ruby-ivar">@options</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:options</span>]
+<span class="line-num">48</span> 
+<span class="line-num">49</span>   <span class="ruby-ivar">@ttl</span> = <span class="ruby-ivar">@options</span>[<span class="ruby-value">:ttl</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ttl</span>
+<span class="line-num">50</span>   <span class="ruby-ivar">@msgtime</span> = <span class="ruby-value">0</span>
+<span class="line-num">51</span> 
+<span class="line-num">52</span>   <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">53</span> 
+<span class="line-num">54</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
+<span class="line-num">55</span>     <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:request</span>]
+<span class="line-num">56</span>     <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
+<span class="line-num">57</span>     <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">collective</span>
+<span class="line-num">58</span>     <span class="ruby-ivar">@type</span> = <span class="ruby-value">:reply</span>
+<span class="line-num">59</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">60</span>     <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:agent</span>]
+<span class="line-num">61</span>     <span class="ruby-ivar">@collective</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:collective</span>]
+<span class="line-num">62</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">63</span> 
+<span class="line-num">64</span>   <span class="ruby-identifier">base64_decode!</span>
+<span class="line-num">65</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -480,10 +466,10 @@ will be generated</p>
 
           
           <div class="method-source-code" id="base64-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 129</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64?</span>
-  <span class="ruby-ivar">@base64</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">129</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">base64?</span>
+<span class="line-num">130</span>   <span class="ruby-ivar">@base64</span>
+<span class="line-num">131</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -513,13 +499,13 @@ will be generated</p>
 
           
           <div class="method-source-code" id="base64_decode-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_decode!</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@base64</span>
-
-  <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-ivar">@payload</span>)
-  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">115</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">base64_decode!</span>
+<span class="line-num">116</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@base64</span>
+<span class="line-num">117</span> 
+<span class="line-num">118</span>   <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-ivar">@payload</span>)
+<span class="line-num">119</span>   <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">120</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -549,13 +535,13 @@ will be generated</p>
 
           
           <div class="method-source-code" id="base64_encode-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 122</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_encode!</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
-
-  <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-ivar">@payload</span>)
-  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">122</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">base64_encode!</span>
+<span class="line-num">123</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
+<span class="line-num">124</span> 
+<span class="line-num">125</span>   <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-ivar">@payload</span>)
+<span class="line-num">126</span>   <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">true</span>
+<span class="line-num">127</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -585,13 +571,13 @@ will be generated</p>
 
           
           <div class="method-source-code" id="create_reqid-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 241</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_reqid</span>
-  <span class="ruby-comment"># we gsub out the -s so that the format of the id does not</span>
-  <span class="ruby-comment"># change from previous versions, these should just be more</span>
-  <span class="ruby-comment"># unique than previous ones</span>
-  <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;-&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">241</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_reqid</span>
+<span class="line-num">242</span>   <span class="ruby-comment"># we gsub out the -s so that the format of the id does not</span>
+<span class="line-num">243</span>   <span class="ruby-comment"># change from previous versions, these should just be more</span>
+<span class="line-num">244</span>   <span class="ruby-comment"># unique than previous ones</span>
+<span class="line-num">245</span>   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;-&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)
+<span class="line-num">246</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -621,34 +607,34 @@ will be generated</p>
 
           
           <div class="method-source-code" id="decode-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 183</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">decode!</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot decode message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:reply</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">decodemsg</span>(<span class="ruby-keyword">self</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
-      <span class="ruby-comment"># If we're a server receiving a request, reraise</span>
-      <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-comment"># We're in the client, log and carry on as best we can</span>
-
-      <span class="ruby-comment"># Note: mc_sender is unverified.  The verified identity is in the</span>
-      <span class="ruby-comment"># payload we just failed to decode</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to decode a message from '#{headers[&quot;mc_sender&quot;]}': #{e}&quot;</span>)
-      <span class="ruby-keyword">return</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">'callerid in request is not valid, surpressing reply to potentially forged request'</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
-  <span class="ruby-keyword">end</span>
-
-  [<span class="ruby-value">:collective</span>, <span class="ruby-value">:agent</span>, <span class="ruby-value">:filter</span>, <span class="ruby-value">:requestid</span>, <span class="ruby-value">:ttl</span>, <span class="ruby-value">:msgtime</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{prop}&quot;</span>, <span class="ruby-identifier">payload</span>[<span class="ruby-identifier">prop</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">prop</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">183</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">decode!</span>
+<span class="line-num">184</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot decode message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:reply</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+<span class="line-num">185</span> 
+<span class="line-num">186</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">187</span>     <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">decodemsg</span>(<span class="ruby-keyword">self</span>)
+<span class="line-num">188</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">189</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
+<span class="line-num">190</span>       <span class="ruby-comment"># If we&#39;re a server receiving a request, reraise</span>
+<span class="line-num">191</span>       <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
+<span class="line-num">192</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">193</span>       <span class="ruby-comment"># We&#39;re in the client, log and carry on as best we can</span>
+<span class="line-num">194</span> 
+<span class="line-num">195</span>       <span class="ruby-comment"># Note: mc_sender is unverified.  The verified identity is in the</span>
+<span class="line-num">196</span>       <span class="ruby-comment"># payload we just failed to decode</span>
+<span class="line-num">197</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to decode a message from &#39;#{headers[&quot;mc_sender&quot;]}&#39;: #{e}&quot;</span>)
+<span class="line-num">198</span>       <span class="ruby-keyword">return</span>
+<span class="line-num">199</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">200</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">201</span> 
+<span class="line-num">202</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
+<span class="line-num">203</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+<span class="line-num">204</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">205</span> 
+<span class="line-num">206</span>   [<span class="ruby-value">:collective</span>, <span class="ruby-value">:agent</span>, <span class="ruby-value">:filter</span>, <span class="ruby-value">:requestid</span>, <span class="ruby-value">:ttl</span>, <span class="ruby-value">:msgtime</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">prop</span><span class="ruby-operator">|</span>
+<span class="line-num">207</span>     <span class="ruby-identifier">instance_variable_set</span>(<span class="ruby-node">&quot;@#{prop}&quot;</span>, <span class="ruby-identifier">payload</span>[<span class="ruby-identifier">prop</span>]) <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">prop</span>)
+<span class="line-num">208</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">209</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -678,14 +664,14 @@ will be generated</p>
 
           
           <div class="method-source-code" id="description-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 133</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">description</span>
-  <span class="ruby-identifier">cid</span> = <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;@&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:callerid</span>)
-  <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:senderid</span>]
-
-  <span class="ruby-node">&quot;#{requestid} for agent '#{agent}' in collective '#{collective}' from #{cid}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">133</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">description</span>
+<span class="line-num">134</span>   <span class="ruby-identifier">cid</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">135</span>   <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;@&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">payload</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:callerid</span>)
+<span class="line-num">136</span>   <span class="ruby-identifier">cid</span> <span class="ruby-operator">+=</span> <span class="ruby-identifier">payload</span>[<span class="ruby-value">:senderid</span>]
+<span class="line-num">137</span> 
+<span class="line-num">138</span>   <span class="ruby-node">&quot;#{requestid} for agent &#39;#{agent}&#39; in collective &#39;#{collective}&#39; from #{cid}&quot;</span>
+<span class="line-num">139</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -715,24 +701,24 @@ will be generated</p>
 
           
           <div class="method-source-code" id="encode-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 141</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">encode!</span>
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot encode a reply message if no request has been associated with it&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">request</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">'callerid in original request is not valid, surpressing reply to potentially forged request'</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
-
-      <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:requestid</span>]
-      <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>
-      <span class="ruby-identifier">validate_compound_filter</span>(<span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
-
-      <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">create_reqid</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@requestid</span>
-      <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encoderequest</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">ttl</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot encode #{type} messages&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">141</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encode!</span>
+<span class="line-num">142</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
+<span class="line-num">143</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
+<span class="line-num">144</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot encode a reply message if no request has been associated with it&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">request</span>
+<span class="line-num">145</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;callerid in original request is not valid, surpressing reply to potentially forged request&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">valid_callerid?</span>(<span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+<span class="line-num">146</span> 
+<span class="line-num">147</span>       <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:requestid</span>]
+<span class="line-num">148</span>       <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">request</span>.<span class="ruby-identifier">payload</span>[<span class="ruby-value">:callerid</span>])
+<span class="line-num">149</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>
+<span class="line-num">150</span>       <span class="ruby-identifier">validate_compound_filter</span>(<span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>]) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;compound&quot;</span>].<span class="ruby-identifier">empty?</span>
+<span class="line-num">151</span> 
+<span class="line-num">152</span>       <span class="ruby-ivar">@requestid</span> = <span class="ruby-identifier">create_reqid</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@requestid</span>
+<span class="line-num">153</span>       <span class="ruby-ivar">@payload</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">encoderequest</span>(<span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>, <span class="ruby-identifier">payload</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">ttl</span>)
+<span class="line-num">154</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">155</span>       <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot encode #{type} messages&quot;</span>
+<span class="line-num">156</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">157</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -756,20 +742,17 @@ will be generated</p>
 
         <div class="method-description">
           
-          <p>in the case of reply messages we are expecting replies to a previously
-created message.  This stores a hint to that previously sent message id and
-can be used by other classes like the security plugins as a means of
-optimizing their behavior like by ignoring messages not directed at us.</p>
+          <p>in the case of reply messages we are expecting replies to a previously created message.  This stores a hint to that previously sent message id and can be used by other classes like the security plugins as a means of optimizing their behavior like by ignoring messages not directed at us.</p>
           
           
 
           
           <div class="method-source-code" id="expected_msgid-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 110</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">expected_msgid=</span>(<span class="ruby-identifier">msgid</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only store the expected msgid for reply messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
-  <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">msgid</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">110</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">expected_msgid=</span>(<span class="ruby-identifier">msgid</span>)
+<span class="line-num">111</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only store the expected msgid for reply messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+<span class="line-num">112</span>   <span class="ruby-ivar">@expected_msgid</span> = <span class="ruby-identifier">msgid</span>
+<span class="line-num">113</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -799,19 +782,19 @@ optimizing their behavior like by ignoring messages not directed at us.</p>
 
           
           <div class="method-source-code" id="publish-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 228</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>
-  <span class="ruby-comment"># If we've been specificaly told about hosts that were discovered</span>
-  <span class="ruby-comment"># use that information to do P2P calls if appropriate else just</span>
-  <span class="ruby-comment"># send it as is.</span>
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing_threshold</span>)
-    <span class="ruby-keyword">self</span>.<span class="ruby-identifier">type</span> = <span class="ruby-value">:direct_request</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Handling #{requestid} as a direct request&quot;</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">'connector_plugin'</span>].<span class="ruby-identifier">publish</span>(<span class="ruby-keyword">self</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">228</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">publish</span>
+<span class="line-num">229</span>   <span class="ruby-comment"># If we&#39;ve been specificaly told about hosts that were discovered</span>
+<span class="line-num">230</span>   <span class="ruby-comment"># use that information to do P2P calls if appropriate else just</span>
+<span class="line-num">231</span>   <span class="ruby-comment"># send it as is.</span>
+<span class="line-num">232</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">233</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing</span> <span class="ruby-operator">&amp;&amp;</span> (<span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-identifier">config</span>.<span class="ruby-identifier">direct_addressing_threshold</span>)
+<span class="line-num">234</span>     <span class="ruby-keyword">self</span>.<span class="ruby-identifier">type</span> = <span class="ruby-value">:direct_request</span>
+<span class="line-num">235</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Handling #{requestid} as a direct request&quot;</span>)
+<span class="line-num">236</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">237</span> 
+<span class="line-num">238</span>   <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&#39;connector_plugin&#39;</span>].<span class="ruby-identifier">publish</span>(<span class="ruby-keyword">self</span>)
+<span class="line-num">239</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -835,21 +818,18 @@ optimizing their behavior like by ignoring messages not directed at us.</p>
 
         <div class="method-description">
           
-          <p>Sets a custom reply-to target for requests.  The connector plugin should
-inspect this when constructing requests and set this header ensuring
-replies will go to the custom target otherwise the connector should just do
-what it usually does</p>
+          <p>Sets a custom reply-to target for requests.  The connector plugin should inspect this when constructing requests and set this header ensuring replies will go to the custom target otherwise the connector should just do what it usually does</p>
           
           
 
           
           <div class="method-source-code" id="reply_to-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 99</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">reply_to=</span>(<span class="ruby-identifier">target</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Custom reply targets can only be set on requests&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@type</span>)
-
-  <span class="ruby-ivar">@reply_to</span> = <span class="ruby-identifier">target</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num"> 99</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reply_to=</span>(<span class="ruby-identifier">target</span>)
+<span class="line-num">100</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Custom reply targets can only be set on requests&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@type</span>)
+<span class="line-num">101</span> 
+<span class="line-num">102</span>   <span class="ruby-ivar">@reply_to</span> = <span class="ruby-identifier">target</span>
+<span class="line-num">103</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -873,43 +853,34 @@ what it usually does</p>
 
         <div class="method-description">
           
-          <p>Sets the message type to one of the known types.  In the case of
-:direct_request the list of hosts to communicate with should have been set
-with <a
-href="Message.html#attribute-i-discovered_hosts">discovered_hosts</a> else
-an exception will be raised.  This is for extra security, we never
-accidentally want to send a direct request without a list of hosts or
-something weird like that as it might result in a filterless broadcast
-being sent.</p>
+          <p>Sets the message type to one of the known types.  In the case of :direct_request the list of hosts to communicate with should have been set with <a href="Message.html#attribute-i-discovered_hosts"><code>discovered_hosts</code></a> else an exception will be raised.  This is for extra security, we never accidentally want to send a direct request without a list of hosts or something weird like that as it might result in a filterless broadcast being sent.</p>
 
-<p>Additionally you simply cannot set :direct_request if direct_addressing was
-not enabled this is to force a workflow that doesnt not yield in a mistake
-when someone might assume direct_addressing is enabled when its not.</p>
+<p>Additionally you simply cannot set :direct_request if direct_addressing was not enabled this is to force a workflow that doesnt not yield in a mistake when someone might assume direct_addressing is enabled when its not.</p>
           
           
 
           
           <div class="method-source-code" id="type-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 76</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">type=</span>(<span class="ruby-identifier">type</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">VALIDTYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Direct requests is not enabled using the direct_addressing config option&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
-
-    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">empty?</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set type to :direct_request if discovered_hosts have been set&quot;</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-comment"># clear out the filter, custom discovery sources might interpret the filters</span>
-    <span class="ruby-comment"># different than the remote mcollectived and in directed mode really the only</span>
-    <span class="ruby-comment"># filter that matters is the agent filter</span>
-    <span class="ruby-ivar">@filter</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>
-    <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@agent</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">type</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">76</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">type=</span>(<span class="ruby-identifier">type</span>)
+<span class="line-num">77</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Unknown message type #{type}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">VALIDTYPES</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+<span class="line-num">78</span> 
+<span class="line-num">79</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
+<span class="line-num">80</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Direct requests is not enabled using the direct_addressing config option&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">direct_addressing</span>
+<span class="line-num">81</span> 
+<span class="line-num">82</span>     <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@discovered_hosts</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@discovered_hosts</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">83</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only set type to :direct_request if discovered_hosts have been set&quot;</span>
+<span class="line-num">84</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">85</span> 
+<span class="line-num">86</span>     <span class="ruby-comment"># clear out the filter, custom discovery sources might interpret the filters</span>
+<span class="line-num">87</span>     <span class="ruby-comment"># different than the remote mcollectived and in directed mode really the only</span>
+<span class="line-num">88</span>     <span class="ruby-comment"># filter that matters is the agent filter</span>
+<span class="line-num">89</span>     <span class="ruby-ivar">@filter</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">empty_filter</span>
+<span class="line-num">90</span>     <span class="ruby-ivar">@filter</span>[<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-ivar">@agent</span>
+<span class="line-num">91</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">92</span> 
+<span class="line-num">93</span>   <span class="ruby-ivar">@type</span> = <span class="ruby-identifier">type</span>
+<span class="line-num">94</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -939,21 +910,21 @@ when someone might assume direct_addressing is enabled when its not.</p>
 
           
           <div class="method-source-code" id="validate-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 212</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only validate request messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
-
-  <span class="ruby-identifier">msg_age</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">msgtime</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg_age</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>
-    <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;global_stats&quot;</span>].<span class="ruby-identifier">ttlexpired</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-constant">MsgTTLExpired</span>, <span class="ruby-node">&quot;Message #{description} created at #{msgtime} is #{msg_age} seconds old, TTL is #{ttl}. Rejecting message.&quot;</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">raise</span>(<span class="ruby-constant">NotTargettedAtUs</span>, <span class="ruby-node">&quot;Message #{description} does not pass filters. Ignoring message.&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">validate_filter?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:filter</span>])
-
-  <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">212</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate</span>
+<span class="line-num">213</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only validate request messages&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:request</span>
+<span class="line-num">214</span> 
+<span class="line-num">215</span>   <span class="ruby-identifier">msg_age</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">msgtime</span>
+<span class="line-num">216</span> 
+<span class="line-num">217</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg_age</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">ttl</span>
+<span class="line-num">218</span>     <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;global_stats&quot;</span>].<span class="ruby-identifier">ttlexpired</span>
+<span class="line-num">219</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-constant">MsgTTLExpired</span>, <span class="ruby-node">&quot;Message #{description} created at #{msgtime} is #{msg_age} seconds old, TTL is #{ttl}. Rejecting message.&quot;</span>)
+<span class="line-num">220</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">221</span> 
+<span class="line-num">222</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-constant">NotTargettedAtUs</span>, <span class="ruby-node">&quot;Message #{description} does not pass filters. Ignoring message.&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>].<span class="ruby-identifier">validate_filter?</span>(<span class="ruby-identifier">payload</span>[<span class="ruby-value">:filter</span>])
+<span class="line-num">223</span> 
+<span class="line-num">224</span>   <span class="ruby-ivar">@validated</span> = <span class="ruby-keyword">true</span>
+<span class="line-num">225</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -983,30 +954,30 @@ when someone might assume direct_addressing is enabled when its not.</p>
 
           
           <div class="method-source-code" id="validate_compound_filter-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/message.rb, line 159</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_compound_filter</span>(<span class="ruby-identifier">compound_filter</span>)
-  <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">statement</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>]
-        <span class="ruby-identifier">functionname</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;name&quot;</span>]
-        <span class="ruby-identifier">pluginname</span> = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">pluginname</span>(<span class="ruby-identifier">functionname</span>)
-        <span class="ruby-identifier">value</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;value&quot;</span>]
-
-        <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pluginname</span>, <span class="ruby-value">:data</span>)
-
-        <span class="ruby-comment"># parses numbers and booleans entered as strings into proper</span>
-        <span class="ruby-comment"># types of data so that DDL validation will pass</span>
-        <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_transform_input</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
-
-        <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_validate</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
-
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_has_output?</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">value</span>)
-          <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">validation_fail!</span>(<span class="ruby-value">:PLMC41</span>, <span class="ruby-string">&quot;Data plugin '%{functionname}()' does not return a '%{value}' value&quot;</span>, <span class="ruby-value">:error</span>, {<span class="ruby-value">:functionname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">functionname</span>, <span class="ruby-value">:value</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">value</span>})
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/message.rb</span>
+<span class="line-num">159</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_compound_filter</span>(<span class="ruby-identifier">compound_filter</span>)
+<span class="line-num">160</span>   <span class="ruby-identifier">compound_filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+<span class="line-num">161</span>     <span class="ruby-identifier">filter</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">statement</span><span class="ruby-operator">|</span>
+<span class="line-num">162</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>]
+<span class="line-num">163</span>         <span class="ruby-identifier">functionname</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;name&quot;</span>]
+<span class="line-num">164</span>         <span class="ruby-identifier">pluginname</span> = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">pluginname</span>(<span class="ruby-identifier">functionname</span>)
+<span class="line-num">165</span>         <span class="ruby-identifier">value</span> = <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;value&quot;</span>]
+<span class="line-num">166</span> 
+<span class="line-num">167</span>         <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">pluginname</span>, <span class="ruby-value">:data</span>)
+<span class="line-num">168</span> 
+<span class="line-num">169</span>         <span class="ruby-comment"># parses numbers and booleans entered as strings into proper</span>
+<span class="line-num">170</span>         <span class="ruby-comment"># types of data so that DDL validation will pass</span>
+<span class="line-num">171</span>         <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>] = <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_transform_input</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
+<span class="line-num">172</span> 
+<span class="line-num">173</span>         <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_validate</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">statement</span>[<span class="ruby-string">&quot;fstatement&quot;</span>][<span class="ruby-string">&quot;params&quot;</span>])
+<span class="line-num">174</span> 
+<span class="line-num">175</span>         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">value</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Data</span>.<span class="ruby-identifier">ddl_has_output?</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">value</span>)
+<span class="line-num">176</span>           <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">validation_fail!</span>(<span class="ruby-value">:PLMC41</span>, <span class="ruby-string">&quot;Data plugin &#39;%{functionname}()&#39; does not return a &#39;%{value}&#39; value&quot;</span>, <span class="ruby-value">:error</span>, {<span class="ruby-value">:functionname</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">functionname</span>, <span class="ruby-value">:value</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">value</span>})
+<span class="line-num">177</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">178</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">179</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">180</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">181</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1024,8 +995,8 @@ when someone might assume direct_addressing is enabled when its not.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

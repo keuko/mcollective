@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Security::Psk - mcollective version 2.12.1</title>
+<title>class MCollective::Security::Psk - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -95,23 +99,16 @@
     
 <p>Impliments message authentication using digests and shared keys</p>
 
-<p>You should configure a psk in the configuration file and all requests will
-be validated for authenticity with this.</p>
+<p>You should configure a psk in the configuration file and all requests will be validated for authenticity with this.</p>
 
-<p>Serialization uses Marshal, this is the default security module that is
-supported out of the box.</p>
+<p>Serialization uses Marshal, this is the default security module that is supported out of the box.</p>
 
-<p>Validation is as default and is provided by <a
-href="Base.html">MCollective::Security::Base</a></p>
+<p>Validation is as default and is provided by <a href="Base.html"><code>MCollective::Security::Base</code></a></p>
 
-<p>You can configure the caller id being created, this can adjust how you
-create authorization plugins.  For example you can use a unix group instead
-of uid to do authorization.</p>
+<p>You can configure the caller id being created, this can adjust how you create authorization plugins.  For example you can use a unix group instead of uid to do authorization.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -148,37 +145,37 @@ of uid to do authorization.</p>
 
           
           <div class="method-source-code" id="callerid-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/security/psk.rb, line 72</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">callerid</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;psk.callertype&quot;</span>)
-    <span class="ruby-identifier">callertype</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;psk.callertype&quot;</span>].<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;psk.callertype&quot;</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">callertype</span> = <span class="ruby-value">:uid</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">callertype</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:gid</span>
-      <span class="ruby-identifier">id</span>  = <span class="ruby-node">&quot;gid=#{Process.gid}&quot;</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:group</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use the 'group' callertype for the PSK security plugin on the Windows platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
-
-      <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;group=#{Etc.getgrgid(Process.gid).name}&quot;</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:user</span>
-      <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;user=#{Etc.getlogin}&quot;</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:identity</span>
-      <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;identity=#{@config.identity}&quot;</span>
-
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">id</span> =<span class="ruby-node">&quot;uid=#{Process.uid}&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Setting callerid to #{id} based on callertype=#{callertype}&quot;</span>)
-
-  <span class="ruby-identifier">id</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/security/psk.rb</span>
+<span class="line-num"> 72</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">callerid</span>
+<span class="line-num"> 73</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;psk.callertype&quot;</span>)
+<span class="line-num"> 74</span>     <span class="ruby-identifier">callertype</span> = <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;psk.callertype&quot;</span>].<span class="ruby-identifier">to_sym</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;psk.callertype&quot;</span>)
+<span class="line-num"> 75</span>   <span class="ruby-keyword">else</span>
+<span class="line-num"> 76</span>     <span class="ruby-identifier">callertype</span> = <span class="ruby-value">:uid</span>
+<span class="line-num"> 77</span>   <span class="ruby-keyword">end</span>
+<span class="line-num"> 78</span> 
+<span class="line-num"> 79</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">callertype</span>
+<span class="line-num"> 80</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:gid</span>
+<span class="line-num"> 81</span>       <span class="ruby-identifier">id</span>  = <span class="ruby-node">&quot;gid=#{Process.gid}&quot;</span>
+<span class="line-num"> 82</span> 
+<span class="line-num"> 83</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:group</span>
+<span class="line-num"> 84</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot use the &#39;group&#39; callertype for the PSK security plugin on the Windows platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+<span class="line-num"> 85</span> 
+<span class="line-num"> 86</span>       <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;group=#{Etc.getgrgid(Process.gid).name}&quot;</span>
+<span class="line-num"> 87</span> 
+<span class="line-num"> 88</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:user</span>
+<span class="line-num"> 89</span>       <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;user=#{Etc.getlogin}&quot;</span>
+<span class="line-num"> 90</span> 
+<span class="line-num"> 91</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:identity</span>
+<span class="line-num"> 92</span>       <span class="ruby-identifier">id</span> = <span class="ruby-node">&quot;identity=#{@config.identity}&quot;</span>
+<span class="line-num"> 93</span> 
+<span class="line-num"> 94</span>     <span class="ruby-keyword">else</span>
+<span class="line-num"> 95</span>       <span class="ruby-identifier">id</span> =<span class="ruby-node">&quot;uid=#{Process.uid}&quot;</span>
+<span class="line-num"> 96</span>   <span class="ruby-keyword">end</span>
+<span class="line-num"> 97</span> 
+<span class="line-num"> 98</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Setting callerid to #{id} based on callertype=#{callertype}&quot;</span>)
+<span class="line-num"> 99</span> 
+<span class="line-num">100</span>   <span class="ruby-identifier">id</span>
+<span class="line-num">101</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -202,26 +199,25 @@ of uid to do authorization.</p>
 
         <div class="method-description">
           
-          <p>Decodes a message by unserializing all the bits etc, it also validates it
-as valid using the psk etc</p>
+          <p>Decodes a message by unserializing all the bits etc, it also validates it as valid using the psk etc</p>
           
           
 
           
           <div class="method-source-code" id="decodemsg-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/security/psk.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">decodemsg</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-identifier">body</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>)
-
-  <span class="ruby-identifier">should_process_msg?</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:requestid</span>])
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">validrequest?</span>(<span class="ruby-identifier">body</span>)
-    <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>])
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/security/psk.rb</span>
+<span class="line-num">21</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">decodemsg</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">22</span>   <span class="ruby-identifier">body</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>)
+<span class="line-num">23</span> 
+<span class="line-num">24</span>   <span class="ruby-identifier">should_process_msg?</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">body</span>[<span class="ruby-value">:requestid</span>])
+<span class="line-num">25</span> 
+<span class="line-num">26</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">validrequest?</span>(<span class="ruby-identifier">body</span>)
+<span class="line-num">27</span>     <span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>] = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-identifier">body</span>[<span class="ruby-value">:body</span>])
+<span class="line-num">28</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">body</span>
+<span class="line-num">29</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">30</span>     <span class="ruby-keyword">nil</span>
+<span class="line-num">31</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -251,16 +247,16 @@ as valid using the psk etc</p>
 
           
           <div class="method-source-code" id="encodereply-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/security/psk.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">encodereply</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">requestcallerid</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">serialized</span>  = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">serialized</span>)
-
-  <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_reply</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">sender</span>, <span class="ruby-identifier">serialized</span>)
-  <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>] = <span class="ruby-identifier">digest</span>
-
-  <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">req</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/security/psk.rb</span>
+<span class="line-num">35</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encodereply</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">requestcallerid</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">36</span>   <span class="ruby-identifier">serialized</span>  = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">37</span>   <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">serialized</span>)
+<span class="line-num">38</span> 
+<span class="line-num">39</span>   <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_reply</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">sender</span>, <span class="ruby-identifier">serialized</span>)
+<span class="line-num">40</span>   <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>] = <span class="ruby-identifier">digest</span>
+<span class="line-num">41</span> 
+<span class="line-num">42</span>   <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">req</span>)
+<span class="line-num">43</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -290,16 +286,16 @@ as valid using the psk etc</p>
 
           
           <div class="method-source-code" id="encoderequest-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/security/psk.rb, line 46</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">encoderequest</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">60</span>)
-  <span class="ruby-identifier">serialized</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">serialized</span>)
-
-  <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">serialized</span>, <span class="ruby-ivar">@initiated_by</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>)
-  <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>] = <span class="ruby-identifier">digest</span>
-
-  <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">req</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/security/psk.rb</span>
+<span class="line-num">46</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encoderequest</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">60</span>)
+<span class="line-num">47</span>   <span class="ruby-identifier">serialized</span> = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">48</span>   <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">serialized</span>)
+<span class="line-num">49</span> 
+<span class="line-num">50</span>   <span class="ruby-identifier">req</span> = <span class="ruby-identifier">create_request</span>(<span class="ruby-identifier">requestid</span>, <span class="ruby-identifier">filter</span>, <span class="ruby-identifier">serialized</span>, <span class="ruby-ivar">@initiated_by</span>, <span class="ruby-identifier">target_agent</span>, <span class="ruby-identifier">target_collective</span>, <span class="ruby-identifier">ttl</span>)
+<span class="line-num">51</span>   <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>] = <span class="ruby-identifier">digest</span>
+<span class="line-num">52</span> 
+<span class="line-num">53</span>   <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">req</span>)
+<span class="line-num">54</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -323,27 +319,26 @@ as valid using the psk etc</p>
 
         <div class="method-description">
           
-          <p>Checks the md5 hash in the request body against our psk, the request sent
-for validation should not have been deserialized already</p>
+          <p>Checks the md5 hash in the request body against our psk, the request sent for validation should not have been deserialized already</p>
           
           
 
           
           <div class="method-source-code" id="validrequest-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/security/psk.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validrequest?</span>(<span class="ruby-identifier">req</span>)
-  <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">req</span>[<span class="ruby-value">:body</span>])
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">digest</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>]
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">validated</span>
-
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">unvalidated</span>
-
-    <span class="ruby-identifier">raise</span>(<span class="ruby-constant">SecurityValidationFailed</span>, <span class="ruby-string">&quot;Received an invalid signature in message&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/security/psk.rb</span>
+<span class="line-num">58</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validrequest?</span>(<span class="ruby-identifier">req</span>)
+<span class="line-num">59</span>   <span class="ruby-identifier">digest</span> = <span class="ruby-identifier">makehash</span>(<span class="ruby-identifier">req</span>[<span class="ruby-value">:body</span>])
+<span class="line-num">60</span> 
+<span class="line-num">61</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">digest</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">req</span>[<span class="ruby-value">:hash</span>]
+<span class="line-num">62</span>     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">validated</span>
+<span class="line-num">63</span> 
+<span class="line-num">64</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">65</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">66</span>     <span class="ruby-ivar">@stats</span>.<span class="ruby-identifier">unvalidated</span>
+<span class="line-num">67</span> 
+<span class="line-num">68</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-constant">SecurityValidationFailed</span>, <span class="ruby-string">&quot;Received an invalid signature in message&quot;</span>)
+<span class="line-num">69</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">70</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -361,8 +356,8 @@ for validation should not have been deserialized already</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

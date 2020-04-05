@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::Validator - mcollective version 2.12.1</title>
+<title>module MCollective::Validator - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -93,8 +97,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -124,10 +126,9 @@
 
         <div class="method-description">
           
-          <p>Returns and instance of the Plugin class from which objects can be created.
-Valid plugin names are</p>
+          <p>Returns and instance of the Plugin class from which objects can be created. Valid plugin names are</p>
 
-<pre class="ruby">:<span class="ruby-identifier">valplugin</span>
+<pre class="ruby"><span class="ruby-value">:valplugin</span>
 <span class="ruby-string">&quot;valplugin&quot;</span>
 <span class="ruby-string">&quot;ValpluginValidator&quot;</span>
 </pre>
@@ -136,16 +137,16 @@ Valid plugin names are</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 24</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)
-    <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">klass</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/.*Validator$/</span>))
-    <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">klass</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">24</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">25</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>)
+<span class="line-num">26</span>     <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">27</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">klass</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/.*Validator$/</span>))
+<span class="line-num">28</span>     <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">29</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">30</span> 
+<span class="line-num">31</span>   <span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -175,10 +176,10 @@ Valid plugin names are</p>
 
           
           <div class="method-source-code" id="has_validator-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 43</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_validator?</span>(<span class="ruby-identifier">validator</span>)
-  <span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">validator</span>))
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">43</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">has_validator?</span>(<span class="ruby-identifier">validator</span>)
+<span class="line-num">44</span>   <span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">validator</span>))
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -208,18 +209,18 @@ Valid plugin names are</p>
 
           
           <div class="method-source-code" id="load_validators-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_validators</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">@@validator_mutex</span>.<span class="ruby-identifier">lock</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">load_validators?</span>
-      <span class="ruby-ivar">@last_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
-      <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;validator&quot;</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">ensure</span>
-    <span class="ruby-identifier">@@validator_mutex</span>.<span class="ruby-identifier">unlock</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num"> 7</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">load_validators</span>
+<span class="line-num"> 8</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num"> 9</span>     <span class="ruby-identifier">@@validator_mutex</span>.<span class="ruby-identifier">lock</span>
+<span class="line-num">10</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">load_validators?</span>
+<span class="line-num">11</span>       <span class="ruby-ivar">@last_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num">12</span>       <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;validator&quot;</span>)
+<span class="line-num">13</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">14</span>   <span class="ruby-keyword">ensure</span>
+<span class="line-num">15</span>     <span class="ruby-identifier">@@validator_mutex</span>.<span class="ruby-identifier">unlock</span>
+<span class="line-num">16</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">17</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -249,11 +250,11 @@ Valid plugin names are</p>
 
           
           <div class="method-source-code" id="load_validators-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 51</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_validators?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@last_load</span>.<span class="ruby-identifier">nil?</span>
-  (<span class="ruby-ivar">@last_load</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">300</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">51</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">load_validators?</span>
+<span class="line-num">52</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@last_load</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">53</span>   (<span class="ruby-ivar">@last_load</span> <span class="ruby-operator">-</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">300</span>
+<span class="line-num">54</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -268,7 +269,7 @@ Valid plugin names are</p>
         
         <div class="method-heading">
           <span class="method-name">method_missing</span><span
-            class="method-args">(method, *args, &block)</span>
+            class="method-args">(method, *args, &amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -277,21 +278,20 @@ Valid plugin names are</p>
 
         <div class="method-description">
           
-          <p>Allows validation plugins to be called like module methods : <a
-href="Validator.html#method-c-validate">::validate</a></p>
+          <p>Allows validation plugins to be called like module methods : <a href="Validator.html#method-c-validate"><code>Validator.validate()</code></a></p>
           
           
 
           
           <div class="method-source-code" id="method_missing-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">has_validator?</span>(<span class="ruby-identifier">method</span>)
-    <span class="ruby-identifier">validator</span> = <span class="ruby-constant">Validator</span>[<span class="ruby-identifier">method</span>].<span class="ruby-identifier">validate</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-node">&quot;Unknown validator: '#{method}'.&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">35</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">method_missing</span>(<span class="ruby-identifier">method</span>, <span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">36</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">has_validator?</span>(<span class="ruby-identifier">method</span>)
+<span class="line-num">37</span>     <span class="ruby-identifier">validator</span> = <span class="ruby-constant">Validator</span>[<span class="ruby-identifier">method</span>].<span class="ruby-identifier">validate</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="line-num">38</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">39</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-node">&quot;Unknown validator: &#39;#{method}&#39;.&quot;</span>
+<span class="line-num">40</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">41</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -315,40 +315,39 @@ href="Validator.html#method-c-validate">::validate</a></p>
 
         <div class="method-description">
           
-          <p>Generic validate method that will call the correct validator plugin based
-on the type of the validation parameter</p>
+          <p>Generic validate method that will call the correct validator plugin based on the type of the validation parameter</p>
           
           
 
           
           <div class="method-source-code" id="validate-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">validate</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
-  <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">load_validators</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-keyword">if</span> [<span class="ruby-value">:integer</span>, <span class="ruby-value">:boolean</span>, <span class="ruby-value">:float</span>, <span class="ruby-value">:number</span>, <span class="ruby-value">:string</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">validation</span>)
-      <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">typecheck</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
-
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-keyword">case</span> <span class="ruby-identifier">validation</span>
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Regexp</span>,<span class="ruby-constant">String</span>
-          <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">regex</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
-
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Symbol</span>
-          <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">validation</span>, <span class="ruby-identifier">validator</span>)
-
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span>
-          <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">array</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
-
-        <span class="ruby-keyword">when</span> <span class="ruby-constant">Class</span>
-          <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">typecheck</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">58</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">validate</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
+<span class="line-num">59</span>   <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">load_validators</span>
+<span class="line-num">60</span> 
+<span class="line-num">61</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">62</span>     <span class="ruby-keyword">if</span> [<span class="ruby-value">:integer</span>, <span class="ruby-value">:boolean</span>, <span class="ruby-value">:float</span>, <span class="ruby-value">:number</span>, <span class="ruby-value">:string</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">validation</span>)
+<span class="line-num">63</span>       <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">typecheck</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
+<span class="line-num">64</span> 
+<span class="line-num">65</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">66</span>       <span class="ruby-keyword">case</span> <span class="ruby-identifier">validation</span>
+<span class="line-num">67</span>         <span class="ruby-keyword">when</span> <span class="ruby-constant">Regexp</span>,<span class="ruby-constant">String</span>
+<span class="line-num">68</span>           <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">regex</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
+<span class="line-num">69</span> 
+<span class="line-num">70</span>         <span class="ruby-keyword">when</span> <span class="ruby-constant">Symbol</span>
+<span class="line-num">71</span>           <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">validation</span>, <span class="ruby-identifier">validator</span>)
+<span class="line-num">72</span> 
+<span class="line-num">73</span>         <span class="ruby-keyword">when</span> <span class="ruby-constant">Array</span>
+<span class="line-num">74</span>           <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">array</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
+<span class="line-num">75</span> 
+<span class="line-num">76</span>         <span class="ruby-keyword">when</span> <span class="ruby-constant">Class</span>
+<span class="line-num">77</span>           <span class="ruby-constant">Validator</span>.<span class="ruby-identifier">typecheck</span>(<span class="ruby-identifier">validator</span>, <span class="ruby-identifier">validation</span>)
+<span class="line-num">78</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">79</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">80</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">81</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ValidatorError</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span>
+<span class="line-num">82</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">83</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -378,10 +377,10 @@ on the type of the validation parameter</p>
 
           
           <div class="method-source-code" id="validator_class-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/validator.rb, line 47</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">validator_class</span>(<span class="ruby-identifier">validator</span>)
-  <span class="ruby-node">&quot;#{validator.to_s.capitalize}Validator&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/validator.rb</span>
+<span class="line-num">47</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">validator_class</span>(<span class="ruby-identifier">validator</span>)
+<span class="line-num">48</span>   <span class="ruby-node">&quot;#{validator.to_s.capitalize}Validator&quot;</span>
+<span class="line-num">49</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -399,8 +398,8 @@ on the type of the validation parameter</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

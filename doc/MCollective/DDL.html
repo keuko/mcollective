@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::DDL - mcollective version 2.12.1</title>
+<title>module MCollective::DDL - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -84,63 +88,45 @@
 
   <section class="description">
     
-<p>A set of classes that helps create data description language files for
-plugins.  You can define meta data, actions, input and output describing
-the behavior of your agent or other plugins</p>
+<p>A set of classes that helps create data description language files for plugins.  You can define meta data, actions, input and output describing the behavior of your agent or other plugins</p>
 
-<p><a href="DDL.html">DDL</a> files are used for input validation,
-constructing outputs, producing online help, informing the various display
-routines and so forth.</p>
+<p><a href="DDL.html"><code>DDL</code></a> files are used for input validation, constructing outputs, producing online help, informing the various display routines and so forth.</p>
 
-<p>A sample <a href="DDL.html">DDL</a> for an agent be seen below, you’d put
-this in your agent dir as &lt;agent name&gt;.ddl</p>
+<p>A sample <a href="DDL.html"><code>DDL</code></a> for an agent be seen below, you&#39;d put this in your agent dir as &lt;agent name&gt;.ddl</p>
 
-<pre class="ruby"> <span class="ruby-identifier">metadata</span> :<span class="ruby-identifier">name</span>        =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;SimpleRPC Service Agent&quot;</span>,
-          :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agent to manage services using the Puppet service provider&quot;</span>,
-          :<span class="ruby-identifier">author</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;R.I.Pienaar&quot;</span>,
-          :<span class="ruby-identifier">license</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;GPLv2&quot;</span>,
-          :<span class="ruby-identifier">version</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1.1&quot;</span>,
-          :<span class="ruby-identifier">url</span>         =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;http://mcollective-plugins.googlecode.com/&quot;</span>,
-          :<span class="ruby-identifier">timeout</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-value">60</span>
+<pre class="ruby"> <span class="ruby-identifier">metadata</span> <span class="ruby-value">:name</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;SimpleRPC Service Agent&quot;</span>,
+          <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Agent to manage services using the Puppet service provider&quot;</span>,
+          <span class="ruby-value">:author</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;R.I.Pienaar&quot;</span>,
+          <span class="ruby-value">:license</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;GPLv2&quot;</span>,
+          <span class="ruby-value">:version</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;1.1&quot;</span>,
+          <span class="ruby-value">:url</span>         <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;http://mcollective-plugins.googlecode.com/&quot;</span>,
+          <span class="ruby-value">:timeout</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-value">60</span>
 
- <span class="ruby-identifier">action</span> <span class="ruby-string">&quot;status&quot;</span>, :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Gets the status of a service&quot;</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+ <span class="ruby-identifier">action</span> <span class="ruby-string">&quot;status&quot;</span>, <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Gets the status of a service&quot;</span> <span class="ruby-keyword">do</span>
+    <span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-    <span class="ruby-identifier">input</span> :<span class="ruby-identifier">service</span>,
-          :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Service Name&quot;</span>,
-          :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The service to get the status for&quot;</span>,
-          :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-          :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[a-zA-Z\-_\d]+$'</span>,
-          :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
-          :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">30</span>
+    <span class="ruby-identifier">input</span> <span class="ruby-value">:service</span>,
+          <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Service Name&quot;</span>,
+          <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The service to get the status for&quot;</span>,
+          <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+          <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^[a-zA-Z\-_\d]+$&#39;</span>,
+          <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>,
+          <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">30</span>
 
-    <span class="ruby-identifier">output</span> :<span class="ruby-identifier">status</span>,
-           :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The status of service&quot;</span>,
-           :<span class="ruby-identifier">display_as</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Service Status&quot;</span>
+    <span class="ruby-identifier">output</span> <span class="ruby-value">:status</span>,
+           <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The status of service&quot;</span>,
+           <span class="ruby-value">:display_as</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Service Status&quot;</span>
 <span class="ruby-keyword">end</span>
 </pre>
 
-<p>There are now many types of <a href="DDL.html">DDL</a> and ultimately all
-pugins should have <a href="DDL.html">DDL</a> files.  The code is organized
-so that any plugin type will magically just work - they will be an instane
-of <a href="DDL/Base.html">Base</a> which has metadata and a few common
-cases.</p>
+<p>There are now many types of <a href="DDL.html"><code>DDL</code></a> and ultimately all pugins should have <a href="DDL.html"><code>DDL</code></a> files.  The code is organized so that any plugin type will magically just work - they will be an instane of <a href="DDL/Base.html"><code>Base</code></a> which has metadata and a few common cases.</p>
 
-<p>For plugin types that require more specific behaviors they can just add a
-class here that inherits from <a href="DDL/Base.html">Base</a> and add
-their specific behavior.</p>
+<p>For plugin types that require more specific behaviors they can just add a class here that inherits from <a href="DDL/Base.html"><code>Base</code></a> and add their specific behavior.</p>
 
-<p><a href="DDL/Base.html">Base</a> defines a specific behavior for input,
-output and metadata which we'd like to keep standard across plugin types so
-do not completely override the behavior of input.  The methods are written
-that they will gladly store extra content though so you add, do not remove.
-See the <a href="DDL/AgentDDL.html">AgentDDL</a> class for an example where
-agents want a :required argument to be always set.</p>
+<p><a href="DDL/Base.html"><code>Base</code></a> defines a specific behavior for input, output and metadata which we&#39;d like to keep standard across plugin types so do not completely override the behavior of input.  The methods are written that they will gladly store extra content though so you add, do not remove.  See the <a href="DDL/AgentDDL.html"><code>AgentDDL</code></a> class for an example where agents want a :required argument to be always set.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -177,28 +163,28 @@ agents want a :required argument to be always set.</p>
 
           
           <div class="method-source-code" id="load_and_cache-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl.rb, line 69</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">load_and_cache</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-  <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">setup</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-value">300</span>)
-
-  <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
-  <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">type</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">type</span> = <span class="ruby-string">&quot;agent&quot;</span>
-  <span class="ruby-identifier">path</span> = <span class="ruby-string">&quot;%s/%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">type</span>, <span class="ruby-identifier">plugin</span>]
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-identifier">path</span>)
-  <span class="ruby-keyword">rescue</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">klass</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;%sDDL&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>)
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
-      <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Base</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl.rb</span>
+<span class="line-num">69</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">load_and_cache</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="line-num">70</span>   <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">setup</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-value">300</span>)
+<span class="line-num">71</span> 
+<span class="line-num">72</span>   <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">args</span>.<span class="ruby-identifier">first</span>
+<span class="line-num">73</span>   <span class="ruby-identifier">args</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">type</span> = <span class="ruby-identifier">args</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">to_s</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">type</span> = <span class="ruby-string">&quot;agent&quot;</span>
+<span class="line-num">74</span>   <span class="ruby-identifier">path</span> = <span class="ruby-string">&quot;%s/%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">type</span>, <span class="ruby-identifier">plugin</span>]
+<span class="line-num">75</span> 
+<span class="line-num">76</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">77</span>     <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">read</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-identifier">path</span>)
+<span class="line-num">78</span>   <span class="ruby-keyword">rescue</span>
+<span class="line-num">79</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">80</span>       <span class="ruby-identifier">klass</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-string">&quot;%sDDL&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>)
+<span class="line-num">81</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
+<span class="line-num">82</span>       <span class="ruby-identifier">klass</span> = <span class="ruby-constant">Base</span>
+<span class="line-num">83</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">84</span> 
+<span class="line-num">85</span>     <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">Cache</span>.<span class="ruby-identifier">write</span>(<span class="ruby-value">:ddl</span>, <span class="ruby-identifier">path</span>, <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>))
+<span class="line-num">86</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">87</span> 
+<span class="line-num">88</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>
+<span class="line-num">89</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -213,7 +199,7 @@ agents want a :required argument to be always set.</p>
         
         <div class="method-heading">
           <span class="method-name">new</span><span
-            class="method-args">(*args, &blk)</span>
+            class="method-args">(*args, &amp;blk)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -222,25 +208,18 @@ agents want a :required argument to be always set.</p>
 
         <div class="method-description">
           
-          <p>There used to be only one big nasty <a href="DDL.html">DDL</a> class with a
-bunch of mashed together behaviors.  It’s been around for ages and we would
-rather not ask all the users to change their <a
-href="DDL.html#method-c-new">::new</a> calls to some other factory method
-that would have this exact same behavior.</p>
+          <p>There used to be only one big nasty <a href="DDL.html"><code>DDL</code></a> class with a bunch of mashed together behaviors.  It&#39;s been around for ages and we would rather not ask all the users to change their <a href="DDL.html#method-c-new"><code>DDL.new</code></a> calls to some other factory method that would have this exact same behavior.</p>
 
-<p>So we override the behavior of new which is a hugely sucky thing to do but
-ultimately it’s what would be least disrupting to code out there today.  We
-did though change <a href="DDL.html">DDL</a> to a module to make it
-possibly a little less suprising, possibly.</p>
+<p>So we override the behavior of new which is a hugely sucky thing to do but ultimately it&#39;s what would be least disrupting to code out there today.  We did though change <a href="DDL.html"><code>DDL</code></a> to a module to make it possibly a little less suprising, possibly.</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl.rb, line 65</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-  <span class="ruby-identifier">load_and_cache</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl.rb</span>
+<span class="line-num">65</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">new</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>, <span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+<span class="line-num">66</span>   <span class="ruby-identifier">load_and_cache</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">args</span>)
+<span class="line-num">67</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -264,22 +243,19 @@ possibly a little less suprising, possibly.</p>
 
         <div class="method-description">
           
-          <p>As we’re taking arguments on the command line we need a way to input
-booleans, true on the cli is a string so this method will take the ddl,
-find all arguments that are supposed to be boolean and if they are the
-strings “true”/“yes” or “false”/“no” turn them into the matching boolean</p>
+          <p>As we&#39;re taking arguments on the command line we need a way to input booleans, true on the cli is a string so this method will take the ddl, find all arguments that are supposed to be boolean and if they are the strings “true”/“yes” or “false”/“no” turn them into the matching boolean</p>
           
           
 
           
           <div class="method-source-code" id="string_to_boolean-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl.rb, line 96</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">string_to_boolean</span>(<span class="ruby-identifier">val</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> [<span class="ruby-string">&quot;true&quot;</span>, <span class="ruby-string">&quot;t&quot;</span>, <span class="ruby-string">&quot;yes&quot;</span>, <span class="ruby-string">&quot;y&quot;</span>, <span class="ruby-string">&quot;1&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">downcase</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> [<span class="ruby-string">&quot;false&quot;</span>, <span class="ruby-string">&quot;f&quot;</span>, <span class="ruby-string">&quot;no&quot;</span>, <span class="ruby-string">&quot;n&quot;</span>, <span class="ruby-string">&quot;0&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">downcase</span>)
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{val} does not look like a boolean argument&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl.rb</span>
+<span class="line-num"> 96</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">string_to_boolean</span>(<span class="ruby-identifier">val</span>)
+<span class="line-num"> 97</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span> <span class="ruby-keyword">if</span> [<span class="ruby-string">&quot;true&quot;</span>, <span class="ruby-string">&quot;t&quot;</span>, <span class="ruby-string">&quot;yes&quot;</span>, <span class="ruby-string">&quot;y&quot;</span>, <span class="ruby-string">&quot;1&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">downcase</span>)
+<span class="line-num"> 98</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">if</span> [<span class="ruby-string">&quot;false&quot;</span>, <span class="ruby-string">&quot;f&quot;</span>, <span class="ruby-string">&quot;no&quot;</span>, <span class="ruby-string">&quot;n&quot;</span>, <span class="ruby-string">&quot;0&quot;</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">val</span>.<span class="ruby-identifier">downcase</span>)
+<span class="line-num"> 99</span> 
+<span class="line-num">100</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{val} does not look like a boolean argument&quot;</span>
+<span class="line-num">101</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -303,21 +279,19 @@ strings “true”/“yes” or “false”/“no” turn them into the matching
 
         <div class="method-description">
           
-          <p>a generic string to number function, if a number looks like a float it
-turns it into a float else an int.  This is naive but should be sufficient
-for numbers typed on the cli in most cases</p>
+          <p>a generic string to number function, if a number looks like a float it turns it into a float else an int.  This is naive but should be sufficient for numbers typed on the cli in most cases</p>
           
           
 
           
           <div class="method-source-code" id="string_to_number-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl.rb, line 106</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">string_to_number</span>(<span class="ruby-identifier">val</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+\.\d+$/</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{val} does not look like a number&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ddl.rb</span>
+<span class="line-num">106</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">string_to_number</span>(<span class="ruby-identifier">val</span>)
+<span class="line-num">107</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+\.\d+$/</span>
+<span class="line-num">108</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">val</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">val</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>
+<span class="line-num">109</span> 
+<span class="line-num">110</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{val} does not look like a number&quot;</span>
+<span class="line-num">111</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -335,8 +309,8 @@ for numbers typed on the cli in most cases</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

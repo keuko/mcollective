@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::PluginManager - mcollective version 2.12.1</title>
+<title>module MCollective::PluginManager - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -98,13 +102,10 @@
 
   <section class="description">
     
-<p>A simple plugin manager, it stores one plugin each of a specific type the
-idea is that we can only have one security provider, one connector etc.</p>
+<p>A simple plugin manager, it stores one plugin each of a specific type the idea is that we can only have one security provider, one connector etc.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -137,59 +138,49 @@ idea is that we can only have one security provider, one connector etc.</p>
           
           <p>Adds a plugin to the list of plugins, we expect a hash like:</p>
 
-<pre class="ruby">{:<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
- :<span class="ruby-keyword">class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">foo</span>.<span class="ruby-identifier">new</span>}
+<pre class="ruby">{<span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
+ <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">foo</span>.<span class="ruby-identifier">new</span>}
 </pre>
 
 <p>or like:</p>
 
-<pre class="ruby">{:<span class="ruby-identifier">type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
- :<span class="ruby-keyword">class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Foo::Bar&quot;</span>}
+<pre class="ruby">{<span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;base&quot;</span>,
+ <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Foo::Bar&quot;</span>}
 </pre>
 
-<p>In the event that we already have a class with the given type an exception
-will be raised.</p>
+<p>In the event that we already have a class with the given type an exception will be raised.</p>
 
-<p>If the :class passed is a <a href="../String.html">String</a> then we will
-delay instantiation till the first time someone asks for the plugin, this
-is because most likely the registration gets done by inherited() hooks, at
-which point the plugin class is not final.</p>
+<p>If the :class passed is a <a href="../String.html"><code>String</code></a> then we will delay instantiation till the first time someone asks for the plugin, this is because most likely the registration gets done by inherited() hooks, at which point the plugin class is not final.</p>
 
-<p>If we were to do a .new here the Class initialize method would get called
-and not the plugins, we there for only initialize the classes when they get
-requested via []</p>
+<p>If we were to do a .new here the Class initialize method would get called and not the plugins, we there for only initialize the classes when they get requested via []</p>
 
-<p>By default all plugin instances are cached and returned later so there’s
-always a single instance.  You can pass :single_instance =&gt; false when
-calling this to instruct it to always return a new instance when a copy is
-requested.  This only works with sending a <a
-href="../String.html">String</a> for :class.</p>
+<p>By default all plugin instances are cached and returned later so there&#39;s always a single instance.  You can pass :single_instance =&gt; false when calling this to instruct it to always return a new instance when a copy is requested.  This only works with sending a <a href="../String.html"><code>String</code></a> for :class.</p>
           
           
 
           
           <div class="method-source-code" id="3C-3C-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">&lt;&lt;</span>(<span class="ruby-identifier">plugin</span>)
-  <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>] = <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:single_instance</span>)
-
-  <span class="ruby-identifier">type</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:type</span>]
-  <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:class</span>]
-  <span class="ruby-identifier">single</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>]
-
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-
-
-  <span class="ruby-comment"># If we get a string then store 'nil' as the instance, signalling that we'll</span>
-  <span class="ruby-comment"># create the class later on demand.</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">single</span>}
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass} single_instance: #{single}&quot;</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class</span>, <span class="ruby-value">:instance</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:single</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass.class} single_instance: true&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">30</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">&lt;&lt;</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">31</span>   <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>] = <span class="ruby-keyword">true</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:single_instance</span>)
+<span class="line-num">32</span> 
+<span class="line-num">33</span>   <span class="ruby-identifier">type</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:type</span>]
+<span class="line-num">34</span>   <span class="ruby-identifier">klass</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:class</span>]
+<span class="line-num">35</span>   <span class="ruby-identifier">single</span> = <span class="ruby-identifier">plugin</span>[<span class="ruby-value">:single_instance</span>]
+<span class="line-num">36</span> 
+<span class="line-num">37</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Plugin #{type} already loaded&quot;</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+<span class="line-num">38</span> 
+<span class="line-num">39</span> 
+<span class="line-num">40</span>   <span class="ruby-comment"># If we get a string then store &#39;nil&#39; as the instance, signalling that we&#39;ll</span>
+<span class="line-num">41</span>   <span class="ruby-comment"># create the class later on demand.</span>
+<span class="line-num">42</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+<span class="line-num">43</span>     <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:instance</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:single</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">single</span>}
+<span class="line-num">44</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass} single_instance: #{single}&quot;</span>)
+<span class="line-num">45</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">46</span>     <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">type</span>] = {<span class="ruby-value">:loadtime</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>, <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">class</span>, <span class="ruby-value">:instance</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">klass</span>, <span class="ruby-value">:single</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>}
+<span class="line-num">47</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Registering plugin #{type} with class #{klass.class} single_instance: true&quot;</span>)
+<span class="line-num">48</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">49</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -219,27 +210,27 @@ href="../String.html">String</a> for :class.</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 72</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-operator">[]</span>(<span class="ruby-identifier">plugin</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin #{plugin} defined&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-
-  <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:class</span>]
-
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:single</span>]
-    <span class="ruby-comment"># Create an instance of the class if one hasn't been done before</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
-      <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning cached plugin #{plugin} with class #{klass}&quot;</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>]
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
-    <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">72</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">73</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin #{plugin} defined&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">74</span> 
+<span class="line-num">75</span>   <span class="ruby-identifier">klass</span> = <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:class</span>]
+<span class="line-num">76</span> 
+<span class="line-num">77</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:single</span>]
+<span class="line-num">78</span>     <span class="ruby-comment"># Create an instance of the class if one hasn&#39;t been done before</span>
+<span class="line-num">79</span>     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] <span class="ruby-operator">==</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">80</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+<span class="line-num">81</span>       <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>] = <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">82</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">83</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning cached plugin #{plugin} with class #{klass}&quot;</span>)
+<span class="line-num">84</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">85</span> 
+<span class="line-num">86</span>     <span class="ruby-ivar">@plugins</span>[<span class="ruby-identifier">plugin</span>][<span class="ruby-value">:instance</span>]
+<span class="line-num">87</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">88</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Returning new plugin #{plugin} with class #{klass}&quot;</span>)
+<span class="line-num">89</span>     <span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">90</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">91</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -269,10 +260,10 @@ href="../String.html">String</a> for :class.</p>
 
           
           <div class="method-source-code" id="clear-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 67</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">clear</span>
-  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">clear</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">67</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">clear</span>
+<span class="line-num">68</span>   <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">clear</span>
+<span class="line-num">69</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -302,14 +293,14 @@ href="../String.html">String</a> for :class.</p>
 
           
           <div class="method-source-code" id="create_instance-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 94</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">create_instance</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{klass}.new&quot;</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not create instance of plugin #{klass}: #{e}&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num"> 94</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">create_instance</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num"> 95</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num"> 96</span>     <span class="ruby-identifier">eval</span>(<span class="ruby-node">&quot;#{klass}.new&quot;</span>)
+<span class="line-num"> 97</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num"> 98</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not create instance of plugin #{klass}: #{e}&quot;</span>)
+<span class="line-num"> 99</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">100</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -339,10 +330,10 @@ href="../String.html">String</a> for :class.</p>
 
           
           <div class="method-source-code" id="delete-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 52</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>)
-  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">52</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">delete</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">53</span>   <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">plugin</span>) <span class="ruby-keyword">if</span> <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">54</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -357,7 +348,7 @@ href="../String.html">String</a> for :class.</p>
         
         <div class="method-heading">
           <span class="method-name">find</span><span
-            class="method-args">(type, extension="rb")</span>
+            class="method-args">(type, extension=&quot;rb&quot;)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -381,30 +372,29 @@ href="../String.html">String</a> for :class.</p>
 <pre class="ruby"><span class="ruby-identifier">find</span>(<span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-string">&quot;ddl&quot;</span>)
 </pre>
 
-<p>Will return the same list but only of files with extension .ddl in the
-agent subdirectory</p>
+<p>Will return the same list but only of files with extension .ddl in the agent subdirectory</p>
           
           
 
           
           <div class="method-source-code" id="find-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 116</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
-  <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
-
-  <span class="ruby-identifier">plugins</span> = []
-
-  <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">plugdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_s</span>])
-    <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">plugdir</span>)
-
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-node">/#{extension}$/</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">plugins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">extension</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">116</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
+<span class="line-num">117</span>   <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
+<span class="line-num">118</span> 
+<span class="line-num">119</span>   <span class="ruby-identifier">plugins</span> = []
+<span class="line-num">120</span> 
+<span class="line-num">121</span>   <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+<span class="line-num">122</span>     <span class="ruby-identifier">plugdir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>([<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">to_s</span>])
+<span class="line-num">123</span>     <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">plugdir</span>)
+<span class="line-num">124</span> 
+<span class="line-num">125</span>     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugdir</span>).<span class="ruby-identifier">grep</span>(<span class="ruby-regexp">/#{extension}$/</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+<span class="line-num">126</span>       <span class="ruby-identifier">plugins</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">extension</span>)
+<span class="line-num">127</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">128</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">129</span> 
+<span class="line-num">130</span>   <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>
+<span class="line-num">131</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -419,7 +409,7 @@ agent subdirectory</p>
         
         <div class="method-heading">
           <span class="method-name">find_and_load</span><span
-            class="method-args">(type, extension="rb") { |plugin| ... }</span>
+            class="method-args">(type, extension=&quot;rb&quot;) { |plugin| ... }</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -428,14 +418,12 @@ agent subdirectory</p>
 
         <div class="method-description">
           
-          <p>Finds and loads from disk all plugins from all libdirs that match certain
-criteria.</p>
+          <p>Finds and loads from disk all plugins from all libdirs that match certain criteria.</p>
 
 <pre class="ruby"><span class="ruby-identifier">find_and_load</span>(<span class="ruby-string">&quot;pluginpackager&quot;</span>)
 </pre>
 
-<p>Will find all .rb files in the libdir/mcollective/pluginpackager/ directory
-in all libdirs and load them from disk.</p>
+<p>Will find all .rb files in the libdir/mcollective/pluginpackager/ directory in all libdirs and load them from disk.</p>
 
 <p>You can influence what plugins get loaded using a block notation:</p>
 
@@ -450,20 +438,20 @@ in all libdirs and load them from disk.</p>
 
           
           <div class="method-source-code" id="find_and_load-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 148</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">find_and_load</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
-  <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
-
-  <span class="ruby-identifier">klasses</span> = <span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-      <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">plugin</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-string">&quot;%s::%s::%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;MCollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">capitalize</span> ]
-  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">compact</span>
-
-  <span class="ruby-identifier">klasses</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-keyword">true</span>)}
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">148</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">find_and_load</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>=<span class="ruby-string">&quot;rb&quot;</span>)
+<span class="line-num">149</span>   <span class="ruby-identifier">extension</span> = <span class="ruby-node">&quot;.#{extension}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">extension</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^\./</span>)
+<span class="line-num">150</span> 
+<span class="line-num">151</span>   <span class="ruby-identifier">klasses</span> = <span class="ruby-identifier">find</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">extension</span>).<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin</span><span class="ruby-operator">|</span>
+<span class="line-num">152</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">153</span>       <span class="ruby-keyword">next</span> <span class="ruby-keyword">unless</span> <span class="ruby-keyword">yield</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">154</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">155</span> 
+<span class="line-num">156</span>     <span class="ruby-string">&quot;%s::%s::%s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;MCollective&quot;</span>, <span class="ruby-identifier">type</span>.<span class="ruby-identifier">capitalize</span>, <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">capitalize</span> ]
+<span class="line-num">157</span>   <span class="ruby-keyword">end</span>.<span class="ruby-identifier">compact</span>
+<span class="line-num">158</span> 
+<span class="line-num">159</span>   <span class="ruby-identifier">klasses</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">uniq</span>.<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">klass</span><span class="ruby-operator">|</span> <span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-keyword">true</span>)}
+<span class="line-num">160</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -487,16 +475,16 @@ in all libdirs and load them from disk.</p>
 
         <div class="method-description">
           
-          <p>Grep’s over the plugin list and returns the list found</p>
+          <p>Grep&#39;s over the plugin list and returns the list found</p>
           
           
 
           
           <div class="method-source-code" id="grep-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 176</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
-  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">176</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">grep</span>(<span class="ruby-identifier">regex</span>)
+<span class="line-num">177</span>   <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">regex</span>)
+<span class="line-num">178</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -526,10 +514,10 @@ in all libdirs and load them from disk.</p>
 
           
           <div class="method-source-code" id="include-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 57</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">57</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">58</span>   <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">plugin</span>)
+<span class="line-num">59</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -553,24 +541,23 @@ in all libdirs and load them from disk.</p>
 
         <div class="method-description">
           
-          <p>Loads a class from file by doing some simple search/replace on class names
-and then doing a require.</p>
+          <p>Loads a class from file by doing some simple search/replace on class names and then doing a require.</p>
           
           
 
           
           <div class="method-source-code" id="loadclass-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 164</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">squash_failures</span>=<span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">fname</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;::&quot;</span>, <span class="ruby-string">&quot;/&quot;</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.rb&quot;</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Loading #{klass} from #{fname}&quot;</span>)
-
-  <span class="ruby-identifier">load</span> <span class="ruby-identifier">fname</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load #{klass}: #{e}&quot;</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">squash_failures</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">164</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">loadclass</span>(<span class="ruby-identifier">klass</span>, <span class="ruby-identifier">squash_failures</span>=<span class="ruby-keyword">false</span>)
+<span class="line-num">165</span>   <span class="ruby-identifier">fname</span> = <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;::&quot;</span>, <span class="ruby-string">&quot;/&quot;</span>).<span class="ruby-identifier">downcase</span> <span class="ruby-operator">+</span> <span class="ruby-string">&quot;.rb&quot;</span>
+<span class="line-num">166</span> 
+<span class="line-num">167</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Loading #{klass} from #{fname}&quot;</span>)
+<span class="line-num">168</span> 
+<span class="line-num">169</span>   <span class="ruby-identifier">load</span> <span class="ruby-identifier">fname</span>
+<span class="line-num">170</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">171</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load #{klass}: #{e}&quot;</span>)
+<span class="line-num">172</span>   <span class="ruby-identifier">raise</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">squash_failures</span>
+<span class="line-num">173</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -600,10 +587,10 @@ and then doing a require.</p>
 
           
           <div class="method-source-code" id="pluginlist-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginmanager.rb, line 62</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">pluginlist</span>
-  <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginmanager.rb</span>
+<span class="line-num">62</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">pluginlist</span>
+<span class="line-num">63</span>   <span class="ruby-ivar">@plugins</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>
+<span class="line-num">64</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -621,8 +608,8 @@ and then doing a require.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

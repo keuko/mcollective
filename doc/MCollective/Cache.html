@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module MCollective::Cache - mcollective version 2.12.1</title>
+<title>module MCollective::Cache - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -92,14 +96,9 @@
 
   <section class="description">
     
-<p>A class to manage a number of named caches.  Each cache can have a unique
-timeout for keys in it and each cache has an independent Mutex protecting
-access to it.</p>
+<p>A class to manage a number of named caches.  Each cache can have a unique timeout for keys in it and each cache has an independent Mutex protecting access to it.</p>
 
-<p>This cache is setup early in the process of loading the mcollective
-libraries, before any threads are created etc making it suitable as a cross
-thread cache or just a store for Mutexes you need to use across threads
-like in an <a href="Agent.html">Agent</a> or something.</p>
+<p>This cache is setup early in the process of loading the mcollective libraries, before any threads are created etc making it suitable as a cross thread cache or just a store for Mutexes you need to use across threads like in an <a href="Agent.html"><code>Agent</code></a> or something.</p>
 
 <pre># sets up a new cache, noop if it already exist
 Cache.setup(:ddl, 600)
@@ -137,8 +136,6 @@ end</pre>
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -174,17 +171,17 @@ end</pre>
 
           
           <div class="method-source-code" id="delete-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 74</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">delete!</span>(<span class="ruby-identifier">cache_name</span>)
-  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-    <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
-    <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">74</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">delete!</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">75</span>   <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">76</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">77</span> 
+<span class="line-num">78</span>     <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">79</span>     <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">80</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">81</span> 
+<span class="line-num">82</span>   <span class="ruby-keyword">true</span>
+<span class="line-num">83</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -214,12 +211,12 @@ end</pre>
 
           
           <div class="method-source-code" id="has_cache-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 68</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">has_cache?</span>(<span class="ruby-identifier">cache_name</span>)
-  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">68</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">has_cache?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">69</span>   <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">70</span>     <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">71</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">72</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -249,16 +246,16 @@ end</pre>
 
           
           <div class="method-source-code" id="invalidate-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 135</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">invalidate!</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">135</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">invalidate!</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+<span class="line-num">136</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">137</span> 
+<span class="line-num">138</span>   <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">139</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">140</span> 
+<span class="line-num">141</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">142</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">143</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -288,21 +285,21 @@ end</pre>
 
           
           <div class="method-source-code" id="read-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 97</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache expired on '%s' key '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
-    <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cache for item '%s' on cache '%s' has expired&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache hit on '%s' key '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
-
-  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>]
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num"> 97</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">read</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+<span class="line-num"> 98</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num"> 99</span> 
+<span class="line-num">100</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>) <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">101</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache expired on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+<span class="line-num">102</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Cache for item &#39;%s&#39; on cache &#39;%s&#39; has expired&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
+<span class="line-num">103</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">104</span> 
+<span class="line-num">105</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache hit on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+<span class="line-num">106</span> 
+<span class="line-num">107</span>   <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">108</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>]
+<span class="line-num">109</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">110</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -332,20 +329,20 @@ end</pre>
 
           
           <div class="method-source-code" id="setup-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 54</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">setup</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">300</span>)
-  <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-    <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>] = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
-
-    <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-      <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>] = {<span class="ruby-value">:max_age</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Float</span>(<span class="ruby-identifier">ttl</span>)}
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">54</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">setup</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">ttl</span>=<span class="ruby-value">300</span>)
+<span class="line-num">55</span>   <span class="ruby-ivar">@locks_mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">56</span>     <span class="ruby-keyword">break</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@cache_locks</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">57</span> 
+<span class="line-num">58</span>     <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>] = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">59</span> 
+<span class="line-num">60</span>     <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">61</span>       <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>] = {<span class="ruby-value">:max_age</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Float</span>(<span class="ruby-identifier">ttl</span>)}
+<span class="line-num">62</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">63</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">64</span> 
+<span class="line-num">65</span>   <span class="ruby-keyword">true</span>
+<span class="line-num">66</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -375,16 +372,16 @@ end</pre>
 
           
           <div class="method-source-code" id="synchronize-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 125</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">synchronize</span>(<span class="ruby-identifier">cache_name</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-  <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;No block supplied to synchronize&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">yield</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">125</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">synchronize</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">126</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">127</span> 
+<span class="line-num">128</span>   <span class="ruby-identifier">raise</span> (<span class="ruby-string">&quot;No block supplied to synchronize&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">129</span> 
+<span class="line-num">130</span>   <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">131</span>     <span class="ruby-keyword">yield</span>
+<span class="line-num">132</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">133</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -414,19 +411,19 @@ end</pre>
 
           
           <div class="method-source-code" id="ttl-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 112</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache miss on '%s' key '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
-      <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No item called '%s' for cache '%s'&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-value">:max_age</span>] <span class="ruby-operator">-</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">112</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">ttl</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>)
+<span class="line-num">113</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">114</span> 
+<span class="line-num">115</span>   <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">116</span>     <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">117</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Cache miss on &#39;%s&#39; key &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>])
+<span class="line-num">118</span>       <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No item called &#39;%s&#39; for cache &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">key</span>, <span class="ruby-identifier">cache_name</span>])
+<span class="line-num">119</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">120</span> 
+<span class="line-num">121</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-value">:max_age</span>] <span class="ruby-operator">-</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>])
+<span class="line-num">122</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">123</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -456,18 +453,18 @@ end</pre>
 
           
           <div class="method-source-code" id="write-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/cache.rb, line 85</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">write</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
-
-  <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>] <span class="ruby-operator">||=</span> {}
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-    <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>] = <span class="ruby-identifier">value</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">value</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/cache.rb</span>
+<span class="line-num">85</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">write</span>(<span class="ruby-identifier">cache_name</span>, <span class="ruby-identifier">key</span>, <span class="ruby-identifier">value</span>)
+<span class="line-num">86</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;No cache called &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cache_name</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@cache</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cache_name</span>)
+<span class="line-num">87</span> 
+<span class="line-num">88</span>   <span class="ruby-ivar">@cache_locks</span>[<span class="ruby-identifier">cache_name</span>].<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">89</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>] <span class="ruby-operator">||=</span> {}
+<span class="line-num">90</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:cache_create_time</span>] = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+<span class="line-num">91</span>     <span class="ruby-ivar">@cache</span>[<span class="ruby-identifier">cache_name</span>][<span class="ruby-identifier">key</span>][<span class="ruby-value">:value</span>] = <span class="ruby-identifier">value</span>
+<span class="line-num">92</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">93</span> 
+<span class="line-num">94</span>   <span class="ruby-identifier">value</span>
+<span class="line-num">95</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -485,8 +482,8 @@ end</pre>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

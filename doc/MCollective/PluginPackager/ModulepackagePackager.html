@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::PluginPackager::ModulepackagePackager - mcollective version 2.12.1</title>
+<title>class MCollective::PluginPackager::ModulepackagePackager - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -90,8 +94,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -127,15 +129,15 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/modulepackage_packager.rb, line 6</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">assert_new_enough_puppet</span>
-  <span class="ruby-ivar">@plugin</span> = <span class="ruby-identifier">plugin</span>
-  <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}_#{@plugin.metadata[:name]}&quot;</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/-/</span>, <span class="ruby-string">'_'</span>)
-  <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
-  <span class="ruby-ivar">@keep_artifacts</span> = <span class="ruby-identifier">keep_artifacts</span>
-  <span class="ruby-ivar">@module_template</span> = <span class="ruby-identifier">module_template</span> <span class="ruby-operator">||</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">'templates'</span>, <span class="ruby-string">'module'</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/modulepackage_packager.rb</span>
+<span class="line-num"> 6</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
+<span class="line-num"> 7</span>   <span class="ruby-identifier">assert_new_enough_puppet</span>
+<span class="line-num"> 8</span>   <span class="ruby-ivar">@plugin</span> = <span class="ruby-identifier">plugin</span>
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@package_name</span> = <span class="ruby-node">&quot;#{@plugin.mcname}_#{@plugin.metadata[:name]}&quot;</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/-/</span>, <span class="ruby-string">&#39;_&#39;</span>)
+<span class="line-num">10</span>   <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
+<span class="line-num">11</span>   <span class="ruby-ivar">@keep_artifacts</span> = <span class="ruby-identifier">keep_artifacts</span>
+<span class="line-num">12</span>   <span class="ruby-ivar">@module_template</span> = <span class="ruby-identifier">module_template</span> <span class="ruby-operator">||</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&#39;templates&#39;</span>, <span class="ruby-string">&#39;module&#39;</span>)
+<span class="line-num">13</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -171,7 +173,7 @@
 <ul><li>
 <p>create module directory</p>
 </li><li>
-<p>run ‘puppet module build’</p>
+<p>run &#39;puppet module build&#39;</p>
 </li><li>
 <p>move generated package back to cwd</p>
 </li></ul>
@@ -180,26 +182,26 @@
 
           
           <div class="method-source-code" id="create_packages-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/modulepackage_packager.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_packages</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Building module for #{@package_name} plugin.&quot;</span>
-
-    <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">'mcollective_packager'</span>)
-    <span class="ruby-identifier">make_module</span>
-    <span class="ruby-identifier">run_build</span>
-    <span class="ruby-identifier">move_package</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Completed building module for #{@package_name} plugin.&quot;</span>
-  <span class="ruby-keyword">ensure</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-ivar">@keep_artifacts</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">'Keeping build artifacts'</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Build artifacts saved - #{@tmpdir}&quot;</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">cleanup_tmpdirs</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/modulepackage_packager.rb</span>
+<span class="line-num">19</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_packages</span>
+<span class="line-num">20</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">21</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Building module for #{@package_name} plugin.&quot;</span>
+<span class="line-num">22</span> 
+<span class="line-num">23</span>     <span class="ruby-ivar">@tmpdir</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mktmpdir</span>(<span class="ruby-string">&#39;mcollective_packager&#39;</span>)
+<span class="line-num">24</span>     <span class="ruby-identifier">make_module</span>
+<span class="line-num">25</span>     <span class="ruby-identifier">run_build</span>
+<span class="line-num">26</span>     <span class="ruby-identifier">move_package</span>
+<span class="line-num">27</span> 
+<span class="line-num">28</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Completed building module for #{@package_name} plugin.&quot;</span>
+<span class="line-num">29</span>   <span class="ruby-keyword">ensure</span>
+<span class="line-num">30</span>     <span class="ruby-keyword">if</span> <span class="ruby-ivar">@keep_artifacts</span>
+<span class="line-num">31</span>       <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Keeping build artifacts&#39;</span>
+<span class="line-num">32</span>       <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Build artifacts saved - #{@tmpdir}&quot;</span>
+<span class="line-num">33</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">34</span>       <span class="ruby-identifier">cleanup_tmpdirs</span>
+<span class="line-num">35</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">36</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">37</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -217,8 +219,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

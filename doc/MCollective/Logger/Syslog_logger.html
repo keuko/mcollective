@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Logger::Syslog_logger - mcollective version 2.12.1</title>
+<title>class MCollective::Logger::Syslog_logger - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -109,8 +113,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -146,16 +148,16 @@
 
           
           <div class="method-source-code" id="log-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@known_levels</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">level</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@known_levels</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@active_level</span>)
-    <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>), <span class="ruby-node">&quot;#{from} #{msg}&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span>
-  <span class="ruby-comment"># if this fails we probably cant show the user output at all,</span>
-  <span class="ruby-comment"># STDERR it as last resort</span>
-  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb</span>
+<span class="line-num">42</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
+<span class="line-num">43</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@known_levels</span>.<span class="ruby-identifier">index</span>(<span class="ruby-identifier">level</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-ivar">@known_levels</span>.<span class="ruby-identifier">index</span>(<span class="ruby-ivar">@active_level</span>)
+<span class="line-num">44</span>     <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">send</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>), <span class="ruby-node">&quot;#{from} #{msg}&quot;</span>)
+<span class="line-num">45</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">46</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">47</span>   <span class="ruby-comment"># if this fails we probably cant show the user output at all,</span>
+<span class="line-num">48</span>   <span class="ruby-comment"># STDERR it as last resort</span>
+<span class="line-num">49</span>   <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
+<span class="line-num">50</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -185,10 +187,10 @@
 
           
           <div class="method-source-code" id="set_logging_level-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb, line 30</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_logging_level</span>(<span class="ruby-identifier">level</span>)
-  <span class="ruby-comment"># noop</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb</span>
+<span class="line-num">30</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">set_logging_level</span>(<span class="ruby-identifier">level</span>)
+<span class="line-num">31</span>   <span class="ruby-comment"># noop</span>
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -218,18 +220,18 @@
 
           
           <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-
-  <span class="ruby-identifier">facility</span> = <span class="ruby-identifier">syslog_facility</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfacility</span>)
-  <span class="ruby-identifier">level</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>
-
-  <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">opened?</span>
-  <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">$0</span>), <span class="ruby-value">3</span>, <span class="ruby-identifier">facility</span>)
-
-  <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">level</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb</span>
+<span class="line-num"> 9</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start</span>
+<span class="line-num">10</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">11</span> 
+<span class="line-num">12</span>   <span class="ruby-identifier">facility</span> = <span class="ruby-identifier">syslog_facility</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfacility</span>)
+<span class="line-num">13</span>   <span class="ruby-identifier">level</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>
+<span class="line-num">14</span> 
+<span class="line-num">15</span>   <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">close</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">opened?</span>
+<span class="line-num">16</span>   <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">$0</span>), <span class="ruby-value">3</span>, <span class="ruby-identifier">facility</span>)
+<span class="line-num">17</span> 
+<span class="line-num">18</span>   <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">level</span>)
+<span class="line-num">19</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -259,15 +261,15 @@
 
           
           <div class="method-source-code" id="syslog_facility-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">syslog_facility</span>(<span class="ruby-identifier">facility</span>)
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;LOG_#{facility.upcase}&quot;</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Invalid syslog facility #{facility} supplied, reverting to USER&quot;</span>
-    <span class="ruby-constant">Syslog</span><span class="ruby-operator">::</span><span class="ruby-constant">LOG_USER</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb</span>
+<span class="line-num">21</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">syslog_facility</span>(<span class="ruby-identifier">facility</span>)
+<span class="line-num">22</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">23</span>     <span class="ruby-constant">Syslog</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-node">&quot;LOG_#{facility.upcase}&quot;</span>)
+<span class="line-num">24</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">25</span>     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Invalid syslog facility #{facility} supplied, reverting to USER&quot;</span>
+<span class="line-num">26</span>     <span class="ruby-constant">Syslog</span><span class="ruby-operator">::</span><span class="ruby-constant">LOG_USER</span>
+<span class="line-num">27</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">28</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -297,14 +299,14 @@
 
           
           <div class="method-source-code" id="valid_levels-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">valid_levels</span>
-  {<span class="ruby-value">:info</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:info</span>,
-   <span class="ruby-value">:warn</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:warning</span>,
-   <span class="ruby-value">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:debug</span>,
-   <span class="ruby-value">:fatal</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:crit</span>,
-   <span class="ruby-value">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:err</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/syslog_logger.rb</span>
+<span class="line-num">34</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">valid_levels</span>
+<span class="line-num">35</span>   {<span class="ruby-value">:info</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:info</span>,
+<span class="line-num">36</span>    <span class="ruby-value">:warn</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:warning</span>,
+<span class="line-num">37</span>    <span class="ruby-value">:debug</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:debug</span>,
+<span class="line-num">38</span>    <span class="ruby-value">:fatal</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:crit</span>,
+<span class="line-num">39</span>    <span class="ruby-value">:error</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:err</span>}
+<span class="line-num">40</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -322,8 +324,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

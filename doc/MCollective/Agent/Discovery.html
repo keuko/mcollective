@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Agent::Discovery - mcollective version 2.12.1</title>
+<title>class MCollective::Agent::Discovery - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -87,14 +91,12 @@
 
   <section class="description">
     
-<p><a href="Discovery.html">Discovery</a> agent for The Marionette Collective</p>
+<p><a href="Discovery.html"><code>Discovery</code></a> agent for The Marionette Collective</p>
 
 <p>Released under the Apache License, Version 2</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -165,19 +167,19 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agent/discovery.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>
-
-  <span class="ruby-ivar">@timeout</span> = <span class="ruby-value">5</span>
-  <span class="ruby-ivar">@meta</span> = {<span class="ruby-value">:license</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Apache License, Version 2&quot;</span>,
-           <span class="ruby-value">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;R.I.Pienaar &lt;rip@devco.net&gt;&quot;</span>,
-           <span class="ruby-value">:timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@timeout</span>,
-           <span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Discovery Agent&quot;</span>,
-           <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">MCollective</span>.<span class="ruby-identifier">version</span>,
-           <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;https://docs.puppetlabs.com/mcollective/&quot;</span>,
-           <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;MCollective Discovery Agent&quot;</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agent/discovery.rb</span>
+<span class="line-num"> 9</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+<span class="line-num">10</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>
+<span class="line-num">11</span> 
+<span class="line-num">12</span>   <span class="ruby-ivar">@timeout</span> = <span class="ruby-value">5</span>
+<span class="line-num">13</span>   <span class="ruby-ivar">@meta</span> = {<span class="ruby-value">:license</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Apache License, Version 2&quot;</span>,
+<span class="line-num">14</span>            <span class="ruby-value">:author</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;R.I.Pienaar &lt;rip@devco.net&gt;&quot;</span>,
+<span class="line-num">15</span>            <span class="ruby-value">:timeout</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@timeout</span>,
+<span class="line-num">16</span>            <span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Discovery Agent&quot;</span>,
+<span class="line-num">17</span>            <span class="ruby-value">:version</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">MCollective</span>.<span class="ruby-identifier">version</span>,
+<span class="line-num">18</span>            <span class="ruby-value">:url</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;https://docs.puppetlabs.com/mcollective/&quot;</span>,
+<span class="line-num">19</span>            <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;MCollective Discovery Agent&quot;</span>}
+<span class="line-num">20</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -215,20 +217,20 @@
 
           
           <div class="method-source-code" id="handlemsg-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/agent/discovery.rb, line 22</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">handlemsg</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">stomp</span>)
-  <span class="ruby-identifier">reply</span> = <span class="ruby-string">&quot;unknown request&quot;</span>
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>]
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;ping&quot;</span>
-      <span class="ruby-identifier">reply</span> = <span class="ruby-string">&quot;pong&quot;</span>
-
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">reply</span> = <span class="ruby-node">&quot;Unknown Request: #{msg[:body]}&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">reply</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/agent/discovery.rb</span>
+<span class="line-num">22</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">handlemsg</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">stomp</span>)
+<span class="line-num">23</span>   <span class="ruby-identifier">reply</span> = <span class="ruby-string">&quot;unknown request&quot;</span>
+<span class="line-num">24</span> 
+<span class="line-num">25</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>]
+<span class="line-num">26</span>     <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;ping&quot;</span>
+<span class="line-num">27</span>       <span class="ruby-identifier">reply</span> = <span class="ruby-string">&quot;pong&quot;</span>
+<span class="line-num">28</span> 
+<span class="line-num">29</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">30</span>       <span class="ruby-identifier">reply</span> = <span class="ruby-node">&quot;Unknown Request: #{msg[:body]}&quot;</span>
+<span class="line-num">31</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">32</span> 
+<span class="line-num">33</span>   <span class="ruby-identifier">reply</span>
+<span class="line-num">34</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -246,8 +248,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

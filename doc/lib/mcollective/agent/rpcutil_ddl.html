@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>rpcutil.ddl - mcollective version 2.12.1</title>
+<title>rpcutil.ddl - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
 </script>
 
-<script src="../../../js/jquery.js"></script>
-<script src="../../../js/darkfish.js"></script>
+<script src="../../../js/navigation.js" defer></script>
+<script src="../../../js/search.js" defer></script>
+<script src="../../../js/search_index.js" defer></script>
+<script src="../../../js/searcher.js" defer></script>
+<script src="../../../js/darkfish.js" defer></script>
 
 <link href="../../../css/fonts.css" rel="stylesheet">
 <link href="../../../css/rdoc.css" rel="stylesheet">
@@ -64,6 +68,8 @@
   
     <li><a href="../../../Gemfile.html">Gemfile</a>
   
+    <li><a href="../../../Gemfile_lock.html">Gemfile.lock</a>
+  
     <li><a href="../../../MAINTAINERS.html">MAINTAINERS</a>
   
     <li><a href="../../../README_md.html">README</a>
@@ -71,6 +77,8 @@
     <li><a href="../../../Rakefile.html">Rakefile</a>
   
     <li><a href="../../../acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="../../../acceptance/Gemfile_lock.html">Gemfile.lock</a>
   
     <li><a href="../../../acceptance/README_md.html">README</a>
   
@@ -265,21 +273,20 @@
 :url         =&gt; &quot;https://docs.puppetlabs.com/mcollective/&quot;,
 :timeout     =&gt; 10</pre>
 
-<p>action “collective_info”, :description =&gt; “Info about the main and sub
-collectives” do</p>
+<p>action “collective_info”, :description =&gt; “Info about the main and sub collectives” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">main_collective</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The main Collective&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Main Collective&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:main_collective</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The main Collective&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Main Collective&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">collectives</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:collectives</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>
 
 <span class="ruby-identifier">summarize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">collectives</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:collectives</span>)
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -287,191 +294,186 @@ collectives” do</p>
 
 <p>action “inventory”, :description =&gt; “System Inventory” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">agents</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of agent names&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:agents</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of agent names&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">facts</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of facts and values&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Facts&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:facts</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of facts and values&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Facts&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">classes</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of classes on the system&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Classes&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:classes</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of classes on the system&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Classes&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">version</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;MCollective Version&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Version&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:version</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;MCollective Version&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Version&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">main_collective</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The main Collective&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Main Collective&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:main_collective</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The main Collective&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Main Collective&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">collectives</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:collectives</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;All Collectives&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">data_plugins</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of data plugin names&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Data Plugins&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:data_plugins</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of data plugin names&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Data Plugins&quot;</span>
 </pre>
 
 <p>end</p>
 
-<p>action “get_fact”, :description =&gt; “Retrieve a single fact from the fact
-store” do</p>
+<p>action “get_fact”, :description =&gt; “Retrieve a single fact from the fact store” do</p>
 
-<pre class="ruby"> <span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"> <span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
- <span class="ruby-identifier">input</span> :<span class="ruby-identifier">fact</span>,
-       :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
-       :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-       :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^[\w\-\.]+$'</span>,
-       :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-       :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">40</span>
+ <span class="ruby-identifier">input</span> <span class="ruby-value">:fact</span>,
+       <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The name of the fact&quot;</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The fact to retrieve&quot;</span>,
+       <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+       <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^[\w\-\.]+$&#39;</span>,
+       <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+       <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">40</span>
 
- <span class="ruby-identifier">output</span> :<span class="ruby-identifier">fact</span>,
-        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The name of the fact being returned&quot;</span>,
-        :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Fact&quot;</span>
+ <span class="ruby-identifier">output</span> <span class="ruby-value">:fact</span>,
+        <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The name of the fact being returned&quot;</span>,
+        <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Fact&quot;</span>
 
- <span class="ruby-identifier">output</span> :<span class="ruby-identifier">value</span>,
-        :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The value of the fact&quot;</span>,
-        :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>
+ <span class="ruby-identifier">output</span> <span class="ruby-value">:value</span>,
+        <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The value of the fact&quot;</span>,
+        <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>
 
 <span class="ruby-identifier">summarize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">value</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:value</span>)
 <span class="ruby-keyword">end</span>
 </pre>
 
 <p>end</p>
 
-<p>action “get_facts”, :description =&gt; “Retrieve multiple facts from the
-fact store” do</p>
+<p>action “get_facts”, :description =&gt; “Retrieve multiple facts from the fact store” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">input</span> :<span class="ruby-identifier">facts</span>,
-      :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Comma-separated list of facts&quot;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Facts to retrieve&quot;</span>,
-      :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^\s*[\w\.\-]+(\s*,\s*[\w\.\-]+)*$'</span>,
-      :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-      :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>
+<span class="ruby-identifier">input</span> <span class="ruby-value">:facts</span>,
+      <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Comma-separated list of facts&quot;</span>,
+      <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Facts to retrieve&quot;</span>,
+      <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+      <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^\s*[\w\.\-]+(\s*,\s*[\w\.\-]+)*$&#39;</span>,
+      <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+      <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">200</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">values</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of values of the facts&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Values&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:values</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of values of the facts&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Values&quot;</span>
 </pre>
 
 <p>end</p>
 
-<p>action “daemon_stats”, :description =&gt; “Get statistics from the running
-daemon” do</p>
+<p>action “daemon_stats”, :description =&gt; “Get statistics from the running daemon” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">threads</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of threads active in the daemon&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Threads&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:threads</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of threads active in the daemon&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Threads&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">agents</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of agents loaded&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:agents</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of agents loaded&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">pid</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Process ID of the daemon&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;PID&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:pid</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Process ID of the daemon&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;PID&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">times</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Processor time consumed by the daemon&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Times&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:times</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Processor time consumed by the daemon&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Times&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">validated</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Messages that passed security validation&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Security Validated&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:validated</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Messages that passed security validation&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Security Validated&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">unvalidated</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Messages that failed security validation&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Failed Security&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:unvalidated</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Messages that failed security validation&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Failed Security&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">passed</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Passed filter checks&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Passed Filter&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:passed</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Passed filter checks&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Passed Filter&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">filtered</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Didn't pass filter checks&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Failed Filter&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:filtered</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Didn&#39;t pass filter checks&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Failed Filter&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">starttime</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Time the server started&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Start Time&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:starttime</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Time the server started&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Start Time&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">total</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Total messages received&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Total Messages&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:total</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Total messages received&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Total Messages&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">replies</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Replies sent back to clients&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Replies&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:replies</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Replies sent back to clients&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Replies&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">configfile</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Config file used to start the daemon&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Config File&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:configfile</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Config file used to start the daemon&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Config File&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">version</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;MCollective Version&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Version&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:version</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;MCollective Version&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Version&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">ttlexpired</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Messages that did pass TTL checks&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;TTL Expired&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:ttlexpired</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Messages that did pass TTL checks&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;TTL Expired&quot;</span>
 
 <span class="ruby-identifier">summarize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">version</span>)
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">agents</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:version</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:agents</span>)
 <span class="ruby-keyword">end</span>
 </pre>
 
 <p>end</p>
 
-<p>action “agent_inventory”, :description =&gt; “Inventory of all agents on
-the server” do</p>
+<p>action “agent_inventory”, :description =&gt; “Inventory of all agents on the server” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">agents</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;List of agents on the server&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:agents</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;List of agents on the server&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Agents&quot;</span>
 </pre>
 
 <p>end</p>
 
-<p>action “get_config_item”, :description =&gt; “Get the active value of a
-specific config property” do</p>
+<p>action “get_config_item”, :description =&gt; “Get the active value of a specific config property” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">input</span> :<span class="ruby-identifier">item</span>,
-      :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Configuration Item&quot;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The item to retrieve from the server&quot;</span>,
-      :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^.+$'</span>,
-      :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-      :<span class="ruby-identifier">maxlength</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-value">50</span>
+<span class="ruby-identifier">input</span> <span class="ruby-value">:item</span>,
+      <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Configuration Item&quot;</span>,
+      <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The item to retrieve from the server&quot;</span>,
+      <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+      <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^.+$&#39;</span>,
+      <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+      <span class="ruby-value">:maxlength</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-value">50</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">item</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The config property being retrieved&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Property&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:item</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The config property being retrieved&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Property&quot;</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">value</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The value that is in use&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:value</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The value that is in use&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Value&quot;</span>
 
 <span class="ruby-identifier">summarize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(:<span class="ruby-identifier">value</span>)
+    <span class="ruby-identifier">aggregate</span> <span class="ruby-identifier">summary</span>(<span class="ruby-value">:value</span>)
 <span class="ruby-keyword">end</span>
 </pre>
 
@@ -479,35 +481,34 @@ specific config property” do</p>
 
 <p>action “get_data”, :description =&gt; “Get data from a data plugin” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">input</span> :<span class="ruby-identifier">source</span>,
-      :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Data Source&quot;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The data plugin to retrieve information from&quot;</span>,
-      :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^\w+$'</span>,
-      :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>,
-      :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">50</span>
+<span class="ruby-identifier">input</span> <span class="ruby-value">:source</span>,
+      <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Data Source&quot;</span>,
+      <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The data plugin to retrieve information from&quot;</span>,
+      <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+      <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^\w+$&#39;</span>,
+      <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>,
+      <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">50</span>
 
-<span class="ruby-identifier">input</span> :<span class="ruby-identifier">query</span>,
-      :<span class="ruby-identifier">prompt</span>      =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Query&quot;</span>,
-      :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The query argument to supply to the data plugin&quot;</span>,
-      :<span class="ruby-identifier">type</span>        =<span class="ruby-operator">&gt;</span> :<span class="ruby-identifier">string</span>,
-      :<span class="ruby-identifier">validation</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">'^.+$'</span>,
-      :<span class="ruby-identifier">optional</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>,
-      :<span class="ruby-identifier">maxlength</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-value">200</span>
+<span class="ruby-identifier">input</span> <span class="ruby-value">:query</span>,
+      <span class="ruby-value">:prompt</span>      <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Query&quot;</span>,
+      <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The query argument to supply to the data plugin&quot;</span>,
+      <span class="ruby-value">:type</span>        <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:string</span>,
+      <span class="ruby-value">:validation</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&#39;^.+$&#39;</span>,
+      <span class="ruby-value">:optional</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>,
+      <span class="ruby-value">:maxlength</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-value">200</span>
 </pre>
 
 <p>end</p>
 
-<p>action “ping”, :description =&gt; “Responds to requests for PING with PONG”
-do</p>
+<p>action “ping”, :description =&gt; “Responds to requests for PING with PONG” do</p>
 
-<pre class="ruby"><span class="ruby-identifier">display</span> :<span class="ruby-identifier">always</span>
+<pre class="ruby"><span class="ruby-identifier">display</span> <span class="ruby-value">:always</span>
 
-<span class="ruby-identifier">output</span> :<span class="ruby-identifier">pong</span>,
-       :<span class="ruby-identifier">description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;The local timestamp&quot;</span>,
-       :<span class="ruby-identifier">display_as</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;Timestamp&quot;</span>
+<span class="ruby-identifier">output</span> <span class="ruby-value">:pong</span>,
+       <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;The local timestamp&quot;</span>,
+       <span class="ruby-value">:display_as</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;Timestamp&quot;</span>
 </pre>
 
 <p>end</p>
@@ -516,8 +517,8 @@ do</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

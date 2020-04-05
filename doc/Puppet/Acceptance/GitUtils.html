@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>module Puppet::Acceptance::GitUtils - mcollective version 2.12.1</title>
+<title>module Puppet::Acceptance::GitUtils - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -83,8 +87,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -120,15 +122,15 @@
 
           
           <div class="method-source-code" id="build_giturl-source">
-            <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/git_utils.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">build_giturl</span>(<span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">git_fork</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">git_server</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">git_fork</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">lookup_in_env</span>(<span class="ruby-string">'FORK'</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-string">'puppetlabs'</span>)
-  <span class="ruby-identifier">git_server</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">lookup_in_env</span>(<span class="ruby-string">'GIT_SERVER'</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-string">'github.com'</span>)
-  <span class="ruby-identifier">repo</span> = (<span class="ruby-identifier">git_server</span> <span class="ruby-operator">==</span> <span class="ruby-string">'github.com'</span>) <span class="ruby-operator">?</span>
-    <span class="ruby-node">&quot;#{git_fork}/#{project_name}.git&quot;</span> <span class="ruby-operator">:</span>
-    <span class="ruby-node">&quot;#{git_fork}-#{project_name}.git&quot;</span>
-  <span class="ruby-node">&quot;git://#{git_server}/#{repo}&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File acceptance/lib/puppet/acceptance/git_utils.rb</span>
+<span class="line-num"> 9</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">build_giturl</span>(<span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">git_fork</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">git_server</span> = <span class="ruby-keyword">nil</span>)
+<span class="line-num">10</span>   <span class="ruby-identifier">git_fork</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">lookup_in_env</span>(<span class="ruby-string">&#39;FORK&#39;</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-string">&#39;puppetlabs&#39;</span>)
+<span class="line-num">11</span>   <span class="ruby-identifier">git_server</span> <span class="ruby-operator">||=</span> <span class="ruby-identifier">lookup_in_env</span>(<span class="ruby-string">&#39;GIT_SERVER&#39;</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-string">&#39;github.com&#39;</span>)
+<span class="line-num">12</span>   <span class="ruby-identifier">repo</span> = (<span class="ruby-identifier">git_server</span> <span class="ruby-operator">==</span> <span class="ruby-string">&#39;github.com&#39;</span>) <span class="ruby-operator">?</span>
+<span class="line-num">13</span>     <span class="ruby-node">&quot;#{git_fork}/#{project_name}.git&quot;</span> <span class="ruby-operator">:</span>
+<span class="line-num">14</span>     <span class="ruby-node">&quot;#{git_fork}-#{project_name}.git&quot;</span>
+<span class="line-num">15</span>   <span class="ruby-node">&quot;git://#{git_server}/#{repo}&quot;</span>
+<span class="line-num">16</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -158,11 +160,11 @@
 
           
           <div class="method-source-code" id="lookup_in_env-source">
-            <pre><span class="ruby-comment"># File acceptance/lib/puppet/acceptance/git_utils.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">lookup_in_env</span>(<span class="ruby-identifier">env_variable_name</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">default</span>)
-  <span class="ruby-identifier">project_specific_name</span> = <span class="ruby-node">&quot;#{project_name.upcase.gsub(&quot;-&quot;,&quot;_&quot;)}_#{env_variable_name}&quot;</span>
-  <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">project_specific_name</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">env_variable_name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">default</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>  <span class="ruby-comment"># File acceptance/lib/puppet/acceptance/git_utils.rb</span>
+<span class="line-num">4</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">lookup_in_env</span>(<span class="ruby-identifier">env_variable_name</span>, <span class="ruby-identifier">project_name</span>, <span class="ruby-identifier">default</span>)
+<span class="line-num">5</span>   <span class="ruby-identifier">project_specific_name</span> = <span class="ruby-node">&quot;#{project_name.upcase.gsub(&quot;-&quot;,&quot;_&quot;)}_#{env_variable_name}&quot;</span>
+<span class="line-num">6</span>   <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">project_specific_name</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">env_variable_name</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">default</span>
+<span class="line-num">7</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -180,8 +182,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

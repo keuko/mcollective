@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Optionparser - mcollective version 2.12.1</title>
+<title>class MCollective::Optionparser - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -93,13 +97,10 @@
 
   <section class="description">
     
-<p>A simple helper to build cli tools that supports a uniform command line
-layout.</p>
+<p>A simple helper to build cli tools that supports a uniform command line layout.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -151,13 +152,11 @@ layout.</p>
 
         <div class="method-description">
           
-          <p>Creates a new instance of the parser, you can supply defaults and include
-named groups of options.</p>
+          <p>Creates a new instance of the parser, you can supply defaults and include named groups of options.</p>
 
-<p>Starts a parser that defaults to verbose and that includs the filter
-options:</p>
+<p>Starts a parser that defaults to verbose and that includs the filter options:</p>
 
-<pre class="ruby"><span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({:<span class="ruby-identifier">verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
+<pre class="ruby"><span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>)
 </pre>
 
 <p>Stats a parser in non verbose mode that does support discovery</p>
@@ -167,24 +166,24 @@ options:</p>
 
 <p>Starts a parser in verbose mode that does not show the common options:</p>
 
-<pre class="ruby"><span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({:<span class="ruby-identifier">verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>, <span class="ruby-string">&quot;common&quot;</span>)
+<pre class="ruby"><span class="ruby-identifier">oparser</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Optionparser</span>.<span class="ruby-identifier">new</span>({<span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>}, <span class="ruby-string">&quot;filter&quot;</span>, <span class="ruby-string">&quot;common&quot;</span>)
 </pre>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/optionparser.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">defaults</span> = {}, <span class="ruby-identifier">include_sections</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">exclude_sections</span> = <span class="ruby-keyword">nil</span>)
-  <span class="ruby-ivar">@parser</span> = <span class="ruby-operator">::</span><span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>
-
-  <span class="ruby-ivar">@include</span> = [<span class="ruby-identifier">include_sections</span>].<span class="ruby-identifier">flatten</span>
-  <span class="ruby-ivar">@exclude</span> = [<span class="ruby-identifier">exclude_sections</span>].<span class="ruby-identifier">flatten</span>
-
-  <span class="ruby-ivar">@options</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">default_options</span>
-
-  <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">defaults</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/optionparser.rb</span>
+<span class="line-num">20</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">defaults</span> = {}, <span class="ruby-identifier">include_sections</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">exclude_sections</span> = <span class="ruby-keyword">nil</span>)
+<span class="line-num">21</span>   <span class="ruby-ivar">@parser</span> = <span class="ruby-operator">::</span><span class="ruby-constant">OptionParser</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">22</span> 
+<span class="line-num">23</span>   <span class="ruby-ivar">@include</span> = [<span class="ruby-identifier">include_sections</span>].<span class="ruby-identifier">flatten</span>
+<span class="line-num">24</span>   <span class="ruby-ivar">@exclude</span> = [<span class="ruby-identifier">exclude_sections</span>].<span class="ruby-identifier">flatten</span>
+<span class="line-num">25</span> 
+<span class="line-num">26</span>   <span class="ruby-ivar">@options</span> = <span class="ruby-constant">Util</span>.<span class="ruby-identifier">default_options</span>
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-ivar">@options</span>.<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">defaults</span>)
+<span class="line-num">29</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -222,68 +221,68 @@ options:</p>
 
           
           <div class="method-source-code" id="add_common_options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/optionparser.rb, line 128</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_common_options</span>
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;Common Options&quot;</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-T'</span>, <span class="ruby-string">'--target COLLECTIVE'</span>, <span class="ruby-string">'Target messages to a specific sub collective'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>] = <span class="ruby-identifier">f</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--dt'</span>, <span class="ruby-string">'--discovery-timeout SECONDS'</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">'Timeout for doing discovery'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:disctimeout</span>] = <span class="ruby-identifier">t</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-t'</span>, <span class="ruby-string">'--timeout SECONDS'</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">'Timeout for calling remote agents'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-identifier">t</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-q'</span>, <span class="ruby-string">'--quiet'</span>, <span class="ruby-string">'Do not be verbose'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] = <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--ttl TTL'</span>, <span class="ruby-string">'Set the message validity period'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:ttl</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_i</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--reply-to TARGET'</span>, <span class="ruby-string">'Set a custom target for replies'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:reply_to</span>] = <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--dm'</span>, <span class="ruby-string">'--disc-method METHOD'</span>, <span class="ruby-string">'Which discovery method to use'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery method is already set by a competing option&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">v</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] = <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--do'</span>, <span class="ruby-string">'--disc-option OPTION'</span>, <span class="ruby-string">'Options to pass to the discovery method'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--nodes FILE&quot;</span>, <span class="ruby-string">&quot;List of nodes to address&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot mix --disc-method, --disc-option and --nodes&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot read the discovery file #{v}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">v</span>)
-
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] = <span class="ruby-string">&quot;flatfile&quot;</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--publish_timeout TIMEOUT&quot;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&quot;Timeout for publishing requests to remote agents.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pt</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:publish_timeout</span>] = <span class="ruby-identifier">pt</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--threaded&quot;</span>, <span class="ruby-string">&quot;Start publishing requests and receiving responses in threaded mode.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:threaded</span>] = <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--sort&quot;</span>, <span class="ruby-string">&quot;Sort the output of an RPC call before processing.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:sort</span>] = <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--connection-timeout TIMEOUT&quot;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&quot;Set the timeout for establishing a connection to the middleware&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:connection_timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">v</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/optionparser.rb</span>
+<span class="line-num">128</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_common_options</span>
+<span class="line-num">129</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">130</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;Common Options&quot;</span>
+<span class="line-num">131</span> 
+<span class="line-num">132</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-T&#39;</span>, <span class="ruby-string">&#39;--target COLLECTIVE&#39;</span>, <span class="ruby-string">&#39;Target messages to a specific sub collective&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">133</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>] = <span class="ruby-identifier">f</span>
+<span class="line-num">134</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">135</span> 
+<span class="line-num">136</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--dt&#39;</span>, <span class="ruby-string">&#39;--discovery-timeout SECONDS&#39;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&#39;Timeout for doing discovery&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+<span class="line-num">137</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:disctimeout</span>] = <span class="ruby-identifier">t</span>
+<span class="line-num">138</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">139</span> 
+<span class="line-num">140</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-t&#39;</span>, <span class="ruby-string">&#39;--timeout SECONDS&#39;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&#39;Timeout for calling remote agents&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span>
+<span class="line-num">141</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-identifier">t</span>
+<span class="line-num">142</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">143</span> 
+<span class="line-num">144</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-q&#39;</span>, <span class="ruby-string">&#39;--quiet&#39;</span>, <span class="ruby-string">&#39;Do not be verbose&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">145</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] = <span class="ruby-keyword">false</span>
+<span class="line-num">146</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">147</span> 
+<span class="line-num">148</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--ttl TTL&#39;</span>, <span class="ruby-string">&#39;Set the message validity period&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">149</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:ttl</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num">150</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">151</span> 
+<span class="line-num">152</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--reply-to TARGET&#39;</span>, <span class="ruby-string">&#39;Set a custom target for replies&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">153</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:reply_to</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">154</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">155</span> 
+<span class="line-num">156</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--dm&#39;</span>, <span class="ruby-string">&#39;--disc-method METHOD&#39;</span>, <span class="ruby-string">&#39;Which discovery method to use&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">157</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery method is already set by a competing option&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">v</span>
+<span class="line-num">158</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">159</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">160</span> 
+<span class="line-num">161</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--do&#39;</span>, <span class="ruby-string">&#39;--disc-option OPTION&#39;</span>, <span class="ruby-string">&#39;Options to pass to the discovery method&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+<span class="line-num">162</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
+<span class="line-num">163</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">164</span> 
+<span class="line-num">165</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--nodes FILE&quot;</span>, <span class="ruby-string">&quot;List of nodes to address&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">166</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot mix --disc-method, --disc-option and --nodes&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">167</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot read the discovery file #{v}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">v</span>)
+<span class="line-num">168</span> 
+<span class="line-num">169</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_method</span>] = <span class="ruby-string">&quot;flatfile&quot;</span>
+<span class="line-num">170</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:discovery_options</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">v</span>
+<span class="line-num">171</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">172</span> 
+<span class="line-num">173</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--publish_timeout TIMEOUT&quot;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&quot;Timeout for publishing requests to remote agents.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">pt</span><span class="ruby-operator">|</span>
+<span class="line-num">174</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:publish_timeout</span>] = <span class="ruby-identifier">pt</span>
+<span class="line-num">175</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">176</span> 
+<span class="line-num">177</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--threaded&quot;</span>, <span class="ruby-string">&quot;Start publishing requests and receiving responses in threaded mode.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">178</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:threaded</span>] = <span class="ruby-keyword">true</span>
+<span class="line-num">179</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">180</span> 
+<span class="line-num">181</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--sort&quot;</span>, <span class="ruby-string">&quot;Sort the output of an RPC call before processing.&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">182</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:sort</span>] = <span class="ruby-keyword">true</span>
+<span class="line-num">183</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">184</span> 
+<span class="line-num">185</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&quot;--connection-timeout TIMEOUT&quot;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&quot;Set the timeout for establishing a connection to the middleware&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">186</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:connection_timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">v</span>)
+<span class="line-num">187</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">188</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -307,51 +306,50 @@ options:</p>
 
         <div class="method-description">
           
-          <p>These options will be added if you pass ‘filter’ into the include list of
-the constructor.</p>
+          <p>These options will be added if you pass &#39;filter&#39; into the include list of the constructor.</p>
           
           
 
           
           <div class="method-source-code" id="add_filter_options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/optionparser.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_filter_options</span>
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;Host Filters&quot;</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-W'</span>, <span class="ruby-string">'--with FILTER'</span>, <span class="ruby-string">'Combined classes and facts filter'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">f</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">begin</span>
-        <span class="ruby-identifier">fact_parsed</span> = <span class="ruby-identifier">parse_fact</span>(<span class="ruby-identifier">filter</span>)
-        <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fact_parsed</span>
-      <span class="ruby-keyword">rescue</span>
-        <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">filter</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-S'</span>, <span class="ruby-string">'--select FILTER'</span>, <span class="ruby-string">'Compound filter combining facts and classes'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Matcher</span>.<span class="ruby-identifier">create_compound_callstack</span>(<span class="ruby-identifier">f</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-F'</span>, <span class="ruby-string">'--wf'</span>, <span class="ruby-string">'--with-fact fact=val'</span>, <span class="ruby-string">'Match hosts with a certain fact'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">fact_parsed</span> = <span class="ruby-identifier">parse_fact</span>(<span class="ruby-identifier">f</span>)
-
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fact_parsed</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact_parsed</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-C'</span>, <span class="ruby-string">'--wc'</span>, <span class="ruby-string">'--with-class CLASS'</span>, <span class="ruby-string">'Match hosts with a certain config management class'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">f</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-A'</span>, <span class="ruby-string">'--wa'</span>, <span class="ruby-string">'--with-agent AGENT'</span>, <span class="ruby-string">'Match hosts with a certain agent'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-I'</span>, <span class="ruby-string">'--wi'</span>, <span class="ruby-string">'--with-identity IDENT'</span>, <span class="ruby-string">'Match hosts with a certain configured identity'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;identity&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/optionparser.rb</span>
+<span class="line-num"> 73</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_filter_options</span>
+<span class="line-num"> 74</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num"> 75</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;Host Filters&quot;</span>
+<span class="line-num"> 76</span> 
+<span class="line-num"> 77</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-W&#39;</span>, <span class="ruby-string">&#39;--with FILTER&#39;</span>, <span class="ruby-string">&#39;Combined classes and facts filter&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num"> 78</span>     <span class="ruby-identifier">f</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">filter</span><span class="ruby-operator">|</span>
+<span class="line-num"> 79</span>       <span class="ruby-keyword">begin</span>
+<span class="line-num"> 80</span>         <span class="ruby-identifier">fact_parsed</span> = <span class="ruby-identifier">parse_fact</span>(<span class="ruby-identifier">filter</span>)
+<span class="line-num"> 81</span>         <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fact_parsed</span>
+<span class="line-num"> 82</span>       <span class="ruby-keyword">rescue</span>
+<span class="line-num"> 83</span>         <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">filter</span>
+<span class="line-num"> 84</span>       <span class="ruby-keyword">end</span>
+<span class="line-num"> 85</span>     <span class="ruby-keyword">end</span>
+<span class="line-num"> 86</span>   <span class="ruby-keyword">end</span>
+<span class="line-num"> 87</span> 
+<span class="line-num"> 88</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-S&#39;</span>, <span class="ruby-string">&#39;--select FILTER&#39;</span>, <span class="ruby-string">&#39;Compound filter combining facts and classes&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num"> 89</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;compound&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-constant">Matcher</span>.<span class="ruby-identifier">create_compound_callstack</span>(<span class="ruby-identifier">f</span>)
+<span class="line-num"> 90</span>   <span class="ruby-keyword">end</span>
+<span class="line-num"> 91</span> 
+<span class="line-num"> 92</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-F&#39;</span>, <span class="ruby-string">&#39;--wf&#39;</span>, <span class="ruby-string">&#39;--with-fact fact=val&#39;</span>, <span class="ruby-string">&#39;Match hosts with a certain fact&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num"> 93</span>     <span class="ruby-identifier">fact_parsed</span> = <span class="ruby-identifier">parse_fact</span>(<span class="ruby-identifier">f</span>)
+<span class="line-num"> 94</span> 
+<span class="line-num"> 95</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;fact&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">fact_parsed</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact_parsed</span>
+<span class="line-num"> 96</span>   <span class="ruby-keyword">end</span>
+<span class="line-num"> 97</span> 
+<span class="line-num"> 98</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-C&#39;</span>, <span class="ruby-string">&#39;--wc&#39;</span>, <span class="ruby-string">&#39;--with-class CLASS&#39;</span>, <span class="ruby-string">&#39;Match hosts with a certain config management class&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num"> 99</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;cf_class&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">f</span>
+<span class="line-num">100</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">101</span> 
+<span class="line-num">102</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-A&#39;</span>, <span class="ruby-string">&#39;--wa&#39;</span>, <span class="ruby-string">&#39;--with-agent AGENT&#39;</span>, <span class="ruby-string">&#39;Match hosts with a certain agent&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+<span class="line-num">103</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;agent&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
+<span class="line-num">104</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">105</span> 
+<span class="line-num">106</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-I&#39;</span>, <span class="ruby-string">&#39;--wi&#39;</span>, <span class="ruby-string">&#39;--with-identity IDENT&#39;</span>, <span class="ruby-string">&#39;Match hosts with a certain configured identity&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">a</span><span class="ruby-operator">|</span>
+<span class="line-num">107</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:filter</span>][<span class="ruby-string">&quot;identity&quot;</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">a</span>
+<span class="line-num">108</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">109</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -381,21 +379,21 @@ the constructor.</p>
 
           
           <div class="method-source-code" id="add_required_options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/optionparser.rb, line 112</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">add_required_options</span>
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-c'</span>, <span class="ruby-string">'--config FILE'</span>, <span class="ruby-string">'Load configuration from file rather than default'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:config</span>] = <span class="ruby-identifier">f</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-v'</span>, <span class="ruby-string">'--verbose'</span>, <span class="ruby-string">'Be verbose'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] = <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'-h'</span>, <span class="ruby-string">'--help'</span>, <span class="ruby-string">'Display this screen'</span>) <span class="ruby-keyword">do</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@parser</span>
-    <span class="ruby-identifier">exit!</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/optionparser.rb</span>
+<span class="line-num">112</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">add_required_options</span>
+<span class="line-num">113</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-c&#39;</span>, <span class="ruby-string">&#39;--config FILE&#39;</span>, <span class="ruby-string">&#39;Load configuration from file rather than default&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">114</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:config</span>] = <span class="ruby-identifier">f</span>
+<span class="line-num">115</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">116</span> 
+<span class="line-num">117</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-v&#39;</span>, <span class="ruby-string">&#39;--verbose&#39;</span>, <span class="ruby-string">&#39;Be verbose&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">118</span>     <span class="ruby-ivar">@options</span>[<span class="ruby-value">:verbose</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">119</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">120</span> 
+<span class="line-num">121</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;-h&#39;</span>, <span class="ruby-string">&#39;--help&#39;</span>, <span class="ruby-string">&#39;Display this screen&#39;</span>) <span class="ruby-keyword">do</span>
+<span class="line-num">122</span>     <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@parser</span>
+<span class="line-num">123</span>     <span class="ruby-identifier">exit!</span> <span class="ruby-value">1</span>
+<span class="line-num">124</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">125</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -419,53 +417,49 @@ the constructor.</p>
 
         <div class="method-description">
           
-          <p>Parse the options returning the options, you can pass a block that adds
-additional options to the <a href="Optionparser.html">Optionparser</a>.</p>
+          <p>Parse the options returning the options, you can pass a block that adds additional options to the <a href="Optionparser.html"><code>Optionparser</code></a>.</p>
 
-<p>The sample below starts a parser that also prompts for –arguments in
-addition to the defaults. It also sets the description and shows a usage
-message specific to this app.</p>
+<p>The sample below starts a parser that also prompts for –arguments in addition to the defaults. It also sets the description and shows a usage message specific to this app.</p>
 
 <pre class="ruby"><span class="ruby-identifier">options</span> = <span class="ruby-identifier">oparser</span>.<span class="ruby-identifier">parse</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span><span class="ruby-operator">|</span>
      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">define_head</span> <span class="ruby-string">&quot;Control the mcollective controller daemon&quot;</span>
      <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">banner</span> = <span class="ruby-string">&quot;Usage: sh-mcollective [options] command&quot;</span>
 
-     <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--arg'</span>, <span class="ruby-string">'--argument ARGUMENT'</span>, <span class="ruby-string">'Argument to pass to agent'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-         <span class="ruby-identifier">options</span>[:<span class="ruby-identifier">argument</span>] = <span class="ruby-identifier">v</span>
+     <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--arg&#39;</span>, <span class="ruby-string">&#39;--argument ARGUMENT&#39;</span>, <span class="ruby-string">&#39;Argument to pass to agent&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+         <span class="ruby-identifier">options</span>[<span class="ruby-value">:argument</span>] = <span class="ruby-identifier">v</span>
      <span class="ruby-keyword">end</span>
 }
 </pre>
 
-<p>Users can set default options that get parsed in using the
-MCOLLECTIVE_EXTRA_OPTS environemnt variable</p>
+<p>Users can set default options that get parsed in using the MCOLLECTIVE_EXTRA_OPTS environemnt variable</p>
           
           
 
           
           <div class="method-source-code" id="parse-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/optionparser.rb, line 48</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">parse</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-keyword">yield</span>(<span class="ruby-ivar">@parser</span>, <span class="ruby-ivar">@options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-identifier">add_required_options</span>
-
-  <span class="ruby-identifier">add_common_options</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exclude</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;common&quot;</span>)
-
-  <span class="ruby-ivar">@include</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@exclude</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">i</span>)
-
-    <span class="ruby-identifier">options_name</span> = <span class="ruby-node">&quot;add_#{i}_options&quot;</span>
-    <span class="ruby-identifier">send</span>(<span class="ruby-identifier">options_name</span>)  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">options_name</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">environment</span>(<span class="ruby-string">&quot;MCOLLECTIVE_EXTRA_OPTS&quot;</span>)
-
-  <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">parse!</span>
-
-  <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">main_collective</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>]
-
-  <span class="ruby-ivar">@options</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/optionparser.rb</span>
+<span class="line-num">48</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">parse</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">49</span>   <span class="ruby-keyword">yield</span>(<span class="ruby-ivar">@parser</span>, <span class="ruby-ivar">@options</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">50</span> 
+<span class="line-num">51</span>   <span class="ruby-identifier">add_required_options</span>
+<span class="line-num">52</span> 
+<span class="line-num">53</span>   <span class="ruby-identifier">add_common_options</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@exclude</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;common&quot;</span>)
+<span class="line-num">54</span> 
+<span class="line-num">55</span>   <span class="ruby-ivar">@include</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">56</span>     <span class="ruby-keyword">next</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@exclude</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">i</span>)
+<span class="line-num">57</span> 
+<span class="line-num">58</span>     <span class="ruby-identifier">options_name</span> = <span class="ruby-node">&quot;add_#{i}_options&quot;</span>
+<span class="line-num">59</span>     <span class="ruby-identifier">send</span>(<span class="ruby-identifier">options_name</span>)  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-identifier">options_name</span>)
+<span class="line-num">60</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">61</span> 
+<span class="line-num">62</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">environment</span>(<span class="ruby-string">&quot;MCOLLECTIVE_EXTRA_OPTS&quot;</span>)
+<span class="line-num">63</span> 
+<span class="line-num">64</span>   <span class="ruby-ivar">@parser</span>.<span class="ruby-identifier">parse!</span>
+<span class="line-num">65</span> 
+<span class="line-num">66</span>   <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">main_collective</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@options</span>[<span class="ruby-value">:collective</span>]
+<span class="line-num">67</span> 
+<span class="line-num">68</span>   <span class="ruby-ivar">@options</span>
+<span class="line-num">69</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -483,8 +477,8 @@ MCOLLECTIVE_EXTRA_OPTS environemnt variable</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

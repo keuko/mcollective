@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Facts::Base - mcollective version 2.12.1</title>
+<title>class MCollective::Facts::Base - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -95,18 +99,14 @@
 
   <section class="description">
     
-<p>A base class for fact providers, to make a new fully functional fact
-provider inherit from this and simply provide a self.get_facts method that
-returns a hash like:</p>
+<p>A base class for fact providers, to make a new fully functional fact provider inherit from this and simply provide a self.get_facts method that returns a hash like:</p>
 
-<pre class="ruby">{<span class="ruby-string">&quot;foo&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;bar&quot;</span>,
- <span class="ruby-string">&quot;bar&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;baz&quot;</span>}
+<pre class="ruby">{<span class="ruby-string">&quot;foo&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;bar&quot;</span>,
+ <span class="ruby-string">&quot;bar&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;baz&quot;</span>}
 </pre>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -143,10 +143,10 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="inherited-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 18</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">inherited</span>(<span class="ruby-identifier">klass</span>)
-  <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;facts_plugin&quot;</span>, <span class="ruby-value">:class</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">18</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">inherited</span>(<span class="ruby-identifier">klass</span>)
+<span class="line-num">19</span>   <span class="ruby-constant">PluginManager</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;facts_plugin&quot;</span>, <span class="ruby-value">:class</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">klass</span>.<span class="ruby-identifier">to_s</span>}
+<span class="line-num">20</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -176,13 +176,13 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 10</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-ivar">@facts</span> = {}
-  <span class="ruby-ivar">@last_good_facts</span> = {}
-  <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-value">0</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">10</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+<span class="line-num">11</span>   <span class="ruby-ivar">@mutex</span> = <span class="ruby-constant">Mutex</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">12</span>   <span class="ruby-ivar">@facts</span> = {}
+<span class="line-num">13</span>   <span class="ruby-ivar">@last_good_facts</span> = {}
+<span class="line-num">14</span>   <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-value">0</span>
+<span class="line-num">15</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -220,10 +220,10 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="force_reload-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 78</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">force_reload?</span>
-  <span class="ruby-keyword">false</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">78</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">force_reload?</span>
+<span class="line-num">79</span>   <span class="ruby-keyword">false</span>
+<span class="line-num">80</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -253,50 +253,50 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="get_fact-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 23</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_fact</span>(<span class="ruby-identifier">fact</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-
-  <span class="ruby-identifier">cache_time</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">fact_cache_time</span> <span class="ruby-operator">||</span> <span class="ruby-value">300</span>
-
-  <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-keyword">if</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@last_facts_load</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cache_time</span>.<span class="ruby-identifier">to_i</span> ) <span class="ruby-operator">||</span> <span class="ruby-identifier">force_reload?</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Resetting facter cache, now: #{Time.now.to_i} last-known-good: #{@last_facts_load}&quot;</span>)
-
-        <span class="ruby-identifier">tfacts</span> = <span class="ruby-identifier">load_facts_from_source</span>
-
-        <span class="ruby-comment"># Force reset to last known good state on empty facts</span>
-        <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Got empty facts&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tfacts</span>.<span class="ruby-identifier">empty?</span>
-
-        <span class="ruby-ivar">@facts</span> = <span class="ruby-identifier">normalize_facts</span>(<span class="ruby-identifier">tfacts</span>)
-
-        <span class="ruby-ivar">@last_good_facts</span> = <span class="ruby-ivar">@facts</span>.<span class="ruby-identifier">clone</span>
-        <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Using cached facts now: #{Time.now.to_i} last-known-good: #{@last_facts_load}&quot;</span>)
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load facts: #{e.class}: #{e}&quot;</span>)
-
-      <span class="ruby-comment"># Avoid loops where failing fact loads cause huge CPU</span>
-      <span class="ruby-comment"># loops, this way it only retries once every cache_time</span>
-      <span class="ruby-comment"># seconds</span>
-      <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
-
-      <span class="ruby-comment"># Revert to last known good state</span>
-      <span class="ruby-ivar">@facts</span> = <span class="ruby-ivar">@last_good_facts</span>.<span class="ruby-identifier">clone</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-
-  <span class="ruby-comment"># If you do not supply a specific fact all facts will be returned</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">nil?</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-ivar">@facts</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-ivar">@facts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">fact</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@facts</span>[<span class="ruby-identifier">fact</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">23</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_fact</span>(<span class="ruby-identifier">fact</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">24</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">25</span> 
+<span class="line-num">26</span>   <span class="ruby-identifier">cache_time</span> = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">fact_cache_time</span> <span class="ruby-operator">||</span> <span class="ruby-value">300</span>
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-ivar">@mutex</span>.<span class="ruby-identifier">synchronize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">29</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">30</span>       <span class="ruby-keyword">if</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">-</span> <span class="ruby-ivar">@last_facts_load</span> <span class="ruby-operator">&gt;</span> <span class="ruby-identifier">cache_time</span>.<span class="ruby-identifier">to_i</span> ) <span class="ruby-operator">||</span> <span class="ruby-identifier">force_reload?</span>
+<span class="line-num">31</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Resetting facter cache, now: #{Time.now.to_i} last-known-good: #{@last_facts_load}&quot;</span>)
+<span class="line-num">32</span> 
+<span class="line-num">33</span>         <span class="ruby-identifier">tfacts</span> = <span class="ruby-identifier">load_facts_from_source</span>
+<span class="line-num">34</span> 
+<span class="line-num">35</span>         <span class="ruby-comment"># Force reset to last known good state on empty facts</span>
+<span class="line-num">36</span>         <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Got empty facts&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tfacts</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">37</span> 
+<span class="line-num">38</span>         <span class="ruby-ivar">@facts</span> = <span class="ruby-identifier">normalize_facts</span>(<span class="ruby-identifier">tfacts</span>)
+<span class="line-num">39</span> 
+<span class="line-num">40</span>         <span class="ruby-ivar">@last_good_facts</span> = <span class="ruby-ivar">@facts</span>.<span class="ruby-identifier">clone</span>
+<span class="line-num">41</span>         <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num">42</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">43</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Using cached facts now: #{Time.now.to_i} last-known-good: #{@last_facts_load}&quot;</span>)
+<span class="line-num">44</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">45</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">46</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to load facts: #{e.class}: #{e}&quot;</span>)
+<span class="line-num">47</span> 
+<span class="line-num">48</span>       <span class="ruby-comment"># Avoid loops where failing fact loads cause huge CPU</span>
+<span class="line-num">49</span>       <span class="ruby-comment"># loops, this way it only retries once every cache_time</span>
+<span class="line-num">50</span>       <span class="ruby-comment"># seconds</span>
+<span class="line-num">51</span>       <span class="ruby-ivar">@last_facts_load</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num">52</span> 
+<span class="line-num">53</span>       <span class="ruby-comment"># Revert to last known good state</span>
+<span class="line-num">54</span>       <span class="ruby-ivar">@facts</span> = <span class="ruby-ivar">@last_good_facts</span>.<span class="ruby-identifier">clone</span>
+<span class="line-num">55</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">56</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">57</span> 
+<span class="line-num">58</span> 
+<span class="line-num">59</span>   <span class="ruby-comment"># If you do not supply a specific fact all facts will be returned</span>
+<span class="line-num">60</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">fact</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">61</span>     <span class="ruby-keyword">return</span> <span class="ruby-ivar">@facts</span>
+<span class="line-num">62</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">63</span>     <span class="ruby-ivar">@facts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">fact</span>) <span class="ruby-operator">?</span> <span class="ruby-ivar">@facts</span>[<span class="ruby-identifier">fact</span>] <span class="ruby-operator">:</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">64</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">65</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -326,10 +326,10 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="get_facts-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 68</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_facts</span>
-  <span class="ruby-identifier">get_fact</span>(<span class="ruby-keyword">nil</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">68</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_facts</span>
+<span class="line-num">69</span>   <span class="ruby-identifier">get_fact</span>(<span class="ruby-keyword">nil</span>)
+<span class="line-num">70</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -359,10 +359,10 @@ returns a hash like:</p>
 
           
           <div class="method-source-code" id="has_fact-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/facts/base.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">has_fact?</span>(<span class="ruby-identifier">fact</span>)
-  <span class="ruby-identifier">get_fact</span>(<span class="ruby-keyword">nil</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">fact</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/facts/base.rb</span>
+<span class="line-num">73</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">has_fact?</span>(<span class="ruby-identifier">fact</span>)
+<span class="line-num">74</span>   <span class="ruby-identifier">get_fact</span>(<span class="ruby-keyword">nil</span>).<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">fact</span>)
+<span class="line-num">75</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -380,8 +380,8 @@ returns a hash like:</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
