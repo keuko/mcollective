@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Inventory - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Inventory - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -122,8 +126,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -159,10 +161,10 @@
 
           
           <div class="method-source-code" id="agents-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 219</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">agents</span>
-  <span class="ruby-ivar">@node</span>[<span class="ruby-value">:agents</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">219</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">agents</span>
+<span class="line-num">220</span>   <span class="ruby-ivar">@node</span>[<span class="ruby-value">:agents</span>]
+<span class="line-num">221</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -192,10 +194,10 @@
 
           
           <div class="method-source-code" id="classes-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 215</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">classes</span>
-  <span class="ruby-ivar">@node</span>[<span class="ruby-value">:classes</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">215</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">classes</span>
+<span class="line-num">216</span>   <span class="ruby-ivar">@node</span>[<span class="ruby-value">:classes</span>]
+<span class="line-num">217</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -225,29 +227,29 @@
 
           
           <div class="method-source-code" id="collectives_map-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 55</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">collectives_map</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">graph</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Retrieving collective info....&quot;</span>
-    <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
-
-    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'graph {'</span>
-
-    <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'   subgraph &quot;%s&quot; {'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span> ]
-
-      <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>][<span class="ruby-identifier">collective</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'      &quot;%s&quot; -- &quot;%s&quot;'</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">member</span>, <span class="ruby-identifier">collective</span> ]
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'   }'</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">'}'</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Graph of #{collectives[:total_nodes]} nodes has been written to #{file}&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">55</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collectives_map</span>(<span class="ruby-identifier">file</span>)
+<span class="line-num">56</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">file</span>, <span class="ruby-string">&quot;w&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">graph</span><span class="ruby-operator">|</span>
+<span class="line-num">57</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Retrieving collective info....&quot;</span>
+<span class="line-num">58</span>     <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
+<span class="line-num">59</span> 
+<span class="line-num">60</span>     <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;graph {&#39;</span>
+<span class="line-num">61</span> 
+<span class="line-num">62</span>     <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+<span class="line-num">63</span>       <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;   subgraph &quot;%s&quot; {&#39;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span> ]
+<span class="line-num">64</span> 
+<span class="line-num">65</span>       <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>][<span class="ruby-identifier">collective</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">member</span><span class="ruby-operator">|</span>
+<span class="line-num">66</span>         <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;      &quot;%s&quot; -- &quot;%s&quot;&#39;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">member</span>, <span class="ruby-identifier">collective</span> ]
+<span class="line-num">67</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">68</span> 
+<span class="line-num">69</span>       <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;   }&#39;</span>
+<span class="line-num">70</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">71</span> 
+<span class="line-num">72</span>     <span class="ruby-identifier">graph</span>.<span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;}&#39;</span>
+<span class="line-num">73</span> 
+<span class="line-num">74</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Graph of #{collectives[:total_nodes]} nodes has been written to #{file}&quot;</span>
+<span class="line-num">75</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">76</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -277,21 +279,21 @@
 
           
           <div class="method-source-code" id="collectives_report-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 79</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">collectives_report</span>
-  <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
-
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;Collective&quot;</span>, <span class="ruby-string">&quot;Nodes&quot;</span> ]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;==========&quot;</span>, <span class="ruby-string">&quot;=====&quot;</span> ]
-
-  <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">count</span><span class="ruby-operator">|</span> <span class="ruby-identifier">count</span>.<span class="ruby-identifier">size</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">collective</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">size</span> ]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">puts</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;Total nodes:&quot;</span>, <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:nodes</span>] ]
-  <span class="ruby-identifier">puts</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">79</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">collectives_report</span>
+<span class="line-num">80</span>   <span class="ruby-identifier">collectives</span> = <span class="ruby-identifier">get_collectives</span>
+<span class="line-num">81</span> 
+<span class="line-num">82</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;Collective&quot;</span>, <span class="ruby-string">&quot;Nodes&quot;</span> ]
+<span class="line-num">83</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;==========&quot;</span>, <span class="ruby-string">&quot;=====&quot;</span> ]
+<span class="line-num">84</span> 
+<span class="line-num">85</span>   <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">sort_by</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">key</span>,<span class="ruby-identifier">count</span><span class="ruby-operator">|</span> <span class="ruby-identifier">count</span>.<span class="ruby-identifier">size</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+<span class="line-num">86</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %-30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">collective</span>[<span class="ruby-value">0</span>], <span class="ruby-identifier">collective</span>[<span class="ruby-value">1</span>].<span class="ruby-identifier">size</span> ]
+<span class="line-num">87</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">88</span> 
+<span class="line-num">89</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">90</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   %30s %d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-string">&quot;Total nodes:&quot;</span>, <span class="ruby-identifier">collectives</span>[<span class="ruby-value">:nodes</span>] ]
+<span class="line-num">91</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">92</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -321,10 +323,10 @@
 
           
           <div class="method-source-code" id="facts-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 211</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">facts</span>
-  <span class="ruby-ivar">@node</span>[<span class="ruby-value">:facts</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">211</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">facts</span>
+<span class="line-num">212</span>   <span class="ruby-ivar">@node</span>[<span class="ruby-value">:facts</span>]
+<span class="line-num">213</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -339,7 +341,7 @@
         
         <div class="method-heading">
           <span class="method-name">fields</span><span
-            class="method-args">(&blk)</span>
+            class="method-args">(&amp;blk)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -354,10 +356,10 @@
 
           
           <div class="method-source-code" id="fields-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 203</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fields</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-  <span class="ruby-ivar">@flds</span> = <span class="ruby-identifier">blk</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">203</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fields</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+<span class="line-num">204</span>   <span class="ruby-ivar">@flds</span> = <span class="ruby-identifier">blk</span>
+<span class="line-num">205</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -387,10 +389,10 @@
 
           
           <div class="method-source-code" id="format-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 199</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">format</span>(<span class="ruby-identifier">fmt</span>)
-  <span class="ruby-ivar">@fmt</span> = <span class="ruby-identifier">fmt</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">199</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">format</span>(<span class="ruby-identifier">fmt</span>)
+<span class="line-num">200</span>   <span class="ruby-ivar">@fmt</span> = <span class="ruby-identifier">fmt</span>
+<span class="line-num">201</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -405,7 +407,7 @@
         
         <div class="method-heading">
           <span class="method-name">formatted_inventory</span><span
-            class="method-args">(&blk)</span>
+            class="method-args">(&amp;blk)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -416,30 +418,29 @@
           
           <p>Use the ruby formatr gem to build reports using Perls formats</p>
 
-<p>It is kind of ugly but brings a lot of flexibility in report writing
-without building an entire reporting language.</p>
+<p>It is kind of ugly but brings a lot of flexibility in report writing without building an entire reporting language.</p>
 
 <p>You need to have formatr installed to enable reports like:</p>
 
 <pre class="ruby"><span class="ruby-identifier">formatted_inventory</span> <span class="ruby-keyword">do</span>
     <span class="ruby-identifier">page_length</span> <span class="ruby-value">20</span>
 
-    <span class="ruby-identifier">page_heading</span> <span class="ruby-value">&lt;&lt;TOP
-
+    <span class="ruby-identifier">page_heading</span> <span class="ruby-identifier">&lt;&lt;TOP</span>
+<span class="ruby-value">
             Node Report @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
                         time
 
 Hostname:         Customer:     Distribution:
 -------------------------------------------------------------------------
-TOP</span>
+</span><span class="ruby-identifier">TOP</span>
 
-    <span class="ruby-identifier">page_body</span> <span class="ruby-value">&lt;&lt;BODY
-
+    <span class="ruby-identifier">page_body</span> <span class="ruby-identifier">&lt;&lt;BODY</span>
+<span class="ruby-value">
 @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt; @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
 identity,    facts[&quot;customer&quot;], facts[&quot;lsbdistdescription&quot;]
                                 @&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;&lt;
                                 facts[&quot;processor0&quot;]
-BODY</span>
+</span><span class="ruby-identifier">BODY</span>
 <span class="ruby-keyword">end</span>
 </pre>
           
@@ -447,35 +448,35 @@ BODY</span>
 
           
           <div class="method-source-code" id="formatted_inventory-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 291</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">formatted_inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-  <span class="ruby-identifier">require</span> <span class="ruby-string">'formatr'</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to give a block to formatted_inventory&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define page body format&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@page_body</span>.<span class="ruby-identifier">nil?</span>
-
-  <span class="ruby-identifier">body_fmt</span> = <span class="ruby-constant">FormatR</span><span class="ruby-operator">::</span><span class="ruby-constant">Format</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page_heading</span>, <span class="ruby-ivar">@page_body</span>)
-  <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">setPageLength</span>(<span class="ruby-ivar">@page_length</span>)
-  <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
-
-  <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@node</span> = {<span class="ruby-value">:identity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:sender</span>],
-      <span class="ruby-value">:facts</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:facts</span>],
-      <span class="ruby-value">:classes</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:classes</span>],
-      <span class="ruby-value">:agents</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:agents</span>]}
-
-    <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">printFormat</span>(<span class="ruby-identifier">binding</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not create report: #{e.class}: #{e}&quot;</span>
-  <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">291</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">formatted_inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+<span class="line-num">292</span>   <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;formatr&#39;</span>
+<span class="line-num">293</span> 
+<span class="line-num">294</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to give a block to formatted_inventory&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">295</span> 
+<span class="line-num">296</span>   <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">297</span> 
+<span class="line-num">298</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define page body format&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@page_body</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">299</span> 
+<span class="line-num">300</span>   <span class="ruby-identifier">body_fmt</span> = <span class="ruby-constant">FormatR</span><span class="ruby-operator">::</span><span class="ruby-constant">Format</span>.<span class="ruby-identifier">new</span>(<span class="ruby-ivar">@page_heading</span>, <span class="ruby-ivar">@page_body</span>)
+<span class="line-num">301</span>   <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">setPageLength</span>(<span class="ruby-ivar">@page_length</span>)
+<span class="line-num">302</span>   <span class="ruby-identifier">time</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>
+<span class="line-num">303</span> 
+<span class="line-num">304</span>   <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num">305</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">306</span> 
+<span class="line-num">307</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+<span class="line-num">308</span>     <span class="ruby-ivar">@node</span> = {<span class="ruby-value">:identity</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:sender</span>],
+<span class="line-num">309</span>       <span class="ruby-value">:facts</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:facts</span>],
+<span class="line-num">310</span>       <span class="ruby-value">:classes</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:classes</span>],
+<span class="line-num">311</span>       <span class="ruby-value">:agents</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:agents</span>]}
+<span class="line-num">312</span> 
+<span class="line-num">313</span>     <span class="ruby-identifier">body_fmt</span>.<span class="ruby-identifier">printFormat</span>(<span class="ruby-identifier">binding</span>)
+<span class="line-num">314</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">315</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">316</span>   <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Could not create report: #{e.class}: #{e}&quot;</span>
+<span class="line-num">317</span>   <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+<span class="line-num">318</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -505,31 +506,31 @@ BODY</span>
 
           
           <div class="method-source-code" id="get_collectives-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 29</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_collectives</span>
-  <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">collectives</span> = {}
-  <span class="ruby-identifier">nodes</span> = <span class="ruby-value">0</span>
-  <span class="ruby-identifier">total</span> = <span class="ruby-value">0</span>
-
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">collective_info</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span>, <span class="ruby-identifier">cinfo</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:collectives</span>]
-        <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>] <span class="ruby-operator">||=</span> []
-          <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>]  <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:sender</span>]
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">nodes</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-        <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  {<span class="ruby-value">:collectives</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">collectives</span>, <span class="ruby-value">:nodes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">nodes</span>, <span class="ruby-value">:total_nodes</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">total</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">29</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_collectives</span>
+<span class="line-num">30</span>   <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num">31</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">32</span> 
+<span class="line-num">33</span>   <span class="ruby-identifier">collectives</span> = {}
+<span class="line-num">34</span>   <span class="ruby-identifier">nodes</span> = <span class="ruby-value">0</span>
+<span class="line-num">35</span>   <span class="ruby-identifier">total</span> = <span class="ruby-value">0</span>
+<span class="line-num">36</span> 
+<span class="line-num">37</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">collective_info</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span>, <span class="ruby-identifier">cinfo</span><span class="ruby-operator">|</span>
+<span class="line-num">38</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">39</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:collectives</span>]
+<span class="line-num">40</span>         <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:collectives</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">collective</span><span class="ruby-operator">|</span>
+<span class="line-num">41</span>           <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>] <span class="ruby-operator">||=</span> []
+<span class="line-num">42</span>           <span class="ruby-identifier">collectives</span>[<span class="ruby-identifier">collective</span>]  <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cinfo</span>[<span class="ruby-value">:sender</span>]
+<span class="line-num">43</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">44</span> 
+<span class="line-num">45</span>         <span class="ruby-identifier">nodes</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">46</span>         <span class="ruby-identifier">total</span> <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">47</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">48</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">49</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">50</span> 
+<span class="line-num">51</span>   {<span class="ruby-value">:collectives</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">collectives</span>, <span class="ruby-value">:nodes</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">nodes</span>, <span class="ruby-value">:total_nodes</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">total</span>}
+<span class="line-num">52</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -559,10 +560,10 @@ BODY</span>
 
           
           <div class="method-source-code" id="identity-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 207</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">identity</span>
-  <span class="ruby-ivar">@node</span>[<span class="ruby-value">:identity</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">207</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">identity</span>
+<span class="line-num">208</span>   <span class="ruby-ivar">@node</span>[<span class="ruby-value">:identity</span>]
+<span class="line-num">209</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -577,7 +578,7 @@ BODY</span>
         
         <div class="method-heading">
           <span class="method-name">inventory</span><span
-            class="method-args">(&blk)</span>
+            class="method-args">(&amp;blk)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -599,27 +600,27 @@ BODY</span>
 
           
           <div class="method-source-code" id="inventory-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 243</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to give a block to inventory&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define a format&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fmt</span>.<span class="ruby-identifier">nil?</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define inventory fields&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">nil?</span>
-
-  <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
-    <span class="ruby-ivar">@node</span> = {<span class="ruby-value">:identity</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:sender</span>],
-      <span class="ruby-value">:facts</span>    =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:facts</span>],
-      <span class="ruby-value">:classes</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:classes</span>],
-      <span class="ruby-value">:agents</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:agents</span>]}
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@fmt</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">call</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">243</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">inventory</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">blk</span>)
+<span class="line-num">244</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to give a block to inventory&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">245</span> 
+<span class="line-num">246</span>   <span class="ruby-identifier">blk</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">247</span> 
+<span class="line-num">248</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define a format&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@fmt</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">249</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to define inventory fields&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">250</span> 
+<span class="line-num">251</span>   <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num">252</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">253</span> 
+<span class="line-num">254</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">inventory</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">t</span>, <span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+<span class="line-num">255</span>     <span class="ruby-ivar">@node</span> = {<span class="ruby-value">:identity</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:sender</span>],
+<span class="line-num">256</span>       <span class="ruby-value">:facts</span>    <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:facts</span>],
+<span class="line-num">257</span>       <span class="ruby-value">:classes</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:classes</span>],
+<span class="line-num">258</span>       <span class="ruby-value">:agents</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>][<span class="ruby-value">:agents</span>]}
+<span class="line-num">259</span> 
+<span class="line-num">260</span>     <span class="ruby-identifier">puts</span> <span class="ruby-ivar">@fmt</span> <span class="ruby-operator">%</span> <span class="ruby-ivar">@flds</span>.<span class="ruby-identifier">call</span>
+<span class="line-num">261</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">262</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -649,25 +650,25 @@ BODY</span>
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 326</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>]
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>])
-      <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>]))
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find script to run: #{configuration[:script]}&quot;</span>
-    <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>]
-    <span class="ruby-identifier">collectives_map</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>])
-
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectives</span>]
-    <span class="ruby-identifier">collectives_report</span>
-
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">node_inventory</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">326</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num">327</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>]
+<span class="line-num">328</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>])
+<span class="line-num">329</span>       <span class="ruby-identifier">eval</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>]))
+<span class="line-num">330</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">331</span>       <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find script to run: #{configuration[:script]}&quot;</span>
+<span class="line-num">332</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">333</span> 
+<span class="line-num">334</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>]
+<span class="line-num">335</span>     <span class="ruby-identifier">collectives_map</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>])
+<span class="line-num">336</span> 
+<span class="line-num">337</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectives</span>]
+<span class="line-num">338</span>     <span class="ruby-identifier">collectives_report</span>
+<span class="line-num">339</span> 
+<span class="line-num">340</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">341</span>     <span class="ruby-identifier">node_inventory</span>
+<span class="line-num">342</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">343</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -697,110 +698,110 @@ BODY</span>
 
           
           <div class="method-source-code" id="node_inventory-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 94</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">node_inventory</span>
-  <span class="ruby-identifier">node</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>]
-
-  <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">identity_filter</span> <span class="ruby-identifier">node</span>
-  <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
-
-  <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-string">&quot;daemon_stats&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">first</span>
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">nodestats</span>
-    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Did not receive any results from node #{node}&quot;</span>
-    <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">nodestats</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve daemon_stats from #{node}: #{nodestats[:statusmsg]}&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-string">&quot;inventory&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-string">&quot;identity&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">unless</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve inventory for #{node}: #{resp[:statusmsg]}&quot;</span>
-        <span class="ruby-keyword">next</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">data</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>]
-
-      <span class="ruby-keyword">begin</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Inventory for #{resp[:sender]}:&quot;</span>
-        <span class="ruby-identifier">puts</span>
-
-        <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">nodestats</span>[<span class="ruby-value">:data</span>]
-
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Server Statistics:&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                      Version: #{nodestats[:version]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Start Time: #{Time.at(nodestats[:starttime])}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Config File: #{nodestats[:configfile]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Collectives: #{data[:collectives].join(', ')}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:collectives</span>)
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;              Main Collective: #{data[:main_collective]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:main_collective</span>)
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Process ID: #{nodestats[:pid]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;               Total Messages: #{nodestats[:total]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      Messages Passed Filters: #{nodestats[:passed]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;            Messages Filtered: #{nodestats[:filtered]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;             Expired Messages: #{nodestats[:ttlexpired]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                 Replies Sent: #{nodestats[:replies]}&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;         Total Processor Time: #{nodestats[:times][:utime]} seconds&quot;</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  System Time: #{nodestats[:times][:stime]} seconds&quot;</span>
-
-        <span class="ruby-identifier">puts</span>
-
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Agents:&quot;</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:agents</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-          <span class="ruby-identifier">data</span>[<span class="ruby-value">:agents</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">3</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agents</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      %-15s %-15s %-15s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">agents</span>
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No agents installed&quot;</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">puts</span>
-
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Data Plugins:&quot;</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:data_plugins</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-          <span class="ruby-identifier">data</span>[<span class="ruby-value">:data_plugins</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">3</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugins</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      %-15s %-15s %-15s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;_data&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)}
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No data plugins installed&quot;</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">puts</span>
-
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Configuration Management Classes:&quot;</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-          <span class="ruby-identifier">field_size</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_size</span>(<span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>], <span class="ruby-value">30</span>)
-          <span class="ruby-identifier">fields_num</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_number</span>(<span class="ruby-identifier">field_size</span>)
-          <span class="ruby-identifier">format</span> = <span class="ruby-string">&quot;   &quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-node">&quot; %-#{field_size}s&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">fields_num</span>)
-
-          <span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-identifier">fields_num</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klasses</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">klasses</span>
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No classes applied&quot;</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">puts</span>
-
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Facts:&quot;</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:facts</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-          <span class="ruby-identifier">data</span>[<span class="ruby-value">:facts</span>].<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>[<span class="ruby-value">0</span>]}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
-            <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      #{f[0]} =&gt; #{f[1]}&quot;</span>
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No facts known&quot;</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-keyword">break</span>
-      <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-        <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to display node inventory: #{e.class}: #{e}&quot;</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">halt</span> <span class="ruby-identifier">util</span>.<span class="ruby-identifier">stats</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num"> 94</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">node_inventory</span>
+<span class="line-num"> 95</span>   <span class="ruby-identifier">node</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>]
+<span class="line-num"> 96</span> 
+<span class="line-num"> 97</span>   <span class="ruby-identifier">util</span> = <span class="ruby-identifier">rpcclient</span>(<span class="ruby-string">&quot;rpcutil&quot;</span>)
+<span class="line-num"> 98</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">identity_filter</span> <span class="ruby-identifier">node</span>
+<span class="line-num"> 99</span>   <span class="ruby-identifier">util</span>.<span class="ruby-identifier">progress</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">100</span> 
+<span class="line-num">101</span>   <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-string">&quot;daemon_stats&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-string">&quot;identity&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">first</span>
+<span class="line-num">102</span> 
+<span class="line-num">103</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">nodestats</span>
+<span class="line-num">104</span>     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Did not receive any results from node #{node}&quot;</span>
+<span class="line-num">105</span>     <span class="ruby-identifier">exit</span> <span class="ruby-value">1</span>
+<span class="line-num">106</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">107</span> 
+<span class="line-num">108</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">nodestats</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">109</span>     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve daemon_stats from #{node}: #{nodestats[:statusmsg]}&quot;</span>
+<span class="line-num">110</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">111</span>     <span class="ruby-identifier">util</span>.<span class="ruby-identifier">custom_request</span>(<span class="ruby-string">&quot;inventory&quot;</span>, {}, <span class="ruby-identifier">node</span>, {<span class="ruby-string">&quot;identity&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">node</span>}).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+<span class="line-num">112</span>       <span class="ruby-keyword">unless</span> <span class="ruby-identifier">resp</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">113</span>         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to retrieve inventory for #{node}: #{resp[:statusmsg]}&quot;</span>
+<span class="line-num">114</span>         <span class="ruby-keyword">next</span>
+<span class="line-num">115</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">116</span> 
+<span class="line-num">117</span>       <span class="ruby-identifier">data</span> = <span class="ruby-identifier">resp</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">118</span> 
+<span class="line-num">119</span>       <span class="ruby-keyword">begin</span>
+<span class="line-num">120</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Inventory for #{resp[:sender]}:&quot;</span>
+<span class="line-num">121</span>         <span class="ruby-identifier">puts</span>
+<span class="line-num">122</span> 
+<span class="line-num">123</span>         <span class="ruby-identifier">nodestats</span> = <span class="ruby-identifier">nodestats</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">124</span> 
+<span class="line-num">125</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Server Statistics:&quot;</span>
+<span class="line-num">126</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                      Version: #{nodestats[:version]}&quot;</span>
+<span class="line-num">127</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Start Time: #{Time.at(nodestats[:starttime])}&quot;</span>
+<span class="line-num">128</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Config File: #{nodestats[:configfile]}&quot;</span>
+<span class="line-num">129</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  Collectives: #{data[:collectives].join(&#39;, &#39;)}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:collectives</span>)
+<span class="line-num">130</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;              Main Collective: #{data[:main_collective]}&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:main_collective</span>)
+<span class="line-num">131</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                   Process ID: #{nodestats[:pid]}&quot;</span>
+<span class="line-num">132</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;               Total Messages: #{nodestats[:total]}&quot;</span>
+<span class="line-num">133</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      Messages Passed Filters: #{nodestats[:passed]}&quot;</span>
+<span class="line-num">134</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;            Messages Filtered: #{nodestats[:filtered]}&quot;</span>
+<span class="line-num">135</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;             Expired Messages: #{nodestats[:ttlexpired]}&quot;</span>
+<span class="line-num">136</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                 Replies Sent: #{nodestats[:replies]}&quot;</span>
+<span class="line-num">137</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;         Total Processor Time: #{nodestats[:times][:utime]} seconds&quot;</span>
+<span class="line-num">138</span>         <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;                  System Time: #{nodestats[:times][:stime]} seconds&quot;</span>
+<span class="line-num">139</span> 
+<span class="line-num">140</span>         <span class="ruby-identifier">puts</span>
+<span class="line-num">141</span> 
+<span class="line-num">142</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Agents:&quot;</span>
+<span class="line-num">143</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:agents</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">144</span>           <span class="ruby-identifier">data</span>[<span class="ruby-value">:agents</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">3</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agents</span><span class="ruby-operator">|</span>
+<span class="line-num">145</span>             <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      %-15s %-15s %-15s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">agents</span>
+<span class="line-num">146</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">147</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">148</span>           <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No agents installed&quot;</span>
+<span class="line-num">149</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">150</span> 
+<span class="line-num">151</span>         <span class="ruby-identifier">puts</span>
+<span class="line-num">152</span> 
+<span class="line-num">153</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Data Plugins:&quot;</span>
+<span class="line-num">154</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:data_plugins</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">155</span>           <span class="ruby-identifier">data</span>[<span class="ruby-value">:data_plugins</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-value">3</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugins</span><span class="ruby-operator">|</span>
+<span class="line-num">156</span>             <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      %-15s %-15s %-15s&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">plugins</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span> <span class="ruby-identifier">p</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;_data&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)}
+<span class="line-num">157</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">158</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">159</span>           <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No data plugins installed&quot;</span>
+<span class="line-num">160</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">161</span> 
+<span class="line-num">162</span>         <span class="ruby-identifier">puts</span>
+<span class="line-num">163</span> 
+<span class="line-num">164</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Configuration Management Classes:&quot;</span>
+<span class="line-num">165</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">166</span>           <span class="ruby-identifier">field_size</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_size</span>(<span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>], <span class="ruby-value">30</span>)
+<span class="line-num">167</span>           <span class="ruby-identifier">fields_num</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">field_number</span>(<span class="ruby-identifier">field_size</span>)
+<span class="line-num">168</span>           <span class="ruby-identifier">format</span> = <span class="ruby-string">&quot;   &quot;</span> <span class="ruby-operator">+</span> (<span class="ruby-node">&quot; %-#{field_size}s&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">fields_num</span>)
+<span class="line-num">169</span> 
+<span class="line-num">170</span>           <span class="ruby-identifier">data</span>[<span class="ruby-value">:classes</span>].<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">in_groups_of</span>(<span class="ruby-identifier">fields_num</span>, <span class="ruby-string">&quot;&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">klasses</span><span class="ruby-operator">|</span>
+<span class="line-num">171</span>             <span class="ruby-identifier">puts</span> <span class="ruby-identifier">format</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">klasses</span>
+<span class="line-num">172</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">173</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">174</span>           <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No classes applied&quot;</span>
+<span class="line-num">175</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">176</span> 
+<span class="line-num">177</span>         <span class="ruby-identifier">puts</span>
+<span class="line-num">178</span> 
+<span class="line-num">179</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;   Facts:&quot;</span>
+<span class="line-num">180</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>[<span class="ruby-value">:facts</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">181</span>           <span class="ruby-identifier">data</span>[<span class="ruby-value">:facts</span>].<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>[<span class="ruby-value">0</span>]}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span>
+<span class="line-num">182</span>             <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;      #{f[0]} =&gt; #{f[1]}&quot;</span>
+<span class="line-num">183</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">184</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">185</span>           <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;      No facts known&quot;</span>
+<span class="line-num">186</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">187</span> 
+<span class="line-num">188</span>         <span class="ruby-keyword">break</span>
+<span class="line-num">189</span>       <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">190</span>         <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Failed to display node inventory: #{e.class}: #{e}&quot;</span>
+<span class="line-num">191</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">192</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">193</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">194</span> 
+<span class="line-num">195</span>   <span class="ruby-identifier">halt</span> <span class="ruby-identifier">util</span>.<span class="ruby-identifier">stats</span>
+<span class="line-num">196</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -830,10 +831,10 @@ BODY</span>
 
           
           <div class="method-source-code" id="page_body-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 231</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">page_body</span>(<span class="ruby-identifier">fmt</span>)
-  <span class="ruby-ivar">@page_body</span> = <span class="ruby-identifier">fmt</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">231</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page_body</span>(<span class="ruby-identifier">fmt</span>)
+<span class="line-num">232</span>   <span class="ruby-ivar">@page_body</span> = <span class="ruby-identifier">fmt</span>
+<span class="line-num">233</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -863,10 +864,10 @@ BODY</span>
 
           
           <div class="method-source-code" id="page_heading-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 227</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">page_heading</span>(<span class="ruby-identifier">fmt</span>)
-  <span class="ruby-ivar">@page_heading</span> = <span class="ruby-identifier">fmt</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">227</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page_heading</span>(<span class="ruby-identifier">fmt</span>)
+<span class="line-num">228</span>   <span class="ruby-ivar">@page_heading</span> = <span class="ruby-identifier">fmt</span>
+<span class="line-num">229</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -896,10 +897,10 @@ BODY</span>
 
           
           <div class="method-source-code" id="page_length-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 223</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">page_length</span>(<span class="ruby-identifier">len</span>)
-  <span class="ruby-ivar">@page_length</span> = <span class="ruby-identifier">len</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">223</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">page_length</span>(<span class="ruby-identifier">len</span>)
+<span class="line-num">224</span>   <span class="ruby-ivar">@page_length</span> = <span class="ruby-identifier">len</span>
+<span class="line-num">225</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -929,10 +930,10 @@ BODY</span>
 
           
           <div class="method-source-code" id="post_option_parser-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 18</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
-  <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">18</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
+<span class="line-num">19</span>   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">shift</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">20</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -962,12 +963,12 @@ BODY</span>
 
           
           <div class="method-source-code" id="validate_configuration-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/inventory.rb, line 22</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate_configuration</span>(<span class="ruby-identifier">configuration</span>)
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectives</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>]
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to specify either a node name, script to run or other options&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/inventory.rb</span>
+<span class="line-num">22</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate_configuration</span>(<span class="ruby-identifier">configuration</span>)
+<span class="line-num">23</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:node</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:script</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectives</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:collectivemap</span>]
+<span class="line-num">24</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Need to specify either a node name, script to run or other options&quot;</span>
+<span class="line-num">25</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">26</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -985,8 +986,8 @@ BODY</span>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

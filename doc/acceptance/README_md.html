@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>README - mcollective version 2.12.1</title>
+<title>README - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -76,6 +80,8 @@
   
     <li><a href="../Gemfile.html">Gemfile</a>
   
+    <li><a href="../Gemfile_lock.html">Gemfile.lock</a>
+  
     <li><a href="../MAINTAINERS.html">MAINTAINERS</a>
   
     <li><a href="../README_md.html">README</a>
@@ -83,6 +89,8 @@
     <li><a href="../Rakefile.html">Rakefile</a>
   
     <li><a href="../acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="../acceptance/Gemfile_lock.html">Gemfile.lock</a>
   
     <li><a href="../acceptance/README_md.html">README</a>
   
@@ -268,35 +276,23 @@
 
 <main role="main" aria-label="Page acceptance/README.md">
 
-<p>beaker tests for validation of <a
-href="../MCollective.html">MCollective</a> in puppet-agent</p>
+<p>beaker tests for validation of <a href="../MCollective.html"><code>MCollective</code></a> in puppet-agent</p>
 
 <h1 id="label-WARNING">WARNING<span><a href="#label-WARNING">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p><img
-src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Chinese_black_dragon.svg/235px-Chinese_black_dragon.svg.png"></p>
+<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Chinese_black_dragon.svg/235px-Chinese_black_dragon.svg.png"></p>
 
-<p><strong>WARNING:</strong> Under NO circumstances should you use
-<strong>any</strong> of the certificate files located in the /acceptance
-directory or any of its subdirectories in a production system. The private
-keys are publicly available and <strong>will</strong> result in an insecure
-environment</p>
+<p><strong>WARNING:</strong> Under NO circumstances should you use <strong>any</strong> of the certificate files located in the /acceptance directory or any of its subdirectories in a production system. The private keys are publicly available and <strong>will</strong> result in an insecure environment</p>
 
 <h1 id="label-Files+directory">Files directory<span><a href="#label-Files+directory">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>/files contains pre-generated certificates and configuration files that are
-used by the acceptance test pre-suites in order to quickly facilitate a
-running environment on the system under test. The certificates in the
-/files directory are for testing purposes only and are publicly available.</p>
+<p>/files contains pre-generated certificates and configuration files that are used by the acceptance test pre-suites in order to quickly facilitate a running environment on the system under test. The certificates in the /files directory are for testing purposes only and are publicly available.</p>
 
-<p>These files were generated using the command outlined below, in the <em>SSL
-setup</em> section.</p>
+<p>These files were generated using the command outlined below, in the <em>SSL setup</em> section.</p>
 
 <h1 id="label-SSL+setup">SSL setup<span><a href="#label-SSL+setup">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>/ssl is a puppet master’s ssl directory. Selected files from this have been
-copied into the files/ directory, either directly as .pem files, or
-combined into java truststores.</p>
+<p>/ssl is a puppet master&#39;s ssl directory. Selected files from this have been copied into the files/ directory, either directly as .pem files, or combined into java truststores.</p>
 
 <p>Commands used to set it up:</p>
 
@@ -305,7 +301,7 @@ puppet cert --ssldir=`pwd`/ssl generate activemq
 puppet cert --ssldir=`pwd`/ssl generate mcollective-client
 puppet cert --ssldir=`pwd`/ssl generate mcollective-server
 
-keytool -storepasswd -storepass notsecret -import -alias 'puppet ca' -file ssl/ca/ca_crt.pem -keystore files/activemq.truststore
+keytool -storepasswd -storepass notsecret -import -alias &#39;puppet ca&#39; -file ssl/ca/ca_crt.pem -keystore files/activemq.truststore
 cat ssl/private_keys/activemq.pem ssl/certs/activemq.pem &gt; activemq.combined.pem
 openssl pkcs12 -password pass:notsecret -export -in activemq.combined.pem -out activemq.p12 -name activemq.example.com
 keytool -importkeystore -destkeystore files/activemq.keystore -deststorepass notsecret -srckeystore activemq.p12 -srcstoretype PKCS12 -srcstorepass notsecret -alias activemq.example.com
@@ -319,74 +315,40 @@ cp ssl/private_keys/mcollective-client.pem files/client.key</pre>
 
 <h1 id="label-Running+with+Rake">Running with Rake<span><a href="#label-Running+with+Rake">&para;</a> <a href="#top">&uarr;</a></span></h1>
 
-<p>The rake task <code>ci:test:aio</code> will provision, install, and execute
-the tests for you. It requires the environment variable for the sha of the
-puppet-agent version that should be installed during testing.</p>
+<p>The rake task <code>ci:test:aio</code> will provision, install, and execute the tests for you. It requires the environment variable for the sha of the puppet-agent version that should be installed during testing.</p>
 
-<p>The minimal invocation of this task would be: <code> bundle exec rake
-ci:test:aio  SHA=1.8.2 </code></p>
+<p>The minimal invocation of this task would be: <code> bundle exec rake ci:test:aio  SHA=1.8.2 </code></p>
 
-<p>Typically, this task would be invoked against a development build with a
-specific host target in mind. Given that we would like to test the MCO
-functionality in the latest nightly build of puppet-agent on an Ubuntu
-16.04 x86_64 instance, the command would be: <code> bundle exec rake
-ci:test:aio  SHA=nightly TEST_TARGET=ubuntu1604-64mco_master.a </code></p>
+<p>Typically, this task would be invoked against a development build with a specific host target in mind. Given that we would like to test the MCO functionality in the latest nightly build of puppet-agent on an Ubuntu 16.04 x86_64 instance, the command would be: <code> bundle exec rake ci:test:aio  SHA=nightly TEST_TARGET=ubuntu1604-64mco_master.a </code></p>
 
 <h2 id="label-Environment+variables">Environment variables<span><a href="#label-Environment+variables">&para;</a> <a href="#top">&uarr;</a></span></h2>
 
-<p>The following environment variables are used in conjunction with the
-<code>ci:test:aio</code> rake task:</p>
+<p>The following environment variables are used in conjunction with the <code>ci:test:aio</code> rake task:</p>
 
-<p>SHA <em>required</em>  : Build identifier of puppet-agent version to be
-installed, release tag  or full SHA, (e.g. <code>nightly</code>,
-<code>1.8.2</code>, 
-<code>aa3068e6859a695167a4b7ac06584b4d4ace525f</code>).</p>
+<p>SHA <em>required</em>  : Build identifier of puppet-agent version to be installed, release tag  or full SHA, (e.g. <code>nightly</code>, <code>1.8.2</code>,  <code>aa3068e6859a695167a4b7ac06584b4d4ace525f</code>).</p>
 
-<p>SUITE_VERSION  : If the SHA used is a development build, then this variable
-must be  specified, (e.g. 1.8.2.62.gaa3068e).</p>
+<p>SUITE_VERSION  : If the SHA used is a development build, then this variable must be  specified, (e.g. 1.8.2.62.gaa3068e).</p>
 
-<p>TEST_TARGET  : Beaker-hostgenerator string used to dynamically create a <a
-href="../Beaker.html">Beaker</a> hosts  file. The <code>mco_master</code>
-role must be part of this string. If left  unspecified, this will default
-to <code>windows2012r2-64mco_master.a</code>.</p>
+<p>TEST_TARGET  : Beaker-hostgenerator string used to dynamically create a Beaker hosts  file. The <code>mco_master</code> role must be part of this string. If left  unspecified, this will default to <code>windows2012r2-64mco_master.a</code>.</p>
 
-<p>MASTER_TEST_TARGET  : Beaker-hostgenerator string used to dynamically
-create a <a href="../Beaker.html">Beaker</a> hosts  file. If unspecified,
-this will default to <code>redhat7-64ma</code>.</p>
+<p>MASTER_TEST_TARGET  : Beaker-hostgenerator string used to dynamically create a Beaker hosts  file. If unspecified, this will default to <code>redhat7-64ma</code>.</p>
 
-<p>BEAKER_HOSTS  : Path to an existing <a href="../Beaker.html">Beaker</a>
-hosts file to be used.</p>
+<p>BEAKER_HOSTS  : Path to an existing Beaker hosts file to be used.</p>
 
-<p>ACTIVEMQ_SOURCE  : A url from which to download pre-built ActiveMQ
-binaries. Together with  ACTIVEMQ_VERSION, specifies where to get binaries.
-The default uses an  internal <a href="../Puppet.html">Puppet</a> mirror,
-externally you should use <a
-href="http://apache.osuosl.org">apache.osuosl.org</a>.  Note that osuosl
-only hosts the latest releases. Setting this will attempt  to fetch a
-package from
-$ACTIVEMQ_SOURCE/activemq/$ACTIVEMQ_VERSION/apache-activemq-$ACTIVEMQ_VERSION-bin.tar.gz
-(or .zip on Windows).</p>
+<p>ACTIVEMQ_SOURCE  : A url from which to download pre-built ActiveMQ binaries. Together with  ACTIVEMQ_VERSION, specifies where to get binaries. The default uses an  internal <a href="../Puppet.html"><code>Puppet</code></a> mirror, externally you should use <a href="http://apache.osuosl.org">apache.osuosl.org</a>.  Note that osuosl only hosts the latest releases. Setting this will attempt  to fetch a package from $ACTIVEMQ_SOURCE/activemq/$ACTIVEMQ_VERSION/apache-activemq-$ACTIVEMQ_VERSION-bin.tar.gz  (or .zip on Windows).</p>
 
 <p>ACTIVEMQ_VERSION  : The version of ActiveMQ requested.</p>
 
-<p>JDK_SOURCE  : A url from which to download pre-built JDK binaries for
-Windows (other  platforms use the package manager for the OS). Together
-with  JDK_VERSION_FULL, specifies where to get binaries. The default uses
-an  internal <a href="../Puppet.html">Puppet</a> mirror, externally you
-should use <a
-href="https://download.oracle.com/otn-pub/java/jdk">download.oracle.com/otn-pub/java/jdk</a></p>
+<p>JDK_SOURCE  : A url from which to download pre-built JDK binaries for Windows (other  platforms use the package manager for the OS). Together with  JDK_VERSION_FULL, specifies where to get binaries. The default uses an  internal <a href="../Puppet.html"><code>Puppet</code></a> mirror, externally you should use <a href="https://download.oracle.com/otn-pub/java/jdk">download.oracle.com/otn-pub/java/jdk</a></p>
 
-<p>JDK_VERSION_FULL  : The full version of JDK requested. From Oracle, this
-should include the  build number (e.g. <code>8u111-b14</code>). See the <a
-href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle
-JDK downoad page</a>  for details.</p>
+<p>JDK_VERSION_FULL  : The full version of JDK requested. From Oracle, this should include the  build number (e.g. <code>8u111-b14</code>). See the <a href="http://www.oracle.com/technetwork/java/javase/downloads/jdk8-downloads-2133151.html">Oracle JDK downoad page</a>  for details.</p>
 </main>
 
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

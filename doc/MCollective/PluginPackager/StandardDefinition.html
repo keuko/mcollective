@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::PluginPackager::StandardDefinition - mcollective version 2.12.1</title>
+<title>class MCollective::PluginPackager::StandardDefinition - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -93,8 +97,6 @@
     
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -295,25 +297,25 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">configuration</span>, <span class="ruby-identifier">mcdependency</span>, <span class="ruby-identifier">plugintype</span>)
-  <span class="ruby-ivar">@plugintype</span> = <span class="ruby-identifier">plugintype</span>
-  <span class="ruby-ivar">@path</span> = <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_plugin_path</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>])
-  <span class="ruby-ivar">@packagedata</span> = {}
-  <span class="ruby-ivar">@revision</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>
-  <span class="ruby-ivar">@preinstall</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:preinstall</span>]
-  <span class="ruby-ivar">@postinstall</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:postinstall</span>]
-  <span class="ruby-ivar">@vendor</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:vendor</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;Puppet Labs&quot;</span>
-  <span class="ruby-ivar">@dependencies</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] <span class="ruby-operator">||</span> []
-  <span class="ruby-ivar">@target_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-ivar">@path</span>)
-  <span class="ruby-ivar">@metadata</span>, <span class="ruby-identifier">mcversion</span> = <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_metadata</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@plugintype</span>)
-  <span class="ruby-ivar">@mcname</span> = <span class="ruby-identifier">mcdependency</span>[<span class="ruby-value">:mcname</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;mcollective&quot;</span>
-  <span class="ruby-ivar">@mcversion</span> = <span class="ruby-identifier">mcdependency</span>[<span class="ruby-value">:mcversion</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">mcversion</span>
-  <span class="ruby-ivar">@dependencies</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{mcname}-common&quot;</span>, <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@mcversion</span>}
-  <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:name</span>] = (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:name</span>]).<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\s+|_/</span>, <span class="ruby-string">&quot;-&quot;</span>)
-  <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>] = (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>])
-  <span class="ruby-identifier">identify_packages</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb</span>
+<span class="line-num"> 7</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">configuration</span>, <span class="ruby-identifier">mcdependency</span>, <span class="ruby-identifier">plugintype</span>)
+<span class="line-num"> 8</span>   <span class="ruby-ivar">@plugintype</span> = <span class="ruby-identifier">plugintype</span>
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@path</span> = <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_plugin_path</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>])
+<span class="line-num">10</span>   <span class="ruby-ivar">@packagedata</span> = {}
+<span class="line-num">11</span>   <span class="ruby-ivar">@revision</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>] <span class="ruby-operator">||</span> <span class="ruby-value">1</span>
+<span class="line-num">12</span>   <span class="ruby-ivar">@preinstall</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:preinstall</span>]
+<span class="line-num">13</span>   <span class="ruby-ivar">@postinstall</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:postinstall</span>]
+<span class="line-num">14</span>   <span class="ruby-ivar">@vendor</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:vendor</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;Puppet Labs&quot;</span>
+<span class="line-num">15</span>   <span class="ruby-ivar">@dependencies</span> = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] <span class="ruby-operator">||</span> []
+<span class="line-num">16</span>   <span class="ruby-ivar">@target_path</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-ivar">@path</span>)
+<span class="line-num">17</span>   <span class="ruby-ivar">@metadata</span>, <span class="ruby-identifier">mcversion</span> = <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_metadata</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@plugintype</span>)
+<span class="line-num">18</span>   <span class="ruby-ivar">@mcname</span> = <span class="ruby-identifier">mcdependency</span>[<span class="ruby-value">:mcname</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;mcollective&quot;</span>
+<span class="line-num">19</span>   <span class="ruby-ivar">@mcversion</span> = <span class="ruby-identifier">mcdependency</span>[<span class="ruby-value">:mcversion</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">mcversion</span>
+<span class="line-num">20</span>   <span class="ruby-ivar">@dependencies</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;#{mcname}-common&quot;</span>, <span class="ruby-value">:version</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@mcversion</span>}
+<span class="line-num">21</span>   <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:name</span>] = (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:name</span>]).<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/\s+|_/</span>, <span class="ruby-string">&quot;-&quot;</span>)
+<span class="line-num">22</span>   <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>] = (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>] <span class="ruby-operator">||</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>])
+<span class="line-num">23</span>   <span class="ruby-identifier">identify_packages</span>
+<span class="line-num">24</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -351,20 +353,20 @@
 
           
           <div class="method-source-code" id="common-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb, line 54</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">common</span>
-  <span class="ruby-identifier">common</span> = {<span class="ruby-value">:files</span> =<span class="ruby-operator">&gt;</span> [],
-            <span class="ruby-value">:dependencies</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dependencies</span>.<span class="ruby-identifier">clone</span>,
-            <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;Common libraries for #{@name} connector plugin&quot;</span>}
-
-  <span class="ruby-identifier">commondir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-string">&quot;util&quot;</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">check_dir_present</span> <span class="ruby-identifier">commondir</span>
-    <span class="ruby-identifier">common</span>[<span class="ruby-value">:files</span>] = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">commondir</span>, <span class="ruby-string">&quot;*&quot;</span>))
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">common</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb</span>
+<span class="line-num">54</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">common</span>
+<span class="line-num">55</span>   <span class="ruby-identifier">common</span> = {<span class="ruby-value">:files</span> <span class="ruby-operator">=&gt;</span> [],
+<span class="line-num">56</span>             <span class="ruby-value">:dependencies</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@dependencies</span>.<span class="ruby-identifier">clone</span>,
+<span class="line-num">57</span>             <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;Common libraries for #{@name} connector plugin&quot;</span>}
+<span class="line-num">58</span> 
+<span class="line-num">59</span>   <span class="ruby-identifier">commondir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-string">&quot;util&quot;</span>)
+<span class="line-num">60</span>   <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">check_dir_present</span> <span class="ruby-identifier">commondir</span>
+<span class="line-num">61</span>     <span class="ruby-identifier">common</span>[<span class="ruby-value">:files</span>] = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">commondir</span>, <span class="ruby-string">&quot;*&quot;</span>))
+<span class="line-num">62</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">common</span>
+<span class="line-num">63</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">64</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">65</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">66</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -394,13 +396,13 @@
 
           
           <div class="method-source-code" id="identify_packages-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb, line 27</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">identify_packages</span>
-  <span class="ruby-identifier">common_package</span> = <span class="ruby-identifier">common</span>
-  <span class="ruby-ivar">@packagedata</span>[<span class="ruby-value">:common</span>] = <span class="ruby-identifier">common_package</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_package</span>
-  <span class="ruby-identifier">plugin_package</span> = <span class="ruby-identifier">plugin</span>
-  <span class="ruby-ivar">@packagedata</span>[<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">plugin_package</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugin_package</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb</span>
+<span class="line-num">27</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">identify_packages</span>
+<span class="line-num">28</span>   <span class="ruby-identifier">common_package</span> = <span class="ruby-identifier">common</span>
+<span class="line-num">29</span>   <span class="ruby-ivar">@packagedata</span>[<span class="ruby-value">:common</span>] = <span class="ruby-identifier">common_package</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">common_package</span>
+<span class="line-num">30</span>   <span class="ruby-identifier">plugin_package</span> = <span class="ruby-identifier">plugin</span>
+<span class="line-num">31</span>   <span class="ruby-ivar">@packagedata</span>[<span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">plugin_package</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugin_package</span>
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -430,24 +432,24 @@
 
           
           <div class="method-source-code" id="plugin-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb, line 35</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">plugin</span>
-  <span class="ruby-identifier">plugindata</span> = {<span class="ruby-value">:files</span> =<span class="ruby-operator">&gt;</span> [],
-                <span class="ruby-value">:dependencies</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@dependencies</span>.<span class="ruby-identifier">clone</span>,
-                <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{@name} #{@plugintype} plugin for the Marionette Collective.&quot;</span>}
-
-  <span class="ruby-identifier">plugindir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">check_dir_present</span> <span class="ruby-identifier">plugindir</span>
-    <span class="ruby-identifier">plugindata</span>[<span class="ruby-value">:files</span>] = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">plugindir</span>, <span class="ruby-string">&quot;*&quot;</span>))
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">plugindata</span>[<span class="ruby-value">:plugindependency</span>] = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">&quot;#{@mcname}-#{@metadata[:name]}-common&quot;</span>,
-                                <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>],
-                                <span class="ruby-value">:revision</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@revision</span>} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@packagedata</span>[<span class="ruby-value">:common</span>]
-  <span class="ruby-identifier">plugindata</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/standard_definition.rb</span>
+<span class="line-num">35</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">plugin</span>
+<span class="line-num">36</span>   <span class="ruby-identifier">plugindata</span> = {<span class="ruby-value">:files</span> <span class="ruby-operator">=&gt;</span> [],
+<span class="line-num">37</span>                 <span class="ruby-value">:dependencies</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@dependencies</span>.<span class="ruby-identifier">clone</span>,
+<span class="line-num">38</span>                 <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;#{@name} #{@plugintype} plugin for the Marionette Collective.&quot;</span>}
+<span class="line-num">39</span> 
+<span class="line-num">40</span>   <span class="ruby-identifier">plugindir</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@path</span>, <span class="ruby-ivar">@plugintype</span>.<span class="ruby-identifier">to_s</span>)
+<span class="line-num">41</span>   <span class="ruby-keyword">if</span> <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">check_dir_present</span> <span class="ruby-identifier">plugindir</span>
+<span class="line-num">42</span>     <span class="ruby-identifier">plugindata</span>[<span class="ruby-value">:files</span>] = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">plugindir</span>, <span class="ruby-string">&quot;*&quot;</span>))
+<span class="line-num">43</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">44</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">45</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">46</span> 
+<span class="line-num">47</span>   <span class="ruby-identifier">plugindata</span>[<span class="ruby-value">:plugindependency</span>] = {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">&quot;#{@mcname}-#{@metadata[:name]}-common&quot;</span>,
+<span class="line-num">48</span>                                 <span class="ruby-value">:version</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@metadata</span>[<span class="ruby-value">:version</span>],
+<span class="line-num">49</span>                                 <span class="ruby-value">:revision</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@revision</span>} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@packagedata</span>[<span class="ruby-value">:common</span>]
+<span class="line-num">50</span>   <span class="ruby-identifier">plugindata</span>
+<span class="line-num">51</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -465,8 +467,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

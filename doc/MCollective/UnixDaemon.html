@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::UnixDaemon - mcollective version 2.12.1</title>
+<title>class MCollective::UnixDaemon - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -90,8 +94,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -127,19 +129,19 @@
 
           
           <div class="method-source-code" id="daemonize-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/unix_daemon.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">daemonize</span>
-  <span class="ruby-identifier">fork</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-constant">Process</span>.<span class="ruby-identifier">setsid</span>
-    <span class="ruby-identifier">exit</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fork</span>
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-string">'/tmp'</span>)
-    <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">'/dev/null'</span>)
-    <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">'/dev/null'</span>, <span class="ruby-string">'a'</span>)
-    <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">'/dev/null'</span>, <span class="ruby-string">'a'</span>)
-
-    <span class="ruby-keyword">yield</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/unix_daemon.rb</span>
+<span class="line-num"> 4</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">daemonize</span>
+<span class="line-num"> 5</span>   <span class="ruby-identifier">fork</span> <span class="ruby-keyword">do</span>
+<span class="line-num"> 6</span>     <span class="ruby-constant">Process</span>.<span class="ruby-identifier">setsid</span>
+<span class="line-num"> 7</span>     <span class="ruby-identifier">exit</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">fork</span>
+<span class="line-num"> 8</span>     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">chdir</span>(<span class="ruby-string">&#39;/tmp&#39;</span>)
+<span class="line-num"> 9</span>     <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">&#39;/dev/null&#39;</span>)
+<span class="line-num">10</span>     <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">&#39;/dev/null&#39;</span>, <span class="ruby-string">&#39;a&#39;</span>)
+<span class="line-num">11</span>     <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">reopen</span>(<span class="ruby-string">&#39;/dev/null&#39;</span>, <span class="ruby-string">&#39;a&#39;</span>)
+<span class="line-num">12</span> 
+<span class="line-num">13</span>     <span class="ruby-keyword">yield</span>
+<span class="line-num">14</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">15</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -169,59 +171,59 @@
 
           
           <div class="method-source-code" id="daemonize_runner-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/unix_daemon.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">daemonize_runner</span>(<span class="ruby-identifier">pid</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The Unix Daemonizer can not be used on the Windows Platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
-
-  <span class="ruby-constant">UnixDaemon</span>.<span class="ruby-identifier">daemonize</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">pid</span>
-      <span class="ruby-comment"># Clean up stale pidfile if needed</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pid</span>)
-        <span class="ruby-identifier">lock_pid</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">pid</span>)
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">lock_pid</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">lock_pid</span>)
-        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-constant">TypeError</span>
-          <span class="ruby-identifier">lock_pid</span> = <span class="ruby-keyword">nil</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-comment"># If there's no pid in the pidfile, remove it</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">lock_pid</span>.<span class="ruby-identifier">nil?</span>
-          <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>)
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-keyword">begin</span>
-            <span class="ruby-comment"># This will raise an error if the process doesn't</span>
-            <span class="ruby-comment"># exist, and do nothing otherwise</span>
-            <span class="ruby-constant">Process</span>.<span class="ruby-identifier">kill</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">lock_pid</span>)
-            <span class="ruby-comment"># If we reach this point then the process is running.</span>
-            <span class="ruby-comment"># We should raise an error rather than continuing on</span>
-            <span class="ruby-comment"># trying to create the PID</span>
-            <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Process is already running with PID #{lock_pid}&quot;</span>
-          <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ESRCH</span>
-            <span class="ruby-comment"># Errno::ESRCH = no such process</span>
-            <span class="ruby-comment"># PID in pidfile doesn't exist, remove pidfile</span>
-            <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>)
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">end</span>
-
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-comment"># Use exclusive create on the PID to avoid race condition</span>
-      <span class="ruby-comment"># when two mcollectived processes start at the same time</span>
-      <span class="ruby-identifier">opt</span> =  <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">CREAT</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">EXCL</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">WRONLY</span>
-      <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">pid</span>, <span class="ruby-identifier">opt</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">print</span>(<span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>) }
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">runner</span> = <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">nil</span>)
-      <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">main_loop</span>
-    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-identifier">e</span>)
-    <span class="ruby-keyword">ensure</span>
-      <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">pid</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pid</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/unix_daemon.rb</span>
+<span class="line-num">17</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">daemonize_runner</span>(<span class="ruby-identifier">pid</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">18</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The Unix Daemonizer can not be used on the Windows Platform&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+<span class="line-num">19</span> 
+<span class="line-num">20</span>   <span class="ruby-constant">UnixDaemon</span>.<span class="ruby-identifier">daemonize</span> <span class="ruby-keyword">do</span>
+<span class="line-num">21</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">pid</span>
+<span class="line-num">22</span>       <span class="ruby-comment"># Clean up stale pidfile if needed</span>
+<span class="line-num">23</span>       <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pid</span>)
+<span class="line-num">24</span>         <span class="ruby-identifier">lock_pid</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">pid</span>)
+<span class="line-num">25</span>         <span class="ruby-keyword">begin</span>
+<span class="line-num">26</span>           <span class="ruby-identifier">lock_pid</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">lock_pid</span>)
+<span class="line-num">27</span>         <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-constant">TypeError</span>
+<span class="line-num">28</span>           <span class="ruby-identifier">lock_pid</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">29</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">30</span> 
+<span class="line-num">31</span>         <span class="ruby-comment"># If there&#39;s no pid in the pidfile, remove it</span>
+<span class="line-num">32</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">lock_pid</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">33</span>           <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>)
+<span class="line-num">34</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">35</span>           <span class="ruby-keyword">begin</span>
+<span class="line-num">36</span>             <span class="ruby-comment"># This will raise an error if the process doesn&#39;t</span>
+<span class="line-num">37</span>             <span class="ruby-comment"># exist, and do nothing otherwise</span>
+<span class="line-num">38</span>             <span class="ruby-constant">Process</span>.<span class="ruby-identifier">kill</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">lock_pid</span>)
+<span class="line-num">39</span>             <span class="ruby-comment"># If we reach this point then the process is running.</span>
+<span class="line-num">40</span>             <span class="ruby-comment"># We should raise an error rather than continuing on</span>
+<span class="line-num">41</span>             <span class="ruby-comment"># trying to create the PID</span>
+<span class="line-num">42</span>             <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Process is already running with PID #{lock_pid}&quot;</span>
+<span class="line-num">43</span>           <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">ESRCH</span>
+<span class="line-num">44</span>             <span class="ruby-comment"># Errno::ESRCH = no such process</span>
+<span class="line-num">45</span>             <span class="ruby-comment"># PID in pidfile doesn&#39;t exist, remove pidfile</span>
+<span class="line-num">46</span>             <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>)
+<span class="line-num">47</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">48</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">49</span> 
+<span class="line-num">50</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">51</span> 
+<span class="line-num">52</span>       <span class="ruby-comment"># Use exclusive create on the PID to avoid race condition</span>
+<span class="line-num">53</span>       <span class="ruby-comment"># when two mcollectived processes start at the same time</span>
+<span class="line-num">54</span>       <span class="ruby-identifier">opt</span> =  <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">CREAT</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">EXCL</span> <span class="ruby-operator">|</span> <span class="ruby-constant">File</span><span class="ruby-operator">::</span><span class="ruby-constant">WRONLY</span>
+<span class="line-num">55</span>       <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-identifier">pid</span>, <span class="ruby-identifier">opt</span>) {<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">print</span>(<span class="ruby-constant">Process</span>.<span class="ruby-identifier">pid</span>) }
+<span class="line-num">56</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">57</span> 
+<span class="line-num">58</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">59</span>       <span class="ruby-identifier">runner</span> = <span class="ruby-constant">Runner</span>.<span class="ruby-identifier">new</span>(<span class="ruby-keyword">nil</span>)
+<span class="line-num">60</span>       <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">main_loop</span>
+<span class="line-num">61</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">62</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>)
+<span class="line-num">63</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-identifier">e</span>)
+<span class="line-num">64</span>     <span class="ruby-keyword">ensure</span>
+<span class="line-num">65</span>       <span class="ruby-constant">File</span>.<span class="ruby-identifier">unlink</span>(<span class="ruby-identifier">pid</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">pid</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">pid</span>)
+<span class="line-num">66</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">67</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">68</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -239,8 +241,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

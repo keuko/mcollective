@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::PluginPackager::OspackagePackager - mcollective version 2.12.1</title>
+<title>class MCollective::PluginPackager::OspackagePackager - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -89,13 +93,10 @@
 
   <section class="description">
     
-<p><a href="../../MCollective.html">MCollective</a> plugin packager general OS
-implementation.</p>
+<p><a href="../../MCollective.html"><code>MCollective</code></a> plugin packager general OS implementation.</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -186,29 +187,28 @@ implementation.</p>
 
         <div class="method-description">
           
-          <p>Create packager object with package parameter containing list of files,
-dependencies and package metadata.</p>
+          <p>Create packager object with package parameter containing list of files, dependencies and package metadata.</p>
           
           
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb, line 10</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-string">&quot;/etc/redhat-release&quot;</span>)
-    <span class="ruby-ivar">@packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-string">&quot;RpmpackagePackager&quot;</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">verbose</span>, <span class="ruby-identifier">keep_artifacts</span>, <span class="ruby-identifier">module_template</span>)
-    <span class="ruby-ivar">@package_type</span> = <span class="ruby-string">&quot;RPM&quot;</span>
-  <span class="ruby-keyword">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-string">&quot;/etc/debian_version&quot;</span>)
-    <span class="ruby-ivar">@packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-string">&quot;DebpackagePackager&quot;</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">verbose</span>, <span class="ruby-identifier">keep_artifacts</span>, <span class="ruby-identifier">module_template</span>)
-    <span class="ruby-ivar">@package_type</span> = <span class="ruby-string">&quot;Deb&quot;</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;cannot identify operating system.&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-ivar">@package</span> = <span class="ruby-identifier">package</span>
-  <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb</span>
+<span class="line-num">10</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">signature</span> = <span class="ruby-keyword">nil</span>, <span class="ruby-identifier">verbose</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">keep_artifacts</span> = <span class="ruby-keyword">false</span>, <span class="ruby-identifier">module_template</span> = <span class="ruby-keyword">nil</span>)
+<span class="line-num">11</span> 
+<span class="line-num">12</span>   <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-string">&quot;/etc/redhat-release&quot;</span>)
+<span class="line-num">13</span>     <span class="ruby-ivar">@packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-string">&quot;RpmpackagePackager&quot;</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">verbose</span>, <span class="ruby-identifier">keep_artifacts</span>, <span class="ruby-identifier">module_template</span>)
+<span class="line-num">14</span>     <span class="ruby-ivar">@package_type</span> = <span class="ruby-string">&quot;RPM&quot;</span>
+<span class="line-num">15</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-string">&quot;/etc/debian_version&quot;</span>)
+<span class="line-num">16</span>     <span class="ruby-ivar">@packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-string">&quot;DebpackagePackager&quot;</span>].<span class="ruby-identifier">new</span>(<span class="ruby-identifier">package</span>, <span class="ruby-identifier">pluginpath</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">verbose</span>, <span class="ruby-identifier">keep_artifacts</span>, <span class="ruby-identifier">module_template</span>)
+<span class="line-num">17</span>     <span class="ruby-ivar">@package_type</span> = <span class="ruby-string">&quot;Deb&quot;</span>
+<span class="line-num">18</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">19</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;cannot identify operating system.&quot;</span>
+<span class="line-num">20</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">21</span> 
+<span class="line-num">22</span>   <span class="ruby-ivar">@package</span> = <span class="ruby-identifier">package</span>
+<span class="line-num">23</span>   <span class="ruby-ivar">@verbose</span> = <span class="ruby-identifier">verbose</span>
+<span class="line-num">24</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -240,17 +240,16 @@ dependencies and package metadata.</p>
 
         <div class="method-description">
           
-          <p>Hands over package creation to the detected packager implementation based
-on operating system.</p>
+          <p>Hands over package creation to the detected packager implementation based on operating system.</p>
           
           
 
           
           <div class="method-source-code" id="create_packages-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb, line 28</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_packages</span>
-  <span class="ruby-ivar">@packager</span>.<span class="ruby-identifier">create_packages</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb</span>
+<span class="line-num">28</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_packages</span>
+<span class="line-num">29</span>   <span class="ruby-ivar">@packager</span>.<span class="ruby-identifier">create_packages</span>
+<span class="line-num">30</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -280,31 +279,31 @@ on operating system.</p>
 
           
           <div class="method-source-code" id="package_information-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb, line 33</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">package_information</span>
-  <span class="ruby-identifier">puts</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Plugin information : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:name</span>]]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">22</span>, <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">22</span>]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Plugin Type : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">capitalize</span>]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Package Output Format : &quot;</span>, <span class="ruby-ivar">@package_type</span>]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Version : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:version</span>]]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Revision : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">revision</span>]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Vendor : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">vendor</span>]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Post Install Script : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">postinstall</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">postinstall</span>
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Author : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:author</span>]]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;License : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:license</span>]]
-  <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;URL : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:url</span>]]
-
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">packagedata</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">packagedata</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">values</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Identified Packages : &quot;</span>, <span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]]
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot; &quot;</span>, <span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]]
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/pluginpackager/ospackage_packager.rb</span>
+<span class="line-num">33</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">package_information</span>
+<span class="line-num">34</span>   <span class="ruby-identifier">puts</span>
+<span class="line-num">35</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Plugin information : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:name</span>]]
+<span class="line-num">36</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">22</span>, <span class="ruby-string">&quot;-&quot;</span> <span class="ruby-operator">*</span> <span class="ruby-value">22</span>]
+<span class="line-num">37</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Plugin Type : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">capitalize</span>]
+<span class="line-num">38</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Package Output Format : &quot;</span>, <span class="ruby-ivar">@package_type</span>]
+<span class="line-num">39</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Version : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:version</span>]]
+<span class="line-num">40</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Revision : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">revision</span>]
+<span class="line-num">41</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Vendor : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">vendor</span>]
+<span class="line-num">42</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Post Install Script : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">postinstall</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">postinstall</span>
+<span class="line-num">43</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Author : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:author</span>]]
+<span class="line-num">44</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;License : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:license</span>]]
+<span class="line-num">45</span>   <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;URL : &quot;</span>, <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">metadata</span>[<span class="ruby-value">:url</span>]]
+<span class="line-num">46</span> 
+<span class="line-num">47</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">packagedata</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">48</span>     <span class="ruby-ivar">@package</span>.<span class="ruby-identifier">packagedata</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">values</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">49</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">50</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot;Identified Packages : &quot;</span>, <span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]]
+<span class="line-num">51</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">52</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%30s%s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-string">&quot; &quot;</span>, <span class="ruby-identifier">values</span>[<span class="ruby-value">0</span>]]
+<span class="line-num">53</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">54</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">55</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">56</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -322,8 +321,8 @@ on operating system.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

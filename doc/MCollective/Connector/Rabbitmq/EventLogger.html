@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Rabbitmq::EventLogger - mcollective version 2.12.1</title>
+<title>class MCollective::Connector::Rabbitmq::EventLogger - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../../";
+  var index_rel_prefix = "../../../";
 </script>
 
-<script src="../../../js/jquery.js"></script>
-<script src="../../../js/darkfish.js"></script>
+<script src="../../../js/navigation.js" defer></script>
+<script src="../../../js/search.js" defer></script>
+<script src="../../../js/search_index.js" defer></script>
+<script src="../../../js/searcher.js" defer></script>
+<script src="../../../js/darkfish.js" defer></script>
 
 <link href="../../../css/fonts.css" rel="stylesheet">
 <link href="../../../css/rdoc.css" rel="stylesheet">
@@ -110,8 +114,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -147,11 +149,11 @@
 
           
           <div class="method-source-code" id="on_connected-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 14</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connected</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Connected to #{stomp_url(params)}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">14</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_connected</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">15</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Connected to #{stomp_url(params)}&quot;</span>)
+<span class="line-num">16</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">17</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -181,11 +183,11 @@
 
           
           <div class="method-source-code" id="on_connectfail-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 24</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connectfail</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;TCP Connection to #{stomp_url(params)} failed on attempt #{params[:cur_conattempts]}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">24</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_connectfail</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">25</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;TCP Connection to #{stomp_url(params)} failed on attempt #{params[:cur_conattempts]}&quot;</span>)
+<span class="line-num">26</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">27</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -215,11 +217,11 @@
 
           
           <div class="method-source-code" id="on_connecting-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 9</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_connecting</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;TCP Connection attempt %d to %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_conattempts</span>], <span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>)])
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num"> 9</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_connecting</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">10</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;TCP Connection attempt %d to %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_conattempts</span>], <span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>)])
+<span class="line-num">11</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">12</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -249,11 +251,11 @@
 
           
           <div class="method-source-code" id="on_disconnect-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_disconnect</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Disconnected from #{stomp_url(params)}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">19</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_disconnect</span>(<span class="ruby-identifier">params</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">20</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Disconnected from #{stomp_url(params)}&quot;</span>)
+<span class="line-num">21</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">22</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -277,22 +279,22 @@
 
         <div class="method-description">
           
-          <p><a href="../../Log.html">Log</a> heart beat fires</p>
+          <p><a href="../../Log.html"><code>Log</code></a> heart beat fires</p>
           
           
 
           
           <div class="method-source-code" id="on_hbfire-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 81</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbfire</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>)
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">srind</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;receive_fire&quot;</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Received heartbeat from %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
-    <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;send_fire&quot;</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Publishing heartbeat to %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">81</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_hbfire</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>)
+<span class="line-num">82</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">srind</span>
+<span class="line-num">83</span>     <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;receive_fire&quot;</span>
+<span class="line-num">84</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Received heartbeat from %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
+<span class="line-num">85</span>     <span class="ruby-keyword">when</span> <span class="ruby-string">&quot;send_fire&quot;</span>
+<span class="line-num">86</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Publishing heartbeat to %s: %s, %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">srind</span>, <span class="ruby-identifier">curt</span>])
+<span class="line-num">87</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">88</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">89</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -322,31 +324,31 @@
 
           
           <div class="method-source-code" id="on_hbread_fail-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 49</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbread_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&quot;lock_fail&quot;</span>]
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-      <span class="ruby-comment"># failure is disabled</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">'lock_fail_count'</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>]
-      <span class="ruby-comment"># we're about to force a disconnect</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-      <span class="ruby-comment"># failure is disabled</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">'read_fail_count'</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>]
-      <span class="ruby-comment"># we're about to force a reconnect</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat read failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">49</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_hbread_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
+<span class="line-num">50</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&quot;lock_fail&quot;</span>]
+<span class="line-num">51</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">52</span>       <span class="ruby-comment"># failure is disabled</span>
+<span class="line-num">53</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">54</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;lock_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbrlck_fails</span>]
+<span class="line-num">55</span>       <span class="ruby-comment"># we&#39;re about to force a disconnect</span>
+<span class="line-num">56</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">57</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">58</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat failed to acquire readlock for &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">59</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">60</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">61</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">62</span>       <span class="ruby-comment"># failure is disabled</span>
+<span class="line-num">63</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">64</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">ticker_data</span>[<span class="ruby-string">&#39;read_fail_count&#39;</span>] <span class="ruby-operator">&gt;=</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:max_hbread_fails</span>]
+<span class="line-num">65</span>       <span class="ruby-comment"># we&#39;re about to force a reconnect</span>
+<span class="line-num">66</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">67</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">68</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Heartbeat read failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">69</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">70</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">71</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">72</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -376,11 +378,11 @@
 
           
           <div class="method-source-code" id="on_hbwrite_fail-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 75</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_hbwrite_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat write failed from '%s': %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">75</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_hbwrite_fail</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">ticker_data</span>)
+<span class="line-num">76</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Heartbeat write failed from &#39;%s&#39;: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>), <span class="ruby-identifier">ticker_data</span>.<span class="ruby-identifier">inspect</span>])
+<span class="line-num">77</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">78</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -410,11 +412,11 @@
 
           
           <div class="method-source-code" id="on_miscerr-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 29</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_miscerr</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">errstr</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Unexpected error on connection #{stomp_url(params)}: #{errstr}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">29</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_miscerr</span>(<span class="ruby-identifier">params</span>, <span class="ruby-identifier">errstr</span>)
+<span class="line-num">30</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Unexpected error on connection #{stomp_url(params)}: #{errstr}&quot;</span>)
+<span class="line-num">31</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">32</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -444,11 +446,11 @@
 
           
           <div class="method-source-code" id="on_ssl_connected-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 39</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connected</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;SSL session established with #{stomp_url(params)}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">39</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_ssl_connected</span>(<span class="ruby-identifier">params</span>)
+<span class="line-num">40</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;SSL session established with #{stomp_url(params)}&quot;</span>)
+<span class="line-num">41</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">42</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -478,10 +480,10 @@
 
           
           <div class="method-source-code" id="on_ssl_connectfail-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 44</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connectfail</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;SSL session creation with #{stomp_url(params)} failed: #{params[:ssl_exception]}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">44</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_ssl_connectfail</span>(<span class="ruby-identifier">params</span>)
+<span class="line-num">45</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;SSL session creation with #{stomp_url(params)} failed: #{params[:ssl_exception]}&quot;</span>)
+<span class="line-num">46</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -511,11 +513,11 @@
 
           
           <div class="method-source-code" id="on_ssl_connecting-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 34</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">on_ssl_connecting</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Establishing SSL session with #{stomp_url(params)}&quot;</span>)
-<span class="ruby-keyword">rescue</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">34</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">on_ssl_connecting</span>(<span class="ruby-identifier">params</span>)
+<span class="line-num">35</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Establishing SSL session with #{stomp_url(params)}&quot;</span>)
+<span class="line-num">36</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">37</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -545,10 +547,10 @@
 
           
           <div class="method-source-code" id="stomp_url-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb, line 91</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_url</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-string">&quot;%s://%s@%s:%d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_ssl</span>] <span class="ruby-operator">?</span> <span class="ruby-string">&quot;stomp+ssl&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;stomp&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_login</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_host</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_port</span>]]
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/connector/rabbitmq.rb</span>
+<span class="line-num">91</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">stomp_url</span>(<span class="ruby-identifier">params</span>)
+<span class="line-num">92</span>   <span class="ruby-string">&quot;%s://%s@%s:%d&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_ssl</span>] <span class="ruby-operator">?</span> <span class="ruby-string">&quot;stomp+ssl&quot;</span> <span class="ruby-operator">:</span> <span class="ruby-string">&quot;stomp&quot;</span>, <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_login</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_host</span>], <span class="ruby-identifier">params</span>[<span class="ruby-value">:cur_port</span>]]
+<span class="line-num">93</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -566,8 +568,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

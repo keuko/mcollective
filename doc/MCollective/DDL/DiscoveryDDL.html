@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::DDL::DiscoveryDDL - mcollective version 2.12.1</title>
+<title>class MCollective::DDL::DiscoveryDDL - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -89,8 +93,7 @@
 
   <section class="description">
     
-<p><a href="../DDL.html">DDL</a> for discovery plugins, a full example can be
-seen below</p>
+<p><a href="../DDL.html"><code>DDL</code></a> for discovery plugins, a full example can be seen below</p>
 
 <p>metadata    :name        =&gt; “mc”,</p>
 
@@ -103,15 +106,13 @@ seen below</p>
 
 <p>discovery do</p>
 
-<pre class="ruby"><span class="ruby-identifier">capabilities</span> [:<span class="ruby-identifier">classes</span>, :<span class="ruby-identifier">facts</span>, :<span class="ruby-identifier">identity</span>, :<span class="ruby-identifier">agents</span>, :<span class="ruby-identifier">compound</span>]
+<pre class="ruby"><span class="ruby-identifier">capabilities</span> [<span class="ruby-value">:classes</span>, <span class="ruby-value">:facts</span>, <span class="ruby-value">:identity</span>, <span class="ruby-value">:agents</span>, <span class="ruby-value">:compound</span>]
 </pre>
 
 <p>end</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -148,20 +149,20 @@ seen below</p>
 
           
           <div class="method-source-code" id="capabilities-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb, line 22</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">capabilities</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">caps</span>)
-  <span class="ruby-identifier">caps</span> = [<span class="ruby-identifier">caps</span>].<span class="ruby-identifier">flatten</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery plugin capabilities can't be empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">caps</span>.<span class="ruby-identifier">empty?</span>
-
-  <span class="ruby-identifier">caps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cap</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> [<span class="ruby-value">:classes</span>, <span class="ruby-value">:facts</span>, <span class="ruby-value">:identity</span>, <span class="ruby-value">:agents</span>, <span class="ruby-value">:compound</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cap</span>)
-      <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>][<span class="ruby-value">:capabilities</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cap</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;%s is not a valid capability, valid capabilities are :classes, :facts, :identity, :agents and :compound&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cap</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb</span>
+<span class="line-num">22</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">capabilities</span>(<span class="ruby-operator">*</span><span class="ruby-identifier">caps</span>)
+<span class="line-num">23</span>   <span class="ruby-identifier">caps</span> = [<span class="ruby-identifier">caps</span>].<span class="ruby-identifier">flatten</span>
+<span class="line-num">24</span> 
+<span class="line-num">25</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery plugin capabilities can&#39;t be empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">caps</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">26</span> 
+<span class="line-num">27</span>   <span class="ruby-identifier">caps</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">cap</span><span class="ruby-operator">|</span>
+<span class="line-num">28</span>     <span class="ruby-keyword">if</span> [<span class="ruby-value">:classes</span>, <span class="ruby-value">:facts</span>, <span class="ruby-value">:identity</span>, <span class="ruby-value">:agents</span>, <span class="ruby-value">:compound</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">cap</span>)
+<span class="line-num">29</span>       <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>][<span class="ruby-value">:capabilities</span>] <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">cap</span>
+<span class="line-num">30</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">31</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;%s is not a valid capability, valid capabilities are :classes, :facts, :identity, :agents and :compound&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">cap</span>
+<span class="line-num">32</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">33</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">34</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -176,7 +177,7 @@ seen below</p>
         
         <div class="method-heading">
           <span class="method-name">discovery</span><span
-            class="method-args">(&block)</span>
+            class="method-args">(&amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -188,7 +189,7 @@ seen below</p>
           <p>Creates the definition for new discovery plugins</p>
 
 <pre class="ruby"><span class="ruby-identifier">discovery</span> <span class="ruby-keyword">do</span>
-   <span class="ruby-identifier">capabilities</span> [:<span class="ruby-identifier">classes</span>, :<span class="ruby-identifier">facts</span>, :<span class="ruby-identifier">identity</span>, :<span class="ruby-identifier">agents</span>, :<span class="ruby-identifier">compound</span>]
+   <span class="ruby-identifier">capabilities</span> [<span class="ruby-value">:classes</span>, <span class="ruby-value">:facts</span>, <span class="ruby-value">:identity</span>, <span class="ruby-value">:agents</span>, <span class="ruby-value">:compound</span>]
 <span class="ruby-keyword">end</span>
 </pre>
           
@@ -196,16 +197,16 @@ seen below</p>
 
           
           <div class="method-source-code" id="discovery-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb, line 41</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery plugins can only have one definition&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>]
-
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>] = {<span class="ruby-value">:capabilities</span> =<span class="ruby-operator">&gt;</span> []}
-
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-value">:discovery</span>
-  <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
-  <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb</span>
+<span class="line-num">41</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">discovery</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">42</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Discovery plugins can only have one definition&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>]
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>] = {<span class="ruby-value">:capabilities</span> <span class="ruby-operator">=&gt;</span> []}
+<span class="line-num">45</span> 
+<span class="line-num">46</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-value">:discovery</span>
+<span class="line-num">47</span>   <span class="ruby-identifier">block</span>.<span class="ruby-identifier">call</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">48</span>   <span class="ruby-ivar">@current_entity</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">49</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -235,10 +236,10 @@ seen below</p>
 
           
           <div class="method-source-code" id="discovery_interface-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb, line 17</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">discovery_interface</span>
-  <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ddl/discoveryddl.rb</span>
+<span class="line-num">17</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">discovery_interface</span>
+<span class="line-num">18</span>   <span class="ruby-ivar">@entities</span>[<span class="ruby-value">:discovery</span>]
+<span class="line-num">19</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -256,8 +257,8 @@ seen below</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

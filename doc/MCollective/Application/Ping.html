@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Ping - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Ping - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -90,8 +94,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -127,37 +129,37 @@
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/ping.rb, line 50</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-  <span class="ruby-comment"># If the user did not override the default timeout include the discovery timeout</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] <span class="ruby-operator">==</span> <span class="ruby-value">5</span>
-    <span class="ruby-identifier">discovery_timeout</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:disctimeout</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">discovery_timeout</span> <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">discovery_timeout</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-identifier">client</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)
-
-  <span class="ruby-identifier">start</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>
-  <span class="ruby-identifier">times</span> = []
-
-  <span class="ruby-identifier">client</span>.<span class="ruby-identifier">req</span>(<span class="ruby-string">&quot;ping&quot;</span>, <span class="ruby-string">&quot;discovery&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">times</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">start</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%-40s time=%.2f ms&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>], <span class="ruby-identifier">times</span>.<span class="ruby-identifier">last</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;\n\n---- ping statistics ----&quot;</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">times</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">sum</span> = <span class="ruby-identifier">times</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">acc</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span><span class="ruby-identifier">acc</span> <span class="ruby-operator">+</span><span class="ruby-identifier">i</span>}
-    <span class="ruby-identifier">avg</span> = <span class="ruby-identifier">sum</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">times</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>
-
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%d replies max: %.2f min: %.2f avg: %.2f %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">times</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">times</span>.<span class="ruby-identifier">max</span>, <span class="ruby-identifier">times</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">avg</span>, <span class="ruby-identifier">spark</span>(<span class="ruby-identifier">times</span>)]
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;No responses received&quot;</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">halt</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">stats</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/ping.rb</span>
+<span class="line-num">51</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num">52</span>   <span class="ruby-comment"># If the user did not override the default timeout include the discovery timeout</span>
+<span class="line-num">53</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] <span class="ruby-operator">==</span> <span class="ruby-value">5</span>
+<span class="line-num">54</span>     <span class="ruby-identifier">discovery_timeout</span> = <span class="ruby-identifier">options</span>[<span class="ruby-value">:disctimeout</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">discovery_timeout</span> <span class="ruby-operator">||</span> <span class="ruby-value">0</span>
+<span class="line-num">55</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-identifier">options</span>[<span class="ruby-value">:timeout</span>] <span class="ruby-operator">+</span> <span class="ruby-identifier">discovery_timeout</span>
+<span class="line-num">56</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">57</span>   <span class="ruby-identifier">client</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Client</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">options</span>)
+<span class="line-num">58</span> 
+<span class="line-num">59</span>   <span class="ruby-identifier">start</span> = <span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span>
+<span class="line-num">60</span>   <span class="ruby-identifier">times</span> = []
+<span class="line-num">61</span> 
+<span class="line-num">62</span>   <span class="ruby-identifier">client</span>.<span class="ruby-identifier">req</span>(<span class="ruby-string">&quot;ping&quot;</span>, <span class="ruby-string">&quot;discovery&quot;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">resp</span><span class="ruby-operator">|</span>
+<span class="line-num">63</span>     <span class="ruby-identifier">times</span> <span class="ruby-operator">&lt;&lt;</span> (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">start</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
+<span class="line-num">64</span> 
+<span class="line-num">65</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%-40s time=%.2f ms&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">resp</span>[<span class="ruby-value">:senderid</span>], <span class="ruby-identifier">times</span>.<span class="ruby-identifier">last</span>]
+<span class="line-num">66</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">67</span> 
+<span class="line-num">68</span>   <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;\n\n---- ping statistics ----&quot;</span>)
+<span class="line-num">69</span> 
+<span class="line-num">70</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">times</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">71</span>     <span class="ruby-identifier">sum</span> = <span class="ruby-identifier">times</span>.<span class="ruby-identifier">inject</span>(<span class="ruby-value">0</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">acc</span>,<span class="ruby-identifier">i</span><span class="ruby-operator">|</span><span class="ruby-identifier">acc</span> <span class="ruby-operator">+</span><span class="ruby-identifier">i</span>}
+<span class="line-num">72</span>     <span class="ruby-identifier">avg</span> = <span class="ruby-identifier">sum</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">times</span>.<span class="ruby-identifier">length</span>.<span class="ruby-identifier">to_f</span>
+<span class="line-num">73</span> 
+<span class="line-num">74</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%d replies max: %.2f min: %.2f avg: %.2f %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">times</span>.<span class="ruby-identifier">size</span>, <span class="ruby-identifier">times</span>.<span class="ruby-identifier">max</span>, <span class="ruby-identifier">times</span>.<span class="ruby-identifier">min</span>, <span class="ruby-identifier">avg</span>, <span class="ruby-identifier">spark</span>(<span class="ruby-identifier">times</span>)]
+<span class="line-num">75</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">76</span>     <span class="ruby-identifier">puts</span>(<span class="ruby-string">&quot;No responses received&quot;</span>)
+<span class="line-num">77</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">78</span> 
+<span class="line-num">79</span>   <span class="ruby-identifier">halt</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">stats</span>
+<span class="line-num">80</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -181,49 +183,48 @@
 
         <div class="method-description">
           
-          <p>Convert the times structure into a array representing buckets of responses
-in 50 ms intervals.  Return a small sparkline graph using UTF8 characters</p>
+          <p>Convert the times structure into a array representing buckets of responses in 50 ms intervals.  Return a small sparkline graph using UTF8 characters</p>
           
           
 
           
           <div class="method-source-code" id="spark-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/ping.rb, line 14</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">spark</span>(<span class="ruby-identifier">resp_times</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:graph</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;rpc.graph&quot;</span>]
-
-  <span class="ruby-identifier">ticks</span>=<span class="ruby-node">%w[▁ ▂ ▃ ▄ ▅ ▆ ▇]</span>
-
-  <span class="ruby-identifier">histo</span> = {}
-
-  <span class="ruby-comment"># round each time to its nearest 50ms</span>
-  <span class="ruby-comment"># and keep a count for each 50ms</span>
-  <span class="ruby-identifier">resp_times</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">time</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">time</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">time</span> <span class="ruby-operator">+</span> <span class="ruby-value">50</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">time</span> <span class="ruby-operator">%</span> <span class="ruby-value">50</span>))
-    <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>
-    <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># set the 50ms intervals that saw no traffic to 0</span>
-  ((<span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">min</span>) <span class="ruby-operator">/</span> <span class="ruby-value">50</span>).<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">time</span> = (<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">50</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">min</span>
-    <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] = <span class="ruby-value">0</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># get a numerically sorted list of times</span>
-  <span class="ruby-identifier">histo</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">k</span>]}
-
-  <span class="ruby-identifier">range</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">min</span>
-  <span class="ruby-identifier">scale</span> = <span class="ruby-identifier">ticks</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
-  <span class="ruby-identifier">distance</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">max</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">scale</span>
-
-  <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">tick</span> = (<span class="ruby-identifier">val</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">distance</span>).<span class="ruby-identifier">round</span>
-    <span class="ruby-identifier">tick</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tick</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
-
-    <span class="ruby-identifier">ticks</span>[<span class="ruby-identifier">tick</span>]
-  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">join</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/application/ping.rb</span>
+<span class="line-num">15</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">spark</span>(<span class="ruby-identifier">resp_times</span>)
+<span class="line-num">16</span>   <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:graph</span>] <span class="ruby-operator">||</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;rpc.graph&quot;</span>]
+<span class="line-num">17</span> 
+<span class="line-num">18</span>   <span class="ruby-identifier">ticks</span>=<span class="ruby-node">%w[▁ ▂ ▃ ▄ ▅ ▆ ▇]</span>
+<span class="line-num">19</span> 
+<span class="line-num">20</span>   <span class="ruby-identifier">histo</span> = {}
+<span class="line-num">21</span> 
+<span class="line-num">22</span>   <span class="ruby-comment"># round each time to its nearest 50ms</span>
+<span class="line-num">23</span>   <span class="ruby-comment"># and keep a count for each 50ms</span>
+<span class="line-num">24</span>   <span class="ruby-identifier">resp_times</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">time</span><span class="ruby-operator">|</span>
+<span class="line-num">25</span>     <span class="ruby-identifier">time</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">time</span> <span class="ruby-operator">+</span> <span class="ruby-value">50</span> <span class="ruby-operator">-</span> (<span class="ruby-identifier">time</span> <span class="ruby-operator">%</span> <span class="ruby-value">50</span>))
+<span class="line-num">26</span>     <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] <span class="ruby-operator">||=</span> <span class="ruby-value">0</span>
+<span class="line-num">27</span>     <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] <span class="ruby-operator">+=</span> <span class="ruby-value">1</span>
+<span class="line-num">28</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">29</span> 
+<span class="line-num">30</span>   <span class="ruby-comment"># set the 50ms intervals that saw no traffic to 0</span>
+<span class="line-num">31</span>   ((<span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">min</span>) <span class="ruby-operator">/</span> <span class="ruby-value">50</span>).<span class="ruby-identifier">times</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">32</span>     <span class="ruby-identifier">time</span> = (<span class="ruby-identifier">i</span> <span class="ruby-operator">*</span> <span class="ruby-value">50</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">min</span>
+<span class="line-num">33</span>     <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>] = <span class="ruby-value">0</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">time</span>]
+<span class="line-num">34</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">35</span> 
+<span class="line-num">36</span>   <span class="ruby-comment"># get a numerically sorted list of times</span>
+<span class="line-num">37</span>   <span class="ruby-identifier">histo</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort</span>.<span class="ruby-identifier">map</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">histo</span>[<span class="ruby-identifier">k</span>]}
+<span class="line-num">38</span> 
+<span class="line-num">39</span>   <span class="ruby-identifier">range</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">min</span>
+<span class="line-num">40</span>   <span class="ruby-identifier">scale</span> = <span class="ruby-identifier">ticks</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">-</span> <span class="ruby-value">1</span>
+<span class="line-num">41</span>   <span class="ruby-identifier">distance</span> = <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">max</span>.<span class="ruby-identifier">to_f</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">scale</span>
+<span class="line-num">42</span> 
+<span class="line-num">43</span>   <span class="ruby-identifier">histo</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">val</span><span class="ruby-operator">|</span>
+<span class="line-num">44</span>     <span class="ruby-identifier">tick</span> = (<span class="ruby-identifier">val</span> <span class="ruby-operator">/</span> <span class="ruby-identifier">distance</span>).<span class="ruby-identifier">round</span>
+<span class="line-num">45</span>     <span class="ruby-identifier">tick</span> = <span class="ruby-value">0</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">tick</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">0</span>
+<span class="line-num">46</span> 
+<span class="line-num">47</span>     <span class="ruby-identifier">ticks</span>[<span class="ruby-identifier">tick</span>]
+<span class="line-num">48</span>   <span class="ruby-keyword">end</span>.<span class="ruby-identifier">join</span>
+<span class="line-num">49</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -241,8 +242,8 @@ in 50 ms intervals.  Return a small sparkline graph using UTF8 characters</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

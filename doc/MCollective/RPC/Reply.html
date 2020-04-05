@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Reply - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::Reply - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -99,13 +103,10 @@
 
   <section class="description">
     
-<p>Simple class to manage compliant replies to <a
-href="../RPC.html">MCollective::RPC</a></p>
+<p>Simple class to manage compliant replies to <a href="../RPC.html"><code>MCollective::RPC</code></a></p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -189,20 +190,20 @@ href="../RPC.html">MCollective::RPC</a></p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">ddl</span>)
-  <span class="ruby-ivar">@data</span> = {}
-  <span class="ruby-ivar">@statuscode</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-string">&quot;OK&quot;</span>
-  <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
-  <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">initialize_data</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Could not pre-populate reply data from the DDL: %s: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">e</span>.<span class="ruby-identifier">class</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span> ])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num"> 7</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">action</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num"> 8</span>   <span class="ruby-ivar">@data</span> = {}
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@statuscode</span> = <span class="ruby-value">0</span>
+<span class="line-num">10</span>   <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-string">&quot;OK&quot;</span>
+<span class="line-num">11</span>   <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
+<span class="line-num">12</span>   <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">action</span>
+<span class="line-num">13</span> 
+<span class="line-num">14</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">15</span>     <span class="ruby-identifier">initialize_data</span>
+<span class="line-num">16</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">17</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Could not pre-populate reply data from the DDL: %s: %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">e</span>.<span class="ruby-identifier">class</span>, <span class="ruby-identifier">e</span>.<span class="ruby-identifier">to_s</span> ])
+<span class="line-num">18</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">19</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -240,10 +241,10 @@ href="../RPC.html">MCollective::RPC</a></p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 70</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">key</span>]
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">70</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">71</span>   <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">key</span>]
+<span class="line-num">72</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -273,10 +274,10 @@ href="../RPC.html">MCollective::RPC</a></p>
 
           
           <div class="method-source-code" id="5B-5D-3D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 65</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
-  <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">val</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">65</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]=</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">val</span>)
+<span class="line-num">66</span>   <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">key</span>] = <span class="ruby-identifier">val</span>
+<span class="line-num">67</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -306,11 +307,11 @@ href="../RPC.html">MCollective::RPC</a></p>
 
           
           <div class="method-source-code" id="fail-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fail</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">code</span>=<span class="ruby-value">1</span>)
-  <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-identifier">msg</span>
-  <span class="ruby-ivar">@statuscode</span> = <span class="ruby-identifier">code</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">36</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fail</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">code</span>=<span class="ruby-value">1</span>)
+<span class="line-num">37</span>   <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-identifier">msg</span>
+<span class="line-num">38</span>   <span class="ruby-ivar">@statuscode</span> = <span class="ruby-identifier">code</span>
+<span class="line-num">39</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -334,35 +335,34 @@ href="../RPC.html">MCollective::RPC</a></p>
 
         <div class="method-description">
           
-          <p>Helper that fills in statusmsg and code but also raises an appropriate
-error</p>
+          <p>Helper that fills in statusmsg and code but also raises an appropriate error</p>
           
           
 
           
           <div class="method-source-code" id="fail-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 42</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fail!</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">code</span>=<span class="ruby-value">1</span>)
-  <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-identifier">msg</span>
-  <span class="ruby-ivar">@statuscode</span> = <span class="ruby-identifier">code</span>
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">code</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">RPCAborted</span>, <span class="ruby-identifier">msg</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCAction</span>, <span class="ruby-identifier">msg</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">3</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">MissingRPCData</span>, <span class="ruby-identifier">msg</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">4</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidRPCData</span>, <span class="ruby-identifier">msg</span>
-
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCError</span>, <span class="ruby-identifier">msg</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">42</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fail!</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">code</span>=<span class="ruby-value">1</span>)
+<span class="line-num">43</span>   <span class="ruby-ivar">@statusmsg</span> = <span class="ruby-identifier">msg</span>
+<span class="line-num">44</span>   <span class="ruby-ivar">@statuscode</span> = <span class="ruby-identifier">code</span>
+<span class="line-num">45</span> 
+<span class="line-num">46</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">code</span>
+<span class="line-num">47</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">1</span>
+<span class="line-num">48</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">RPCAborted</span>, <span class="ruby-identifier">msg</span>
+<span class="line-num">49</span> 
+<span class="line-num">50</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">2</span>
+<span class="line-num">51</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCAction</span>, <span class="ruby-identifier">msg</span>
+<span class="line-num">52</span> 
+<span class="line-num">53</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">3</span>
+<span class="line-num">54</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">MissingRPCData</span>, <span class="ruby-identifier">msg</span>
+<span class="line-num">55</span> 
+<span class="line-num">56</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">4</span>
+<span class="line-num">57</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">InvalidRPCData</span>, <span class="ruby-identifier">msg</span>
+<span class="line-num">58</span> 
+<span class="line-num">59</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">60</span>       <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnknownRPCError</span>, <span class="ruby-identifier">msg</span>
+<span class="line-num">61</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">62</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -392,10 +392,10 @@ error</p>
 
           
           <div class="method-source-code" id="fetch-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 74</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
-  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">74</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
+<span class="line-num">75</span>   <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
+<span class="line-num">76</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -425,20 +425,20 @@ error</p>
 
           
           <div class="method-source-code" id="initialize_data-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize_data</span>
-  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@action</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No action '%s' defined for agent '%s' in the DDL&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">pluginname</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">interface</span> = <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-ivar">@action</span>)
-
-  <span class="ruby-identifier">interface</span>[<span class="ruby-value">:output</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span>
-    <span class="ruby-comment"># must deep clone this data to avoid accidental updates of the DDL in cases where the</span>
-    <span class="ruby-comment"># default is for example a string and someone does &lt;&lt; on it</span>
-    <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">output</span>] = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">interface</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">output</span>].<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:default</span>, <span class="ruby-keyword">nil</span>)))
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">21</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize_data</span>
+<span class="line-num">22</span>   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">actions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@action</span>)
+<span class="line-num">23</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No action &#39;%s&#39; defined for agent &#39;%s&#39; in the DDL&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">pluginname</span>]
+<span class="line-num">24</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">25</span> 
+<span class="line-num">26</span>   <span class="ruby-identifier">interface</span> = <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-ivar">@action</span>)
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-identifier">interface</span>[<span class="ruby-value">:output</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">output</span><span class="ruby-operator">|</span>
+<span class="line-num">29</span>     <span class="ruby-comment"># must deep clone this data to avoid accidental updates of the DDL in cases where the</span>
+<span class="line-num">30</span>     <span class="ruby-comment"># default is for example a string and someone does &lt;&lt; on it</span>
+<span class="line-num">31</span>     <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">output</span>] = <span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">Marshal</span>.<span class="ruby-identifier">dump</span>(<span class="ruby-identifier">interface</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">output</span>].<span class="ruby-identifier">fetch</span>(<span class="ruby-value">:default</span>, <span class="ruby-keyword">nil</span>)))
+<span class="line-num">32</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">33</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -462,19 +462,18 @@ error</p>
 
         <div class="method-description">
           
-          <p>Returns a compliant Hash of the reply that should be sent over the
-middleware</p>
+          <p>Returns a compliant Hash of the reply that should be sent over the middleware</p>
           
           
 
           
           <div class="method-source-code" id="to_hash-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/reply.rb, line 80</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_hash</span>
-  <span class="ruby-keyword">return</span> {<span class="ruby-value">:statuscode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@statuscode</span>,
-          <span class="ruby-value">:statusmsg</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@statusmsg</span>,
-          <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@data</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/reply.rb</span>
+<span class="line-num">80</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_hash</span>
+<span class="line-num">81</span>   <span class="ruby-keyword">return</span> {<span class="ruby-value">:statuscode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@statuscode</span>,
+<span class="line-num">82</span>           <span class="ruby-value">:statusmsg</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@statusmsg</span>,
+<span class="line-num">83</span>           <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@data</span>}
+<span class="line-num">84</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -492,8 +491,8 @@ middleware</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

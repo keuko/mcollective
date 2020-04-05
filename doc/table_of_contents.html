@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Table of Contents - mcollective version 2.12.1</title>
+<title>Table of Contents - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/jquery.js"></script>
-<script src="./js/darkfish.js"></script>
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -20,7 +24,7 @@
 
 <body id="top" class="table-of-contents">
 <main role="main">
-<h1 class="class">Table of Contents - mcollective version 2.12.1</h1>
+<h1 class="class">Table of Contents - mcollective version 2.12.5</h1>
 
 <h2 id="pages">Pages</h2>
 <ul>
@@ -36,6 +40,9 @@
   </li>
     <li class="file">
     <a href="Gemfile.html">Gemfile</a>
+  </li>
+    <li class="file">
+    <a href="Gemfile_lock.html">Gemfile.lock</a>
   </li>
     <li class="file">
     <a href="MAINTAINERS.html">MAINTAINERS</a>
@@ -57,6 +64,9 @@
   </li>
     <li class="file">
     <a href="acceptance/Gemfile.html">Gemfile</a>
+  </li>
+    <li class="file">
+    <a href="acceptance/Gemfile_lock.html">Gemfile.lock</a>
   </li>
     <li class="file">
     <a href="acceptance/README_md.html">README</a>
@@ -338,17 +348,8 @@
   <li class="class">
     <a href="Array.html">Array</a>
   </li>
-  <li class="module">
-    <a href="Beaker.html">Beaker</a>
-  </li>
-  <li class="module">
-    <a href="Beaker/DSL.html">Beaker::DSL</a>
-  </li>
   <li class="class">
     <a href="Dir.html">Dir</a>
-  </li>
-  <li class="module">
-    <a href="GetoptLong.html">GetoptLong</a>
   </li>
   <li class="module">
     <a href="MCollective.html">MCollective</a>
@@ -509,9 +510,6 @@
   </li>
   <li class="class">
     <a href="MCollective/Data/Fstat_data.html">MCollective::Data::Fstat_data</a>
-  </li>
-  <li class="module">
-    <a href="MCollective/Data/Fstat_data/Digest.html">MCollective::Data::Fstat_data::Digest</a>
   </li>
   <li class="class">
     <a href="MCollective/Data/Result.html">MCollective::Data::Result</a>
@@ -824,9 +822,9 @@
     <span class="container">MCollective::Facts</span>
 
   <li class="method">
-    <a href="MCollective/Validator.html#method-c-5B-5D">::[]</a>
+    <a href="MCollective/PluginManager.html#method-c-5B-5D">::[]</a>
     &mdash;
-    <span class="container">MCollective::Validator</span>
+    <span class="container">MCollective::PluginManager</span>
 
   <li class="method">
     <a href="MCollective/PluginPackager.html#method-c-5B-5D">::[]</a>
@@ -834,9 +832,9 @@
     <span class="container">MCollective::PluginPackager</span>
 
   <li class="method">
-    <a href="MCollective/PluginManager.html#method-c-5B-5D">::[]</a>
+    <a href="MCollective/Validator.html#method-c-5B-5D">::[]</a>
     &mdash;
-    <span class="container">MCollective::PluginManager</span>
+    <span class="container">MCollective::Validator</span>
 
   <li class="method">
     <a href="MCollective/Application.html#method-c-5B-5D-3D">::[]=</a>
@@ -1034,14 +1032,14 @@
     <span class="container">MCollective::Discovery::Flatfile</span>
 
   <li class="method">
-    <a href="MCollective/Discovery/Stdin.html#method-c-discover">::discover</a>
-    &mdash;
-    <span class="container">MCollective::Discovery::Stdin</span>
-
-  <li class="method">
     <a href="MCollective/Discovery/Mc.html#method-c-discover">::discover</a>
     &mdash;
     <span class="container">MCollective::Discovery::Mc</span>
+
+  <li class="method">
+    <a href="MCollective/Discovery/Stdin.html#method-c-discover">::discover</a>
+    &mdash;
+    <span class="container">MCollective::Discovery::Stdin</span>
 
   <li class="method">
     <a href="MCollective/RPC.html#method-c-discovered">::discovered</a>
@@ -1234,19 +1232,14 @@
     <span class="container">MCollective::Log</span>
 
   <li class="method">
-    <a href="MCollective/Security/Base.html#method-c-inherited">::inherited</a>
-    &mdash;
-    <span class="container">MCollective::Security::Base</span>
-
-  <li class="method">
-    <a href="MCollective/Registration/Base.html#method-c-inherited">::inherited</a>
-    &mdash;
-    <span class="container">MCollective::Registration::Base</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Base.html#method-c-inherited">::inherited</a>
     &mdash;
     <span class="container">MCollective::Connector::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Data/Base.html#method-c-inherited">::inherited</a>
+    &mdash;
+    <span class="container">MCollective::Data::Base</span>
 
   <li class="method">
     <a href="MCollective/Facts/Base.html#method-c-inherited">::inherited</a>
@@ -1254,14 +1247,19 @@
     <span class="container">MCollective::Facts::Base</span>
 
   <li class="method">
+    <a href="MCollective/Registration/Base.html#method-c-inherited">::inherited</a>
+    &mdash;
+    <span class="container">MCollective::Registration::Base</span>
+
+  <li class="method">
     <a href="MCollective/RPC/Audit.html#method-c-inherited">::inherited</a>
     &mdash;
     <span class="container">MCollective::RPC::Audit</span>
 
   <li class="method">
-    <a href="MCollective/Data/Base.html#method-c-inherited">::inherited</a>
+    <a href="MCollective/Security/Base.html#method-c-inherited">::inherited</a>
     &mdash;
-    <span class="container">MCollective::Data::Base</span>
+    <span class="container">MCollective::Security::Base</span>
 
   <li class="method">
     <a href="MCollective/Log.html#method-c-instance">::instance</a>
@@ -1319,14 +1317,14 @@
     <span class="container">MCollective::Validator</span>
 
   <li class="method">
-    <a href="MCollective/Util.html#method-c-loadclass">::loadclass</a>
-    &mdash;
-    <span class="container">MCollective::Util</span>
-
-  <li class="method">
     <a href="MCollective/PluginManager.html#method-c-loadclass">::loadclass</a>
     &mdash;
     <span class="container">MCollective::PluginManager</span>
+
+  <li class="method">
+    <a href="MCollective/Util.html#method-c-loadclass">::loadclass</a>
+    &mdash;
+    <span class="container">MCollective::Util</span>
 
   <li class="method">
     <a href="MCollective/Log.html#method-c-log">::log</a>
@@ -1354,14 +1352,14 @@
     <span class="container">MCollective::SSL</span>
 
   <li class="method">
-    <a href="MCollective/Validator.html#method-c-method_missing">::method_missing</a>
-    &mdash;
-    <span class="container">MCollective::Validator</span>
-
-  <li class="method">
     <a href="MCollective/Data.html#method-c-method_missing">::method_missing</a>
     &mdash;
     <span class="container">MCollective::Data</span>
+
+  <li class="method">
+    <a href="MCollective/Validator.html#method-c-method_missing">::method_missing</a>
+    &mdash;
+    <span class="container">MCollective::Validator</span>
 
   <li class="method">
     <a href="Dir.html#method-c-mktmpdir">::mktmpdir</a>
@@ -1369,189 +1367,9 @@
     <span class="container">Dir</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Stats.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Stats</span>
-
-  <li class="method">
-    <a href="MCollective/Facts/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Facts::Base</span>
-
-  <li class="method">
-    <a href="MCollective/Message.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Message</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/ActionRunner.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::ActionRunner</span>
-
-  <li class="method">
-    <a href="MCollective/Shell.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Shell</span>
-
-  <li class="method">
-    <a href="MCollective/DDL/AgentDDL.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::DDL::AgentDDL</span>
-
-  <li class="method">
-    <a href="MCollective/Facts/Yaml_facts.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Facts::Yaml_facts</span>
-
-  <li class="method">
-    <a href="MCollective/Security/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Security::Base</span>
-
-  <li class="method">
-    <a href="MCollective/PluginPackager/AgentDefinition.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::AgentDefinition</span>
-
-  <li class="method">
-    <a href="MCollective/Generators/AgentGenerator.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Generators::AgentGenerator</span>
-
-  <li class="method">
-    <a href="MCollective/BackoffSuggestion.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::BackoffSuggestion</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Request.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Request</span>
-
-  <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
-    <a href="MCollective/Generators/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Generators::Base</span>
-
-  <li class="method">
-    <a href="MCollective/Matcher/Scanner.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Matcher::Scanner</span>
-
-  <li class="method">
-    <a href="MCollective/Client.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Client</span>
-
-  <li class="method">
-    <a href="MCollective/Generators/DataGenerator.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Generators::DataGenerator</span>
-
-  <li class="method">
-    <a href="MCollective/Matcher/Parser.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Matcher::Parser</span>
-
-  <li class="method">
-    <a href="MCollective/Runner.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Runner</span>
-
-  <li class="method">
-    <a href="MCollective/Data/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Data::Base</span>
-
-  <li class="method">
-    <a href="MCollective/Discovery.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Discovery</span>
-
-  <li class="method">
-    <a href="MCollective/Optionparser.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Optionparser</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Client.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Client</span>
-
-  <li class="method">
-    <a href="MCollective/Aggregate/Result/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate::Result::Base</span>
-
-  <li class="method">
-    <a href="MCollective/Logger/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Logger::Base</span>
-
-  <li class="method">
-    <a href="MCollective/PluginPackager/DebpackagePackager.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::DebpackagePackager</span>
-
-  <li class="method">
-    <a href="MCollective/PluginPackager/StandardDefinition.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::StandardDefinition</span>
-
-  <li class="method">
-    <a href="MCollective/SSL.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::SSL</span>
-
-  <li class="method">
-    <a href="OpenSSL/SSL/SSLContext.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">OpenSSL::SSL::SSLContext</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Result.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Result</span>
-
-  <li class="method">
-    <a href="MCollective/DDL.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::DDL</span>
-
-  <li class="method">
     <a href="MCollective/Agent/Discovery.html#method-c-new">::new</a>
     &mdash;
     <span class="container">MCollective::Agent::Discovery</span>
-
-  <li class="method">
-    <a href="MCollective/Aggregate/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate::Base</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Reply.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Reply</span>
-
-  <li class="method">
-    <a href="MCollective/Config.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Config</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Progress.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Progress</span>
-
-  <li class="method">
-    <a href="MCollective/Aggregate.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate</span>
 
   <li class="method">
     <a href="MCollective/Agents.html#method-c-new">::new</a>
@@ -1559,9 +1377,29 @@
     <span class="container">MCollective::Agents</span>
 
   <li class="method">
-    <a href="MCollective/PluginPackager/RpmpackagePackager.html#method-c-new">::new</a>
+    <a href="MCollective/Aggregate.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">MCollective::PluginPackager::RpmpackagePackager</span>
+    <span class="container">MCollective::Aggregate</span>
+
+  <li class="method">
+    <a href="MCollective/Aggregate/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Aggregate::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Aggregate/Result/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Aggregate::Result::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Client.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Client</span>
+
+  <li class="method">
+    <a href="MCollective/Config.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Config</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-c-new">::new</a>
@@ -1569,19 +1407,14 @@
     <span class="container">MCollective::Connector::Activemq</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Agent.html#method-c-new">::new</a>
+    <a href="MCollective/Connector/Rabbitmq.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">MCollective::RPC::Agent</span>
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
-    <a href="MCollective/PluginPackager/ModulepackagePackager.html#method-c-new">::new</a>
+    <a href="MCollective/Data/Base.html#method-c-new">::new</a>
     &mdash;
-    <span class="container">MCollective::PluginPackager::ModulepackagePackager</span>
-
-  <li class="method">
-    <a href="MCollective/DDL/Base.html#method-c-new">::new</a>
-    &mdash;
-    <span class="container">MCollective::DDL::Base</span>
+    <span class="container">MCollective::Data::Base</span>
 
   <li class="method">
     <a href="MCollective/Data/Result.html#method-c-new">::new</a>
@@ -1589,14 +1422,179 @@
     <span class="container">MCollective::Data::Result</span>
 
   <li class="method">
+    <a href="MCollective/DDL/AgentDDL.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::DDL::AgentDDL</span>
+
+  <li class="method">
+    <a href="MCollective/DDL/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::DDL::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Discovery.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Discovery</span>
+
+  <li class="method">
+    <a href="MCollective/BackoffSuggestion.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::BackoffSuggestion</span>
+
+  <li class="method">
+    <a href="MCollective/Facts/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Facts::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Facts/Yaml_facts.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Facts::Yaml_facts</span>
+
+  <li class="method">
+    <a href="MCollective/Generators/AgentGenerator.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Generators::AgentGenerator</span>
+
+  <li class="method">
+    <a href="MCollective/Generators/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Generators::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Generators/DataGenerator.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Generators::DataGenerator</span>
+
+  <li class="method">
+    <a href="MCollective/Logger/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Logger::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Matcher/Parser.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Matcher::Parser</span>
+
+  <li class="method">
+    <a href="MCollective/Matcher/Scanner.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Matcher::Scanner</span>
+
+  <li class="method">
+    <a href="MCollective/Message.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Message</span>
+
+  <li class="method">
+    <a href="OpenSSL/SSL/SSLContext.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">OpenSSL::SSL::SSLContext</span>
+
+  <li class="method">
+    <a href="MCollective/Optionparser.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Optionparser</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/AgentDefinition.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::AgentDefinition</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/DebpackagePackager.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::DebpackagePackager</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/ModulepackagePackager.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::ModulepackagePackager</span>
+
+  <li class="method">
     <a href="MCollective/PluginPackager/OspackagePackager.html#method-c-new">::new</a>
     &mdash;
     <span class="container">MCollective::PluginPackager::OspackagePackager</span>
 
   <li class="method">
+    <a href="MCollective/PluginPackager/RpmpackagePackager.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::RpmpackagePackager</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/StandardDefinition.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::StandardDefinition</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/ActionRunner.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::ActionRunner</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Agent.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Agent</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Client.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Client</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Progress.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Progress</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Reply.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Reply</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Request.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Request</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Result.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Result</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Stats.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Stats</span>
+
+  <li class="method">
+    <a href="MCollective/Runner.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Runner</span>
+
+  <li class="method">
     <a href="MCollective/RunnerStats.html#method-c-new">::new</a>
     &mdash;
     <span class="container">MCollective::RunnerStats</span>
+
+  <li class="method">
+    <a href="MCollective/Security/Base.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Security::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Shell.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::Shell</span>
+
+  <li class="method">
+    <a href="MCollective/SSL.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::SSL</span>
+
+  <li class="method">
+    <a href="MCollective/DDL.html#method-c-new">::new</a>
+    &mdash;
+    <span class="container">MCollective::DDL</span>
 
   <li class="method">
     <a href="MCollective/RPC/Helpers.html#method-c-old_rpcresults">::old_rpcresults</a>
@@ -1769,9 +1767,14 @@
     <span class="container">MCollective::SSL</span>
 
   <li class="method">
-    <a href="MCollective/Validator.html#method-c-validate">::validate</a>
+    <a href="MCollective/Validator/ArrayValidator.html#method-c-validate">::validate</a>
     &mdash;
-    <span class="container">MCollective::Validator</span>
+    <span class="container">MCollective::Validator::ArrayValidator</span>
+
+  <li class="method">
+    <a href="MCollective/Validator/Ipv4addressValidator.html#method-c-validate">::validate</a>
+    &mdash;
+    <span class="container">MCollective::Validator::Ipv4addressValidator</span>
 
   <li class="method">
     <a href="MCollective/Validator/Ipv6addressValidator.html#method-c-validate">::validate</a>
@@ -1784,21 +1787,6 @@
     <span class="container">MCollective::Validator::LengthValidator</span>
 
   <li class="method">
-    <a href="MCollective/Validator/ArrayValidator.html#method-c-validate">::validate</a>
-    &mdash;
-    <span class="container">MCollective::Validator::ArrayValidator</span>
-
-  <li class="method">
-    <a href="MCollective/Validator/TypecheckValidator.html#method-c-validate">::validate</a>
-    &mdash;
-    <span class="container">MCollective::Validator::TypecheckValidator</span>
-
-  <li class="method">
-    <a href="MCollective/Validator/Ipv4addressValidator.html#method-c-validate">::validate</a>
-    &mdash;
-    <span class="container">MCollective::Validator::Ipv4addressValidator</span>
-
-  <li class="method">
     <a href="MCollective/Validator/RegexValidator.html#method-c-validate">::validate</a>
     &mdash;
     <span class="container">MCollective::Validator::RegexValidator</span>
@@ -1807,6 +1795,16 @@
     <a href="MCollective/Validator/ShellsafeValidator.html#method-c-validate">::validate</a>
     &mdash;
     <span class="container">MCollective::Validator::ShellsafeValidator</span>
+
+  <li class="method">
+    <a href="MCollective/Validator/TypecheckValidator.html#method-c-validate">::validate</a>
+    &mdash;
+    <span class="container">MCollective::Validator::TypecheckValidator</span>
+
+  <li class="method">
+    <a href="MCollective/Validator.html#method-c-validate">::validate</a>
+    &mdash;
+    <span class="container">MCollective::Validator</span>
 
   <li class="method">
     <a href="MCollective/Validator.html#method-c-validator_class">::validator_class</a>
@@ -1844,24 +1842,14 @@
     <span class="container">MCollective::Cache</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Result.html#method-i-3C-3D-3E">#&lt;=&gt;</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Result</span>
-
-  <li class="method">
     <a href="Symbol.html#method-i-3C-3D-3E">#&lt;=&gt;</a>
     &mdash;
     <span class="container">Symbol</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Stats.html#method-i-5B-5D">#[]</a>
+    <a href="MCollective/RPC/Result.html#method-i-3C-3D-3E">#&lt;=&gt;</a>
     &mdash;
-    <span class="container">MCollective::RPC::Stats</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Request.html#method-i-5B-5D">#[]</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Request</span>
+    <span class="container">MCollective::RPC::Result</span>
 
   <li class="method">
     <a href="MCollective/Data/Result.html#method-i-5B-5D">#[]</a>
@@ -1874,9 +1862,24 @@
     <span class="container">MCollective::RPC::Reply</span>
 
   <li class="method">
+    <a href="MCollective/RPC/Request.html#method-i-5B-5D">#[]</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Request</span>
+
+  <li class="method">
     <a href="MCollective/RPC/Result.html#method-i-5B-5D">#[]</a>
     &mdash;
     <span class="container">MCollective::RPC::Result</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Stats.html#method-i-5B-5D">#[]</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Stats</span>
+
+  <li class="method">
+    <a href="MCollective/Data/Result.html#method-i-5B-5D-3D">#[]=</a>
+    &mdash;
+    <span class="container">MCollective::Data::Result</span>
 
   <li class="method">
     <a href="MCollective/RPC/Reply.html#method-i-5B-5D-3D">#[]=</a>
@@ -1887,11 +1890,6 @@
     <a href="MCollective/RPC/Result.html#method-i-5B-5D-3D">#[]=</a>
     &mdash;
     <span class="container">MCollective::RPC::Result</span>
-
-  <li class="method">
-    <a href="MCollective/Data/Result.html#method-i-5B-5D-3D">#[]=</a>
-    &mdash;
-    <span class="container">MCollective::Data::Result</span>
 
   <li class="method">
     <a href="OpenSSL/SSL/SSLContext.html#method-i-__mcollective_original_initialize">#__mcollective_original_initialize</a>
@@ -2094,14 +2092,9 @@
     <span class="container">MCollective::Aggregate</span>
 
   <li class="method">
-    <a href="MCollective/Security/Ssl.html#method-i-callerid">#callerid</a>
+    <a href="MCollective/Security/Aes_security.html#method-i-callerid">#callerid</a>
     &mdash;
-    <span class="container">MCollective::Security::Ssl</span>
-
-  <li class="method">
-    <a href="MCollective/Security/Psk.html#method-i-callerid">#callerid</a>
-    &mdash;
-    <span class="container">MCollective::Security::Psk</span>
+    <span class="container">MCollective::Security::Aes_security</span>
 
   <li class="method">
     <a href="MCollective/Security/Base.html#method-i-callerid">#callerid</a>
@@ -2109,9 +2102,14 @@
     <span class="container">MCollective::Security::Base</span>
 
   <li class="method">
-    <a href="MCollective/Security/Aes_security.html#method-i-callerid">#callerid</a>
+    <a href="MCollective/Security/Psk.html#method-i-callerid">#callerid</a>
     &mdash;
-    <span class="container">MCollective::Security::Aes_security</span>
+    <span class="container">MCollective::Security::Psk</span>
+
+  <li class="method">
+    <a href="MCollective/Security/Ssl.html#method-i-callerid">#callerid</a>
+    &mdash;
+    <span class="container">MCollective::Security::Ssl</span>
 
   <li class="method">
     <a href="MCollective/RPC/ActionRunner.html#method-i-canrun-3F">#canrun?</a>
@@ -2289,14 +2287,14 @@
     <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-connection_headers">#connection_headers</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-connection_headers">#connection_headers</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-connection_headers">#connection_headers</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
     <a href="MCollective/Aggregate.html#method-i-contains_output-3F">#contains_output?</a>
@@ -2309,14 +2307,14 @@
     <span class="container">MCollective::RPC::Result</span>
 
   <li class="method">
-    <a href="MCollective/Generators/DataGenerator.html#method-i-create_ddl">#create_ddl</a>
-    &mdash;
-    <span class="container">MCollective::Generators::DataGenerator</span>
-
-  <li class="method">
     <a href="MCollective/Generators/AgentGenerator.html#method-i-create_ddl">#create_ddl</a>
     &mdash;
     <span class="container">MCollective::Generators::AgentGenerator</span>
+
+  <li class="method">
+    <a href="MCollective/Generators/DataGenerator.html#method-i-create_ddl">#create_ddl</a>
+    &mdash;
+    <span class="container">MCollective::Generators::DataGenerator</span>
 
   <li class="method">
     <a href="MCollective/Aggregate.html#method-i-create_functions">#create_functions</a>
@@ -2329,24 +2327,24 @@
     <span class="container">MCollective::Generators::Base</span>
 
   <li class="method">
-    <a href="MCollective/PluginPackager/ModulepackagePackager.html#method-i-create_packages">#create_packages</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::ModulepackagePackager</span>
-
-  <li class="method">
-    <a href="MCollective/PluginPackager/RpmpackagePackager.html#method-i-create_packages">#create_packages</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::RpmpackagePackager</span>
-
-  <li class="method">
     <a href="MCollective/PluginPackager/DebpackagePackager.html#method-i-create_packages">#create_packages</a>
     &mdash;
     <span class="container">MCollective::PluginPackager::DebpackagePackager</span>
 
   <li class="method">
+    <a href="MCollective/PluginPackager/ModulepackagePackager.html#method-i-create_packages">#create_packages</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::ModulepackagePackager</span>
+
+  <li class="method">
     <a href="MCollective/PluginPackager/OspackagePackager.html#method-i-create_packages">#create_packages</a>
     &mdash;
     <span class="container">MCollective::PluginPackager::OspackagePackager</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/RpmpackagePackager.html#method-i-create_packages">#create_packages</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::RpmpackagePackager</span>
 
   <li class="method">
     <a href="MCollective/Generators/AgentGenerator.html#method-i-create_plugin_content">#create_plugin_content</a>
@@ -2409,14 +2407,14 @@
     <span class="container">MCollective::DDL::DataDDL</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Result.html#method-i-ddl">#ddl</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Result</span>
-
-  <li class="method">
     <a href="MCollective/Discovery.html#method-i-ddl">#ddl</a>
     &mdash;
     <span class="container">MCollective::Discovery</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Result.html#method-i-ddl">#ddl</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Result</span>
 
   <li class="method">
     <a href="MCollective/Data/Base.html#method-i-ddl_validate">#ddl_validate</a>
@@ -2434,6 +2432,11 @@
     <span class="container">MCollective::Security::Aes_security</span>
 
   <li class="method">
+    <a href="MCollective/Security/Base.html#method-i-decodemsg">#decodemsg</a>
+    &mdash;
+    <span class="container">MCollective::Security::Base</span>
+
+  <li class="method">
     <a href="MCollective/Security/Psk.html#method-i-decodemsg">#decodemsg</a>
     &mdash;
     <span class="container">MCollective::Security::Psk</span>
@@ -2442,11 +2445,6 @@
     <a href="MCollective/Security/Ssl.html#method-i-decodemsg">#decodemsg</a>
     &mdash;
     <span class="container">MCollective::Security::Ssl</span>
-
-  <li class="method">
-    <a href="MCollective/Security/Base.html#method-i-decodemsg">#decodemsg</a>
-    &mdash;
-    <span class="container">MCollective::Security::Base</span>
 
   <li class="method">
     <a href="MCollective/Security/Aes_security.html#method-i-decrypt">#decrypt</a>
@@ -2494,14 +2492,19 @@
     <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Activemq.html#method-i-disconnect">#disconnect</a>
+    <a href="MCollective/Application.html#method-i-disconnect">#disconnect</a>
     &mdash;
-    <span class="container">MCollective::Connector::Activemq</span>
+    <span class="container">MCollective::Application</span>
 
   <li class="method">
     <a href="MCollective/Client.html#method-i-disconnect">#disconnect</a>
     &mdash;
     <span class="container">MCollective::Client</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Activemq.html#method-i-disconnect">#disconnect</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Activemq</span>
 
   <li class="method">
     <a href="MCollective/Connector/Rabbitmq.html#method-i-disconnect">#disconnect</a>
@@ -2514,16 +2517,6 @@
     <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
-    <a href="MCollective/Application.html#method-i-disconnect">#disconnect</a>
-    &mdash;
-    <span class="container">MCollective::Application</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/Client.html#method-i-discover">#discover</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Client</span>
-
-  <li class="method">
     <a href="MCollective/Client.html#method-i-discover">#discover</a>
     &mdash;
     <span class="container">MCollective::Client</span>
@@ -2532,6 +2525,11 @@
     <a href="MCollective/Discovery.html#method-i-discover">#discover</a>
     &mdash;
     <span class="container">MCollective::Discovery</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Client.html#method-i-discover">#discover</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
     <a href="MCollective/RPC/Stats.html#method-i-discovered_agents">#discovered_agents</a>
@@ -2574,14 +2572,14 @@
     <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Client.html#method-i-discovery_timeout">#discovery_timeout</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Client</span>
-
-  <li class="method">
     <a href="MCollective/Discovery.html#method-i-discovery_timeout">#discovery_timeout</a>
     &mdash;
     <span class="container">MCollective::Discovery</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Client.html#method-i-discovery_timeout">#discovery_timeout</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
     <a href="MCollective/RPC/Client.html#method-i-discovery_timeout-3D">#discovery_timeout=</a>
@@ -2639,9 +2637,9 @@
     <span class="container">MCollective::Message</span>
 
   <li class="method">
-    <a href="MCollective/Security/Ssl.html#method-i-encodereply">#encodereply</a>
+    <a href="MCollective/Security/Aes_security.html#method-i-encodereply">#encodereply</a>
     &mdash;
-    <span class="container">MCollective::Security::Ssl</span>
+    <span class="container">MCollective::Security::Aes_security</span>
 
   <li class="method">
     <a href="MCollective/Security/Base.html#method-i-encodereply">#encodereply</a>
@@ -2649,19 +2647,14 @@
     <span class="container">MCollective::Security::Base</span>
 
   <li class="method">
-    <a href="MCollective/Security/Aes_security.html#method-i-encodereply">#encodereply</a>
-    &mdash;
-    <span class="container">MCollective::Security::Aes_security</span>
-
-  <li class="method">
     <a href="MCollective/Security/Psk.html#method-i-encodereply">#encodereply</a>
     &mdash;
     <span class="container">MCollective::Security::Psk</span>
 
   <li class="method">
-    <a href="MCollective/Security/Base.html#method-i-encoderequest">#encoderequest</a>
+    <a href="MCollective/Security/Ssl.html#method-i-encodereply">#encodereply</a>
     &mdash;
-    <span class="container">MCollective::Security::Base</span>
+    <span class="container">MCollective::Security::Ssl</span>
 
   <li class="method">
     <a href="MCollective/Security/Aes_security.html#method-i-encoderequest">#encoderequest</a>
@@ -2669,14 +2662,19 @@
     <span class="container">MCollective::Security::Aes_security</span>
 
   <li class="method">
-    <a href="MCollective/Security/Ssl.html#method-i-encoderequest">#encoderequest</a>
+    <a href="MCollective/Security/Base.html#method-i-encoderequest">#encoderequest</a>
     &mdash;
-    <span class="container">MCollective::Security::Ssl</span>
+    <span class="container">MCollective::Security::Base</span>
 
   <li class="method">
     <a href="MCollective/Security/Psk.html#method-i-encoderequest">#encoderequest</a>
     &mdash;
     <span class="container">MCollective::Security::Psk</span>
+
+  <li class="method">
+    <a href="MCollective/Security/Ssl.html#method-i-encoderequest">#encoderequest</a>
+    &mdash;
+    <span class="container">MCollective::Security::Ssl</span>
 
   <li class="method">
     <a href="MCollective/Security/Aes_security.html#method-i-encrypt">#encrypt</a>
@@ -2749,11 +2747,6 @@
     <span class="container">MCollective::RPC::Reply</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Result.html#method-i-fetch">#fetch</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Result</span>
-
-  <li class="method">
     <a href="MCollective/RPC/Reply.html#method-i-fetch">#fetch</a>
     &mdash;
     <span class="container">MCollective::RPC::Reply</span>
@@ -2762,6 +2755,11 @@
     <a href="MCollective/RPC/Request.html#method-i-fetch">#fetch</a>
     &mdash;
     <span class="container">MCollective::RPC::Request</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Result.html#method-i-fetch">#fetch</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Result</span>
 
   <li class="method">
     <a href="Puppet/Acceptance/InstallUtils.html#method-i-fetch">#fetch</a>
@@ -2819,14 +2817,14 @@
     <span class="container">MCollective::Discovery</span>
 
   <li class="method">
-    <a href="MCollective/Facts/Yaml_facts.html#method-i-force_reload-3F">#force_reload?</a>
-    &mdash;
-    <span class="container">MCollective::Facts::Yaml_facts</span>
-
-  <li class="method">
     <a href="MCollective/Facts/Base.html#method-i-force_reload-3F">#force_reload?</a>
     &mdash;
     <span class="container">MCollective::Facts::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Facts/Yaml_facts.html#method-i-force_reload-3F">#force_reload?</a>
+    &mdash;
+    <span class="container">MCollective::Facts::Yaml_facts</span>
 
   <li class="method">
     <a href="MCollective/Application/Inventory.html#method-i-format">#format</a>
@@ -2854,14 +2852,14 @@
     <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_cert_file">#get_cert_file</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-get_cert_file">#get_cert_file</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_cert_file">#get_cert_file</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
     <a href="MCollective/Application/Inventory.html#method-i-get_collectives">#get_collectives</a>
@@ -2869,14 +2867,14 @@
     <span class="container">MCollective::Application::Inventory</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_env_or_option">#get_env_or_option</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-get_env_or_option">#get_env_or_option</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_env_or_option">#get_env_or_option</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
     <a href="MCollective/Facts/Base.html#method-i-get_fact">#get_fact</a>
@@ -2889,17 +2887,12 @@
     <span class="container">MCollective::Facts::Base</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_key_file">#get_key_file</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-get_key_file">#get_key_file</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_option">#get_option</a>
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_key_file">#get_key_file</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq</span>
 
@@ -2907,6 +2900,11 @@
     <a href="MCollective/Connector/Activemq.html#method-i-get_option">#get_option</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-get_option">#get_option</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
     <a href="MCollective/Matcher/Scanner.html#method-i-get_token">#get_token</a>
@@ -2969,14 +2967,14 @@
     <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
-    <a href="MCollective/PluginPackager/StandardDefinition.html#method-i-identify_packages">#identify_packages</a>
-    &mdash;
-    <span class="container">MCollective::PluginPackager::StandardDefinition</span>
-
-  <li class="method">
     <a href="MCollective/PluginPackager/AgentDefinition.html#method-i-identify_packages">#identify_packages</a>
     &mdash;
     <span class="container">MCollective::PluginPackager::AgentDefinition</span>
+
+  <li class="method">
+    <a href="MCollective/PluginPackager/StandardDefinition.html#method-i-identify_packages">#identify_packages</a>
+    &mdash;
+    <span class="container">MCollective::PluginPackager::StandardDefinition</span>
 
   <li class="method">
     <a href="MCollective/Application/Plugin.html#method-i-identify_plugin">#identify_plugin</a>
@@ -3194,11 +3192,6 @@
     <span class="container">MCollective::Logger::Base</span>
 
   <li class="method">
-    <a href="MCollective/Logger/Syslog_logger.html#method-i-log">#log</a>
-    &mdash;
-    <span class="container">MCollective::Logger::Syslog_logger</span>
-
-  <li class="method">
     <a href="MCollective/Logger/Console_logger.html#method-i-log">#log</a>
     &mdash;
     <span class="container">MCollective::Logger::Console_logger</span>
@@ -3207,6 +3200,11 @@
     <a href="MCollective/Logger/File_logger.html#method-i-log">#log</a>
     &mdash;
     <span class="container">MCollective::Logger::File_logger</span>
+
+  <li class="method">
+    <a href="MCollective/Logger/Syslog_logger.html#method-i-log">#log</a>
+    &mdash;
+    <span class="container">MCollective::Logger::Syslog_logger</span>
 
   <li class="method">
     <a href="MCollective/Data/Base.html#method-i-lookup">#lookup</a>
@@ -3219,39 +3217,9 @@
     <span class="container">Puppet::Acceptance::GitUtils</span>
 
   <li class="method">
-    <a href="MCollective/Application/Ping.html#method-i-main">#main</a>
+    <a href="MCollective/Application.html#method-i-main">#main</a>
     &mdash;
-    <span class="container">MCollective::Application::Ping</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Rpc.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Rpc</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Inventory.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Inventory</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Plugin.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Plugin</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Help.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Help</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Find.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Find</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Facts.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application::Facts</span>
+    <span class="container">MCollective::Application</span>
 
   <li class="method">
     <a href="MCollective/Application/Completion.html#method-i-main">#main</a>
@@ -3259,14 +3227,44 @@
     <span class="container">MCollective::Application::Completion</span>
 
   <li class="method">
-    <a href="MCollective/Application.html#method-i-main">#main</a>
-    &mdash;
-    <span class="container">MCollective::Application</span>
-
-  <li class="method">
     <a href="MCollective/Application/Describe_filter.html#method-i-main">#main</a>
     &mdash;
     <span class="container">MCollective::Application::Describe_filter</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Facts.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Facts</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Find.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Find</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Help.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Help</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Inventory.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Inventory</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Ping.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Ping</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Plugin.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Plugin</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Rpc.html#method-i-main">#main</a>
+    &mdash;
+    <span class="container">MCollective::Application::Rpc</span>
 
   <li class="method">
     <a href="MCollective/Runner.html#method-i-main_loop">#main_loop</a>
@@ -3274,14 +3272,14 @@
     <span class="container">MCollective::Runner</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq.html#method-i-make_target">#make_target</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-make_target">#make_target</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq.html#method-i-make_target">#make_target</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
     <a href="MCollective/SSL.html#method-i-md5">#md5</a>
@@ -3339,17 +3337,12 @@
     <span class="container">MCollective::RPC::Stats</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connected">#on_connected</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_connected">#on_connected</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connectfail">#on_connectfail</a>
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connected">#on_connected</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
@@ -3359,7 +3352,7 @@
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connecting">#on_connecting</a>
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connectfail">#on_connectfail</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
@@ -3369,7 +3362,7 @@
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_disconnect">#on_disconnect</a>
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_connecting">#on_connecting</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
@@ -3377,6 +3370,11 @@
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_disconnect">#on_disconnect</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_disconnect">#on_disconnect</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_hbfire">#on_hbfire</a>
@@ -3389,17 +3387,12 @@
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_hbread_fail">#on_hbread_fail</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_hbread_fail">#on_hbread_fail</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_hbwrite_fail">#on_hbwrite_fail</a>
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_hbread_fail">#on_hbread_fail</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
@@ -3407,6 +3400,11 @@
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_hbwrite_fail">#on_hbwrite_fail</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_hbwrite_fail">#on_hbwrite_fail</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_miscerr">#on_miscerr</a>
@@ -3419,14 +3417,14 @@
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_ssl_connected">#on_ssl_connected</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_ssl_connected">#on_ssl_connected</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_ssl_connected">#on_ssl_connected</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_ssl_connectfail">#on_ssl_connectfail</a>
@@ -3439,14 +3437,14 @@
     <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_ssl_connecting">#on_ssl_connecting</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-on_ssl_connecting">#on_ssl_connecting</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-on_ssl_connecting">#on_ssl_connecting</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
     <a href="MCollective/Application.html#method-i-options">#options</a>
@@ -3489,14 +3487,14 @@
     <span class="container">MCollective::Application::Inventory</span>
 
   <li class="method">
-    <a href="MCollective/Optionparser.html#method-i-parse">#parse</a>
-    &mdash;
-    <span class="container">MCollective::Optionparser</span>
-
-  <li class="method">
     <a href="MCollective/Matcher/Parser.html#method-i-parse">#parse</a>
     &mdash;
     <span class="container">MCollective::Matcher::Parser</span>
+
+  <li class="method">
+    <a href="MCollective/Optionparser.html#method-i-parse">#parse</a>
+    &mdash;
+    <span class="container">MCollective::Optionparser</span>
 
   <li class="method">
     <a href="MCollective/RunnerStats.html#method-i-passed">#passed</a>
@@ -3529,19 +3527,9 @@
     <span class="container">MCollective::Application::Plugin</span>
 
   <li class="method">
-    <a href="MCollective/Application/Inventory.html#method-i-post_option_parser">#post_option_parser</a>
+    <a href="MCollective/Application/Facts.html#method-i-post_option_parser">#post_option_parser</a>
     &mdash;
-    <span class="container">MCollective::Application::Inventory</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Rpc.html#method-i-post_option_parser">#post_option_parser</a>
-    &mdash;
-    <span class="container">MCollective::Application::Rpc</span>
-
-  <li class="method">
-    <a href="MCollective/Application/Plugin.html#method-i-post_option_parser">#post_option_parser</a>
-    &mdash;
-    <span class="container">MCollective::Application::Plugin</span>
+    <span class="container">MCollective::Application::Facts</span>
 
   <li class="method">
     <a href="MCollective/Application/Help.html#method-i-post_option_parser">#post_option_parser</a>
@@ -3549,9 +3537,19 @@
     <span class="container">MCollective::Application::Help</span>
 
   <li class="method">
-    <a href="MCollective/Application/Facts.html#method-i-post_option_parser">#post_option_parser</a>
+    <a href="MCollective/Application/Inventory.html#method-i-post_option_parser">#post_option_parser</a>
     &mdash;
-    <span class="container">MCollective::Application::Facts</span>
+    <span class="container">MCollective::Application::Inventory</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Plugin.html#method-i-post_option_parser">#post_option_parser</a>
+    &mdash;
+    <span class="container">MCollective::Application::Plugin</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Rpc.html#method-i-post_option_parser">#post_option_parser</a>
+    &mdash;
+    <span class="container">MCollective::Application::Rpc</span>
 
   <li class="method">
     <a href="Object.html#method-i-prepare_installation">#prepare_installation</a>
@@ -3574,11 +3572,6 @@
     <span class="container">MCollective::RPC</span>
 
   <li class="method">
-    <a href="MCollective/Aggregate/Summary.html#method-i-process_result">#process_result</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate::Summary</span>
-
-  <li class="method">
     <a href="MCollective/Aggregate/Average.html#method-i-process_result">#process_result</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Average</span>
@@ -3587,6 +3580,11 @@
     <a href="MCollective/Aggregate/Sum.html#method-i-process_result">#process_result</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Sum</span>
+
+  <li class="method">
+    <a href="MCollective/Aggregate/Summary.html#method-i-process_result">#process_result</a>
+    &mdash;
+    <span class="container">MCollective::Aggregate::Summary</span>
 
   <li class="method">
     <a href="MCollective/RPC/Client.html#method-i-process_results_with_block">#process_results_with_block</a>
@@ -3604,9 +3602,9 @@
     <span class="container">MCollective::Security::Aes_security</span>
 
   <li class="method">
-    <a href="MCollective/Message.html#method-i-publish">#publish</a>
+    <a href="MCollective/Client.html#method-i-publish">#publish</a>
     &mdash;
-    <span class="container">MCollective::Message</span>
+    <span class="container">MCollective::Client</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-publish">#publish</a>
@@ -3614,19 +3612,19 @@
     <span class="container">MCollective::Connector::Activemq</span>
 
   <li class="method">
-    <a href="MCollective/Registration/Base.html#method-i-publish">#publish</a>
-    &mdash;
-    <span class="container">MCollective::Registration::Base</span>
-
-  <li class="method">
     <a href="MCollective/Connector/Rabbitmq.html#method-i-publish">#publish</a>
     &mdash;
     <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
-    <a href="MCollective/Client.html#method-i-publish">#publish</a>
+    <a href="MCollective/Message.html#method-i-publish">#publish</a>
     &mdash;
-    <span class="container">MCollective::Client</span>
+    <span class="container">MCollective::Message</span>
+
+  <li class="method">
+    <a href="MCollective/Registration/Base.html#method-i-publish">#publish</a>
+    &mdash;
+    <span class="container">MCollective::Registration::Base</span>
 
   <li class="method">
     <a href="MCollective/SSL.html#method-i-read_key">#read_key</a>
@@ -3694,14 +3692,14 @@
     <span class="container">MCollective::DDL::Base</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Stats.html#method-i-reset">#reset</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Stats</span>
-
-  <li class="method">
     <a href="MCollective/RPC/Client.html#method-i-reset">#reset</a>
     &mdash;
     <span class="container">MCollective::RPC::Client</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Stats.html#method-i-reset">#reset</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Stats</span>
 
   <li class="method">
     <a href="Puppet/Acceptance/CAUtils.html#method-i-reset_agent_ssl">#reset_agent_ssl</a>
@@ -3734,14 +3732,14 @@
     <span class="container">MCollective::RPC::Client</span>
 
   <li class="method">
-    <a href="MCollective/RPC.html#method-i-rpcclient">#rpcclient</a>
-    &mdash;
-    <span class="container">MCollective::RPC</span>
-
-  <li class="method">
     <a href="MCollective/Application.html#method-i-rpcclient">#rpcclient</a>
     &mdash;
     <span class="container">MCollective::Application</span>
+
+  <li class="method">
+    <a href="MCollective/RPC.html#method-i-rpcclient">#rpcclient</a>
+    &mdash;
+    <span class="container">MCollective::RPC</span>
 
   <li class="method">
     <a href="MCollective/RPC.html#method-i-rpcoptions">#rpcoptions</a>
@@ -3774,6 +3772,11 @@
     <span class="container">MCollective::SSL</span>
 
   <li class="method">
+    <a href="MCollective/Application.html#method-i-run">#run</a>
+    &mdash;
+    <span class="container">MCollective::Application</span>
+
+  <li class="method">
     <a href="MCollective/Registration/Base.html#method-i-run">#run</a>
     &mdash;
     <span class="container">MCollective::Registration::Base</span>
@@ -3787,11 +3790,6 @@
     <a href="MCollective/Runner.html#method-i-run">#run</a>
     &mdash;
     <span class="container">MCollective::Runner</span>
-
-  <li class="method">
-    <a href="MCollective/Application.html#method-i-run">#run</a>
-    &mdash;
-    <span class="container">MCollective::Application</span>
 
   <li class="method">
     <a href="MCollective/Shell.html#method-i-runcommand">#runcommand</a>
@@ -3874,9 +3872,9 @@
     <span class="container">MCollective::Logger::Base</span>
 
   <li class="method">
-    <a href="MCollective/Logger/Syslog_logger.html#method-i-set_logging_level">#set_logging_level</a>
+    <a href="MCollective/Logger/Console_logger.html#method-i-set_logging_level">#set_logging_level</a>
     &mdash;
-    <span class="container">MCollective::Logger::Syslog_logger</span>
+    <span class="container">MCollective::Logger::Console_logger</span>
 
   <li class="method">
     <a href="MCollective/Logger/File_logger.html#method-i-set_logging_level">#set_logging_level</a>
@@ -3884,9 +3882,9 @@
     <span class="container">MCollective::Logger::File_logger</span>
 
   <li class="method">
-    <a href="MCollective/Logger/Console_logger.html#method-i-set_logging_level">#set_logging_level</a>
+    <a href="MCollective/Logger/Syslog_logger.html#method-i-set_logging_level">#set_logging_level</a>
     &mdash;
-    <span class="container">MCollective::Logger::Console_logger</span>
+    <span class="container">MCollective::Logger::Syslog_logger</span>
 
   <li class="method">
     <a href="MCollective/Application/Plugin.html#method-i-set_plugin_type">#set_plugin_type</a>
@@ -3944,6 +3942,16 @@
     <span class="container">MCollective::Connector::Rabbitmq</span>
 
   <li class="method">
+    <a href="MCollective/Logger/Base.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">MCollective::Logger::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Logger/Console_logger.html#method-i-start">#start</a>
+    &mdash;
+    <span class="container">MCollective::Logger::Console_logger</span>
+
+  <li class="method">
     <a href="MCollective/Logger/File_logger.html#method-i-start">#start</a>
     &mdash;
     <span class="container">MCollective::Logger::File_logger</span>
@@ -3952,16 +3960,6 @@
     <a href="MCollective/Logger/Syslog_logger.html#method-i-start">#start</a>
     &mdash;
     <span class="container">MCollective::Logger::Syslog_logger</span>
-
-  <li class="method">
-    <a href="MCollective/Logger/Console_logger.html#method-i-start">#start</a>
-    &mdash;
-    <span class="container">MCollective::Logger::Console_logger</span>
-
-  <li class="method">
-    <a href="MCollective/Logger/Base.html#method-i-start">#start</a>
-    &mdash;
-    <span class="container">MCollective::Logger::Base</span>
 
   <li class="method">
     <a href="MCollective/Client.html#method-i-start_publisher">#start_publisher</a>
@@ -3984,11 +3982,6 @@
     <span class="container">MCollective::Aggregate::Average</span>
 
   <li class="method">
-    <a href="MCollective/Data/Base.html#method-i-startup_hook">#startup_hook</a>
-    &mdash;
-    <span class="container">MCollective::Data::Base</span>
-
-  <li class="method">
     <a href="MCollective/Aggregate/Sum.html#method-i-startup_hook">#startup_hook</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Sum</span>
@@ -3999,14 +3992,19 @@
     <span class="container">MCollective::Aggregate::Summary</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-stomp_url">#stomp_url</a>
+    <a href="MCollective/Data/Base.html#method-i-startup_hook">#startup_hook</a>
     &mdash;
-    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
+    <span class="container">MCollective::Data::Base</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq/EventLogger.html#method-i-stomp_url">#stomp_url</a>
     &mdash;
     <span class="container">MCollective::Connector::Activemq::EventLogger</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Rabbitmq/EventLogger.html#method-i-stomp_url">#stomp_url</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Rabbitmq::EventLogger</span>
 
   <li class="method">
     <a href="MCollective/Connector/Activemq.html#method-i-stomp_version">#stomp_version</a>
@@ -4064,16 +4062,6 @@
     <span class="container">MCollective::Aggregate</span>
 
   <li class="method">
-    <a href="MCollective/Aggregate/Summary.html#method-i-summarize">#summarize</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate::Summary</span>
-
-  <li class="method">
-    <a href="MCollective/DDL/AgentDDL.html#method-i-summarize">#summarize</a>
-    &mdash;
-    <span class="container">MCollective::DDL::AgentDDL</span>
-
-  <li class="method">
     <a href="MCollective/Aggregate/Average.html#method-i-summarize">#summarize</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Average</span>
@@ -4082,6 +4070,16 @@
     <a href="MCollective/Aggregate/Base.html#method-i-summarize">#summarize</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Aggregate/Summary.html#method-i-summarize">#summarize</a>
+    &mdash;
+    <span class="container">MCollective::Aggregate::Summary</span>
+
+  <li class="method">
+    <a href="MCollective/DDL/AgentDDL.html#method-i-summarize">#summarize</a>
+    &mdash;
+    <span class="container">MCollective::DDL::AgentDDL</span>
 
   <li class="method">
     <a href="MCollective/DDL/AgentDDL.html#method-i-symbolize_basic_input_arguments">#symbolize_basic_input_arguments</a>
@@ -4149,14 +4147,19 @@
     <span class="container">MCollective::Discovery</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Stats.html#method-i-to_hash">#to_hash</a>
-    &mdash;
-    <span class="container">MCollective::RPC::Stats</span>
-
-  <li class="method">
     <a href="MCollective/RPC/Reply.html#method-i-to_hash">#to_hash</a>
     &mdash;
     <span class="container">MCollective::RPC::Reply</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Request.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Request</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/Stats.html#method-i-to_hash">#to_hash</a>
+    &mdash;
+    <span class="container">MCollective::RPC::Stats</span>
 
   <li class="method">
     <a href="MCollective/RunnerStats.html#method-i-to_hash">#to_hash</a>
@@ -4164,7 +4167,7 @@
     <span class="container">MCollective::RunnerStats</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Request.html#method-i-to_hash">#to_hash</a>
+    <a href="MCollective/RPC/Request.html#method-i-to_json">#to_json</a>
     &mdash;
     <span class="container">MCollective::RPC::Request</span>
 
@@ -4174,14 +4177,9 @@
     <span class="container">MCollective::RPC::Result</span>
 
   <li class="method">
-    <a href="MCollective/RPC/Request.html#method-i-to_json">#to_json</a>
+    <a href="MCollective/Aggregate/Result/Base.html#method-i-to_s">#to_s</a>
     &mdash;
-    <span class="container">MCollective::RPC::Request</span>
-
-  <li class="method">
-    <a href="MCollective/RPC/ActionRunner.html#method-i-to_s">#to_s</a>
-    &mdash;
-    <span class="container">MCollective::RPC::ActionRunner</span>
+    <span class="container">MCollective::Aggregate::Result::Base</span>
 
   <li class="method">
     <a href="MCollective/Aggregate/Result/CollectionResult.html#method-i-to_s">#to_s</a>
@@ -4189,14 +4187,14 @@
     <span class="container">MCollective::Aggregate::Result::CollectionResult</span>
 
   <li class="method">
-    <a href="MCollective/Aggregate/Result/Base.html#method-i-to_s">#to_s</a>
-    &mdash;
-    <span class="container">MCollective::Aggregate::Result::Base</span>
-
-  <li class="method">
     <a href="MCollective/Aggregate/Result/NumericResult.html#method-i-to_s">#to_s</a>
     &mdash;
     <span class="container">MCollective::Aggregate::Result::NumericResult</span>
+
+  <li class="method">
+    <a href="MCollective/RPC/ActionRunner.html#method-i-to_s">#to_s</a>
+    &mdash;
+    <span class="container">MCollective::RPC::ActionRunner</span>
 
   <li class="method">
     <a href="MCollective/RunnerStats.html#method-i-ttlexpired">#ttlexpired</a>
@@ -4219,14 +4217,14 @@
     <span class="container">MCollective::RPC::Stats</span>
 
   <li class="method">
-    <a href="MCollective/Connector/Activemq.html#method-i-unsubscribe">#unsubscribe</a>
-    &mdash;
-    <span class="container">MCollective::Connector::Activemq</span>
-
-  <li class="method">
     <a href="MCollective/Client.html#method-i-unsubscribe">#unsubscribe</a>
     &mdash;
     <span class="container">MCollective::Client</span>
+
+  <li class="method">
+    <a href="MCollective/Connector/Activemq.html#method-i-unsubscribe">#unsubscribe</a>
+    &mdash;
+    <span class="container">MCollective::Connector::Activemq</span>
 
   <li class="method">
     <a href="MCollective/Connector/Rabbitmq.html#method-i-unsubscribe">#unsubscribe</a>
@@ -4244,14 +4242,14 @@
     <span class="container">MCollective::RunnerStats</span>
 
   <li class="method">
-    <a href="MCollective/Security/Ssl.html#method-i-update_secure_property">#update_secure_property</a>
-    &mdash;
-    <span class="container">MCollective::Security::Ssl</span>
-
-  <li class="method">
     <a href="MCollective/Security/Aes_security.html#method-i-update_secure_property">#update_secure_property</a>
     &mdash;
     <span class="container">MCollective::Security::Aes_security</span>
+
+  <li class="method">
+    <a href="MCollective/Security/Ssl.html#method-i-update_secure_property">#update_secure_property</a>
+    &mdash;
+    <span class="container">MCollective::Security::Ssl</span>
 
   <li class="method">
     <a href="MCollective/Client.html#method-i-update_stat">#update_stat</a>
@@ -4304,14 +4302,14 @@
     <span class="container">MCollective::Message</span>
 
   <li class="method">
-    <a href="MCollective/Application/Inventory.html#method-i-validate_configuration">#validate_configuration</a>
-    &mdash;
-    <span class="container">MCollective::Application::Inventory</span>
-
-  <li class="method">
     <a href="MCollective/Application/Facts.html#method-i-validate_configuration">#validate_configuration</a>
     &mdash;
     <span class="container">MCollective::Application::Facts</span>
+
+  <li class="method">
+    <a href="MCollective/Application/Inventory.html#method-i-validate_configuration">#validate_configuration</a>
+    &mdash;
+    <span class="container">MCollective::Application::Inventory</span>
 
   <li class="method">
     <a href="MCollective/Security/Base.html#method-i-validate_filter-3F">#validate_filter?</a>
@@ -4349,14 +4347,14 @@
     <span class="container">MCollective::RunnerStats</span>
 
   <li class="method">
-    <a href="MCollective/Security/Psk.html#method-i-validrequest-3F">#validrequest?</a>
-    &mdash;
-    <span class="container">MCollective::Security::Psk</span>
-
-  <li class="method">
     <a href="MCollective/Security/Base.html#method-i-validrequest-3F">#validrequest?</a>
     &mdash;
     <span class="container">MCollective::Security::Base</span>
+
+  <li class="method">
+    <a href="MCollective/Security/Psk.html#method-i-validrequest-3F">#validrequest?</a>
+    &mdash;
+    <span class="container">MCollective::Security::Psk</span>
 
   <li class="method">
     <a href="MCollective/Security/Ssl.html#method-i-validrequest-3F">#validrequest?</a>
@@ -4377,8 +4375,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

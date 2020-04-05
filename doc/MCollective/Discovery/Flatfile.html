@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Discovery::Flatfile - mcollective version 2.12.1</title>
+<title>class MCollective::Discovery::Flatfile - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -88,8 +92,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -125,46 +127,46 @@
 
           
           <div class="method-source-code" id="discover-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/discovery/flatfile.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>=<span class="ruby-value">0</span>, <span class="ruby-identifier">client</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">empty?</span>
-    <span class="ruby-identifier">file</span> = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">first</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The flatfile discovery method needs a path to a text file&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot read the file %s specified as discovery source&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">file</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
-
-  <span class="ruby-identifier">discovered</span> = []
-  <span class="ruby-identifier">hosts</span> = []
-
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">host</span> = <span class="ruby-identifier">host</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">strip</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-node">/^#/</span>)
-      <span class="ruby-keyword">next</span>
-    <span class="ruby-keyword">end</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">'Identities can only match /^[\w\.\-]+$/'</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
-    <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># this plugin only supports identity filters, do regex matches etc against</span>
-  <span class="ruby-comment"># the list found in the flatfile</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">empty?</span>)
-    <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">identity</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">identity</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">identity</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;\/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^/&quot;</span>)
-
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
-        <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">identity</span>)
-      <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">identity</span>)
-        <span class="ruby-identifier">discovered</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">identity</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">hosts</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">discovered</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/discovery/flatfile.rb</span>
+<span class="line-num"> 7</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">discover</span>(<span class="ruby-identifier">filter</span>, <span class="ruby-identifier">timeout</span>, <span class="ruby-identifier">limit</span>=<span class="ruby-value">0</span>, <span class="ruby-identifier">client</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num"> 8</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">empty?</span>
+<span class="line-num"> 9</span>     <span class="ruby-identifier">file</span> = <span class="ruby-identifier">client</span>.<span class="ruby-identifier">options</span>[<span class="ruby-value">:discovery_options</span>].<span class="ruby-identifier">first</span>
+<span class="line-num">10</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">11</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;The flatfile discovery method needs a path to a text file&quot;</span>
+<span class="line-num">12</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">13</span> 
+<span class="line-num">14</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Cannot read the file %s specified as discovery source&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">file</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
+<span class="line-num">15</span> 
+<span class="line-num">16</span>   <span class="ruby-identifier">discovered</span> = []
+<span class="line-num">17</span>   <span class="ruby-identifier">hosts</span> = []
+<span class="line-num">18</span> 
+<span class="line-num">19</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">readlines</span>(<span class="ruby-identifier">file</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
+<span class="line-num">20</span>     <span class="ruby-identifier">host</span> = <span class="ruby-identifier">host</span>.<span class="ruby-identifier">chomp</span>.<span class="ruby-identifier">strip</span>
+<span class="line-num">21</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">empty?</span> <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^#/</span>)
+<span class="line-num">22</span>       <span class="ruby-keyword">next</span>
+<span class="line-num">23</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">24</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&#39;Identities can only match /^[\w\.\-]+$/&#39;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^[\w\.\-]+$/</span>)
+<span class="line-num">25</span>     <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
+<span class="line-num">26</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-comment"># this plugin only supports identity filters, do regex matches etc against</span>
+<span class="line-num">29</span>   <span class="ruby-comment"># the list found in the flatfile</span>
+<span class="line-num">30</span>   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span>(<span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">empty?</span>)
+<span class="line-num">31</span>     <span class="ruby-identifier">filter</span>[<span class="ruby-string">&quot;identity&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">identity</span><span class="ruby-operator">|</span>
+<span class="line-num">32</span>       <span class="ruby-identifier">identity</span> = <span class="ruby-constant">Regexp</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">identity</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-string">&quot;\/&quot;</span>, <span class="ruby-string">&quot;&quot;</span>)) <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">match</span>(<span class="ruby-string">&quot;^/&quot;</span>)
+<span class="line-num">33</span> 
+<span class="line-num">34</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">identity</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Regexp</span>)
+<span class="line-num">35</span>         <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">grep</span>(<span class="ruby-identifier">identity</span>)
+<span class="line-num">36</span>       <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">identity</span>)
+<span class="line-num">37</span>         <span class="ruby-identifier">discovered</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">identity</span>
+<span class="line-num">38</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">39</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">40</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">41</span>     <span class="ruby-identifier">discovered</span> = <span class="ruby-identifier">hosts</span>
+<span class="line-num">42</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-identifier">discovered</span>
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -182,8 +184,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Logger::File_logger - mcollective version 2.12.1</title>
+<title>class MCollective::Logger::File_logger - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -104,8 +108,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -141,14 +143,14 @@
 
           
           <div class="method-source-code" id="log-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb, line 39</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)) { <span class="ruby-node">&quot;#{from} #{msg}&quot;</span> }
-<span class="ruby-keyword">rescue</span>
-  <span class="ruby-comment"># if this fails we probably cant show the user output at all,</span>
-  <span class="ruby-comment"># STDERR it as last resort</span>
-  <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb</span>
+<span class="line-num">39</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">log</span>(<span class="ruby-identifier">level</span>, <span class="ruby-identifier">from</span>, <span class="ruby-identifier">msg</span>)
+<span class="line-num">40</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">add</span>(<span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)) { <span class="ruby-node">&quot;#{from} #{msg}&quot;</span> }
+<span class="line-num">41</span> <span class="ruby-keyword">rescue</span>
+<span class="line-num">42</span>   <span class="ruby-comment"># if this fails we probably cant show the user output at all,</span>
+<span class="line-num">43</span>   <span class="ruby-comment"># STDERR it as last resort</span>
+<span class="line-num">44</span>   <span class="ruby-constant">STDERR</span>.<span class="ruby-identifier">puts</span>(<span class="ruby-node">&quot;#{level}: #{msg}&quot;</span>)
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -178,13 +180,13 @@
 
           
           <div class="method-source-code" id="reopen-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb, line 47</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">reopen</span>
-  <span class="ruby-identifier">level</span> = <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span>
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">close</span>
-  <span class="ruby-identifier">start</span>
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">level</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb</span>
+<span class="line-num">47</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">reopen</span>
+<span class="line-num">48</span>   <span class="ruby-identifier">level</span> = <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span>
+<span class="line-num">49</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">close</span>
+<span class="line-num">50</span>   <span class="ruby-identifier">start</span>
+<span class="line-num">51</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">level</span>
+<span class="line-num">52</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -214,13 +216,13 @@
 
           
           <div class="method-source-code" id="set_logging_level-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb, line 24</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_logging_level</span>(<span class="ruby-identifier">level</span>)
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>
-  <span class="ruby-identifier">log</span>(<span class="ruby-value">:error</span>, <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-node">&quot;Could not set logging to #{level} using debug instead: #{e.class} #{e}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb</span>
+<span class="line-num">24</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">set_logging_level</span>(<span class="ruby-identifier">level</span>)
+<span class="line-num">25</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-identifier">map_level</span>(<span class="ruby-identifier">level</span>)
+<span class="line-num">26</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">27</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">level</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>
+<span class="line-num">28</span>   <span class="ruby-identifier">log</span>(<span class="ruby-value">:error</span>, <span class="ruby-string">&quot;&quot;</span>, <span class="ruby-node">&quot;Could not set logging to #{level} using debug instead: #{e.class} #{e}&quot;</span>)
+<span class="line-num">29</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -250,17 +252,17 @@
 
           
           <div class="method-source-code" id="start-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb, line 13</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">start</span>
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-
-  <span class="ruby-ivar">@logger</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfile</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">keeplogs</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">max_log_size</span>)
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">Formatter</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-comment"># ISO-8601 with sub-second precision and offset from UTC.</span>
-  <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">datetime_format</span> = <span class="ruby-string">&quot;%Y-%m-%dT%H:%M:%S.%6N%:z &quot;</span>
-
-  <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb</span>
+<span class="line-num">13</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start</span>
+<span class="line-num">14</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">15</span> 
+<span class="line-num">16</span>   <span class="ruby-ivar">@logger</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">logfile</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">keeplogs</span>, <span class="ruby-identifier">config</span>.<span class="ruby-identifier">max_log_size</span>)
+<span class="line-num">17</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">Formatter</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">18</span>   <span class="ruby-comment"># ISO-8601 with sub-second precision and offset from UTC.</span>
+<span class="line-num">19</span>   <span class="ruby-ivar">@logger</span>.<span class="ruby-identifier">formatter</span>.<span class="ruby-identifier">datetime_format</span> = <span class="ruby-string">&quot;%Y-%m-%dT%H:%M:%S.%6N%:z &quot;</span>
+<span class="line-num">20</span> 
+<span class="line-num">21</span>   <span class="ruby-identifier">set_level</span>(<span class="ruby-identifier">config</span>.<span class="ruby-identifier">loglevel</span>.<span class="ruby-identifier">to_sym</span>)
+<span class="line-num">22</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -290,14 +292,14 @@
 
           
           <div class="method-source-code" id="valid_levels-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb, line 31</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">valid_levels</span>
-  {<span class="ruby-value">:info</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">INFO</span>,
-   <span class="ruby-value">:warn</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>,
-   <span class="ruby-value">:debug</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>,
-   <span class="ruby-value">:fatal</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">FATAL</span>,
-   <span class="ruby-value">:error</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">ERROR</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/logger/file_logger.rb</span>
+<span class="line-num">31</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">valid_levels</span>
+<span class="line-num">32</span>   {<span class="ruby-value">:info</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">INFO</span>,
+<span class="line-num">33</span>    <span class="ruby-value">:warn</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">WARN</span>,
+<span class="line-num">34</span>    <span class="ruby-value">:debug</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">DEBUG</span>,
+<span class="line-num">35</span>    <span class="ruby-value">:fatal</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">FATAL</span>,
+<span class="line-num">36</span>    <span class="ruby-value">:error</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-operator">::</span><span class="ruby-constant">Logger</span><span class="ruby-operator">::</span><span class="ruby-constant">ERROR</span>}
+<span class="line-num">37</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -315,8 +317,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

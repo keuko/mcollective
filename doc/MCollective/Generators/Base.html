@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Generators::Base - mcollective version 2.12.1</title>
+<title>class MCollective::Generators::Base - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -93,8 +97,6 @@
     
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -178,16 +180,16 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">description</span>, <span class="ruby-identifier">author</span>, <span class="ruby-identifier">license</span>, <span class="ruby-identifier">version</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">timeout</span>)
-  <span class="ruby-ivar">@meta</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">name</span>,
-           <span class="ruby-value">:description</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">description</span>,
-           <span class="ruby-value">:author</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">author</span>,
-           <span class="ruby-value">:license</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">license</span>,
-           <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">version</span>,
-           <span class="ruby-value">:url</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">url</span>,
-           <span class="ruby-value">:timeout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">timeout</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/generators/base.rb</span>
+<span class="line-num"> 5</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">name</span>, <span class="ruby-identifier">description</span>, <span class="ruby-identifier">author</span>, <span class="ruby-identifier">license</span>, <span class="ruby-identifier">version</span>, <span class="ruby-identifier">url</span>, <span class="ruby-identifier">timeout</span>)
+<span class="line-num"> 6</span>   <span class="ruby-ivar">@meta</span> = {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">name</span>,
+<span class="line-num"> 7</span>            <span class="ruby-value">:description</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">description</span>,
+<span class="line-num"> 8</span>            <span class="ruby-value">:author</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">author</span>,
+<span class="line-num"> 9</span>            <span class="ruby-value">:license</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">license</span>,
+<span class="line-num">10</span>            <span class="ruby-value">:version</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">version</span>,
+<span class="line-num">11</span>            <span class="ruby-value">:url</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">url</span>,
+<span class="line-num">12</span>            <span class="ruby-value">:timeout</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">timeout</span>}
+<span class="line-num">13</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -225,11 +227,11 @@
 
           
           <div class="method-source-code" id="create_metadata_string-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 15</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_metadata_string</span>
-  <span class="ruby-identifier">ddl_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;ddl.erb&quot;</span>))
-  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ddl_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/generators/base.rb</span>
+<span class="line-num">15</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_metadata_string</span>
+<span class="line-num">16</span>   <span class="ruby-identifier">ddl_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;ddl.erb&quot;</span>))
+<span class="line-num">17</span>   <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ddl_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="line-num">18</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -259,11 +261,11 @@
 
           
           <div class="method-source-code" id="create_plugin_string-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 20</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_plugin_string</span>
-  <span class="ruby-identifier">plugin_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;plugin.erb&quot;</span>))
-  <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/generators/base.rb</span>
+<span class="line-num">20</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_plugin_string</span>
+<span class="line-num">21</span>   <span class="ruby-identifier">plugin_template</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">dirname</span>(<span class="ruby-keyword">__FILE__</span>), <span class="ruby-string">&quot;templates&quot;</span>, <span class="ruby-string">&quot;plugin.erb&quot;</span>))
+<span class="line-num">22</span>   <span class="ruby-constant">ERB</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin_template</span>, <span class="ruby-keyword">nil</span>, <span class="ruby-string">&quot;-&quot;</span>).<span class="ruby-identifier">result</span>(<span class="ruby-identifier">binding</span>)
+<span class="line-num">23</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -293,26 +295,26 @@
 
           
           <div class="method-source-code" id="write_plugins-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/generators/base.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">write_plugins</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-ivar">@plugin_name</span>
-    <span class="ruby-identifier">dirname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@plugin_name</span>, <span class="ruby-ivar">@mod_name</span>.<span class="ruby-identifier">downcase</span>)
-    <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-identifier">dirname</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created plugin directory : #{@plugin_name}&quot;</span>
-
-    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.ddl&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@ddl</span>}
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created DDL file : #{File.join(dirname, &quot;#{@plugin_name}.ddl&quot;)}&quot;</span>
-
-    <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.rb&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@plugin</span>}
-    <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created #{@mod_name} file : #{File.join(dirname, &quot;#{@plugin_name}.rb&quot;)}&quot;</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate '#{@plugin_name}' : plugin directory already exists.&quot;</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span>(<span class="ruby-ivar">@plugin_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-ivar">@plugin_name</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate plugin - #{e}&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/generators/base.rb</span>
+<span class="line-num">25</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">write_plugins</span>
+<span class="line-num">26</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">27</span>     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-ivar">@plugin_name</span>
+<span class="line-num">28</span>     <span class="ruby-identifier">dirname</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-ivar">@plugin_name</span>, <span class="ruby-ivar">@mod_name</span>.<span class="ruby-identifier">downcase</span>)
+<span class="line-num">29</span>     <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">mkdir</span> <span class="ruby-identifier">dirname</span>
+<span class="line-num">30</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created plugin directory : #{@plugin_name}&quot;</span>
+<span class="line-num">31</span> 
+<span class="line-num">32</span>     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.ddl&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@ddl</span>}
+<span class="line-num">33</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created DDL file : #{File.join(dirname, &quot;#{@plugin_name}.ddl&quot;)}&quot;</span>
+<span class="line-num">34</span> 
+<span class="line-num">35</span>     <span class="ruby-constant">File</span>.<span class="ruby-identifier">open</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">dirname</span>, <span class="ruby-node">&quot;#{@plugin_name}.rb&quot;</span>), <span class="ruby-string">&quot;w&quot;</span>){<span class="ruby-operator">|</span><span class="ruby-identifier">f</span><span class="ruby-operator">|</span> <span class="ruby-identifier">f</span>.<span class="ruby-identifier">puts</span> <span class="ruby-ivar">@plugin</span>}
+<span class="line-num">36</span>     <span class="ruby-identifier">puts</span> <span class="ruby-node">&quot;Created #{@mod_name} file : #{File.join(dirname, &quot;#{@plugin_name}.rb&quot;)}&quot;</span>
+<span class="line-num">37</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Errno</span><span class="ruby-operator">::</span><span class="ruby-constant">EEXIST</span>
+<span class="line-num">38</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate &#39;#{@plugin_name}&#39; : plugin directory already exists.&quot;</span>
+<span class="line-num">39</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">40</span>     <span class="ruby-constant">FileUtils</span>.<span class="ruby-identifier">rm_rf</span>(<span class="ruby-ivar">@plugin_name</span>) <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-ivar">@plugin_name</span>)
+<span class="line-num">41</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;cannot generate plugin - #{e}&quot;</span>
+<span class="line-num">42</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">43</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -330,8 +332,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

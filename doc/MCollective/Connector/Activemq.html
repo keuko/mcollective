@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Connector::Activemq - mcollective version 2.12.1</title>
+<title>class MCollective::Connector::Activemq - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -123,33 +127,20 @@
 
   <section class="description">
     
-<p>Handles sending and receiving messages over the <a
-href="Activemq/Stomp.html">Stomp</a> protocol for ActiveMQ servers
-specifically, we take advantages of ActiveMQ specific features and
-enhancements to the <a href="Activemq/Stomp.html">Stomp</a> protocol.  For
-best results in a clustered environment use ActiveMQ 5.5.0 at least.</p>
+<p>Handles sending and receiving messages over the <a href="Activemq/Stomp.html"><code>Stomp</code></a> protocol for ActiveMQ servers specifically, we take advantages of ActiveMQ specific features and enhancements to the <a href="Activemq/Stomp.html"><code>Stomp</code></a> protocol.  For best results in a clustered environment use ActiveMQ 5.5.0 at least.</p>
 
-<p>This plugin takes an entirely different approach to dealing with ActiveMQ
-from the more generic stomp connector.</p>
+<p>This plugin takes an entirely different approach to dealing with ActiveMQ from the more generic stomp connector.</p>
 
 <pre>- Agents use /topic/&lt;collective&gt;.&lt;agent&gt;.agent
 - Replies use temp-topics so they are private and transient.
 - Point to Point messages using topics are supported by subscribing to
-  /queue/&lt;collective&gt;.nodes with a selector &quot;mc_identity = 'identity'</pre>
+  /queue/&lt;collective&gt;.nodes with a selector &quot;mc_identity = &#39;identity&#39;</pre>
 
-<p>The use of temp-topics for the replies is a huge improvement over the old
-style. In the old way all clients got replies for all clients that were
-active at that time, this would mean that they would need to decrypt,
-validate etc in order to determine if they need to ignore the message, this
-was computationally expensive and on large busy networks the messages were
-being sent all over the show cross broker boundaries.</p>
+<p>The use of temp-topics for the replies is a huge improvement over the old style. In the old way all clients got replies for all clients that were active at that time, this would mean that they would need to decrypt, validate etc in order to determine if they need to ignore the message, this was computationally expensive and on large busy networks the messages were being sent all over the show cross broker boundaries.</p>
 
-<p>The new way means the messages go point2point back to only whoever
-requested the message, they only get their own replies and this is ap
-private channel that casual observers cannot just snoop into.</p>
+<p>The new way means the messages go point2point back to only whoever requested the message, they only get their own replies and this is ap private channel that casual observers cannot just snoop into.</p>
 
-<p>This plugin supports 1.1.6 and newer of the <a
-href="Activemq/Stomp.html">Stomp</a> rubygem.</p>
+<p>This plugin supports 1.1.6 and newer of the <a href="Activemq/Stomp.html"><code>Stomp</code></a> rubygem.</p>
 
 <pre>connector = activemq
 plugin.activemq.pool.size = 2
@@ -171,16 +162,9 @@ plugin.activemq.pool.2.user = you
 plugin.activemq.pool.2.password = secret
 plugin.activemq.pool.2.ssl = false</pre>
 
-<p>Using this method you can supply just STOMP_USER and STOMP_PASSWORD.  The
-port will default to 61613 if not specified.</p>
+<p>Using this method you can supply just STOMP_USER and STOMP_PASSWORD.  The port will default to 61613 if not specified.</p>
 
-<p>The ssl options are only usable in version of the <a
-href="Activemq/Stomp.html">Stomp</a> gem newer than 1.2.2 where these will
-imply full <a href="../SSL.html">SSL</a> validation will be done and you’ll
-only be able to connect to a ActiveMQ server that has a cert signed by the
-same CA.  If you only set ssl = true and do not supply the cert, key and ca
-properties or if you have an older gem it will fall back to unverified mode
-only if ssl.fallback is true</p>
+<p>The ssl options are only usable in version of the <a href="Activemq/Stomp.html"><code>Stomp</code></a> gem newer than 1.2.2 where these will imply full <a href="../SSL.html"><code>SSL</code></a> validation will be done and you&#39;ll only be able to connect to a ActiveMQ server that has a cert signed by the same CA.  If you only set ssl = true and do not supply the cert, key and ca properties or if you have an older gem it will fall back to unverified mode only if ssl.fallback is true</p>
 
 <p>In addition you can set the following options for the rubygem:</p>
 
@@ -193,9 +177,7 @@ only if ssl.fallback is true</p>
 <span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">activemq</span>.<span class="ruby-identifier">timeout</span> = <span class="ruby-value">-1</span>
 </pre>
 
-<p>You can set the initial connetion timeout - this is when your stomp server
-is simply unreachable - after which it would failover to the next in the
-pool:</p>
+<p>You can set the initial connetion timeout - this is when your stomp server is simply unreachable - after which it would failover to the next in the pool:</p>
 
 <pre class="ruby"><span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">activemq</span>.<span class="ruby-identifier">connect_timeout</span> = <span class="ruby-value">30</span>
 </pre>
@@ -205,33 +187,22 @@ pool:</p>
 <pre class="ruby"><span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">activemq</span>.<span class="ruby-identifier">priority</span> = <span class="ruby-value">4</span>
 </pre>
 
-<p>This plugin supports <a href="Activemq/Stomp.html">Stomp</a> protocol 1.1
-when combined with the stomp gem version 1.2.10 or newer.  To enable
-network heartbeats which will help keep the connection alive over NAT
-connections and aggresive session tracking firewalls you can set:</p>
+<p>This plugin supports <a href="Activemq/Stomp.html"><code>Stomp</code></a> protocol 1.1 when combined with the stomp gem version 1.2.10 or newer.  To enable network heartbeats which will help keep the connection alive over NAT connections and aggresive session tracking firewalls you can set:</p>
 
 <pre class="ruby"><span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">activemq</span>.<span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-value">30</span>
 </pre>
 
-<p>which will cause a heartbeat to be sent on 30 second intervals and one to
-be expected from the broker every 30 seconds.  The shortest supported
-period is 30 seconds, if you set it lower it will get forced to 30 seconds.</p>
+<p>which will cause a heartbeat to be sent on 30 second intervals and one to be expected from the broker every 30 seconds.  The shortest supported period is 30 seconds, if you set it lower it will get forced to 30 seconds.</p>
 
-<p>After 2 failures to receive a heartbeat the connection will be reset via
-the normal failover mechanism.</p>
+<p>After 2 failures to receive a heartbeat the connection will be reset via the normal failover mechanism.</p>
 
-<p>By default if heartbeat_interval is set it will request <a
-href="Activemq/Stomp.html">Stomp</a> 1.1 but support fallback to 1.0, but
-you can enable strict <a href="Activemq/Stomp.html">Stomp</a> 1.1 only
-operation</p>
+<p>By default if heartbeat_interval is set it will request <a href="Activemq/Stomp.html"><code>Stomp</code></a> 1.1 but support fallback to 1.0, but you can enable strict <a href="Activemq/Stomp.html"><code>Stomp</code></a> 1.1 only operation</p>
 
 <pre class="ruby"><span class="ruby-identifier">plugin</span>.<span class="ruby-identifier">activemq</span>.<span class="ruby-identifier">stomp_1_0_fallback</span> = <span class="ruby-value">0</span>
 </pre>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -289,20 +260,20 @@ operation</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 200</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>
-  <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  <span class="ruby-ivar">@subscriptions</span> = []
-  <span class="ruby-ivar">@msgpriority</span> = <span class="ruby-value">0</span>
-  <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
-  <span class="ruby-ivar">@use_exponential_back_off</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.use_exponential_back_off&quot;</span>, <span class="ruby-string">&quot;true&quot;</span>)
-  <span class="ruby-ivar">@initial_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.initial_reconnect_delay&quot;</span>, <span class="ruby-value">0.01</span>))
-  <span class="ruby-ivar">@back_off_multiplier</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.back_off_multiplier&quot;</span>, <span class="ruby-value">2</span>))
-  <span class="ruby-ivar">@max_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_reconnect_delay&quot;</span>, <span class="ruby-value">30.0</span>))
-  <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@initial_reconnect_delay</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;ActiveMQ connector initialized.  Using stomp-gem #{stomp_version}&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">200</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>
+<span class="line-num">201</span>   <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">202</span>   <span class="ruby-ivar">@subscriptions</span> = []
+<span class="line-num">203</span>   <span class="ruby-ivar">@msgpriority</span> = <span class="ruby-value">0</span>
+<span class="line-num">204</span>   <span class="ruby-ivar">@base64</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">205</span>   <span class="ruby-ivar">@use_exponential_back_off</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.use_exponential_back_off&quot;</span>, <span class="ruby-string">&quot;true&quot;</span>)
+<span class="line-num">206</span>   <span class="ruby-ivar">@initial_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.initial_reconnect_delay&quot;</span>, <span class="ruby-value">0.01</span>))
+<span class="line-num">207</span>   <span class="ruby-ivar">@back_off_multiplier</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.back_off_multiplier&quot;</span>, <span class="ruby-value">2</span>))
+<span class="line-num">208</span>   <span class="ruby-ivar">@max_reconnect_delay</span> = <span class="ruby-constant">Float</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_reconnect_delay&quot;</span>, <span class="ruby-value">30.0</span>))
+<span class="line-num">209</span>   <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@initial_reconnect_delay</span>
+<span class="line-num">210</span> 
+<span class="line-num">211</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;ActiveMQ connector initialized.  Using stomp-gem #{stomp_version}&quot;</span>)
+<span class="line-num">212</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -340,96 +311,96 @@ operation</p>
 
           
           <div class="method-source-code" id="connect-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 215</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">connect</span>(<span class="ruby-identifier">connector</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@connection</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Already connection, not re-initializing connection&quot;</span>)
-    <span class="ruby-keyword">return</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.base64&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-    <span class="ruby-ivar">@msgpriority</span> = <span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.priority&quot;</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>
-
-    <span class="ruby-identifier">pools</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.pool.size&quot;</span>))
-    <span class="ruby-identifier">hosts</span> = []
-    <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">''</span>
-    <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">''</span>
-    <span class="ruby-identifier">prompt_for_username</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_user&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-    <span class="ruby-identifier">prompt_for_password</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_password&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-    
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous user exists and activemq.prompt-user is set to true&quot;</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Please enter user to connect to middleware: &quot;</span>
-      <span class="ruby-identifier">middleware_user</span> = <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous password exists and activemq.prompt-password is set to true&quot;</span>)
-      <span class="ruby-identifier">middleware_password</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-string">&quot;Please enter password: &quot;</span>)
-      <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\n&quot;</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">pools</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">poolnum</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">host</span> = {}
-
-      <span class="ruby-identifier">host</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.host&quot;</span>)
-      <span class="ruby-identifier">host</span>[<span class="ruby-value">:port</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.port&quot;</span>, <span class="ruby-value">61613</span>).<span class="ruby-identifier">to_i</span>
-      <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-      
-      <span class="ruby-comment"># read user from config file</span>
-      <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_USER&quot;</span>, <span class="ruby-node">&quot;activemq.pool.#{poolnum}.user&quot;</span>, <span class="ruby-identifier">middleware_user</span>)
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_user</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using #{host[:login]} from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
-                  <span class="ruby-string">&quot;plugin.activemq.prompt_user should be set to false to remove the prompt.&quot;</span>)
-      <span class="ruby-keyword">end</span>
-      
-      <span class="ruby-comment"># read user from config file</span>
-      <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_PASSWORD&quot;</span>, <span class="ruby-node">&quot;activemq.pool.#{poolnum}.password&quot;</span>, <span class="ruby-identifier">middleware_password</span>)
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_password</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using password from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
-                  <span class="ruby-string">&quot;plugin.activemq.prompt_password should be set to false to remove the prompt.&quot;</span>)
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-comment"># if ssl is enabled set :ssl to the hash of parameters</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>]
-        <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.fallback&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>))
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Adding #{host[:host]}:#{host[:port]} to the connection pool&quot;</span>)
-      <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No hosts found for the ActiveMQ connection pool&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-
-    <span class="ruby-identifier">connection</span> = {<span class="ruby-value">:hosts</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">hosts</span>}
-
-    <span class="ruby-comment"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
-    <span class="ruby-comment"># these can be guessed, the documentation isn't clear</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:use_exponential_back_off</span>] = <span class="ruby-ivar">@use_exponential_back_off</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:initial_reconnect_delay</span>] = <span class="ruby-ivar">@initial_reconnect_delay</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:back_off_multiplier</span>] = <span class="ruby-ivar">@back_off_multiplier</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_delay</span>] = <span class="ruby-ivar">@max_reconnect_delay</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_attempts</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_reconnect_attempts&quot;</span>, <span class="ruby-value">0</span>))
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:randomize</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.randomize&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:backup</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.backup&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.timeout&quot;</span>, <span class="ruby-value">-1</span>))
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.connect_timeout&quot;</span>, <span class="ruby-value">30</span>))
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:reliable</span>] = <span class="ruby-keyword">true</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_headers</span>] = <span class="ruby-identifier">connection_headers</span>
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbrlck_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_hbrlck_fails&quot;</span>, <span class="ruby-value">0</span>))
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbread_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_hbread_fails&quot;</span>, <span class="ruby-value">2</span>))
-
-    <span class="ruby-identifier">connection</span>[<span class="ruby-value">:logger</span>] = <span class="ruby-constant">EventLogger</span>.<span class="ruby-identifier">new</span>
-
-    <span class="ruby-ivar">@connection</span> = <span class="ruby-identifier">connector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">connection</span>)
-
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ClientTimeoutError</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not connect to ActiveMQ Server: #{e}&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">215</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">connect</span>(<span class="ruby-identifier">connector</span> = <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Connection</span>)
+<span class="line-num">216</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@connection</span>
+<span class="line-num">217</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Already connection, not re-initializing connection&quot;</span>)
+<span class="line-num">218</span>     <span class="ruby-keyword">return</span>
+<span class="line-num">219</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">220</span> 
+<span class="line-num">221</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">222</span>     <span class="ruby-ivar">@base64</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.base64&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">223</span>     <span class="ruby-ivar">@msgpriority</span> = <span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.priority&quot;</span>, <span class="ruby-value">0</span>).<span class="ruby-identifier">to_i</span>
+<span class="line-num">224</span> 
+<span class="line-num">225</span>     <span class="ruby-identifier">pools</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.pool.size&quot;</span>))
+<span class="line-num">226</span>     <span class="ruby-identifier">hosts</span> = []
+<span class="line-num">227</span>     <span class="ruby-identifier">middleware_user</span> = <span class="ruby-string">&#39;&#39;</span>
+<span class="line-num">228</span>     <span class="ruby-identifier">middleware_password</span> = <span class="ruby-string">&#39;&#39;</span>
+<span class="line-num">229</span>     <span class="ruby-identifier">prompt_for_username</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_user&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">230</span>     <span class="ruby-identifier">prompt_for_password</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.prompt_password&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">231</span>     
+<span class="line-num">232</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span>
+<span class="line-num">233</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous user exists and activemq.prompt-user is set to true&quot;</span>)
+<span class="line-num">234</span>       <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;Please enter user to connect to middleware: &quot;</span>
+<span class="line-num">235</span>       <span class="ruby-identifier">middleware_user</span> = <span class="ruby-constant">STDIN</span>.<span class="ruby-identifier">gets</span>.<span class="ruby-identifier">chomp</span>
+<span class="line-num">236</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">237</span> 
+<span class="line-num">238</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span>
+<span class="line-num">239</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;No previous password exists and activemq.prompt-password is set to true&quot;</span>)
+<span class="line-num">240</span>       <span class="ruby-identifier">middleware_password</span> = <span class="ruby-constant">MCollective</span><span class="ruby-operator">::</span><span class="ruby-constant">Util</span>.<span class="ruby-identifier">get_hidden_input</span>(<span class="ruby-string">&quot;Please enter password: &quot;</span>)
+<span class="line-num">241</span>       <span class="ruby-identifier">print</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="line-num">242</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">243</span> 
+<span class="line-num">244</span>     <span class="ruby-value">1</span>.<span class="ruby-identifier">upto</span>(<span class="ruby-identifier">pools</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">poolnum</span><span class="ruby-operator">|</span>
+<span class="line-num">245</span>       <span class="ruby-identifier">host</span> = {}
+<span class="line-num">246</span> 
+<span class="line-num">247</span>       <span class="ruby-identifier">host</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.host&quot;</span>)
+<span class="line-num">248</span>       <span class="ruby-identifier">host</span>[<span class="ruby-value">:port</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.port&quot;</span>, <span class="ruby-value">61613</span>).<span class="ruby-identifier">to_i</span>
+<span class="line-num">249</span>       <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">250</span>       
+<span class="line-num">251</span>       <span class="ruby-comment"># read user from config file</span>
+<span class="line-num">252</span>       <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_USER&quot;</span>, <span class="ruby-node">&quot;activemq.pool.#{poolnum}.user&quot;</span>, <span class="ruby-identifier">middleware_user</span>)
+<span class="line-num">253</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_username</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:login</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_user</span>
+<span class="line-num">254</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using #{host[:login]} from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
+<span class="line-num">255</span>                   <span class="ruby-string">&quot;plugin.activemq.prompt_user should be set to false to remove the prompt.&quot;</span>)
+<span class="line-num">256</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">257</span>       
+<span class="line-num">258</span>       <span class="ruby-comment"># read user from config file</span>
+<span class="line-num">259</span>       <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] = <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-string">&quot;STOMP_PASSWORD&quot;</span>, <span class="ruby-node">&quot;activemq.pool.#{poolnum}.password&quot;</span>, <span class="ruby-identifier">middleware_password</span>)
+<span class="line-num">260</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">prompt_for_password</span> <span class="ruby-keyword">and</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:passcode</span>] <span class="ruby-operator">!=</span> <span class="ruby-identifier">middleware_password</span>
+<span class="line-num">261</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Using password from config file to connect to #{host[:host]}. &quot;</span><span class="ruby-operator">+</span>
+<span class="line-num">262</span>                   <span class="ruby-string">&quot;plugin.activemq.prompt_password should be set to false to remove the prompt.&quot;</span>)
+<span class="line-num">263</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">264</span> 
+<span class="line-num">265</span>       <span class="ruby-comment"># if ssl is enabled set :ssl to the hash of parameters</span>
+<span class="line-num">266</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>]
+<span class="line-num">267</span>         <span class="ruby-identifier">host</span>[<span class="ruby-value">:ssl</span>] = <span class="ruby-identifier">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.fallback&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>))
+<span class="line-num">268</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">269</span> 
+<span class="line-num">270</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Adding #{host[:host]}:#{host[:port]} to the connection pool&quot;</span>)
+<span class="line-num">271</span>       <span class="ruby-identifier">hosts</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">host</span>
+<span class="line-num">272</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">273</span> 
+<span class="line-num">274</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No hosts found for the ActiveMQ connection pool&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">275</span> 
+<span class="line-num">276</span>     <span class="ruby-identifier">connection</span> = {<span class="ruby-value">:hosts</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">hosts</span>}
+<span class="line-num">277</span> 
+<span class="line-num">278</span>     <span class="ruby-comment"># Various STOMP gem options, defaults here matches defaults for 1.1.6 the meaning of</span>
+<span class="line-num">279</span>     <span class="ruby-comment"># these can be guessed, the documentation isn&#39;t clear</span>
+<span class="line-num">280</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:use_exponential_back_off</span>] = <span class="ruby-ivar">@use_exponential_back_off</span>
+<span class="line-num">281</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:initial_reconnect_delay</span>] = <span class="ruby-ivar">@initial_reconnect_delay</span>
+<span class="line-num">282</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:back_off_multiplier</span>] = <span class="ruby-ivar">@back_off_multiplier</span>
+<span class="line-num">283</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_delay</span>] = <span class="ruby-ivar">@max_reconnect_delay</span>
+<span class="line-num">284</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_reconnect_attempts</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_reconnect_attempts&quot;</span>, <span class="ruby-value">0</span>))
+<span class="line-num">285</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:randomize</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.randomize&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">286</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:backup</span>] = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.backup&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">287</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.timeout&quot;</span>, <span class="ruby-value">-1</span>))
+<span class="line-num">288</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_timeout</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.connect_timeout&quot;</span>, <span class="ruby-value">30</span>))
+<span class="line-num">289</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:reliable</span>] = <span class="ruby-keyword">true</span>
+<span class="line-num">290</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:connect_headers</span>] = <span class="ruby-identifier">connection_headers</span>
+<span class="line-num">291</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbrlck_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_hbrlck_fails&quot;</span>, <span class="ruby-value">0</span>))
+<span class="line-num">292</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:max_hbread_fails</span>] = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.max_hbread_fails&quot;</span>, <span class="ruby-value">2</span>))
+<span class="line-num">293</span> 
+<span class="line-num">294</span>     <span class="ruby-identifier">connection</span>[<span class="ruby-value">:logger</span>] = <span class="ruby-constant">EventLogger</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">295</span> 
+<span class="line-num">296</span>     <span class="ruby-ivar">@connection</span> = <span class="ruby-identifier">connector</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">connection</span>)
+<span class="line-num">297</span> 
+<span class="line-num">298</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">ClientTimeoutError</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">299</span>     <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+<span class="line-num">300</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">301</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Could not connect to ActiveMQ Server: #{e}&quot;</span>)
+<span class="line-num">302</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">303</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -459,41 +430,41 @@ operation</p>
 
           
           <div class="method-source-code" id="connection_headers-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 313</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">connection_headers</span>
-  <span class="ruby-identifier">headers</span> = {<span class="ruby-value">:&quot;accept-version&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;1.0&quot;</span>}
-
-  <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.heartbeat_interval&quot;</span>, <span class="ruby-value">0</span>))
-  <span class="ruby-identifier">stomp_1_0_fallback</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.stomp_1_0_fallback&quot;</span>, <span class="ruby-keyword">true</span>)
-
-  <span class="ruby-identifier">headers</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.vhost&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
-      <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Setting STOMP 1.1 properties like heartbeat intervals require at least version 1.2.10 of the STOMP gem&quot;</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">30</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Connection heartbeat is set to %d, forcing to minimum value of 30s&quot;</span>)
-      <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-value">30</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
-    <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;heart-beat&quot;</span>] = <span class="ruby-string">&quot;%d,%d&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">+</span> <span class="ruby-value">500</span>, <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">-</span> <span class="ruby-value">500</span>]
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_1_0_fallback</span>
-      <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1,1.0&quot;</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1&quot;</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Connecting without STOMP 1.1 heartbeats, if you are using ActiveMQ 5.8 or newer consider setting plugin.activemq.heartbeat_interval&quot;</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">headers</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">313</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">connection_headers</span>
+<span class="line-num">314</span>   <span class="ruby-identifier">headers</span> = {<span class="ruby-value">:&quot;accept-version&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;1.0&quot;</span>}
+<span class="line-num">315</span> 
+<span class="line-num">316</span>   <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-constant">Integer</span>(<span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.heartbeat_interval&quot;</span>, <span class="ruby-value">0</span>))
+<span class="line-num">317</span>   <span class="ruby-identifier">stomp_1_0_fallback</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.stomp_1_0_fallback&quot;</span>, <span class="ruby-keyword">true</span>)
+<span class="line-num">318</span> 
+<span class="line-num">319</span>   <span class="ruby-identifier">headers</span>[<span class="ruby-value">:host</span>] = <span class="ruby-identifier">get_option</span>(<span class="ruby-string">&quot;activemq.vhost&quot;</span>, <span class="ruby-string">&quot;mcollective&quot;</span>)
+<span class="line-num">320</span> 
+<span class="line-num">321</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">322</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
+<span class="line-num">323</span>       <span class="ruby-identifier">raise</span>(<span class="ruby-string">&quot;Setting STOMP 1.1 properties like heartbeat intervals require at least version 1.2.10 of the STOMP gem&quot;</span>)
+<span class="line-num">324</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">325</span> 
+<span class="line-num">326</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">30</span>
+<span class="line-num">327</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;Connection heartbeat is set to %d, forcing to minimum value of 30s&quot;</span>)
+<span class="line-num">328</span>       <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-value">30</span>
+<span class="line-num">329</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">330</span> 
+<span class="line-num">331</span>     <span class="ruby-identifier">heartbeat_interval</span> = <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>
+<span class="line-num">332</span>     <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;heart-beat&quot;</span>] = <span class="ruby-string">&quot;%d,%d&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">+</span> <span class="ruby-value">500</span>, <span class="ruby-identifier">heartbeat_interval</span> <span class="ruby-operator">-</span> <span class="ruby-value">500</span>]
+<span class="line-num">333</span> 
+<span class="line-num">334</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_1_0_fallback</span>
+<span class="line-num">335</span>       <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1,1.0&quot;</span>
+<span class="line-num">336</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">337</span>       <span class="ruby-identifier">headers</span>[<span class="ruby-value">:&quot;accept-version&quot;</span>] = <span class="ruby-string">&quot;1.1&quot;</span>
+<span class="line-num">338</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">339</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">340</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
+<span class="line-num">341</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Connecting without STOMP 1.1 heartbeats, if you are using ActiveMQ 5.8 or newer consider setting plugin.activemq.heartbeat_interval&quot;</span>)
+<span class="line-num">342</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">343</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">344</span> 
+<span class="line-num">345</span>   <span class="ruby-identifier">headers</span>
+<span class="line-num">346</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -523,12 +494,12 @@ operation</p>
 
           
           <div class="method-source-code" id="disconnect-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 506</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">disconnect</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Disconnecting from ActiveMQ&quot;</span>)
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
-  <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword">nil</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">506</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">disconnect</span>
+<span class="line-num">507</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Disconnecting from ActiveMQ&quot;</span>)
+<span class="line-num">508</span>   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">disconnect</span>
+<span class="line-num">509</span>   <span class="ruby-ivar">@connection</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">510</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -558,24 +529,24 @@ operation</p>
 
           
           <div class="method-source-code" id="exponential_back_off-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 399</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">exponential_back_off</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@use_exponential_back_off</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">backoff</span> = <span class="ruby-ivar">@reconnect_delay</span>
-
-  <span class="ruby-comment"># calculate next delay</span>
-  <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@back_off_multiplier</span>
-
-  <span class="ruby-comment"># cap at max reconnect delay</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@max_reconnect_delay</span>
-    <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@max_reconnect_delay</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">backoff</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">399</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">exponential_back_off</span>
+<span class="line-num">400</span>   <span class="ruby-keyword">if</span> <span class="ruby-operator">!</span><span class="ruby-ivar">@use_exponential_back_off</span>
+<span class="line-num">401</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">402</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">403</span> 
+<span class="line-num">404</span>   <span class="ruby-identifier">backoff</span> = <span class="ruby-ivar">@reconnect_delay</span>
+<span class="line-num">405</span> 
+<span class="line-num">406</span>   <span class="ruby-comment"># calculate next delay</span>
+<span class="line-num">407</span>   <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">*</span> <span class="ruby-ivar">@back_off_multiplier</span>
+<span class="line-num">408</span> 
+<span class="line-num">409</span>   <span class="ruby-comment"># cap at max reconnect delay</span>
+<span class="line-num">410</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@reconnect_delay</span> <span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@max_reconnect_delay</span>
+<span class="line-num">411</span>     <span class="ruby-ivar">@reconnect_delay</span> = <span class="ruby-ivar">@max_reconnect_delay</span>
+<span class="line-num">412</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">413</span> 
+<span class="line-num">414</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">backoff</span>
+<span class="line-num">415</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -605,10 +576,10 @@ operation</p>
 
           
           <div class="method-source-code" id="get_bool_option-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 602</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>)
-  <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>))
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">602</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_bool_option</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>)
+<span class="line-num">603</span>   <span class="ruby-constant">Util</span>.<span class="ruby-identifier">str_to_bool</span>(<span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">val</span>, <span class="ruby-identifier">default</span>))
+<span class="line-num">604</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -632,19 +603,16 @@ operation</p>
 
         <div class="method-description">
           
-          <p>Returns the name of the certficate file used by ActiveMQ Will first check
-if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_CERT exists,
-where X is the ActiveMQ pool number. If the environment variable doesn’t
-exist, it will try and load the value from the config.</p>
+          <p>Returns the name of the certficate file used by ActiveMQ Will first check if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_CERT exists, where X is the ActiveMQ pool number. If the environment variable doesn&#39;t exist, it will try and load the value from the config.</p>
           
           
 
           
           <div class="method-source-code" id="get_cert_file-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 394</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>)
-  <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_ACTIVEMQ_POOL%s_SSL_CERT&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.cert&quot;</span>, <span class="ruby-keyword">false</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">394</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>)
+<span class="line-num">395</span>   <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_ACTIVEMQ_POOL%s_SSL_CERT&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.cert&quot;</span>, <span class="ruby-keyword">false</span>)
+<span class="line-num">396</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -668,8 +636,7 @@ exist, it will try and load the value from the config.</p>
 
         <div class="method-description">
           
-          <p>looks in the environment first then in the config file for a specific
-option, accepts an optional default.</p>
+          <p>looks in the environment first then in the config file for a specific option, accepts an optional default.</p>
 
 <p>raises an exception when it cant find a value anywhere</p>
           
@@ -677,14 +644,14 @@ option, accepts an optional default.</p>
 
           
           <div class="method-source-code" id="get_env_or_option-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 583</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_env_or_option</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">env</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">env</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">default</span>
-
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No #{env} environment or plugin.#{opt} configuration option given&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">583</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_env_or_option</span>(<span class="ruby-identifier">env</span>, <span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">584</span>   <span class="ruby-keyword">return</span> <span class="ruby-constant">ENV</span>[<span class="ruby-identifier">env</span>] <span class="ruby-keyword">if</span> <span class="ruby-constant">ENV</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">env</span>)
+<span class="line-num">585</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
+<span class="line-num">586</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">default</span>
+<span class="line-num">587</span> 
+<span class="line-num">588</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No #{env} environment or plugin.#{opt} configuration option given&quot;</span>)
+<span class="line-num">589</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -708,19 +675,16 @@ option, accepts an optional default.</p>
 
         <div class="method-description">
           
-          <p>Returns the name of the private key file used by ActiveMQ Will first check
-if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_KEY exists, where
-X is the ActiveMQ pool number. If the environment variable doesn’t exist,
-it will try and load the value from the config.</p>
+          <p>Returns the name of the private key file used by ActiveMQ Will first check if an environment variable MCOLLECTIVE_ACTIVEMQ_POOLX_SSL_KEY exists, where X is the ActiveMQ pool number. If the environment variable doesn&#39;t exist, it will try and load the value from the config.</p>
           
           
 
           
           <div class="method-source-code" id="get_key_file-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 386</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_key_file</span>(<span class="ruby-identifier">poolnum</span>)
-  <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_ACTIVEMQ_POOL%s_SSL_KEY&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.key&quot;</span>, <span class="ruby-keyword">false</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">386</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_key_file</span>(<span class="ruby-identifier">poolnum</span>)
+<span class="line-num">387</span>   <span class="ruby-constant">ENV</span>[<span class="ruby-string">&quot;MCOLLECTIVE_ACTIVEMQ_POOL%s_SSL_KEY&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">poolnum</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.key&quot;</span>, <span class="ruby-keyword">false</span>)
+<span class="line-num">388</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -752,13 +716,13 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="get_option-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 594</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">default</span>.<span class="ruby-identifier">nil?</span>
-
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin.#{opt} configuration option given&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">594</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">get_option</span>(<span class="ruby-identifier">opt</span>, <span class="ruby-identifier">default</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">595</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-identifier">opt</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">opt</span>)
+<span class="line-num">596</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">default</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">default</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">597</span> 
+<span class="line-num">598</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;No plugin.#{opt} configuration option given&quot;</span>)
+<span class="line-num">599</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -788,34 +752,34 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="headers_for-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 512</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">identity</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">headers</span> = {}
-
-  <span class="ruby-identifier">headers</span> = {<span class="ruby-string">&quot;priority&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@msgpriority</span>} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@msgpriority</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-
-  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;timestamp&quot;</span>] = (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>).<span class="ruby-identifier">to_s</span>
-
-  <span class="ruby-comment"># set the expires header based on the TTL, we build a small additional</span>
-  <span class="ruby-comment"># timeout of 10 seconds in here to allow for network latency etc</span>
-  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;expires&quot;</span>] = ((<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">ttl</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>).<span class="ruby-identifier">to_s</span>
-
-  <span class="ruby-keyword">if</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
-    <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-value">:reply</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>)
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>
-      <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>]
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;mc_identity&quot;</span>] = <span class="ruby-identifier">identity</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;mc_sender&quot;</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">headers</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">512</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">headers_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">identity</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">513</span>   <span class="ruby-identifier">headers</span> = {}
+<span class="line-num">514</span> 
+<span class="line-num">515</span>   <span class="ruby-identifier">headers</span> = {<span class="ruby-string">&quot;priority&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@msgpriority</span>} <span class="ruby-keyword">if</span> <span class="ruby-ivar">@msgpriority</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">516</span> 
+<span class="line-num">517</span>   <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;timestamp&quot;</span>] = (<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>).<span class="ruby-identifier">to_s</span>
+<span class="line-num">518</span> 
+<span class="line-num">519</span>   <span class="ruby-comment"># set the expires header based on the TTL, we build a small additional</span>
+<span class="line-num">520</span>   <span class="ruby-comment"># timeout of 10 seconds in here to allow for network latency etc</span>
+<span class="line-num">521</span>   <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;expires&quot;</span>] = ((<span class="ruby-constant">Time</span>.<span class="ruby-identifier">now</span>.<span class="ruby-identifier">utc</span>.<span class="ruby-identifier">to_i</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">ttl</span> <span class="ruby-operator">+</span> <span class="ruby-value">10</span>) <span class="ruby-operator">*</span> <span class="ruby-value">1000</span>).<span class="ruby-identifier">to_s</span>
+<span class="line-num">522</span> 
+<span class="line-num">523</span>   <span class="ruby-keyword">if</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
+<span class="line-num">524</span>     <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-value">:reply</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>)
+<span class="line-num">525</span> 
+<span class="line-num">526</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>
+<span class="line-num">527</span>       <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">reply_to</span>
+<span class="line-num">528</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">529</span>       <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>] = <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>]
+<span class="line-num">530</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">531</span> 
+<span class="line-num">532</span>     <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;mc_identity&quot;</span>] = <span class="ruby-identifier">identity</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
+<span class="line-num">533</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">534</span> 
+<span class="line-num">535</span>   <span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;mc_sender&quot;</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">identity</span>
+<span class="line-num">536</span> 
+<span class="line-num">537</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">headers</span>
+<span class="line-num">538</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -845,45 +809,45 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="make_target-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 540</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:directed</span>, <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:reply</span>, <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
-  <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective '#{collective}' known collectives are '#{@config.collectives.join ', '}'&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
-
-  <span class="ruby-identifier">agents_multiplex</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.agents_multiplex&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
-  <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}}
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:reply</span>, <span class="ruby-node">&quot;#{Config.instance.identity}_#{$$}&quot;</span>, <span class="ruby-constant">Client</span>.<span class="ruby-identifier">request_sequence</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:broadcast</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">agents_multiplex</span>
-        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:agents</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-value">:agent</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:request</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">agents_multiplex</span>
-        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:agents</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-value">:agent</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:direct_request</span>
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:nodes</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-
-    <span class="ruby-keyword">when</span> <span class="ruby-value">:directed</span>
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:nodes</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;selector&quot;</span>] = <span class="ruby-node">&quot;mc_identity = '#{@config.identity}'&quot;</span>
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_directed_to_identity&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">collective</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>]
-
-  <span class="ruby-identifier">target</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">540</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+<span class="line-num">541</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown target type #{type}&quot;</span>) <span class="ruby-keyword">unless</span> [<span class="ruby-value">:directed</span>, <span class="ruby-value">:broadcast</span>, <span class="ruby-value">:reply</span>, <span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">type</span>)
+<span class="line-num">542</span>   <span class="ruby-identifier">raise</span>(<span class="ruby-node">&quot;Unknown collective &#39;#{collective}&#39; known collectives are &#39;#{@config.collectives.join &#39;, &#39;}&#39;&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">collectives</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">collective</span>)
+<span class="line-num">543</span> 
+<span class="line-num">544</span>   <span class="ruby-identifier">agents_multiplex</span> = <span class="ruby-identifier">get_bool_option</span>(<span class="ruby-string">&quot;activemq.agents_multiplex&quot;</span>, <span class="ruby-string">&quot;false&quot;</span>)
+<span class="line-num">545</span>   <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>, <span class="ruby-value">:headers</span> <span class="ruby-operator">=&gt;</span> {}}
+<span class="line-num">546</span> 
+<span class="line-num">547</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">type</span>
+<span class="line-num">548</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:reply</span>
+<span class="line-num">549</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:reply</span>, <span class="ruby-node">&quot;#{Config.instance.identity}_#{$$}&quot;</span>, <span class="ruby-constant">Client</span>.<span class="ruby-identifier">request_sequence</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">550</span> 
+<span class="line-num">551</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:broadcast</span>
+<span class="line-num">552</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">agents_multiplex</span>
+<span class="line-num">553</span>         <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:agents</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">554</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">555</span>         <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-value">:agent</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">556</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">557</span> 
+<span class="line-num">558</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:request</span>
+<span class="line-num">559</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">agents_multiplex</span>
+<span class="line-num">560</span>         <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:agents</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">561</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">562</span>         <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/topic/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-value">:agent</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">563</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">564</span> 
+<span class="line-num">565</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:direct_request</span>
+<span class="line-num">566</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:nodes</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">567</span> 
+<span class="line-num">568</span>     <span class="ruby-keyword">when</span> <span class="ruby-value">:directed</span>
+<span class="line-num">569</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] = [<span class="ruby-string">&quot;/queue/&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">collective</span>, <span class="ruby-value">:nodes</span>].<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;.&quot;</span>)
+<span class="line-num">570</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>][<span class="ruby-string">&quot;selector&quot;</span>] = <span class="ruby-node">&quot;mc_identity = &#39;#{@config.identity}&#39;&quot;</span>
+<span class="line-num">571</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-string">&quot;%s_directed_to_identity&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">collective</span>
+<span class="line-num">572</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">573</span> 
+<span class="line-num">574</span>   <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>] = <span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">target</span>[<span class="ruby-value">:id</span>]
+<span class="line-num">575</span> 
+<span class="line-num">576</span>   <span class="ruby-identifier">target</span>
+<span class="line-num">577</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -913,28 +877,28 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="publish-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 449</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">publish</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">base64_encode!</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
-
-  <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
-    <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>] = <span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>)
-
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to ActiveMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
-
-      <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>))
-
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to ActiveMQ target '#{target[:name]}' with headers '#{target[:headers].inspect}'&quot;</span>)
-
-    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">449</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">publish</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">450</span>   <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">base64_encode!</span> <span class="ruby-keyword">if</span> <span class="ruby-ivar">@base64</span>
+<span class="line-num">451</span> 
+<span class="line-num">452</span>   <span class="ruby-identifier">target</span> = <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">453</span> 
+<span class="line-num">454</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:direct_request</span>
+<span class="line-num">455</span>     <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">discovered_hosts</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">node</span><span class="ruby-operator">|</span>
+<span class="line-num">456</span>       <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>] = <span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">node</span>)
+<span class="line-num">457</span> 
+<span class="line-num">458</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a direct message to ActiveMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+<span class="line-num">459</span> 
+<span class="line-num">460</span>       <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
+<span class="line-num">461</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">462</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">463</span>     <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>].<span class="ruby-identifier">merge!</span>(<span class="ruby-identifier">headers_for</span>(<span class="ruby-identifier">msg</span>))
+<span class="line-num">464</span> 
+<span class="line-num">465</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Sending a broadcast message to ActiveMQ target &#39;#{target[:name]}&#39; with headers &#39;#{target[:headers].inspect}&#39;&quot;</span>)
+<span class="line-num">466</span> 
+<span class="line-num">467</span>     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">publish</span>(<span class="ruby-identifier">target</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">payload</span>, <span class="ruby-identifier">target</span>[<span class="ruby-value">:headers</span>])
+<span class="line-num">468</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">469</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -964,36 +928,36 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="receive-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 418</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">receive</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Waiting for a message from ActiveMQ&quot;</span>)
-
-  <span class="ruby-comment"># When the Stomp library &gt; 1.2.0 is mid reconnecting due to its reliable connection</span>
-  <span class="ruby-comment"># handling it sets the connection to closed.  If we happen to be receiving at just</span>
-  <span class="ruby-comment"># that time we will get an exception warning about the closed connection so handling</span>
-  <span class="ruby-comment"># that here with a sleep and a retry.</span>
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
-  <span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoCurrentConnection</span>
-    <span class="ruby-identifier">sleep</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">retry</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># In older stomp gems an attempt to receive after failed authentication can return nil</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">MessageNotReceived</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>), <span class="ruby-string">&quot;No message received from ActiveMQ.&quot;</span>
-
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-comment"># We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">'MESSAGE'</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unexpected '#{msg.command}' frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnexpectedMessageType</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>),
-      <span class="ruby-node">&quot;Received frame of type '#{msg.command}' expected 'MESSAGE'&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-value">:base64</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@base64</span>, <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">418</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">receive</span>
+<span class="line-num">419</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Waiting for a message from ActiveMQ&quot;</span>)
+<span class="line-num">420</span> 
+<span class="line-num">421</span>   <span class="ruby-comment"># When the Stomp library &gt; 1.2.0 is mid reconnecting due to its reliable connection</span>
+<span class="line-num">422</span>   <span class="ruby-comment"># handling it sets the connection to closed.  If we happen to be receiving at just</span>
+<span class="line-num">423</span>   <span class="ruby-comment"># that time we will get an exception warning about the closed connection so handling</span>
+<span class="line-num">424</span>   <span class="ruby-comment"># that here with a sleep and a retry.</span>
+<span class="line-num">425</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">426</span>     <span class="ruby-identifier">msg</span> = <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">receive</span>
+<span class="line-num">427</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">NoCurrentConnection</span>
+<span class="line-num">428</span>     <span class="ruby-identifier">sleep</span> <span class="ruby-value">1</span>
+<span class="line-num">429</span>     <span class="ruby-keyword">retry</span>
+<span class="line-num">430</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">431</span> 
+<span class="line-num">432</span>   <span class="ruby-comment"># In older stomp gems an attempt to receive after failed authentication can return nil</span>
+<span class="line-num">433</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">434</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">MessageNotReceived</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>), <span class="ruby-string">&quot;No message received from ActiveMQ.&quot;</span>
+<span class="line-num">435</span> 
+<span class="line-num">436</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">437</span> 
+<span class="line-num">438</span>   <span class="ruby-comment"># We expect all messages we get to be of STOMP frame type MESSAGE, raise on unexpected types</span>
+<span class="line-num">439</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">command</span> <span class="ruby-operator">!=</span> <span class="ruby-string">&#39;MESSAGE&#39;</span>
+<span class="line-num">440</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Unexpected &#39;#{msg.command}&#39; frame.  Headers: #{msg.headers.inspect} Body: #{msg.body.inspect}&quot;</span>)
+<span class="line-num">441</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">UnexpectedMessageType</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">exponential_back_off</span>),
+<span class="line-num">442</span>       <span class="ruby-node">&quot;Received frame of type &#39;#{msg.command}&#39; expected &#39;MESSAGE&#39;&quot;</span>
+<span class="line-num">443</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">444</span> 
+<span class="line-num">445</span>   <span class="ruby-constant">Message</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">body</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-value">:base64</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@base64</span>, <span class="ruby-value">:headers</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">headers</span>)
+<span class="line-num">446</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1017,45 +981,45 @@ it will try and load the value from the config.</p>
 
         <div class="method-description">
           
-          <p>Sets the <a href="../SSL.html">SSL</a> paramaters for a specific connection</p>
+          <p>Sets the <a href="../SSL.html"><code>SSL</code></a> paramaters for a specific connection</p>
           
           
 
           
           <div class="method-source-code" id="ssl_parameters-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 349</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">fallback</span>)
-  <span class="ruby-identifier">params</span> = {
-    <span class="ruby-value">:cert_file</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>),
-    <span class="ruby-value">:key_file</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_key_file</span>(<span class="ruby-identifier">poolnum</span>),
-    <span class="ruby-value">:ts_files</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.ca&quot;</span>, <span class="ruby-keyword">false</span>),
-    <span class="ruby-value">:ciphers</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.ciphers&quot;</span>, <span class="ruby-keyword">false</span>),
-  }
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;cert, key and ca has to be supplied for verified SSL mode&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>]
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find certificate file #{params[:cert_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>])
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find key file #{params[:key_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>])
-
-  <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ca</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find CA file #{ca}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ca</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">SSLParams</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
-  <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Stomp gem &gt;= 1.2.2 is needed&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">fallback</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode, falling back to unverified: #{e.class}: #{e}&quot;</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode: #{e.class}: #{e}&quot;</span>)
-    <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">349</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">ssl_parameters</span>(<span class="ruby-identifier">poolnum</span>, <span class="ruby-identifier">fallback</span>)
+<span class="line-num">350</span>   <span class="ruby-identifier">params</span> = {
+<span class="line-num">351</span>     <span class="ruby-value">:cert_file</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">get_cert_file</span>(<span class="ruby-identifier">poolnum</span>),
+<span class="line-num">352</span>     <span class="ruby-value">:key_file</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">get_key_file</span>(<span class="ruby-identifier">poolnum</span>),
+<span class="line-num">353</span>     <span class="ruby-value">:ts_files</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.ca&quot;</span>, <span class="ruby-keyword">false</span>),
+<span class="line-num">354</span>     <span class="ruby-value">:ciphers</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">get_option</span>(<span class="ruby-node">&quot;activemq.pool.#{poolnum}.ssl.ciphers&quot;</span>, <span class="ruby-keyword">false</span>),
+<span class="line-num">355</span>   }
+<span class="line-num">356</span> 
+<span class="line-num">357</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;cert, key and ca has to be supplied for verified SSL mode&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>]
+<span class="line-num">358</span> 
+<span class="line-num">359</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find certificate file #{params[:cert_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:cert_file</span>])
+<span class="line-num">360</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find key file #{params[:key_file]}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">params</span>[<span class="ruby-value">:key_file</span>])
+<span class="line-num">361</span> 
+<span class="line-num">362</span>   <span class="ruby-identifier">params</span>[<span class="ruby-value">:ts_files</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ca</span><span class="ruby-operator">|</span>
+<span class="line-num">363</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Cannot find CA file #{ca}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">ca</span>)
+<span class="line-num">364</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">365</span> 
+<span class="line-num">366</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num">367</span>     <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">SSLParams</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">params</span>)
+<span class="line-num">368</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-constant">NameError</span>
+<span class="line-num">369</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Stomp gem &gt;= 1.2.2 is needed&quot;</span>
+<span class="line-num">370</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">371</span> 
+<span class="line-num">372</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">373</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">fallback</span>
+<span class="line-num">374</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode, falling back to unverified: #{e.class}: #{e}&quot;</span>)
+<span class="line-num">375</span>     <span class="ruby-keyword">return</span> <span class="ruby-keyword">true</span>
+<span class="line-num">376</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">377</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Failed to set full SSL verified mode: #{e.class}: #{e}&quot;</span>)
+<span class="line-num">378</span>     <span class="ruby-identifier">raise</span>(<span class="ruby-identifier">e</span>)
+<span class="line-num">379</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">380</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1085,10 +1049,10 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="stomp_version-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 305</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_version</span>
-  <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Version</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">305</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">stomp_version</span>
+<span class="line-num">306</span>   <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Version</span><span class="ruby-operator">::</span><span class="ruby-constant">STRING</span>
+<span class="line-num">307</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1118,10 +1082,10 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="stomp_version_supports_heartbeat-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 309</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stomp_version_supports_heartbeat?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">stomp_version</span>, <span class="ruby-string">&quot;1.2.10&quot;</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">309</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">stomp_version_supports_heartbeat?</span>
+<span class="line-num">310</span>   <span class="ruby-keyword">return</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">versioncmp</span>(<span class="ruby-identifier">stomp_version</span>, <span class="ruby-string">&quot;1.2.10&quot;</span>) <span class="ruby-operator">&gt;=</span> <span class="ruby-value">0</span>
+<span class="line-num">311</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1151,18 +1115,18 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="subscribe-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 472</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
-  <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{source[:name]} with headers #{source[:headers].inspect.chomp}&quot;</span>)
-    <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
-    <span class="ruby-ivar">@subscriptions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>]
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">DuplicateSubscription</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Received subscription request for #{source.inspect.chomp} but already had a matching subscription, ignoring&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">472</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">subscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+<span class="line-num">473</span>   <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+<span class="line-num">474</span> 
+<span class="line-num">475</span>   <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+<span class="line-num">476</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Subscribing to #{source[:name]} with headers #{source[:headers].inspect.chomp}&quot;</span>)
+<span class="line-num">477</span>     <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">subscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+<span class="line-num">478</span>     <span class="ruby-ivar">@subscriptions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>]
+<span class="line-num">479</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">480</span> <span class="ruby-keyword">rescue</span> <span class="ruby-operator">::</span><span class="ruby-constant">Stomp</span><span class="ruby-operator">::</span><span class="ruby-constant">Error</span><span class="ruby-operator">::</span><span class="ruby-constant">DuplicateSubscription</span>
+<span class="line-num">481</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Received subscription request for #{source.inspect.chomp} but already had a matching subscription, ignoring&quot;</span>)
+<span class="line-num">482</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1192,18 +1156,18 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="target_for-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 493</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">target_for</span>(<span class="ruby-identifier">msg</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
-    <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">request</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>], <span class="ruby-value">:headers</span> =<span class="ruby-operator">&gt;</span> {}}
-  <span class="ruby-keyword">elsif</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
-    <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don't now how to create a target for message type #{msg.type}&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">493</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">target_for</span>(<span class="ruby-identifier">msg</span>)
+<span class="line-num">494</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:reply</span>
+<span class="line-num">495</span>     <span class="ruby-identifier">target</span> = {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">request</span>.<span class="ruby-identifier">headers</span>[<span class="ruby-string">&quot;reply-to&quot;</span>], <span class="ruby-value">:headers</span> <span class="ruby-operator">=&gt;</span> {}}
+<span class="line-num">496</span>   <span class="ruby-keyword">elsif</span> [<span class="ruby-value">:request</span>, <span class="ruby-value">:direct_request</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>)
+<span class="line-num">497</span>     <span class="ruby-identifier">target</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">msg</span>.<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">type</span>, <span class="ruby-identifier">msg</span>.<span class="ruby-identifier">collective</span>)
+<span class="line-num">498</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">499</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Don&#39;t now how to create a target for message type #{msg.type}&quot;</span>
+<span class="line-num">500</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">501</span> 
+<span class="line-num">502</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">target</span>
+<span class="line-num">503</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1233,14 +1197,14 @@ it will try and load the value from the config.</p>
 
           
           <div class="method-source-code" id="unsubscribe-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/connector/activemq.rb, line 485</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
-  <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unsubscribing from #{source[:name]}&quot;</span>)
-  <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
-  <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/connector/activemq.rb</span>
+<span class="line-num">485</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">unsubscribe</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+<span class="line-num">486</span>   <span class="ruby-identifier">source</span> = <span class="ruby-identifier">make_target</span>(<span class="ruby-identifier">agent</span>, <span class="ruby-identifier">type</span>, <span class="ruby-identifier">collective</span>)
+<span class="line-num">487</span> 
+<span class="line-num">488</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Unsubscribing from #{source[:name]}&quot;</span>)
+<span class="line-num">489</span>   <span class="ruby-ivar">@connection</span>.<span class="ruby-identifier">unsubscribe</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:name</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:headers</span>], <span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+<span class="line-num">490</span>   <span class="ruby-ivar">@subscriptions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">source</span>[<span class="ruby-value">:id</span>])
+<span class="line-num">491</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1258,8 +1222,8 @@ it will try and load the value from the config.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

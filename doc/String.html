@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class String - mcollective version 2.12.1</title>
+<title>class String - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "./";
+  var index_rel_prefix = "./";
 </script>
 
-<script src="./js/jquery.js"></script>
-<script src="./js/darkfish.js"></script>
+<script src="./js/navigation.js" defer></script>
+<script src="./js/search.js" defer></script>
+<script src="./js/search_index.js" defer></script>
+<script src="./js/searcher.js" defer></script>
+<script src="./js/darkfish.js" defer></script>
 
 <link href="./css/fonts.css" rel="stylesheet">
 <link href="./css/rdoc.css" rel="stylesheet">
@@ -87,10 +91,10 @@
 
   <section class="description">
     
+<p>start_with? was introduced in 1.8.7, we need to support 1.8.5 and 1.8.6</p>
+
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -112,7 +116,7 @@
         
         <div class="method-heading">
           <span class="method-name">bytes</span><span
-            class="method-args">(&block)</span>
+            class="method-args">(&amp;block)</span>
           
           <span class="method-click-advice">click to toggle source</span>
           
@@ -127,13 +131,13 @@
 
           
           <div class="method-source-code" id="bytes-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/monkey_patches.rb, line 63</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">bytes</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-  <span class="ruby-comment"># This should not be necessary, really ...</span>
-  <span class="ruby-identifier">require</span> <span class="ruby-string">'enumerator'</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">to_enum</span>(<span class="ruby-value">:each_byte</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
-  <span class="ruby-identifier">each_byte</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/monkey_patches.rb</span>
+<span class="line-num">63</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">bytes</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">64</span>   <span class="ruby-comment"># This should not be necessary, really ...</span>
+<span class="line-num">65</span>   <span class="ruby-identifier">require</span> <span class="ruby-string">&#39;enumerator&#39;</span>
+<span class="line-num">66</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">to_enum</span>(<span class="ruby-value">:each_byte</span>) <span class="ruby-keyword">unless</span> <span class="ruby-identifier">block_given?</span>
+<span class="line-num">67</span>   <span class="ruby-identifier">each_byte</span>(<span class="ruby-operator">&amp;</span><span class="ruby-identifier">block</span>)
+<span class="line-num">68</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -163,10 +167,10 @@
 
           
           <div class="method-source-code" id="start_with-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/monkey_patches.rb, line 4</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">start_with?</span>(<span class="ruby-identifier">str</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">str</span>.<span class="ruby-identifier">length</span><span class="ruby-operator">-</span><span class="ruby-value">1</span>)] <span class="ruby-operator">==</span> <span class="ruby-identifier">str</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>  <span class="ruby-comment"># File lib/mcollective/monkey_patches.rb</span>
+<span class="line-num">4</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">start_with?</span>(<span class="ruby-identifier">str</span>)
+<span class="line-num">5</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">self</span>[<span class="ruby-value">0</span><span class="ruby-operator">..</span>(<span class="ruby-identifier">str</span>.<span class="ruby-identifier">length</span><span class="ruby-value">-1</span>)] <span class="ruby-operator">==</span> <span class="ruby-identifier">str</span>
+<span class="line-num">6</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -184,8 +188,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

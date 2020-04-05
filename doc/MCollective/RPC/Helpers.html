@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Helpers - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::Helpers - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -97,12 +101,10 @@
 
   <section class="description">
     
-<p>Various utilities for the <a href="../RPC.html">RPC</a> system</p>
+<p>Various utilities for the <a href="../RPC.html"><code>RPC</code></a> system</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -139,62 +141,62 @@
 
           
           <div class="method-source-code" id="add_simplerpc_options-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 264</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;RPC Options&quot;</span>
-
-  <span class="ruby-comment"># add SimpleRPC specific options to all clients that use our library</span>
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--np'</span>, <span class="ruby-string">'--no-progress'</span>, <span class="ruby-string">'Do not show the progress bar'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--one'</span>, <span class="ruby-string">'-1'</span>, <span class="ruby-string">'Send request to only one discovered nodes'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-value">1</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--batch SIZE'</span>, <span class="ruby-string">'Do requests in batches'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-comment"># validate batch string. Is it x% where x &gt; 0 or is it an integer</span>
-    <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)$/</span>)
-      <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_size</span>] = <span class="ruby-identifier">v</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">raise</span>(<span class="ruby-operator">::</span><span class="ruby-constant">OptionParser</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidArgument</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">v</span>))
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--batch-sleep SECONDS'</span>, <span class="ruby-constant">Float</span>, <span class="ruby-string">'Sleep time between batches'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_sleep_time</span>] = <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--limit-seed NUMBER'</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">'Seed value for deterministic random batching'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:limit_seed</span>] = <span class="ruby-identifier">v</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--limit-nodes COUNT'</span>, <span class="ruby-string">'--ln'</span>, <span class="ruby-string">'--limit'</span>, <span class="ruby-string">'Send request to only a subset of nodes, can be a percentage'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Invalid limit specified: #{v} valid limits are /^\d+%*$/&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+%*$/</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>
-      <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_i</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-identifier">v</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--json'</span>, <span class="ruby-string">'-j'</span>, <span class="ruby-string">'Produce JSON output'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
-    <span class="ruby-identifier">options</span>[<span class="ruby-value">:output_format</span>] = <span class="ruby-value">:json</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">'--display MODE'</span>, <span class="ruby-string">'Influence how results are displayed. One of ok, all or failed'</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;all&quot;</span>
-      <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-value">:always</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">intern</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;--display has to be one of 'ok', 'all' or 'failed'&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">264</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">add_simplerpc_options</span>(<span class="ruby-identifier">parser</span>, <span class="ruby-identifier">options</span>)
+<span class="line-num">265</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">266</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">separator</span> <span class="ruby-string">&quot;RPC Options&quot;</span>
+<span class="line-num">267</span> 
+<span class="line-num">268</span>   <span class="ruby-comment"># add SimpleRPC specific options to all clients that use our library</span>
+<span class="line-num">269</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--np&#39;</span>, <span class="ruby-string">&#39;--no-progress&#39;</span>, <span class="ruby-string">&#39;Do not show the progress bar&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">270</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
+<span class="line-num">271</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">272</span> 
+<span class="line-num">273</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--one&#39;</span>, <span class="ruby-string">&#39;-1&#39;</span>, <span class="ruby-string">&#39;Send request to only one discovered nodes&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">274</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-value">1</span>
+<span class="line-num">275</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">276</span> 
+<span class="line-num">277</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--batch SIZE&#39;</span>, <span class="ruby-string">&#39;Do requests in batches&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">278</span>     <span class="ruby-comment"># validate batch string. Is it x% where x &gt; 0 or is it an integer</span>
+<span class="line-num">279</span>     <span class="ruby-keyword">if</span> ((<span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)%$/</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Integer</span>(<span class="ruby-node">$1</span>) <span class="ruby-operator">!=</span> <span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(\d+)$/</span>)
+<span class="line-num">280</span>       <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_size</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">281</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">282</span>       <span class="ruby-identifier">raise</span>(<span class="ruby-operator">::</span><span class="ruby-constant">OptionParser</span><span class="ruby-operator">::</span><span class="ruby-constant">InvalidArgument</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">v</span>))
+<span class="line-num">283</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">284</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">285</span> 
+<span class="line-num">286</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--batch-sleep SECONDS&#39;</span>, <span class="ruby-constant">Float</span>, <span class="ruby-string">&#39;Sleep time between batches&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">287</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:batch_sleep_time</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">288</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">289</span> 
+<span class="line-num">290</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--limit-seed NUMBER&#39;</span>, <span class="ruby-constant">Integer</span>, <span class="ruby-string">&#39;Seed value for deterministic random batching&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">291</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:limit_seed</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">292</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">293</span> 
+<span class="line-num">294</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--limit-nodes COUNT&#39;</span>, <span class="ruby-string">&#39;--ln&#39;</span>, <span class="ruby-string">&#39;--limit&#39;</span>, <span class="ruby-string">&#39;Send request to only a subset of nodes, can be a percentage&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">295</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Invalid limit specified: #{v} valid limits are /^\d+%*$/&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+%*$/</span>
+<span class="line-num">296</span> 
+<span class="line-num">297</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^\d+$/</span>
+<span class="line-num">298</span>       <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">to_i</span>
+<span class="line-num">299</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">300</span>       <span class="ruby-identifier">options</span>[<span class="ruby-value">:mcollective_limit_targets</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">301</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">302</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">303</span> 
+<span class="line-num">304</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--json&#39;</span>, <span class="ruby-string">&#39;-j&#39;</span>, <span class="ruby-string">&#39;Produce JSON output&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">305</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:progress_bar</span>] = <span class="ruby-keyword">false</span>
+<span class="line-num">306</span>     <span class="ruby-identifier">options</span>[<span class="ruby-value">:output_format</span>] = <span class="ruby-value">:json</span>
+<span class="line-num">307</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">308</span> 
+<span class="line-num">309</span>   <span class="ruby-identifier">parser</span>.<span class="ruby-identifier">on</span>(<span class="ruby-string">&#39;--display MODE&#39;</span>, <span class="ruby-string">&#39;Influence how results are displayed. One of ok, all or failed&#39;</span>) <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">310</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">v</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;all&quot;</span>
+<span class="line-num">311</span>       <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-value">:always</span>
+<span class="line-num">312</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">313</span>       <span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>] = <span class="ruby-identifier">v</span>.<span class="ruby-identifier">intern</span>
+<span class="line-num">314</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">315</span> 
+<span class="line-num">316</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;--display has to be one of &#39;ok&#39;, &#39;all&#39; or &#39;failed&#39;&quot;</span> <span class="ruby-keyword">unless</span> [<span class="ruby-value">:ok</span>, <span class="ruby-value">:failed</span>, <span class="ruby-value">:always</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">options</span>[<span class="ruby-value">:force_display_mode</span>])
+<span class="line-num">317</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">318</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -218,20 +220,19 @@
 
         <div class="method-description">
           
-          <p>Given an array of something, make sure each is a string chomp off any new
-lines and return just the array of hosts</p>
+          <p>Given an array of something, make sure each is a string chomp off any new lines and return just the array of hosts</p>
           
           
 
           
           <div class="method-source-code" id="extract_hosts_from_array-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 39</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extract_hosts_from_array</span>(<span class="ruby-identifier">hosts</span>)
-  [<span class="ruby-identifier">hosts</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{host} should be a string&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-    <span class="ruby-identifier">host</span>.<span class="ruby-identifier">chomp</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">39</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">extract_hosts_from_array</span>(<span class="ruby-identifier">hosts</span>)
+<span class="line-num">40</span>   [<span class="ruby-identifier">hosts</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
+<span class="line-num">41</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{host} should be a string&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+<span class="line-num">42</span>     <span class="ruby-identifier">host</span>.<span class="ruby-identifier">chomp</span>
+<span class="line-num">43</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">44</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -255,8 +256,7 @@ lines and return just the array of hosts</p>
 
         <div class="method-description">
           
-          <p>Parse JSON output as produced by printrpc or puppet query and extract the
-“sender” / “certname” of each entry</p>
+          <p>Parse JSON output as produced by printrpc or puppet query and extract the “sender” / “certname” of each entry</p>
 
 <p>The simplist valid JSON based data would be:</p>
 
@@ -280,22 +280,22 @@ lines and return just the array of hosts</p>
 
           
           <div class="method-source-code" id="extract_hosts_from_json-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 21</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">extract_hosts_from_json</span>(<span class="ruby-identifier">json</span>)
-  <span class="ruby-identifier">hosts</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON hosts list is not an array&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
-
-  <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list is not an array of Hashes&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;sender&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;certname&quot;</span>)
-      <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list does not have senders in it&quot;</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;sender&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;certname&quot;</span>]
-  <span class="ruby-keyword">end</span>.<span class="ruby-identifier">uniq</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">21</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">extract_hosts_from_json</span>(<span class="ruby-identifier">json</span>)
+<span class="line-num">22</span>   <span class="ruby-identifier">hosts</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">parse</span>(<span class="ruby-identifier">json</span>)
+<span class="line-num">23</span> 
+<span class="line-num">24</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON hosts list is not an array&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Array</span>)
+<span class="line-num">25</span> 
+<span class="line-num">26</span>   <span class="ruby-identifier">hosts</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">host</span><span class="ruby-operator">|</span>
+<span class="line-num">27</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list is not an array of Hashes&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">28</span> 
+<span class="line-num">29</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;sender&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;certname&quot;</span>)
+<span class="line-num">30</span>       <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;JSON host list does not have senders in it&quot;</span>
+<span class="line-num">31</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">32</span> 
+<span class="line-num">33</span>     <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;sender&quot;</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">host</span>[<span class="ruby-string">&quot;certname&quot;</span>]
+<span class="line-num">34</span>   <span class="ruby-keyword">end</span>.<span class="ruby-identifier">uniq</span>
+<span class="line-num">35</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -319,63 +319,62 @@ lines and return just the array of hosts</p>
 
         <div class="method-description">
           
-          <p>Backward compatible display block for results without a <a
-href="../DDL.html">DDL</a></p>
+          <p>Backward compatible display block for results without a <a href="../DDL.html"><code>DDL</code></a></p>
           
           
 
           
           <div class="method-source-code" id="old_rpcresults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 213</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
-  <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:flatten</span>]
-    <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
-        <span class="ruby-identifier">data</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>]
-
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">pretty_inspect</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">pretty_inspect</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-keyword">else</span>
-    [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-      <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>]
-        <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;%-40s: %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>], <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>]]
-
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
-          <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;    #{m}&quot;</span>}
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n\n&quot;</span>
-        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
-          <span class="ruby-comment"># dont print anything, no useful data to display</span>
-          <span class="ruby-comment"># past what was already shown</span>
-        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">3</span>
-          <span class="ruby-comment"># dont print anything, no useful data to display</span>
-          <span class="ruby-comment"># past what was already shown</span>
-        <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
-          <span class="ruby-comment"># dont print anything, no useful data to display</span>
-          <span class="ruby-comment"># past what was already shown</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    #{r[:statusmsg]}&quot;</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">else</span>
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>], <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>])]
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">213</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+<span class="line-num">214</span>   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">215</span> 
+<span class="line-num">216</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:flatten</span>]
+<span class="line-num">217</span>     <span class="ruby-identifier">result</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+<span class="line-num">218</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+<span class="line-num">219</span>         <span class="ruby-identifier">data</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">220</span> 
+<span class="line-num">221</span>         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+<span class="line-num">222</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">pretty_inspect</span>
+<span class="line-num">223</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">224</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">data</span>
+<span class="line-num">225</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">226</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">227</span>         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">r</span>.<span class="ruby-identifier">pretty_inspect</span>
+<span class="line-num">228</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">229</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">230</span> 
+<span class="line-num">231</span>     <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">232</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">233</span>     [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+<span class="line-num">234</span>       <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>]
+<span class="line-num">235</span>         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;%-40s: %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>], <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>]]
+<span class="line-num">236</span> 
+<span class="line-num">237</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+<span class="line-num">238</span>           <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">each</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">m</span><span class="ruby-operator">|</span> <span class="ruby-identifier">result_text</span> <span class="ruby-operator">+=</span> <span class="ruby-node">&quot;    #{m}&quot;</span>}
+<span class="line-num">239</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n\n&quot;</span>
+<span class="line-num">240</span>         <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">2</span>
+<span class="line-num">241</span>           <span class="ruby-comment"># dont print anything, no useful data to display</span>
+<span class="line-num">242</span>           <span class="ruby-comment"># past what was already shown</span>
+<span class="line-num">243</span>         <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">3</span>
+<span class="line-num">244</span>           <span class="ruby-comment"># dont print anything, no useful data to display</span>
+<span class="line-num">245</span>           <span class="ruby-comment"># past what was already shown</span>
+<span class="line-num">246</span>         <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">4</span>
+<span class="line-num">247</span>           <span class="ruby-comment"># dont print anything, no useful data to display</span>
+<span class="line-num">248</span>           <span class="ruby-comment"># past what was already shown</span>
+<span class="line-num">249</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">250</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;    #{r[:statusmsg]}&quot;</span>
+<span class="line-num">251</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">252</span>       <span class="ruby-keyword">else</span>
+<span class="line-num">253</span>         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>] <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">254</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>], <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>])]
+<span class="line-num">255</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">256</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">257</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">258</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">259</span> 
+<span class="line-num">260</span>   <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">261</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -401,94 +400,87 @@ href="../DDL.html">DDL</a></p>
           
           <p>Returns a blob of text representing the results in a standard way</p>
 
-<p>It tries hard to do sane things so you often should not need to write your
-own display functions</p>
+<p>It tries hard to do sane things so you often should not need to write your own display functions</p>
 
-<p>If the agent you are getting results for has a <a
-href="../DDL.html">DDL</a> it will use the hints in there to do the right
-thing specifically it will look at the values of display in the <a
-href="../DDL.html">DDL</a> to choose when to show results</p>
+<p>If the agent you are getting results for has a <a href="../DDL.html"><code>DDL</code></a> it will use the hints in there to do the right thing specifically it will look at the values of display in the <a href="../DDL.html"><code>DDL</code></a> to choose when to show results</p>
 
-<p>If you do not have a <a href="../DDL.html">DDL</a> you can pass these
-flags:</p>
+<p>If you do not have a <a href="../DDL.html"><code>DDL</code></a> you can pass these flags:</p>
 
-<pre class="ruby"><span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">exim</span>.<span class="ruby-identifier">mailq</span>, :<span class="ruby-identifier">flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
-<span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">exim</span>.<span class="ruby-identifier">mailq</span>, :<span class="ruby-identifier">verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">true</span>
+<pre class="ruby"><span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">exim</span>.<span class="ruby-identifier">mailq</span>, <span class="ruby-value">:flatten</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>
+<span class="ruby-identifier">printrpc</span> <span class="ruby-identifier">exim</span>.<span class="ruby-identifier">mailq</span>, <span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">true</span>
 </pre>
 
-<p>If you’ve asked it to flatten the result it will not print sender
-hostnames, it will just print the result as if it’s one huge result, handy
-for things like showing a combined mailq.</p>
+<p>If you&#39;ve asked it to flatten the result it will not print sender hostnames, it will just print the result as if it&#39;s one huge result, handy for things like showing a combined mailq.</p>
           
           
 
           
           <div class="method-source-code" id="rpcresults-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 64</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
-  <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:verbose</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:flatten</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:format</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:console</span>, <span class="ruby-value">:force_display_mode</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
-
-  <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-identifier">ddl</span> = <span class="ruby-keyword">nil</span>
-
-  <span class="ruby-comment"># if running in verbose mode, just use the old style print</span>
-  <span class="ruby-comment"># no need for all the DDL helpers obfuscating the result</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:format</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:json</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">tty?</span>
-      <span class="ruby-identifier">result_text</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">pretty_generate</span>(<span class="ruby-identifier">result</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">to_json</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>]
-      <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
-    <span class="ruby-keyword">else</span>
-      [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">ddl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">agent</span>).<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">action</span>.<span class="ruby-identifier">to_s</span>)
-
-          <span class="ruby-identifier">sender</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>]
-          <span class="ruby-identifier">status</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>]
-          <span class="ruby-identifier">message</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>]
-          <span class="ruby-identifier">result</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>]
-
-          <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:force_display_mode</span>]
-            <span class="ruby-identifier">display</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:force_display_mode</span>]
-          <span class="ruby-keyword">else</span>
-            <span class="ruby-identifier">display</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:display</span>]
-          <span class="ruby-keyword">end</span>
-
-          <span class="ruby-comment"># appand the results only according to what the DDL says</span>
-          <span class="ruby-keyword">case</span> <span class="ruby-identifier">display</span>
-            <span class="ruby-keyword">when</span> <span class="ruby-value">:ok</span>
-              <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-                <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
-              <span class="ruby-keyword">end</span>
-
-            <span class="ruby-keyword">when</span> <span class="ruby-value">:failed</span>
-              <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
-                <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
-              <span class="ruby-keyword">end</span>
-
-            <span class="ruby-keyword">when</span> <span class="ruby-value">:always</span>
-              <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
-
-            <span class="ruby-keyword">when</span> <span class="ruby-value">:flatten</span>
-              <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;The display option :flatten is being deprecated and will be removed in the next minor release&quot;</span>)
-              <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
-
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-          <span class="ruby-comment"># no DDL so just do the old style print unchanged for</span>
-          <span class="ruby-comment"># backward compat</span>
-          <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">result_text</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num"> 64</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span> = {})
+<span class="line-num"> 65</span>   <span class="ruby-identifier">flags</span> = {<span class="ruby-value">:verbose</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:flatten</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>, <span class="ruby-value">:format</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:console</span>, <span class="ruby-value">:force_display_mode</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>}.<span class="ruby-identifier">merge</span>(<span class="ruby-identifier">flags</span>)
+<span class="line-num"> 66</span> 
+<span class="line-num"> 67</span>   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num"> 68</span>   <span class="ruby-identifier">ddl</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num"> 69</span> 
+<span class="line-num"> 70</span>   <span class="ruby-comment"># if running in verbose mode, just use the old style print</span>
+<span class="line-num"> 71</span>   <span class="ruby-comment"># no need for all the DDL helpers obfuscating the result</span>
+<span class="line-num"> 72</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:format</span>] <span class="ruby-operator">==</span> <span class="ruby-value">:json</span>
+<span class="line-num"> 73</span>     <span class="ruby-keyword">if</span> <span class="ruby-constant">STDOUT</span>.<span class="ruby-identifier">tty?</span>
+<span class="line-num"> 74</span>       <span class="ruby-identifier">result_text</span> = <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">pretty_generate</span>(<span class="ruby-identifier">result</span>)
+<span class="line-num"> 75</span>     <span class="ruby-keyword">else</span>
+<span class="line-num"> 76</span>       <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">to_json</span>
+<span class="line-num"> 77</span>     <span class="ruby-keyword">end</span>
+<span class="line-num"> 78</span>   <span class="ruby-keyword">else</span>
+<span class="line-num"> 79</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:verbose</span>]
+<span class="line-num"> 80</span>       <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
+<span class="line-num"> 81</span>     <span class="ruby-keyword">else</span>
+<span class="line-num"> 82</span>       [<span class="ruby-identifier">result</span>].<span class="ruby-identifier">flatten</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">r</span><span class="ruby-operator">|</span>
+<span class="line-num"> 83</span>         <span class="ruby-keyword">begin</span>
+<span class="line-num"> 84</span>           <span class="ruby-identifier">ddl</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">agent</span>).<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">r</span>.<span class="ruby-identifier">action</span>.<span class="ruby-identifier">to_s</span>)
+<span class="line-num"> 85</span> 
+<span class="line-num"> 86</span>           <span class="ruby-identifier">sender</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:sender</span>]
+<span class="line-num"> 87</span>           <span class="ruby-identifier">status</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:statuscode</span>]
+<span class="line-num"> 88</span>           <span class="ruby-identifier">message</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:statusmsg</span>]
+<span class="line-num"> 89</span>           <span class="ruby-identifier">result</span> = <span class="ruby-identifier">r</span>[<span class="ruby-value">:data</span>]
+<span class="line-num"> 90</span> 
+<span class="line-num"> 91</span>           <span class="ruby-keyword">if</span> <span class="ruby-identifier">flags</span>[<span class="ruby-value">:force_display_mode</span>]
+<span class="line-num"> 92</span>             <span class="ruby-identifier">display</span> = <span class="ruby-identifier">flags</span>[<span class="ruby-value">:force_display_mode</span>]
+<span class="line-num"> 93</span>           <span class="ruby-keyword">else</span>
+<span class="line-num"> 94</span>             <span class="ruby-identifier">display</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:display</span>]
+<span class="line-num"> 95</span>           <span class="ruby-keyword">end</span>
+<span class="line-num"> 96</span> 
+<span class="line-num"> 97</span>           <span class="ruby-comment"># appand the results only according to what the DDL says</span>
+<span class="line-num"> 98</span>           <span class="ruby-keyword">case</span> <span class="ruby-identifier">display</span>
+<span class="line-num"> 99</span>             <span class="ruby-keyword">when</span> <span class="ruby-value">:ok</span>
+<span class="line-num">100</span>               <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">101</span>                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num">102</span>               <span class="ruby-keyword">end</span>
+<span class="line-num">103</span> 
+<span class="line-num">104</span>             <span class="ruby-keyword">when</span> <span class="ruby-value">:failed</span>
+<span class="line-num">105</span>               <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">0</span>
+<span class="line-num">106</span>                 <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num">107</span>               <span class="ruby-keyword">end</span>
+<span class="line-num">108</span> 
+<span class="line-num">109</span>             <span class="ruby-keyword">when</span> <span class="ruby-value">:always</span>
+<span class="line-num">110</span>               <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">message</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num">111</span> 
+<span class="line-num">112</span>             <span class="ruby-keyword">when</span> <span class="ruby-value">:flatten</span>
+<span class="line-num">113</span>               <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;The display option :flatten is being deprecated and will be removed in the next minor release&quot;</span>)
+<span class="line-num">114</span>               <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
+<span class="line-num">115</span> 
+<span class="line-num">116</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">117</span>         <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">118</span>           <span class="ruby-comment"># no DDL so just do the old style print unchanged for</span>
+<span class="line-num">119</span>           <span class="ruby-comment"># backward compat</span>
+<span class="line-num">120</span>           <span class="ruby-identifier">result_text</span> = <span class="ruby-identifier">old_rpcresults</span>(<span class="ruby-identifier">result</span>, <span class="ruby-identifier">flags</span>)
+<span class="line-num">121</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">122</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">123</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">124</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">125</span> 
+<span class="line-num">126</span>   <span class="ruby-identifier">result_text</span>
+<span class="line-num">127</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -518,18 +510,18 @@ for things like showing a combined mailq.</p>
 
           
           <div class="method-source-code" id="text_for_flattened_result-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 200</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
-  <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
-      <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">200</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">text_for_flattened_result</span>(<span class="ruby-identifier">status</span>, <span class="ruby-identifier">result</span>)
+<span class="line-num">201</span>   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">202</span> 
+<span class="line-num">203</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">&lt;=</span> <span class="ruby-value">1</span>
+<span class="line-num">204</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">String</span>)
+<span class="line-num">205</span>       <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>
+<span class="line-num">206</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">207</span>       <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>
+<span class="line-num">208</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">209</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">210</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -559,75 +551,75 @@ for things like showing a combined mailq.</p>
 
           
           <div class="method-source-code" id="text_for_result-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb, line 130</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
-  <span class="ruby-identifier">statusses</span> = [<span class="ruby-string">&quot;&quot;</span>,
-               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-string">&quot;Request Aborted&quot;</span>),
-               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Unknown Action&quot;</span>),
-               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Missing Request Data&quot;</span>),
-               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Invalid Request Data&quot;</span>),
-               <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-string">&quot;Unknown Request Status&quot;</span>)]
-
-  <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">statusses</span>[<span class="ruby-identifier">status</span>]]
-  <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;   %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-identifier">msg</span>)] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;OK&quot;</span>
-
-  <span class="ruby-comment"># only print good data, ignore data that results from failure</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-      <span class="ruby-comment"># figure out the lengths of the display as strings, we'll use</span>
-      <span class="ruby-comment"># it later to correctly justify the output</span>
-      <span class="ruby-identifier">lengths</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-value">:display_as</span>].<span class="ruby-identifier">size</span>
-        <span class="ruby-keyword">rescue</span>
-          <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
-        <span class="ruby-comment"># get all the output fields nicely lined up with a</span>
-        <span class="ruby-comment"># 3 space front padding</span>
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-value">:display_as</span>]
-        <span class="ruby-keyword">rescue</span>
-          <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">display_length</span> = <span class="ruby-identifier">display_as</span>.<span class="ruby-identifier">size</span>
-        <span class="ruby-identifier">padding</span> = <span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">display_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span>
-        <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">padding</span>
-
-        <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{display_as}:&quot;</span>
-
-        <span class="ruby-keyword">if</span> [<span class="ruby-constant">String</span>, <span class="ruby-constant">Numeric</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">class</span>)
-          <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
-
-          <span class="ruby-keyword">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
-            <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
-          <span class="ruby-keyword">else</span>
-            <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-              <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">padtxt</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">padtxt</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">padding</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">display_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>)
-
-              <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{padtxt}#{line}\n&quot;</span>
-            <span class="ruby-keyword">end</span>
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">padding</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
-          <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">padding</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-      <span class="ruby-comment"># for status 1 we dont want to show half baked</span>
-      <span class="ruby-comment"># data by default since the DDL will supply all the defaults</span>
-      <span class="ruby-comment"># it just doesnt look right</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
-  <span class="ruby-identifier">result_text</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/helpers.rb</span>
+<span class="line-num">130</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">text_for_result</span>(<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">status</span>, <span class="ruby-identifier">msg</span>, <span class="ruby-identifier">result</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num">131</span>   <span class="ruby-identifier">statusses</span> = [<span class="ruby-string">&quot;&quot;</span>,
+<span class="line-num">132</span>                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-string">&quot;Request Aborted&quot;</span>),
+<span class="line-num">133</span>                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Unknown Action&quot;</span>),
+<span class="line-num">134</span>                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Missing Request Data&quot;</span>),
+<span class="line-num">135</span>                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-string">&quot;Invalid Request Data&quot;</span>),
+<span class="line-num">136</span>                <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:red</span>, <span class="ruby-string">&quot;Unknown Request Status&quot;</span>)]
+<span class="line-num">137</span> 
+<span class="line-num">138</span>   <span class="ruby-identifier">result_text</span> = <span class="ruby-string">&quot;%-40s %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">sender</span>, <span class="ruby-identifier">statusses</span>[<span class="ruby-identifier">status</span>]]
+<span class="line-num">139</span>   <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;   %s\n&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-identifier">msg</span>)] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">msg</span> <span class="ruby-operator">==</span> <span class="ruby-string">&quot;OK&quot;</span>
+<span class="line-num">140</span> 
+<span class="line-num">141</span>   <span class="ruby-comment"># only print good data, ignore data that results from failure</span>
+<span class="line-num">142</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span>
+<span class="line-num">143</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">144</span>       <span class="ruby-comment"># figure out the lengths of the display as strings, we&#39;ll use</span>
+<span class="line-num">145</span>       <span class="ruby-comment"># it later to correctly justify the output</span>
+<span class="line-num">146</span>       <span class="ruby-identifier">lengths</span> = <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+<span class="line-num">147</span>         <span class="ruby-keyword">begin</span>
+<span class="line-num">148</span>           <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-value">:display_as</span>].<span class="ruby-identifier">size</span>
+<span class="line-num">149</span>         <span class="ruby-keyword">rescue</span>
+<span class="line-num">150</span>           <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">size</span>
+<span class="line-num">151</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">152</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">153</span> 
+<span class="line-num">154</span>       <span class="ruby-identifier">result</span>.<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">sort_by</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span> <span class="ruby-identifier">k</span>}.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span><span class="ruby-operator">|</span>
+<span class="line-num">155</span>         <span class="ruby-comment"># get all the output fields nicely lined up with a</span>
+<span class="line-num">156</span>         <span class="ruby-comment"># 3 space front padding</span>
+<span class="line-num">157</span>         <span class="ruby-keyword">begin</span>
+<span class="line-num">158</span>           <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:output</span>][<span class="ruby-identifier">k</span>][<span class="ruby-value">:display_as</span>]
+<span class="line-num">159</span>         <span class="ruby-keyword">rescue</span>
+<span class="line-num">160</span>           <span class="ruby-identifier">display_as</span> = <span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_s</span>
+<span class="line-num">161</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">162</span> 
+<span class="line-num">163</span>         <span class="ruby-identifier">display_length</span> = <span class="ruby-identifier">display_as</span>.<span class="ruby-identifier">size</span>
+<span class="line-num">164</span>         <span class="ruby-identifier">padding</span> = <span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">-</span> <span class="ruby-identifier">display_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">3</span>
+<span class="line-num">165</span>         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> <span class="ruby-identifier">padding</span>
+<span class="line-num">166</span> 
+<span class="line-num">167</span>         <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{display_as}:&quot;</span>
+<span class="line-num">168</span> 
+<span class="line-num">169</span>         <span class="ruby-keyword">if</span> [<span class="ruby-constant">String</span>, <span class="ruby-constant">Numeric</span>].<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">class</span>)
+<span class="line-num">170</span>           <span class="ruby-identifier">lines</span> = <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>)
+<span class="line-num">171</span> 
+<span class="line-num">172</span>           <span class="ruby-keyword">if</span> <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">173</span>             <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="line-num">174</span>           <span class="ruby-keyword">else</span>
+<span class="line-num">175</span>             <span class="ruby-identifier">lines</span>.<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">line</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">176</span>               <span class="ruby-identifier">i</span> <span class="ruby-operator">==</span> <span class="ruby-value">0</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">padtxt</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">:</span> <span class="ruby-identifier">padtxt</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">padding</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">display_length</span> <span class="ruby-operator">+</span> <span class="ruby-value">2</span>)
+<span class="line-num">177</span> 
+<span class="line-num">178</span>               <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-node">&quot;#{padtxt}#{line}\n&quot;</span>
+<span class="line-num">179</span>             <span class="ruby-keyword">end</span>
+<span class="line-num">180</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">181</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">182</span>           <span class="ruby-identifier">padding</span> = <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">*</span> (<span class="ruby-identifier">lengths</span>.<span class="ruby-identifier">max</span> <span class="ruby-operator">+</span> <span class="ruby-value">5</span>)
+<span class="line-num">183</span>           <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot; &quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">result</span>[<span class="ruby-identifier">k</span>].<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n&quot;</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">padding</span>) <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="line-num">184</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">185</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">186</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">status</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+<span class="line-num">187</span>       <span class="ruby-comment"># for status 1 we dont want to show half baked</span>
+<span class="line-num">188</span>       <span class="ruby-comment"># data by default since the DDL will supply all the defaults</span>
+<span class="line-num">189</span>       <span class="ruby-comment"># it just doesnt look right</span>
+<span class="line-num">190</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">191</span>       <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n\t&quot;</span> <span class="ruby-operator">+</span> <span class="ruby-identifier">result</span>.<span class="ruby-identifier">pretty_inspect</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;\n&quot;</span>).<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>)
+<span class="line-num">192</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">193</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">194</span> 
+<span class="line-num">195</span>   <span class="ruby-identifier">result_text</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-string">&quot;\n&quot;</span>
+<span class="line-num">196</span>   <span class="ruby-identifier">result_text</span>
+<span class="line-num">197</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -645,8 +637,8 @@ for things like showing a combined mailq.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

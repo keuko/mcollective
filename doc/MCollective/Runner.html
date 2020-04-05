@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Runner - mcollective version 2.12.1</title>
+<title>class MCollective::Runner - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -98,8 +102,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -156,63 +158,63 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 5</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">configfile</span>)
-  <span class="ruby-keyword">begin</span>
-    <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-    <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
-    <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">mode</span> = <span class="ruby-value">:server</span>
-    <span class="ruby-ivar">@stats</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;global_stats&quot;</span>]
-    <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;connector_plugin&quot;</span>]
-
-    <span class="ruby-comment"># @state describes the current contextual state of the MCollective runner.</span>
-    <span class="ruby-comment"># Valid states are:</span>
-    <span class="ruby-comment">#   :running   - MCollective is alive and receiving messages from the middleware</span>
-    <span class="ruby-comment">#   :stopping  - MCollective is shutting down and in the process of terminating</span>
-    <span class="ruby-comment">#   :stopped   - MCollective is not running</span>
-    <span class="ruby-comment">#   :pausing   - MCollective is going into it's paused state</span>
-    <span class="ruby-comment">#   :unpausing - MCollective is waking up from it's paused state</span>
-    <span class="ruby-comment">#   :paused    - MCollective is paused and not receiving messages but can be woken up</span>
-    <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopped</span>
-    <span class="ruby-ivar">@exit_receiver_thread</span> = <span class="ruby-keyword">false</span>
-    <span class="ruby-ivar">@registration_thread</span> = <span class="ruby-keyword">nil</span>
-    <span class="ruby-ivar">@agent_threads</span> = []
-
-    <span class="ruby-ivar">@security</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>]
-    <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">initiated_by</span> = <span class="ruby-value">:node</span>
-
-    <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
-      <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR1&quot;</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reloading all agents after receiving USR1 signal&quot;</span>)
-          <span class="ruby-ivar">@agents</span>.<span class="ruby-identifier">loadagents</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR2&quot;</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Cycling logging level due to USR2 signal&quot;</span>)
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">cycle_level</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;WINCH&quot;</span>) <span class="ruby-keyword">do</span>
-        <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopening logfiles due to WINCH signal&quot;</span>)
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">reopen</span>
-          <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopened logfiles due to WINCH signal&quot;</span>)
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Util</span>.<span class="ruby-identifier">setup_windows_sleeper</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Failed to initialize MCollective runner.&quot;</span>)
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>)
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>))
-    <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num"> 5</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">configfile</span>)
+<span class="line-num"> 6</span>   <span class="ruby-keyword">begin</span>
+<span class="line-num"> 7</span>     <span class="ruby-ivar">@config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num"> 8</span>     <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">loadconfig</span>(<span class="ruby-identifier">configfile</span>) <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">configured</span>
+<span class="line-num"> 9</span>     <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">mode</span> = <span class="ruby-value">:server</span>
+<span class="line-num">10</span>     <span class="ruby-ivar">@stats</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;global_stats&quot;</span>]
+<span class="line-num">11</span>     <span class="ruby-ivar">@connection</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;connector_plugin&quot;</span>]
+<span class="line-num">12</span> 
+<span class="line-num">13</span>     <span class="ruby-comment"># @state describes the current contextual state of the MCollective runner.</span>
+<span class="line-num">14</span>     <span class="ruby-comment"># Valid states are:</span>
+<span class="line-num">15</span>     <span class="ruby-comment">#   :running   - MCollective is alive and receiving messages from the middleware</span>
+<span class="line-num">16</span>     <span class="ruby-comment">#   :stopping  - MCollective is shutting down and in the process of terminating</span>
+<span class="line-num">17</span>     <span class="ruby-comment">#   :stopped   - MCollective is not running</span>
+<span class="line-num">18</span>     <span class="ruby-comment">#   :pausing   - MCollective is going into it&#39;s paused state</span>
+<span class="line-num">19</span>     <span class="ruby-comment">#   :unpausing - MCollective is waking up from it&#39;s paused state</span>
+<span class="line-num">20</span>     <span class="ruby-comment">#   :paused    - MCollective is paused and not receiving messages but can be woken up</span>
+<span class="line-num">21</span>     <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopped</span>
+<span class="line-num">22</span>     <span class="ruby-ivar">@exit_receiver_thread</span> = <span class="ruby-keyword">false</span>
+<span class="line-num">23</span>     <span class="ruby-ivar">@registration_thread</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">24</span>     <span class="ruby-ivar">@agent_threads</span> = []
+<span class="line-num">25</span> 
+<span class="line-num">26</span>     <span class="ruby-ivar">@security</span> = <span class="ruby-constant">PluginManager</span>[<span class="ruby-string">&quot;security_plugin&quot;</span>]
+<span class="line-num">27</span>     <span class="ruby-ivar">@security</span>.<span class="ruby-identifier">initiated_by</span> = <span class="ruby-value">:node</span>
+<span class="line-num">28</span> 
+<span class="line-num">29</span>     <span class="ruby-keyword">unless</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">windows?</span>
+<span class="line-num">30</span>       <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR1&quot;</span>) <span class="ruby-keyword">do</span>
+<span class="line-num">31</span>         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+<span class="line-num">32</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reloading all agents after receiving USR1 signal&quot;</span>)
+<span class="line-num">33</span>           <span class="ruby-ivar">@agents</span>.<span class="ruby-identifier">loadagents</span>
+<span class="line-num">34</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">35</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">36</span> 
+<span class="line-num">37</span>       <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;USR2&quot;</span>) <span class="ruby-keyword">do</span>
+<span class="line-num">38</span>         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+<span class="line-num">39</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Cycling logging level due to USR2 signal&quot;</span>)
+<span class="line-num">40</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">cycle_level</span>
+<span class="line-num">41</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">42</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">43</span> 
+<span class="line-num">44</span>       <span class="ruby-constant">Signal</span>.<span class="ruby-identifier">trap</span>(<span class="ruby-string">&quot;WINCH&quot;</span>) <span class="ruby-keyword">do</span>
+<span class="line-num">45</span>         <span class="ruby-constant">Thread</span>.<span class="ruby-identifier">new</span> <span class="ruby-keyword">do</span>
+<span class="line-num">46</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopening logfiles due to WINCH signal&quot;</span>)
+<span class="line-num">47</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">reopen</span>
+<span class="line-num">48</span>           <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-string">&quot;Reopened logfiles due to WINCH signal&quot;</span>)
+<span class="line-num">49</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">50</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">51</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">52</span>       <span class="ruby-constant">Util</span>.<span class="ruby-identifier">setup_windows_sleeper</span>
+<span class="line-num">53</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">54</span>   <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">55</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Failed to initialize MCollective runner.&quot;</span>)
+<span class="line-num">56</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>)
+<span class="line-num">57</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>))
+<span class="line-num">58</span>     <span class="ruby-identifier">raise</span> <span class="ruby-identifier">e</span>
+<span class="line-num">59</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">60</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -250,52 +252,52 @@
 
           
           <div class="method-source-code" id="main_loop-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 69</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main_loop</span>
-  <span class="ruby-comment"># Enter the main context</span>
-  <span class="ruby-ivar">@receiver_thread</span> = <span class="ruby-identifier">start_receiver_thread</span>
-  <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-keyword">case</span> <span class="ruby-ivar">@state</span>
-      <span class="ruby-keyword">when</span> <span class="ruby-value">:stopping</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Stopping MCollective server&quot;</span>)
-
-        <span class="ruby-comment"># If soft_shutdown has been enabled we wait for all running agents to</span>
-        <span class="ruby-comment"># finish, one way or the other.</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">soft_shutdown</span>
-          <span class="ruby-identifier">soft_shutdown</span>
-        <span class="ruby-keyword">end</span>
-
-        <span class="ruby-identifier">stop_threads</span>
-        <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopped</span>
-        <span class="ruby-keyword">return</span>
-
-      <span class="ruby-comment"># When pausing we stop the receiver thread but keep everything else alive</span>
-      <span class="ruby-comment"># This means that running agents also run to completion.</span>
-      <span class="ruby-keyword">when</span> <span class="ruby-value">:pausing</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Pausing MCollective server&quot;</span>)
-        <span class="ruby-identifier">stop_threads</span>
-        <span class="ruby-ivar">@state</span> = <span class="ruby-value">:paused</span>
-
-      <span class="ruby-keyword">when</span> <span class="ruby-value">:unpausing</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Unpausing MCollective server&quot;</span>)
-        <span class="ruby-identifier">start_receiver_thread</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-comment"># prune dead threads from the agent_threads array</span>
-      <span class="ruby-ivar">@agent_threads</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t</span>.<span class="ruby-identifier">alive?</span> }
-      <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.1</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">SignalException</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Exiting after signal: #{e}&quot;</span>)
-      <span class="ruby-identifier">stop</span>
-    <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;A failure occurred in the MCollective runner.&quot;</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>))
-      <span class="ruby-identifier">stop</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num"> 69</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main_loop</span>
+<span class="line-num"> 70</span>   <span class="ruby-comment"># Enter the main context</span>
+<span class="line-num"> 71</span>   <span class="ruby-ivar">@receiver_thread</span> = <span class="ruby-identifier">start_receiver_thread</span>
+<span class="line-num"> 72</span>   <span class="ruby-identifier">loop</span> <span class="ruby-keyword">do</span>
+<span class="line-num"> 73</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num"> 74</span>       <span class="ruby-keyword">case</span> <span class="ruby-ivar">@state</span>
+<span class="line-num"> 75</span>       <span class="ruby-keyword">when</span> <span class="ruby-value">:stopping</span>
+<span class="line-num"> 76</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Stopping MCollective server&quot;</span>)
+<span class="line-num"> 77</span> 
+<span class="line-num"> 78</span>         <span class="ruby-comment"># If soft_shutdown has been enabled we wait for all running agents to</span>
+<span class="line-num"> 79</span>         <span class="ruby-comment"># finish, one way or the other.</span>
+<span class="line-num"> 80</span>         <span class="ruby-keyword">if</span> <span class="ruby-ivar">@config</span>.<span class="ruby-identifier">soft_shutdown</span>
+<span class="line-num"> 81</span>           <span class="ruby-identifier">soft_shutdown</span>
+<span class="line-num"> 82</span>         <span class="ruby-keyword">end</span>
+<span class="line-num"> 83</span> 
+<span class="line-num"> 84</span>         <span class="ruby-identifier">stop_threads</span>
+<span class="line-num"> 85</span>         <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopped</span>
+<span class="line-num"> 86</span>         <span class="ruby-keyword">return</span>
+<span class="line-num"> 87</span> 
+<span class="line-num"> 88</span>       <span class="ruby-comment"># When pausing we stop the receiver thread but keep everything else alive</span>
+<span class="line-num"> 89</span>       <span class="ruby-comment"># This means that running agents also run to completion.</span>
+<span class="line-num"> 90</span>       <span class="ruby-keyword">when</span> <span class="ruby-value">:pausing</span>
+<span class="line-num"> 91</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Pausing MCollective server&quot;</span>)
+<span class="line-num"> 92</span>         <span class="ruby-identifier">stop_threads</span>
+<span class="line-num"> 93</span>         <span class="ruby-ivar">@state</span> = <span class="ruby-value">:paused</span>
+<span class="line-num"> 94</span> 
+<span class="line-num"> 95</span>       <span class="ruby-keyword">when</span> <span class="ruby-value">:unpausing</span>
+<span class="line-num"> 96</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-string">&quot;Unpausing MCollective server&quot;</span>)
+<span class="line-num"> 97</span>         <span class="ruby-identifier">start_receiver_thread</span>
+<span class="line-num"> 98</span>       <span class="ruby-keyword">end</span>
+<span class="line-num"> 99</span> 
+<span class="line-num">100</span>       <span class="ruby-comment"># prune dead threads from the agent_threads array</span>
+<span class="line-num">101</span>       <span class="ruby-ivar">@agent_threads</span>.<span class="ruby-identifier">reject!</span> { <span class="ruby-operator">|</span><span class="ruby-identifier">t</span><span class="ruby-operator">|</span> <span class="ruby-operator">!</span><span class="ruby-identifier">t</span>.<span class="ruby-identifier">alive?</span> }
+<span class="line-num">102</span>       <span class="ruby-identifier">sleep</span> <span class="ruby-value">0.1</span>
+<span class="line-num">103</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">SignalException</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">104</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;Exiting after signal: #{e}&quot;</span>)
+<span class="line-num">105</span>       <span class="ruby-identifier">stop</span>
+<span class="line-num">106</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">107</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;A failure occurred in the MCollective runner.&quot;</span>)
+<span class="line-num">108</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>)
+<span class="line-num">109</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-identifier">e</span>.<span class="ruby-identifier">backtrace</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&quot;\n\t&quot;</span>))
+<span class="line-num">110</span>       <span class="ruby-identifier">stop</span>
+<span class="line-num">111</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">112</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">113</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -325,14 +327,14 @@
 
           
           <div class="method-source-code" id="pause-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 119</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">pause</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:running</span>
-    <span class="ruby-ivar">@state</span> = <span class="ruby-value">:pausing</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Cannot pause MCollective while not in a running state&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num">119</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">pause</span>
+<span class="line-num">120</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:running</span>
+<span class="line-num">121</span>     <span class="ruby-ivar">@state</span> = <span class="ruby-value">:pausing</span>
+<span class="line-num">122</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">123</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Cannot pause MCollective while not in a running state&quot;</span>)
+<span class="line-num">124</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">125</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -362,14 +364,14 @@
 
           
           <div class="method-source-code" id="resume-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 127</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">resume</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:paused</span>
-    <span class="ruby-ivar">@state</span> = <span class="ruby-value">:unpausing</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Cannot unpause MCollective when it is not paused&quot;</span>)
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num">127</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">resume</span>
+<span class="line-num">128</span>   <span class="ruby-keyword">if</span> <span class="ruby-ivar">@state</span> <span class="ruby-operator">==</span> <span class="ruby-value">:paused</span>
+<span class="line-num">129</span>     <span class="ruby-ivar">@state</span> = <span class="ruby-value">:unpausing</span>
+<span class="line-num">130</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">131</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-string">&quot;Cannot unpause MCollective when it is not paused&quot;</span>)
+<span class="line-num">132</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">133</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -399,11 +401,11 @@
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 63</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;The #run method has been deprecated. Use #main_loop instead.&quot;</span>)
-  <span class="ruby-identifier">main_loop</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num">63</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>
+<span class="line-num">64</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-string">&quot;The #run method has been deprecated. Use #main_loop instead.&quot;</span>)
+<span class="line-num">65</span>   <span class="ruby-identifier">main_loop</span>
+<span class="line-num">66</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -433,10 +435,10 @@
 
           
           <div class="method-source-code" id="stop-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/runner.rb, line 115</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">stop</span>
-  <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopping</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/runner.rb</span>
+<span class="line-num">115</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">stop</span>
+<span class="line-num">116</span>   <span class="ruby-ivar">@state</span> = <span class="ruby-value">:stopping</span>
+<span class="line-num">117</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -454,8 +456,8 @@
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::ActionRunner - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::ActionRunner - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -105,33 +109,20 @@
 
   <section class="description">
     
-<p>A helper used by RPC::Agent#implemented_by to delegate an action to an
-external script.  At present only JSON based serialization is supported in
-future ones based on key=val pairs etc will be added</p>
+<p>A helper used by RPC::Agent#implemented_by to delegate an action to an external script.  At present only JSON based serialization is supported in future ones based on key=val pairs etc will be added</p>
 
-<p>It serializes the request object into an input file and creates an empty
-output file.  It then calls the external command reading the output file at
-the end.</p>
+<p>It serializes the request object into an input file and creates an empty output file.  It then calls the external command reading the output file at the end.</p>
 
-<p>any STDERR gets logged at error level and any STDOUT gets logged at info
-level.</p>
+<p>any STDERR gets logged at error level and any STDOUT gets logged at info level.</p>
 
-<p>It will interpret the exit code from the application the same way <a
-href="Reply.html#method-i-fail-21">MCollective::RPC::Reply#fail!</a> and
-fail handles their codes creating a consistent interface, the message part
-of the fail message will come from STDERR</p>
+<p>It will interpret the exit code from the application the same way <a href="Reply.html#method-i-fail-21"><code>RPC::Reply#fail!</code></a> and fail handles their codes creating a consistent interface, the message part of the fail message will come from STDERR</p>
 
-<p>Generally externals should just exit with code 1 on failure and print to
-STDERR, this is exactly what Perl die() does and translates perfectly to
-our model</p>
+<p>Generally externals should just exit with code 1 on failure and print to STDERR, this is exactly what Perl die() does and translates perfectly to our model</p>
 
-<p>It uses the <a href="../Shell.html">MCollective::Shell</a> wrapper to call
-the external application</p>
+<p>It uses the <a href="../Shell.html"><code>MCollective::Shell</code></a> wrapper to call the external application</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -267,16 +258,16 @@ the external application</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 26</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">format</span>=<span class="ruby-value">:json</span>)
-  <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
-  <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">action</span>
-  <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">format</span>
-  <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">request</span>
-  <span class="ruby-ivar">@command</span> = <span class="ruby-identifier">path_to_command</span>(<span class="ruby-identifier">command</span>)
-  <span class="ruby-ivar">@stdout</span> = <span class="ruby-string">&quot;&quot;</span>
-  <span class="ruby-ivar">@stderr</span> = <span class="ruby-string">&quot;&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">26</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request</span>, <span class="ruby-identifier">format</span>=<span class="ruby-value">:json</span>)
+<span class="line-num">27</span>   <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">agent</span>
+<span class="line-num">28</span>   <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">request</span>.<span class="ruby-identifier">action</span>
+<span class="line-num">29</span>   <span class="ruby-ivar">@format</span> = <span class="ruby-identifier">format</span>
+<span class="line-num">30</span>   <span class="ruby-ivar">@request</span> = <span class="ruby-identifier">request</span>
+<span class="line-num">31</span>   <span class="ruby-ivar">@command</span> = <span class="ruby-identifier">path_to_command</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">32</span>   <span class="ruby-ivar">@stdout</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">33</span>   <span class="ruby-ivar">@stderr</span> = <span class="ruby-string">&quot;&quot;</span>
+<span class="line-num">34</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -314,10 +305,10 @@ the external application</p>
 
           
           <div class="method-source-code" id="canrun-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 117</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">canrun?</span>(<span class="ruby-identifier">command</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">executable?</span>(<span class="ruby-identifier">command</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">117</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">canrun?</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">118</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">executable?</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">119</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -347,14 +338,14 @@ the external application</p>
 
           
           <div class="method-source-code" id="load_json_results-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 91</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_json_results</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-keyword">return</span> {} <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
-
-  <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">||</span> {}
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">ParserError</span>
-  {}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">91</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">load_json_results</span>(<span class="ruby-identifier">file</span>)
+<span class="line-num">92</span>   <span class="ruby-keyword">return</span> {} <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">readable?</span>(<span class="ruby-identifier">file</span>)
+<span class="line-num">93</span> 
+<span class="line-num">94</span>   <span class="ruby-constant">JSON</span>.<span class="ruby-identifier">load</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">file</span>)) <span class="ruby-operator">||</span> {}
+<span class="line-num">95</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">JSON</span><span class="ruby-operator">::</span><span class="ruby-constant">ParserError</span>
+<span class="line-num">96</span>   {}
+<span class="line-num">97</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -384,24 +375,24 @@ the external application</p>
 
           
           <div class="method-source-code" id="load_results-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_results</span>(<span class="ruby-identifier">file</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to load results in #{format} format from #{file}&quot;</span>)
-
-  <span class="ruby-identifier">data</span> = {}
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>)
-    <span class="ruby-identifier">tempdata</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>, <span class="ruby-identifier">file</span>)
-
-    <span class="ruby-identifier">tempdata</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">data</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">data</span>
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-  {}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">73</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">load_results</span>(<span class="ruby-identifier">file</span>)
+<span class="line-num">74</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to load results in #{format} format from #{file}&quot;</span>)
+<span class="line-num">75</span> 
+<span class="line-num">76</span>   <span class="ruby-identifier">data</span> = {}
+<span class="line-num">77</span> 
+<span class="line-num">78</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>)
+<span class="line-num">79</span>     <span class="ruby-identifier">tempdata</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;load_#{format}_results&quot;</span>, <span class="ruby-identifier">file</span>)
+<span class="line-num">80</span> 
+<span class="line-num">81</span>     <span class="ruby-identifier">tempdata</span>.<span class="ruby-identifier">each_pair</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">k</span>,<span class="ruby-identifier">v</span><span class="ruby-operator">|</span>
+<span class="line-num">82</span>       <span class="ruby-identifier">data</span>[<span class="ruby-identifier">k</span>.<span class="ruby-identifier">to_sym</span>] = <span class="ruby-identifier">v</span>
+<span class="line-num">83</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">84</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">85</span> 
+<span class="line-num">86</span>   <span class="ruby-identifier">data</span>
+<span class="line-num">87</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">88</span>   {}
+<span class="line-num">89</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -431,34 +422,34 @@ the external application</p>
 
           
           <div class="method-source-code" id="path_to_command-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 129</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">path_to_command</span>(<span class="ruby-identifier">command</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">command</span>)
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">command</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">command_file_old</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">command</span>)
-    <span class="ruby-identifier">command_file_new</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">command</span>)
-    <span class="ruby-identifier">command_file_old_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">command_file_old</span>)
-    <span class="ruby-identifier">command_file_new_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">command_file_new</span>)
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">command_file_new_exists</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_file_old_exists</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found 'implemented_by' scripts found in two locations #{command_file_old} and #{command_file_new}&quot;</span>)
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_new}&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_new</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_file_old_exists</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_old}&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_old</span>
-    <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_file_new_exists</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_new}&quot;</span>)
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_new</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;No script found for: #{command}&quot;</span>)
-  <span class="ruby-identifier">command</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">129</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">path_to_command</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">130</span>   <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">absolute_path?</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">131</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">command</span>
+<span class="line-num">132</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">133</span> 
+<span class="line-num">134</span>   <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">libdir</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">libdir</span><span class="ruby-operator">|</span>
+<span class="line-num">135</span>     <span class="ruby-identifier">command_file_old</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">command</span>)
+<span class="line-num">136</span>     <span class="ruby-identifier">command_file_new</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">libdir</span>, <span class="ruby-string">&quot;mcollective&quot;</span>, <span class="ruby-string">&quot;agent&quot;</span>, <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">command</span>)
+<span class="line-num">137</span>     <span class="ruby-identifier">command_file_old_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">command_file_old</span>)
+<span class="line-num">138</span>     <span class="ruby-identifier">command_file_new_exists</span> = <span class="ruby-constant">File</span>.<span class="ruby-identifier">exists?</span>(<span class="ruby-identifier">command_file_new</span>)
+<span class="line-num">139</span> 
+<span class="line-num">140</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">command_file_new_exists</span> <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">command_file_old_exists</span>
+<span class="line-num">141</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Found &#39;implemented_by&#39; scripts found in two locations #{command_file_old} and #{command_file_new}&quot;</span>)
+<span class="line-num">142</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_new}&quot;</span>)
+<span class="line-num">143</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_new</span>
+<span class="line-num">144</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_file_old_exists</span>
+<span class="line-num">145</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_old}&quot;</span>)
+<span class="line-num">146</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_old</span>
+<span class="line-num">147</span>     <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">command_file_new_exists</span>
+<span class="line-num">148</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running script: #{command_file_new}&quot;</span>)
+<span class="line-num">149</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">command_file_new</span>
+<span class="line-num">150</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">151</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">152</span> 
+<span class="line-num">153</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;No script found for: #{command}&quot;</span>)
+<span class="line-num">154</span>   <span class="ruby-identifier">command</span>
+<span class="line-num">155</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -488,36 +479,36 @@ the external application</p>
 
           
           <div class="method-source-code" id="run-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 36</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">run</span>
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">canrun?</span>(<span class="ruby-identifier">command</span>)
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Cannot run #{to_s}&quot;</span>)
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RPCAborted</span>, <span class="ruby-node">&quot;Cannot execute #{to_s}&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running #{to_s}&quot;</span>)
-
-  <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">saverequest</span>(<span class="ruby-identifier">request</span>)
-  <span class="ruby-identifier">reply_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;reply&quot;</span>)
-  <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close</span>
-
-  <span class="ruby-identifier">runner</span> = <span class="ruby-identifier">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)
-
-  <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">runcommand</span>
-
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{command} exited with #{runner.status.exitstatus}&quot;</span>)
-
-  <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">empty?</span>
-  <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">empty?</span>
-
-  {<span class="ruby-value">:exitstatus</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">status</span>.<span class="ruby-identifier">exitstatus</span>,
-   <span class="ruby-value">:stdout</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stdout</span>,
-   <span class="ruby-value">:stderr</span>     =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stderr</span>,
-   <span class="ruby-value">:data</span>       =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">load_results</span>(<span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)}
-<span class="ruby-keyword">ensure</span>
-  <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close!&quot;</span>)
-  <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close&quot;</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">36</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">run</span>
+<span class="line-num">37</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">canrun?</span>(<span class="ruby-identifier">command</span>)
+<span class="line-num">38</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">warn</span>(<span class="ruby-node">&quot;Cannot run #{to_s}&quot;</span>)
+<span class="line-num">39</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">RPCAborted</span>, <span class="ruby-node">&quot;Cannot execute #{to_s}&quot;</span>
+<span class="line-num">40</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">41</span> 
+<span class="line-num">42</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Running #{to_s}&quot;</span>)
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">saverequest</span>(<span class="ruby-identifier">request</span>)
+<span class="line-num">45</span>   <span class="ruby-identifier">reply_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;reply&quot;</span>)
+<span class="line-num">46</span>   <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close</span>
+<span class="line-num">47</span> 
+<span class="line-num">48</span>   <span class="ruby-identifier">runner</span> = <span class="ruby-identifier">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">path</span>, <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)
+<span class="line-num">49</span> 
+<span class="line-num">50</span>   <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">runcommand</span>
+<span class="line-num">51</span> 
+<span class="line-num">52</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;#{command} exited with #{runner.status.exitstatus}&quot;</span>)
+<span class="line-num">53</span> 
+<span class="line-num">54</span>   <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stderr</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">55</span>   <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">each_line</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">l</span><span class="ruby-operator">|</span> <span class="ruby-constant">Log</span>.<span class="ruby-identifier">info</span>(<span class="ruby-node">&quot;#{to_s}: #{l.chomp}&quot;</span>)} <span class="ruby-keyword">unless</span> <span class="ruby-identifier">stdout</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">56</span> 
+<span class="line-num">57</span>   {<span class="ruby-value">:exitstatus</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">status</span>.<span class="ruby-identifier">exitstatus</span>,
+<span class="line-num">58</span>    <span class="ruby-value">:stdout</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stdout</span>,
+<span class="line-num">59</span>    <span class="ruby-value">:stderr</span>     <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">runner</span>.<span class="ruby-identifier">stderr</span>,
+<span class="line-num">60</span>    <span class="ruby-value">:data</span>       <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">load_results</span>(<span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">path</span>)}
+<span class="line-num">61</span> <span class="ruby-keyword">ensure</span>
+<span class="line-num">62</span>   <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close!&quot;</span>)
+<span class="line-num">63</span>   <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">close!</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">reply_file</span>.<span class="ruby-identifier">respond_to?</span>(<span class="ruby-string">&quot;close&quot;</span>)
+<span class="line-num">64</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -547,10 +538,10 @@ the external application</p>
 
           
           <div class="method-source-code" id="save_json_request-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 113</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">save_json_request</span>(<span class="ruby-identifier">req</span>)
-  <span class="ruby-identifier">req</span>.<span class="ruby-identifier">to_json</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">113</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">save_json_request</span>(<span class="ruby-identifier">req</span>)
+<span class="line-num">114</span>   <span class="ruby-identifier">req</span>.<span class="ruby-identifier">to_json</span>
+<span class="line-num">115</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -580,20 +571,20 @@ the external application</p>
 
           
           <div class="method-source-code" id="saverequest-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 99</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">saverequest</span>(<span class="ruby-identifier">req</span>)
-  <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to save request in #{format} format&quot;</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>)
-    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>, <span class="ruby-identifier">req</span>)
-
-    <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;request&quot;</span>)
-    <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">data</span>
-    <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">request_file</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num"> 99</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">saverequest</span>(<span class="ruby-identifier">req</span>)
+<span class="line-num">100</span>   <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Attempting to save request in #{format} format&quot;</span>)
+<span class="line-num">101</span> 
+<span class="line-num">102</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>)
+<span class="line-num">103</span>     <span class="ruby-identifier">data</span> = <span class="ruby-identifier">send</span>(<span class="ruby-node">&quot;save_#{format}_request&quot;</span>, <span class="ruby-identifier">req</span>)
+<span class="line-num">104</span> 
+<span class="line-num">105</span>     <span class="ruby-identifier">request_file</span> = <span class="ruby-identifier">tempfile</span>(<span class="ruby-string">&quot;request&quot;</span>)
+<span class="line-num">106</span>     <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">puts</span> <span class="ruby-identifier">data</span>
+<span class="line-num">107</span>     <span class="ruby-identifier">request_file</span>.<span class="ruby-identifier">close</span>
+<span class="line-num">108</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">109</span> 
+<span class="line-num">110</span>   <span class="ruby-identifier">request_file</span>
+<span class="line-num">111</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -623,13 +614,13 @@ the external application</p>
 
           
           <div class="method-source-code" id="shell-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 66</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">infile</span>, <span class="ruby-identifier">outfile</span>)
-  <span class="ruby-identifier">env</span> = {<span class="ruby-string">&quot;MCOLLECTIVE_REQUEST_FILE&quot;</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">infile</span>,
-         <span class="ruby-string">&quot;MCOLLECTIVE_REPLY_FILE&quot;</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">outfile</span>}
-
-  <span class="ruby-constant">Shell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{command} #{infile} #{outfile}&quot;</span>, <span class="ruby-value">:cwd</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>, <span class="ruby-value">:stdout</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stdout</span>, <span class="ruby-value">:stderr</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">stderr</span>, <span class="ruby-value">:environment</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">env</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">66</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">shell</span>(<span class="ruby-identifier">command</span>, <span class="ruby-identifier">infile</span>, <span class="ruby-identifier">outfile</span>)
+<span class="line-num">67</span>   <span class="ruby-identifier">env</span> = {<span class="ruby-string">&quot;MCOLLECTIVE_REQUEST_FILE&quot;</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">infile</span>,
+<span class="line-num">68</span>          <span class="ruby-string">&quot;MCOLLECTIVE_REPLY_FILE&quot;</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">outfile</span>}
+<span class="line-num">69</span> 
+<span class="line-num">70</span>   <span class="ruby-constant">Shell</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;#{command} #{infile} #{outfile}&quot;</span>, <span class="ruby-value">:cwd</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>, <span class="ruby-value">:stdout</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">stdout</span>, <span class="ruby-value">:stderr</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">stderr</span>, <span class="ruby-value">:environment</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">env</span>)
+<span class="line-num">71</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -659,10 +650,10 @@ the external application</p>
 
           
           <div class="method-source-code" id="tempfile-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 125</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">tempfile</span>(<span class="ruby-identifier">prefix</span>)
-  <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;mcollective_#{prefix}&quot;</span>, <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">125</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">tempfile</span>(<span class="ruby-identifier">prefix</span>)
+<span class="line-num">126</span>   <span class="ruby-constant">Tempfile</span>.<span class="ruby-identifier">new</span>(<span class="ruby-node">&quot;mcollective_#{prefix}&quot;</span>, <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">tmpdir</span>)
+<span class="line-num">127</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -692,10 +683,10 @@ the external application</p>
 
           
           <div class="method-source-code" id="to_s-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb, line 121</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_s</span>
-  <span class="ruby-node">&quot;%s#%s command: %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">command</span> ]
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/rpc/actionrunner.rb</span>
+<span class="line-num">121</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_s</span>
+<span class="line-num">122</span>   <span class="ruby-string">&quot;%s#%s command: %s&quot;</span> <span class="ruby-operator">%</span> [ <span class="ruby-identifier">agent</span>, <span class="ruby-identifier">action</span>, <span class="ruby-identifier">command</span> ]
+<span class="line-num">123</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -713,8 +704,8 @@ the external application</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

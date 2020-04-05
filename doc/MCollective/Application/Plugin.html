@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Application::Plugin - mcollective version 2.12.1</title>
+<title>class MCollective::Application::Plugin - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -110,8 +114,6 @@
   </section>
 
   
-  
-  
   <section id="5Buntitled-5D" class="documentation-section">
     
 
@@ -147,69 +149,69 @@
 
           
           <div class="method-source-code" id="doc_command-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 226</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">doc_command</span>
-  <span class="ruby-identifier">known_plugin_types</span> = [[<span class="ruby-string">&quot;Agents&quot;</span>, <span class="ruby-value">:agent</span>], [<span class="ruby-string">&quot;Aggregate&quot;</span>, <span class="ruby-value">:aggregate</span>],
-                        [<span class="ruby-string">&quot;Connectors&quot;</span>, <span class="ruby-value">:connector</span>], [<span class="ruby-string">&quot;Data Queries&quot;</span>, <span class="ruby-value">:data</span>],
-                        [<span class="ruby-string">&quot;Discovery Methods&quot;</span>, <span class="ruby-value">:discovery</span>], [<span class="ruby-string">&quot;Validator Plugins&quot;</span>, <span class="ruby-value">:validator</span>]]
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:target</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;.&quot;</span>
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)\/(.+)$/</span>
-      <span class="ruby-identifier">ddl</span> = <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-node">$2</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-node">$1</span>)
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">found_plugin_type</span> = <span class="ruby-keyword">nil</span>
-
-      <span class="ruby-identifier">known_plugin_types</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin_type</span><span class="ruby-operator">|</span>
-        <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-string">&quot;ddl&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ddl</span><span class="ruby-operator">|</span>
-          <span class="ruby-identifier">pluginname</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/_#{plugin_type[1]}$/</span>, <span class="ruby-string">&quot;&quot;</span>)
-          <span class="ruby-keyword">if</span> <span class="ruby-identifier">pluginname</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>]
-            <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Duplicate plugin name found, please specify a full path like agent/rpcutil&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">found_plugin_type</span>
-            <span class="ruby-identifier">found_plugin_type</span> = <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>]
-          <span class="ruby-keyword">end</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a plugin named '%s' in any supported plugin type&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_plugin_type</span>
-      <span class="ruby-identifier">ddl</span> = <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>], <span class="ruby-identifier">found_plugin_type</span>)
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">help</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:rpctemplate</span>])
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a '%s' plugin named '%s'&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">'/'</span>)
-    <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Please specify a plugin. Available plugins are:&quot;</span>
-    <span class="ruby-identifier">puts</span>
-
-    <span class="ruby-identifier">load_errors</span> = []
-
-    <span class="ruby-identifier">known_plugin_types</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin_type</span><span class="ruby-operator">|</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%s:&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">0</span>]
-
-      <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-string">&quot;ddl&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ddl</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">begin</span>
-          <span class="ruby-identifier">help</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>])
-          <span class="ruby-identifier">pluginname</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-node">/_#{plugin_type[1]}$/</span>, <span class="ruby-string">&quot;&quot;</span>)
-          <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  %-25s %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">pluginname</span>, <span class="ruby-identifier">help</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:description</span>]]
-        <span class="ruby-keyword">rescue</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-          <span class="ruby-identifier">load_errors</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">e</span>]
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-identifier">puts</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-keyword">unless</span> <span class="ruby-identifier">load_errors</span>.<span class="ruby-identifier">empty?</span>
-      <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Plugin Load Errors:&quot;</span>
-
-      <span class="ruby-identifier">load_errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
-        <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  %-25s %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-node">&quot;#{e[0]}/#{e[1]}&quot;</span>, <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-identifier">e</span>[<span class="ruby-value">2</span>])]
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">226</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">doc_command</span>
+<span class="line-num">227</span>   <span class="ruby-identifier">known_plugin_types</span> = [[<span class="ruby-string">&quot;Agents&quot;</span>, <span class="ruby-value">:agent</span>], [<span class="ruby-string">&quot;Aggregate&quot;</span>, <span class="ruby-value">:aggregate</span>],
+<span class="line-num">228</span>                         [<span class="ruby-string">&quot;Connectors&quot;</span>, <span class="ruby-value">:connector</span>], [<span class="ruby-string">&quot;Data Queries&quot;</span>, <span class="ruby-value">:data</span>],
+<span class="line-num">229</span>                         [<span class="ruby-string">&quot;Discovery Methods&quot;</span>, <span class="ruby-value">:discovery</span>], [<span class="ruby-string">&quot;Validator Plugins&quot;</span>, <span class="ruby-value">:validator</span>]]
+<span class="line-num">230</span> 
+<span class="line-num">231</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:target</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-operator">!=</span> <span class="ruby-string">&quot;.&quot;</span>
+<span class="line-num">232</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(.+?)\/(.+)$/</span>
+<span class="line-num">233</span>       <span class="ruby-identifier">ddl</span> = <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-node">$2</span>.<span class="ruby-identifier">to_sym</span>, <span class="ruby-node">$1</span>)
+<span class="line-num">234</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">235</span>       <span class="ruby-identifier">found_plugin_type</span> = <span class="ruby-keyword">nil</span>
+<span class="line-num">236</span> 
+<span class="line-num">237</span>       <span class="ruby-identifier">known_plugin_types</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin_type</span><span class="ruby-operator">|</span>
+<span class="line-num">238</span>         <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-string">&quot;ddl&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ddl</span><span class="ruby-operator">|</span>
+<span class="line-num">239</span>           <span class="ruby-identifier">pluginname</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/_#{plugin_type[1]}$/</span>, <span class="ruby-string">&quot;&quot;</span>)
+<span class="line-num">240</span>           <span class="ruby-keyword">if</span> <span class="ruby-identifier">pluginname</span> <span class="ruby-operator">==</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>]
+<span class="line-num">241</span>             <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Duplicate plugin name found, please specify a full path like agent/rpcutil&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">found_plugin_type</span>
+<span class="line-num">242</span>             <span class="ruby-identifier">found_plugin_type</span> = <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>]
+<span class="line-num">243</span>           <span class="ruby-keyword">end</span>
+<span class="line-num">244</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">245</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">246</span> 
+<span class="line-num">247</span>       <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a plugin named &#39;%s&#39; in any supported plugin type&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">found_plugin_type</span>
+<span class="line-num">248</span>       <span class="ruby-identifier">ddl</span> = <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>], <span class="ruby-identifier">found_plugin_type</span>)
+<span class="line-num">249</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">250</span> 
+<span class="line-num">251</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>
+<span class="line-num">252</span>       <span class="ruby-identifier">puts</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">help</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:rpctemplate</span>])
+<span class="line-num">253</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">254</span>       <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;Could not find a &#39;%s&#39; plugin named &#39;%s&#39;&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&#39;/&#39;</span>)
+<span class="line-num">255</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">256</span> 
+<span class="line-num">257</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">258</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Please specify a plugin. Available plugins are:&quot;</span>
+<span class="line-num">259</span>     <span class="ruby-identifier">puts</span>
+<span class="line-num">260</span> 
+<span class="line-num">261</span>     <span class="ruby-identifier">load_errors</span> = []
+<span class="line-num">262</span> 
+<span class="line-num">263</span>     <span class="ruby-identifier">known_plugin_types</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">plugin_type</span><span class="ruby-operator">|</span>
+<span class="line-num">264</span>       <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;%s:&quot;</span> <span class="ruby-operator">%</span> <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">0</span>]
+<span class="line-num">265</span> 
+<span class="line-num">266</span>       <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">find</span>(<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-string">&quot;ddl&quot;</span>).<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">ddl</span><span class="ruby-operator">|</span>
+<span class="line-num">267</span>         <span class="ruby-keyword">begin</span>
+<span class="line-num">268</span>           <span class="ruby-identifier">help</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>])
+<span class="line-num">269</span>           <span class="ruby-identifier">pluginname</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">gsub</span>(<span class="ruby-regexp">/_#{plugin_type[1]}$/</span>, <span class="ruby-string">&quot;&quot;</span>)
+<span class="line-num">270</span>           <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  %-25s %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-identifier">pluginname</span>, <span class="ruby-identifier">help</span>.<span class="ruby-identifier">meta</span>[<span class="ruby-value">:description</span>]]
+<span class="line-num">271</span>         <span class="ruby-keyword">rescue</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">272</span>           <span class="ruby-identifier">load_errors</span> <span class="ruby-operator">&lt;&lt;</span> [<span class="ruby-identifier">plugin_type</span>[<span class="ruby-value">1</span>], <span class="ruby-identifier">ddl</span>, <span class="ruby-identifier">e</span>]
+<span class="line-num">273</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">274</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">275</span> 
+<span class="line-num">276</span>       <span class="ruby-identifier">puts</span>
+<span class="line-num">277</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">278</span> 
+<span class="line-num">279</span>     <span class="ruby-keyword">unless</span> <span class="ruby-identifier">load_errors</span>.<span class="ruby-identifier">empty?</span>
+<span class="line-num">280</span>       <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;Plugin Load Errors:&quot;</span>
+<span class="line-num">281</span> 
+<span class="line-num">282</span>       <span class="ruby-identifier">load_errors</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">e</span><span class="ruby-operator">|</span>
+<span class="line-num">283</span>         <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;  %-25s %s&quot;</span> <span class="ruby-operator">%</span> [<span class="ruby-node">&quot;#{e[0]}/#{e[1]}&quot;</span>, <span class="ruby-constant">Util</span>.<span class="ruby-identifier">colorize</span>(<span class="ruby-value">:yellow</span>, <span class="ruby-identifier">e</span>[<span class="ruby-value">2</span>])]
+<span class="line-num">284</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">285</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">286</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">287</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -239,31 +241,31 @@
 
           
           <div class="method-source-code" id="generate_command-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 170</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">generate_command</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;undefined plugin type. cannot generate plugin. valid types are 'agent' and 'data'&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-string">&quot;target&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">'.'</span>
-
-  <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>]
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;No plugin name specified. Using 'new_plugin'&quot;</span>
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] = <span class="ruby-string">&quot;new_plugin&quot;</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">load_plugin_config_values</span>
-
-  <span class="ruby-keyword">case</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">downcase</span>
-  <span class="ruby-keyword">when</span> <span class="ruby-string">'agent'</span>
-    <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">AgentGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:actions</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
-                                   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
-                                   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
-  <span class="ruby-keyword">when</span> <span class="ruby-string">'data'</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;data plugin must have at least one output&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>]
-    <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">DataGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
-                                   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
-                                   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid plugin type. cannot generate plugin '#{configuration[:target]}'&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">170</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">generate_command</span>
+<span class="line-num">171</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;undefined plugin type. cannot generate plugin. valid types are &#39;agent&#39; and &#39;data&#39;&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-string">&quot;target&quot;</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&#39;.&#39;</span>
+<span class="line-num">172</span> 
+<span class="line-num">173</span>   <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>]
+<span class="line-num">174</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&quot;No plugin name specified. Using &#39;new_plugin&#39;&quot;</span>
+<span class="line-num">175</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] = <span class="ruby-string">&quot;new_plugin&quot;</span>
+<span class="line-num">176</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">177</span> 
+<span class="line-num">178</span>   <span class="ruby-identifier">load_plugin_config_values</span>
+<span class="line-num">179</span> 
+<span class="line-num">180</span>   <span class="ruby-keyword">case</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>].<span class="ruby-identifier">downcase</span>
+<span class="line-num">181</span>   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;agent&#39;</span>
+<span class="line-num">182</span>     <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">AgentGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:actions</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
+<span class="line-num">183</span>                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
+<span class="line-num">184</span>                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
+<span class="line-num">185</span>   <span class="ruby-keyword">when</span> <span class="ruby-string">&#39;data&#39;</span>
+<span class="line-num">186</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;data plugin must have at least one output&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>]
+<span class="line-num">187</span>     <span class="ruby-constant">Generators</span><span class="ruby-operator">::</span><span class="ruby-constant">DataGenerator</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:outputs</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>],
+<span class="line-num">188</span>                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:description</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:author</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:license</span>],
+<span class="line-num">189</span>                                    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:version</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:url</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:timeout</span>])
+<span class="line-num">190</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">191</span>     <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;invalid plugin type. cannot generate plugin &#39;#{configuration[:target]}&#39;&quot;</span>
+<span class="line-num">192</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">193</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -287,26 +289,23 @@
 
         <div class="method-description">
           
-          <p>If plugintype is StandardDefinition, identify which of the special plugin
-types we are dealing with based on directory structure. To keep it simple
-we limit it to one type per target directory. Return the name of the type
-of plugin as a string</p>
+          <p>If plugintype is StandardDefinition, identify which of the special plugin types we are dealing with based on directory structure. To keep it simple we limit it to one type per target directory. Return the name of the type of plugin as a string</p>
           
           
 
           
           <div class="method-source-code" id="identify_plugin-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 334</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">identify_plugin</span>
-  <span class="ruby-identifier">plugintype</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>], <span class="ruby-string">&quot;*&quot;</span>)).<span class="ruby-identifier">select</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
-    <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(connector|facts|registration|security|audit|pluginpackager|data|discovery|validator)/</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;more than one plugin type detected in directory&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;no plugins detected in directory&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
-
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugintype</span>[<span class="ruby-value">0</span>])
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">334</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">identify_plugin</span>
+<span class="line-num">335</span>   <span class="ruby-identifier">plugintype</span> = <span class="ruby-constant">Dir</span>.<span class="ruby-identifier">glob</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>], <span class="ruby-string">&quot;*&quot;</span>)).<span class="ruby-identifier">select</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">file</span><span class="ruby-operator">|</span>
+<span class="line-num">336</span>     <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-identifier">file</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">file</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(connector|facts|registration|security|audit|pluginpackager|data|discovery|validator)/</span>)
+<span class="line-num">337</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">338</span> 
+<span class="line-num">339</span>   <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;more than one plugin type detected in directory&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&gt;</span> <span class="ruby-value">1</span>
+<span class="line-num">340</span>   <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;no plugins detected in directory&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugintype</span>.<span class="ruby-identifier">size</span> <span class="ruby-operator">&lt;</span> <span class="ruby-value">1</span>
+<span class="line-num">341</span> 
+<span class="line-num">342</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">basename</span>(<span class="ruby-identifier">plugintype</span>[<span class="ruby-value">0</span>])
+<span class="line-num">343</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -336,12 +335,12 @@ of plugin as a string</p>
 
           
           <div class="method-source-code" id="info_command-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 163</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">info_command</span>
-  <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">prepare_plugin</span>
-  <span class="ruby-identifier">packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-node">&quot;#{configuration[:format].capitalize}Packager&quot;</span>]
-  <span class="ruby-identifier">packager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin</span>).<span class="ruby-identifier">package_information</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">163</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">info_command</span>
+<span class="line-num">164</span>   <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">prepare_plugin</span>
+<span class="line-num">165</span>   <span class="ruby-identifier">packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-node">&quot;#{configuration[:format].capitalize}Packager&quot;</span>]
+<span class="line-num">166</span>   <span class="ruby-identifier">packager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin</span>).<span class="ruby-identifier">package_information</span>
+<span class="line-num">167</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -365,8 +364,7 @@ of plugin as a string</p>
 
         <div class="method-description">
           
-          <p>Load preset metadata values from config if they are present This makes it
-possible to override metadata values in a local client config file.</p>
+          <p>Load preset metadata values from config if they are present This makes it possible to override metadata values in a local client config file.</p>
 
 <p>Example : plugin.metadata.license = Apache 2</p>
           
@@ -374,13 +372,13 @@ possible to override metadata values in a local client config file.</p>
 
           
           <div class="method-source-code" id="load_plugin_config_values-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 350</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_plugin_config_values</span>
-  <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
-  [<span class="ruby-value">:pluginname</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:author</span>, <span class="ruby-value">:license</span>, <span class="ruby-value">:version</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">confoption</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">confoption</span>] = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-node">&quot;metadata.#{confoption}&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">confoption</span>]
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">350</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">load_plugin_config_values</span>
+<span class="line-num">351</span>   <span class="ruby-identifier">config</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>
+<span class="line-num">352</span>   [<span class="ruby-value">:pluginname</span>, <span class="ruby-value">:description</span>, <span class="ruby-value">:author</span>, <span class="ruby-value">:license</span>, <span class="ruby-value">:version</span>, <span class="ruby-value">:url</span>, <span class="ruby-value">:timeout</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">confoption</span><span class="ruby-operator">|</span>
+<span class="line-num">353</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">confoption</span>] = <span class="ruby-identifier">config</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-node">&quot;metadata.#{confoption}&quot;</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-identifier">confoption</span>]
+<span class="line-num">354</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">355</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -404,26 +402,24 @@ possible to override metadata values in a local client config file.</p>
 
         <div class="method-description">
           
-          <p><a href="../Agents.html">Agents</a> are just called 'agent' but newer
-plugin types are called plugin_plugintype for example facter_facts etc so
-this will first try the old way then the new way.</p>
+          <p><a href="../Agents.html"><code>Agents</code></a> are just called &#39;agent&#39; but newer plugin types are called plugin_plugintype for example facter_facts etc so this will first try the old way then the new way.</p>
           
           
 
           
           <div class="method-source-code" id="load_plugin_ddl-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 213</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_plugin_ddl</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">type</span>)
-  [<span class="ruby-identifier">plugin</span>, <span class="ruby-node">&quot;#{plugin}_#{type}&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">type</span>, <span class="ruby-keyword">false</span>)
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">type</span>)
-      <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">loadddlfile</span>
-      <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">213</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">load_plugin_ddl</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">type</span>)
+<span class="line-num">214</span>   [<span class="ruby-identifier">plugin</span>, <span class="ruby-node">&quot;#{plugin}_#{type}&quot;</span>].<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">p</span><span class="ruby-operator">|</span>
+<span class="line-num">215</span>     <span class="ruby-identifier">ddl</span> = <span class="ruby-constant">DDL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">type</span>, <span class="ruby-keyword">false</span>)
+<span class="line-num">216</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">findddlfile</span>(<span class="ruby-identifier">p</span>, <span class="ruby-identifier">type</span>)
+<span class="line-num">217</span>       <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">loadddlfile</span>
+<span class="line-num">218</span>       <span class="ruby-keyword">return</span> <span class="ruby-identifier">ddl</span>
+<span class="line-num">219</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">220</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">221</span> 
+<span class="line-num">222</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">223</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -453,18 +449,18 @@ this will first try the old way then the new way.</p>
 
           
           <div class="method-source-code" id="main-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 357</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">main</span>
-    <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;No action specified, please run 'mco help plugin' for help&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:action</span>)
-
-    <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;#{configuration[:action]}_command&quot;</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">cmd</span>
-      <span class="ruby-identifier">send</span> <span class="ruby-identifier">cmd</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-identifier">abort</span> <span class="ruby-node">&quot;Invalid action #{configuration[:action]}, please run 'mco help plugin' for help.&quot;</span>
-    <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">357</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">main</span>
+<span class="line-num">358</span>     <span class="ruby-identifier">abort</span> <span class="ruby-string">&quot;No action specified, please run &#39;mco help plugin&#39; for help&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:action</span>)
+<span class="line-num">359</span> 
+<span class="line-num">360</span>     <span class="ruby-identifier">cmd</span> = <span class="ruby-node">&quot;#{configuration[:action]}_command&quot;</span>
+<span class="line-num">361</span> 
+<span class="line-num">362</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">respond_to?</span> <span class="ruby-identifier">cmd</span>
+<span class="line-num">363</span>       <span class="ruby-identifier">send</span> <span class="ruby-identifier">cmd</span>
+<span class="line-num">364</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">365</span>       <span class="ruby-identifier">abort</span> <span class="ruby-node">&quot;Invalid action #{configuration[:action]}, please run &#39;mco help plugin&#39; for help.&quot;</span>
+<span class="line-num">366</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">367</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -494,20 +490,20 @@ this will first try the old way then the new way.</p>
 
           
           <div class="method-source-code" id="package_command-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 196</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">package_command</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;debian_packager.keyname&quot;</span>)
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;debian_packager.keyname&quot;</span>]
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] = <span class="ruby-node">&quot;\&quot;#{configuration[:sign]}\&quot;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/\&quot;.*\&quot;/</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">prepare_plugin</span>
-  (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span>) <span class="ruby-keyword">if</span> (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^.*\/$/</span>))
-  <span class="ruby-identifier">packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-node">&quot;#{configuration[:format].capitalize}Packager&quot;</span>]
-  <span class="ruby-identifier">packager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>],
-               <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:keep_artifacts</span>],
-               <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:module_template</span>]).<span class="ruby-identifier">create_packages</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">196</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">package_command</span>
+<span class="line-num">197</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;debian_packager.keyname&quot;</span>)
+<span class="line-num">198</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">pluginconf</span>[<span class="ruby-string">&quot;debian_packager.keyname&quot;</span>]
+<span class="line-num">199</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>] = <span class="ruby-node">&quot;\&quot;#{configuration[:sign]}\&quot;&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/\&quot;.*\&quot;/</span>)
+<span class="line-num">200</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">201</span> 
+<span class="line-num">202</span>   <span class="ruby-identifier">plugin</span> = <span class="ruby-identifier">prepare_plugin</span>
+<span class="line-num">203</span>   (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] <span class="ruby-operator">+</span> <span class="ruby-string">&quot;/&quot;</span>) <span class="ruby-keyword">if</span> (<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/^.*\/$/</span>))
+<span class="line-num">204</span>   <span class="ruby-identifier">packager</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-node">&quot;#{configuration[:format].capitalize}Packager&quot;</span>]
+<span class="line-num">205</span>   <span class="ruby-identifier">packager</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">plugin</span>, <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginpath</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:sign</span>],
+<span class="line-num">206</span>                <span class="ruby-identifier">options</span>[<span class="ruby-value">:verbose</span>], <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:keep_artifacts</span>],
+<span class="line-num">207</span>                <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:module_template</span>]).<span class="ruby-identifier">create_packages</span>
+<span class="line-num">208</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -537,10 +533,10 @@ this will first try the old way then the new way.</p>
 
           
           <div class="method-source-code" id="plugin_directory_exists-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 313</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-identifier">plugin_type</span>)
-  <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_plugin_path</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>]), <span class="ruby-identifier">plugin_type</span>))
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">313</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">plugin_directory_exists?</span>(<span class="ruby-identifier">plugin_type</span>)
+<span class="line-num">314</span>   <span class="ruby-constant">File</span>.<span class="ruby-identifier">directory?</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">join</span>(<span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">get_plugin_path</span>(<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>]), <span class="ruby-identifier">plugin_type</span>))
+<span class="line-num">315</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -564,38 +560,38 @@ this will first try the old way then the new way.</p>
 
         <div class="method-description">
           
-          <p>Handle alternative format that optparser can’t parse.</p>
+          <p>Handle alternative format that optparser can&#39;t parse.</p>
           
           
 
           
           <div class="method-source-code" id="post_option_parser-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 136</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
-  <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
-
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-string">&quot;.&quot;</span>
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;generate&quot;</span>
-      <span class="ruby-keyword">unless</span> <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(actions|outputs)=(.+)/i</span>)
-        <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>]
-          <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-
-      <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">argument</span><span class="ruby-operator">|</span>
-        <span class="ruby-keyword">if</span> <span class="ruby-identifier">argument</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(actions|outputs)=(.+)/i</span>)
-          <span class="ruby-identifier">configuration</span>[<span class="ruby-node">$1</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">to_sym</span>]= <span class="ruby-node">$2</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
-        <span class="ruby-keyword">else</span>
-          <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse --arg '#{argument}'&quot;</span>
-        <span class="ruby-keyword">end</span>
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">136</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">post_option_parser</span>(<span class="ruby-identifier">configuration</span>)
+<span class="line-num">137</span>   <span class="ruby-keyword">if</span> <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">length</span> <span class="ruby-operator">&gt;=</span> <span class="ruby-value">1</span>
+<span class="line-num">138</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
+<span class="line-num">139</span> 
+<span class="line-num">140</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:target</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>) <span class="ruby-operator">||</span> <span class="ruby-string">&quot;.&quot;</span>
+<span class="line-num">141</span> 
+<span class="line-num">142</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:action</span>] <span class="ruby-operator">==</span> <span class="ruby-string">&quot;generate&quot;</span>
+<span class="line-num">143</span>       <span class="ruby-keyword">unless</span> <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-constant">ARGV</span>[<span class="ruby-value">0</span>].<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(actions|outputs)=(.+)/i</span>)
+<span class="line-num">144</span>         <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>]
+<span class="line-num">145</span>           <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:pluginname</span>] = <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
+<span class="line-num">146</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">147</span>           <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">delete_at</span>(<span class="ruby-value">0</span>)
+<span class="line-num">148</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">149</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">150</span> 
+<span class="line-num">151</span>       <span class="ruby-constant">ARGV</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">argument</span><span class="ruby-operator">|</span>
+<span class="line-num">152</span>         <span class="ruby-keyword">if</span> <span class="ruby-identifier">argument</span>.<span class="ruby-identifier">match</span>(<span class="ruby-regexp">/(actions|outputs)=(.+)/i</span>)
+<span class="line-num">153</span>           <span class="ruby-identifier">configuration</span>[<span class="ruby-node">$1</span>.<span class="ruby-identifier">downcase</span>.<span class="ruby-identifier">to_sym</span>]= <span class="ruby-node">$2</span>.<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot;,&quot;</span>)
+<span class="line-num">154</span>         <span class="ruby-keyword">else</span>
+<span class="line-num">155</span>           <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not parse --arg &#39;#{argument}&#39;&quot;</span>
+<span class="line-num">156</span>         <span class="ruby-keyword">end</span>
+<span class="line-num">157</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">158</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">159</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">160</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -625,29 +621,29 @@ this will first try the old way then the new way.</p>
 
           
           <div class="method-source-code" id="prepare_plugin-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 290</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">prepare_plugin</span>
-  <span class="ruby-identifier">plugintype</span> = <span class="ruby-identifier">set_plugin_type</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>]
-  <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:format</span>] = <span class="ruby-string">&quot;ospackage&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:format</span>]
-  <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">load_packagers</span>
-  <span class="ruby-identifier">plugin_class</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>]]
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>][<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>)
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>]
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>].<span class="ruby-identifier">map!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">dep</span><span class="ruby-operator">|</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">dep</span>, <span class="ruby-value">:version</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">nil</span>}}
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">mcdependency</span> = {<span class="ruby-value">:mcname</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:mcname</span>], <span class="ruby-value">:mcversion</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:mcversion</span>]}
-
-  <span class="ruby-comment"># Deprecation warning for --iteration</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>]
-    <span class="ruby-identifier">puts</span> <span class="ruby-string">'Warning. The --iteration flag has been deprecated. Please use --revision instead.'</span>
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>]
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">plugin_class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>, <span class="ruby-identifier">mcdependency</span>, <span class="ruby-identifier">plugintype</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">290</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">prepare_plugin</span>
+<span class="line-num">291</span>   <span class="ruby-identifier">plugintype</span> = <span class="ruby-identifier">set_plugin_type</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>]
+<span class="line-num">292</span>   <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:format</span>] = <span class="ruby-string">&quot;ospackage&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:format</span>]
+<span class="line-num">293</span>   <span class="ruby-constant">PluginPackager</span>.<span class="ruby-identifier">load_packagers</span>
+<span class="line-num">294</span>   <span class="ruby-identifier">plugin_class</span> = <span class="ruby-constant">PluginPackager</span>[<span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>]]
+<span class="line-num">295</span> 
+<span class="line-num">296</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>].<span class="ruby-identifier">size</span> <span class="ruby-operator">==</span> <span class="ruby-value">1</span>
+<span class="line-num">297</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>][<span class="ruby-value">0</span>].<span class="ruby-identifier">split</span>(<span class="ruby-string">&quot; &quot;</span>)
+<span class="line-num">298</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>]
+<span class="line-num">299</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:dependency</span>].<span class="ruby-identifier">map!</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">dep</span><span class="ruby-operator">|</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">dep</span>, <span class="ruby-value">:version</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">nil</span>}}
+<span class="line-num">300</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">301</span> 
+<span class="line-num">302</span>   <span class="ruby-identifier">mcdependency</span> = {<span class="ruby-value">:mcname</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:mcname</span>], <span class="ruby-value">:mcversion</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:mcversion</span>]}
+<span class="line-num">303</span> 
+<span class="line-num">304</span>   <span class="ruby-comment"># Deprecation warning for --iteration</span>
+<span class="line-num">305</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>]
+<span class="line-num">306</span>     <span class="ruby-identifier">puts</span> <span class="ruby-string">&#39;Warning. The --iteration flag has been deprecated. Please use --revision instead.&#39;</span>
+<span class="line-num">307</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>] = <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:iteration</span>] <span class="ruby-keyword">unless</span> <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:revision</span>]
+<span class="line-num">308</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">309</span> 
+<span class="line-num">310</span>   <span class="ruby-identifier">plugin_class</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">configuration</span>, <span class="ruby-identifier">mcdependency</span>, <span class="ruby-identifier">plugintype</span>)
+<span class="line-num">311</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -677,18 +673,18 @@ this will first try the old way then the new way.</p>
 
           
           <div class="method-source-code" id="set_plugin_type-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/application/plugin.rb, line 318</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">set_plugin_type</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-string">&quot;agent&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-string">&quot;application&quot;</span>)
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>] = <span class="ruby-string">&quot;AgentDefinition&quot;</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Agent&quot;</span>
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-identifier">plugintype</span> = <span class="ruby-identifier">identify_plugin</span>)
-    <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>] = <span class="ruby-string">&quot;StandardDefinition&quot;</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">plugintype</span>
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;target directory is not a valid mcollective plugin&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/application/plugin.rb</span>
+<span class="line-num">318</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">set_plugin_type</span>
+<span class="line-num">319</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-string">&quot;agent&quot;</span>) <span class="ruby-operator">||</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-string">&quot;application&quot;</span>)
+<span class="line-num">320</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>] = <span class="ruby-string">&quot;AgentDefinition&quot;</span>
+<span class="line-num">321</span>     <span class="ruby-keyword">return</span> <span class="ruby-string">&quot;Agent&quot;</span>
+<span class="line-num">322</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">plugin_directory_exists?</span>(<span class="ruby-identifier">plugintype</span> = <span class="ruby-identifier">identify_plugin</span>)
+<span class="line-num">323</span>     <span class="ruby-identifier">configuration</span>[<span class="ruby-value">:plugintype</span>] = <span class="ruby-string">&quot;StandardDefinition&quot;</span>
+<span class="line-num">324</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">plugintype</span>
+<span class="line-num">325</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">326</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">RuntimeError</span>, <span class="ruby-string">&quot;target directory is not a valid mcollective plugin&quot;</span>
+<span class="line-num">327</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">328</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -706,8 +702,8 @@ this will first try the old way then the new way.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

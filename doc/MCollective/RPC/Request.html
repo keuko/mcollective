@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::RPC::Request - mcollective version 2.12.1</title>
+<title>class MCollective::RPC::Request - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../../";
+  var index_rel_prefix = "../../";
 </script>
 
-<script src="../../js/jquery.js"></script>
-<script src="../../js/darkfish.js"></script>
+<script src="../../js/navigation.js" defer></script>
+<script src="../../js/search.js" defer></script>
+<script src="../../js/search_index.js" defer></script>
+<script src="../../js/searcher.js" defer></script>
+<script src="../../js/darkfish.js" defer></script>
 
 <link href="../../css/fonts.css" rel="stylesheet">
 <link href="../../css/rdoc.css" rel="stylesheet">
@@ -101,13 +105,10 @@
 
   <section class="description">
     
-<p>Simple class to manage compliant requests for <a
-href="../RPC.html">MCollective::RPC</a> agents</p>
+<p>Simple class to manage compliant requests for <a href="../RPC.html"><code>MCollective::RPC</code></a> agents</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -256,17 +257,17 @@ href="../RPC.html">MCollective::RPC</a> agents</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 7</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">ddl</span>)
-  <span class="ruby-ivar">@time</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:msgtime</span>]
-  <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:action</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;action&quot;</span>]
-  <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:data</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;data&quot;</span>]
-  <span class="ruby-ivar">@sender</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:senderid</span>]
-  <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:agent</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;agent&quot;</span>]
-  <span class="ruby-ivar">@uniqid</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:requestid</span>]
-  <span class="ruby-ivar">@caller</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;unknown&quot;</span>
-  <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num"> 7</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">msg</span>, <span class="ruby-identifier">ddl</span>)
+<span class="line-num"> 8</span>   <span class="ruby-ivar">@time</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:msgtime</span>]
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:action</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;action&quot;</span>]
+<span class="line-num">10</span>   <span class="ruby-ivar">@data</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:data</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;data&quot;</span>]
+<span class="line-num">11</span>   <span class="ruby-ivar">@sender</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:senderid</span>]
+<span class="line-num">12</span>   <span class="ruby-ivar">@agent</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-value">:agent</span>] <span class="ruby-operator">||</span> <span class="ruby-identifier">msg</span>[<span class="ruby-value">:body</span>][<span class="ruby-string">&quot;agent&quot;</span>]
+<span class="line-num">13</span>   <span class="ruby-ivar">@uniqid</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:requestid</span>]
+<span class="line-num">14</span>   <span class="ruby-ivar">@caller</span> = <span class="ruby-identifier">msg</span>[<span class="ruby-value">:callerid</span>] <span class="ruby-operator">||</span> <span class="ruby-string">&quot;unknown&quot;</span>
+<span class="line-num">15</span>   <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
+<span class="line-num">16</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -304,11 +305,11 @@ href="../RPC.html">MCollective::RPC</a> agents</p>
 
           
           <div class="method-source-code" id="5B-5D-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 58</span>
-<span class="ruby-keyword">def</span> <span class="ruby-operator">[]</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>)]
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">58</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">[]</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">59</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">60</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>)]
+<span class="line-num">61</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -332,33 +333,28 @@ href="../RPC.html">MCollective::RPC</a> agents</p>
 
         <div class="method-description">
           
-          <p>In a scenario where a request came from a JSON pure medium like a REST
-service or other language client <a
-href="../DDL/AgentDDL.html#method-i-validate_rpc_request">MCollective::DDL::AgentDDL#validate_rpc_request</a>
-will check “package” against the intput :package should the input “package”
-not also be known</p>
+          <p>In a scenario where a request came from a JSON pure medium like a REST service or other language client <a href="../DDL/AgentDDL.html#method-i-validate_rpc_request"><code>DDL::AgentDDL#validate_rpc_request</code></a> will check “package” against the intput :package should the input “package” not also be known</p>
 
-<p>Thus once the request is built it will also have “package” and not :package
-data, so we need to fetch the correct key out of the hash.</p>
+<p>Thus once the request is built it will also have “package” and not :package data, so we need to fetch the correct key out of the hash.</p>
           
           
 
           
           <div class="method-source-code" id="compatible_key-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 25</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>
-    <span class="ruby-identifier">input</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>]
-
-    <span class="ruby-comment"># if :package is requested and the DDL also declares &quot;package&quot; we cant tell it to fetch</span>
-    <span class="ruby-comment"># &quot;package&quot;, hence the check against the input here</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">key</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">25</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">compatible_key</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">26</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">27</span> 
+<span class="line-num">28</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">ddl</span>
+<span class="line-num">29</span>     <span class="ruby-identifier">input</span> = <span class="ruby-identifier">ddl</span>.<span class="ruby-identifier">action_interface</span>(<span class="ruby-identifier">action</span>)[<span class="ruby-value">:input</span>]
+<span class="line-num">30</span> 
+<span class="line-num">31</span>     <span class="ruby-comment"># if :package is requested and the DDL also declares &quot;package&quot; we cant tell it to fetch</span>
+<span class="line-num">32</span>     <span class="ruby-comment"># &quot;package&quot;, hence the check against the input here</span>
+<span class="line-num">33</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Symbol</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-operator">!</span><span class="ruby-identifier">input</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>) <span class="ruby-operator">&amp;&amp;</span> <span class="ruby-identifier">data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>.<span class="ruby-identifier">to_s</span>)
+<span class="line-num">34</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">35</span> 
+<span class="line-num">36</span>   <span class="ruby-identifier">key</span>
+<span class="line-num">37</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -388,11 +384,11 @@ data, so we need to fetch the correct key out of the hash.</p>
 
           
           <div class="method-source-code" id="fetch-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 63</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">default</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">63</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">fetch</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">default</span>)
+<span class="line-num">64</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">nil</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">65</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">fetch</span>(<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">default</span>)
+<span class="line-num">66</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -416,19 +412,18 @@ data, so we need to fetch the correct key out of the hash.</p>
 
         <div class="method-description">
           
-          <p>If data is a hash, quick helper to get access to it’s include? method else
-returns false</p>
+          <p>If data is a hash, quick helper to get access to it&#39;s include? method else returns false</p>
           
           
 
           
           <div class="method-source-code" id="include-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 41</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">include?</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-
-  <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>))
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">41</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">include?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">42</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">compatible_key</span>(<span class="ruby-identifier">key</span>))
+<span class="line-num">45</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -452,21 +447,20 @@ returns false</p>
 
         <div class="method-description">
           
-          <p>If no :process_results is specified always respond else respond based on
-the supplied property</p>
+          <p>If no :process_results is specified always respond else respond based on the supplied property</p>
           
           
 
           
           <div class="method-source-code" id="should_respond-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 49</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">should_respond?</span>
-  <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-value">:process_results</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:process_results</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-string">&quot;process_results&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;process_results&quot;</span>)
-
-  <span class="ruby-keyword">true</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">49</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">should_respond?</span>
+<span class="line-num">50</span>   <span class="ruby-keyword">return</span> <span class="ruby-keyword">false</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">is_a?</span>(<span class="ruby-constant">Hash</span>)
+<span class="line-num">51</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-value">:process_results</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:process_results</span>)
+<span class="line-num">52</span>   <span class="ruby-keyword">return</span> <span class="ruby-ivar">@data</span>[<span class="ruby-string">&quot;process_results&quot;</span>] <span class="ruby-keyword">if</span> <span class="ruby-ivar">@data</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-string">&quot;process_results&quot;</span>)
+<span class="line-num">53</span> 
+<span class="line-num">54</span>   <span class="ruby-keyword">true</span>
+<span class="line-num">55</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -496,12 +490,12 @@ the supplied property</p>
 
           
           <div class="method-source-code" id="to_hash-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 68</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_hash</span>
-  {<span class="ruby-value">:agent</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@agent</span>,
-   <span class="ruby-value">:action</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@action</span>,
-   <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@data</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">68</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_hash</span>
+<span class="line-num">69</span>   {<span class="ruby-value">:agent</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@agent</span>,
+<span class="line-num">70</span>    <span class="ruby-value">:action</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@action</span>,
+<span class="line-num">71</span>    <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@data</span>}
+<span class="line-num">72</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -531,12 +525,12 @@ the supplied property</p>
 
           
           <div class="method-source-code" id="to_json-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 79</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">to_json</span>
-  <span class="ruby-identifier">to_hash</span>.<span class="ruby-identifier">merge!</span>({<span class="ruby-value">:sender</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@sender</span>,
-                  <span class="ruby-value">:callerid</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@callerid</span>,
-                  <span class="ruby-value">:uniqid</span>   =<span class="ruby-operator">&gt;</span> <span class="ruby-ivar">@uniqid</span>}).<span class="ruby-identifier">to_json</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">79</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">to_json</span>
+<span class="line-num">80</span>   <span class="ruby-identifier">to_hash</span>.<span class="ruby-identifier">merge!</span>({<span class="ruby-value">:sender</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@sender</span>,
+<span class="line-num">81</span>                   <span class="ruby-value">:callerid</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@callerid</span>,
+<span class="line-num">82</span>                   <span class="ruby-value">:uniqid</span>   <span class="ruby-operator">=&gt;</span> <span class="ruby-ivar">@uniqid</span>}).<span class="ruby-identifier">to_json</span>
+<span class="line-num">83</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -560,16 +554,16 @@ the supplied property</p>
 
         <div class="method-description">
           
-          <p>Validate the request against the <a href="../DDL.html">DDL</a></p>
+          <p>Validate the request against the <a href="../DDL.html"><code>DDL</code></a></p>
           
           
 
           
           <div class="method-source-code" id="validate-21-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/rpc/request.rb, line 75</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">validate!</span>
-  <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">validate_rpc_request</span>(<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@data</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/rpc/request.rb</span>
+<span class="line-num">75</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">validate!</span>
+<span class="line-num">76</span>   <span class="ruby-ivar">@ddl</span>.<span class="ruby-identifier">validate_rpc_request</span>(<span class="ruby-ivar">@action</span>, <span class="ruby-ivar">@data</span>)
+<span class="line-num">77</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -587,8 +581,8 @@ the supplied property</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

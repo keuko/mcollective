@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>Gemfile - mcollective version 2.12.1</title>
+<title>Gemfile - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -64,6 +68,8 @@
   
     <li><a href="../Gemfile.html">Gemfile</a>
   
+    <li><a href="../Gemfile_lock.html">Gemfile.lock</a>
+  
     <li><a href="../MAINTAINERS.html">MAINTAINERS</a>
   
     <li><a href="../README_md.html">README</a>
@@ -71,6 +77,8 @@
     <li><a href="../Rakefile.html">Rakefile</a>
   
     <li><a href="../acceptance/Gemfile.html">Gemfile</a>
+  
+    <li><a href="../acceptance/Gemfile_lock.html">Gemfile.lock</a>
   
     <li><a href="../acceptance/README_md.html">README</a>
   
@@ -256,35 +264,27 @@
 
 <main role="main" aria-label="Page acceptance/Gemfile">
 
-<p># Specifies a gem mirror; duplicated in acceptance setup # to ensure a
-similar environment on acceptance hosts. source <a
-href="'GEM_SOURCE'">ENV</a> || ‘<a
-href="https://rubygems.org">rubygems.org</a>’</p>
+<p># Specifies a gem mirror; duplicated in acceptance setup # to ensure a similar environment on acceptance hosts. source <a href="'GEM_SOURCE'">ENV</a> || &#39;<a href="https://rubygems.org">rubygems.org</a>&#39;</p>
 
 <p>def location_for(place, fake_version = nil)</p>
 
-<pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-identifier">place</span> <span class="ruby-operator">=~</span> <span class="ruby-node">/^(git:[^#]*)#(.*)/</span>
-  [<span class="ruby-identifier">fake_version</span>, { :<span class="ruby-identifier">git</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$1</span>, :<span class="ruby-identifier">branch</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-node">$2</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }].<span class="ruby-identifier">compact</span>
+<pre class="ruby"><span class="ruby-keyword">if</span> <span class="ruby-identifier">place</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^(git:[^#]*)#(.*)/</span>
+  [<span class="ruby-identifier">fake_version</span>, { <span class="ruby-value">:git</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">$1</span>, <span class="ruby-value">:branch</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-node">$2</span>, <span class="ruby-value">:require</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span> }].<span class="ruby-identifier">compact</span>
 <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">place</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^file:\/\/(.*)/</span>
-  [<span class="ruby-string">'&gt;= 0'</span>, { :<span class="ruby-identifier">path</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-node">$1</span>), :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }]
+  [<span class="ruby-string">&#39;&gt;= 0&#39;</span>, { <span class="ruby-value">:path</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">expand_path</span>(<span class="ruby-node">$1</span>), <span class="ruby-value">:require</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span> }]
 <span class="ruby-keyword">else</span>
-  [<span class="ruby-identifier">place</span>, { :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span> }]
+  [<span class="ruby-identifier">place</span>, { <span class="ruby-value">:require</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span> }]
 <span class="ruby-keyword">end</span>
 </pre>
 
 <p>end</p>
 
-<p>gem “beaker”, *<a href="'BEAKER_VERSION'">location_for(ENV</a> || “~&gt;
-3.6”) gem “beaker-hostgenerator”, *<a
-href="'BEAKER_HOSTGENERATOR_VERSION'">location_for(ENV</a> || “~&gt; 0.8”)
-gem “beaker-abs”, *<a href="'BEAKER_ABS_VERSION'">location_for(ENV</a> ||
-“~&gt; 0.2”) gem “rake” gem “httparty”, :require =&gt; false gem
-‘uuidtools’, :require =&gt; false</p>
+<p>gem “beaker”, *<a href="'BEAKER_VERSION'">location_for(ENV</a> || “~&gt; 3.6”) gem “beaker-hostgenerator”, *<a href="'BEAKER_HOSTGENERATOR_VERSION'">location_for(ENV</a> || “~&gt; 0.8”) gem “beaker-abs”, *<a href="'BEAKER_ABS_VERSION'">location_for(ENV</a> || “~&gt; 0.2”) gem “rake” gem “httparty”, :require =&gt; false gem &#39;uuidtools&#39;, :require =&gt; false</p>
 
 <p>group(:test) do</p>
 
-<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;rspec&quot;</span>, <span class="ruby-string">&quot;~&gt; 2.14.0&quot;</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>
-<span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;mocha&quot;</span>, <span class="ruby-string">&quot;~&gt; 0.10.5&quot;</span>, :<span class="ruby-identifier">require</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-keyword">false</span>
+<pre class="ruby"><span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;rspec&quot;</span>, <span class="ruby-string">&quot;~&gt; 2.14.0&quot;</span>, <span class="ruby-value">:require</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>
+<span class="ruby-identifier">gem</span> <span class="ruby-string">&quot;mocha&quot;</span>, <span class="ruby-string">&quot;~&gt; 0.10.5&quot;</span>, <span class="ruby-value">:require</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-keyword">false</span>
 </pre>
 
 <p>end</p>
@@ -300,8 +300,8 @@ gem “beaker-abs”, *<a href="'BEAKER_ABS_VERSION'">location_for(ENV</a> ||
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::Aggregate - mcollective version 2.12.1</title>
+<title>class MCollective::Aggregate - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -97,8 +101,6 @@
     
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -195,15 +197,15 @@
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 8</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">ddl</span>)
-  <span class="ruby-ivar">@functions</span> = []
-  <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
-  <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:action</span>]
-  <span class="ruby-ivar">@failed</span> = []
-
-  <span class="ruby-identifier">create_functions</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num"> 8</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">ddl</span>)
+<span class="line-num"> 9</span>   <span class="ruby-ivar">@functions</span> = []
+<span class="line-num">10</span>   <span class="ruby-ivar">@ddl</span> = <span class="ruby-identifier">ddl</span>
+<span class="line-num">11</span>   <span class="ruby-ivar">@action</span> = <span class="ruby-identifier">ddl</span>[<span class="ruby-value">:action</span>]
+<span class="line-num">12</span>   <span class="ruby-ivar">@failed</span> = []
+<span class="line-num">13</span> 
+<span class="line-num">14</span>   <span class="ruby-identifier">create_functions</span>
+<span class="line-num">15</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -235,26 +237,25 @@
 
         <div class="method-description">
           
-          <p>Call all the appropriate functions with the reply data received from <a
-href="RPC/Client.html">RPC::Client</a></p>
+          <p>Call all the appropriate functions with the reply data received from <a href="RPC/Client.html"><code>RPC::Client</code></a></p>
           
           
 
           
           <div class="method-source-code" id="call_functions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 45</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">call_functions</span>(<span class="ruby-identifier">reply</span>)
-  <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">function</span><span class="ruby-operator">|</span>
-    <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Calling aggregate function #{function} for result&quot;</span>)
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">function</span>.<span class="ruby-identifier">process_result</span>(<span class="ruby-identifier">reply</span>[<span class="ruby-value">:data</span>][<span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>], <span class="ruby-identifier">reply</span>)
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Could not process aggregate function for '#{function.output_name}'. #{e.to_s}&quot;</span>)
-      <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:process_result</span>}
-      <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">function</span>)
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num">45</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">call_functions</span>(<span class="ruby-identifier">reply</span>)
+<span class="line-num">46</span>   <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">each</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">function</span><span class="ruby-operator">|</span>
+<span class="line-num">47</span>     <span class="ruby-constant">Log</span>.<span class="ruby-identifier">debug</span>(<span class="ruby-node">&quot;Calling aggregate function #{function} for result&quot;</span>)
+<span class="line-num">48</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">49</span>       <span class="ruby-identifier">function</span>.<span class="ruby-identifier">process_result</span>(<span class="ruby-identifier">reply</span>[<span class="ruby-value">:data</span>][<span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>], <span class="ruby-identifier">reply</span>)
+<span class="line-num">50</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">51</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Could not process aggregate function for &#39;#{function.output_name}&#39;. #{e.to_s}&quot;</span>)
+<span class="line-num">52</span>       <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>, <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:process_result</span>}
+<span class="line-num">53</span>       <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-identifier">function</span>)
+<span class="line-num">54</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">55</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">56</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -278,17 +279,16 @@ href="RPC/Client.html">RPC::Client</a></p>
 
         <div class="method-description">
           
-          <p>Check if the function param is defined as an output for the action in the
-ddl</p>
+          <p>Check if the function param is defined as an output for the action in the ddl</p>
           
           
 
           
           <div class="method-source-code" id="contains_output-3F-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 40</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">contains_output?</span>(<span class="ruby-identifier">output</span>)
-  <span class="ruby-ivar">@ddl</span>[<span class="ruby-value">:output</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">output</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num">40</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">contains_output?</span>(<span class="ruby-identifier">output</span>)
+<span class="line-num">41</span>   <span class="ruby-ivar">@ddl</span>[<span class="ruby-value">:output</span>].<span class="ruby-identifier">keys</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-identifier">output</span>)
+<span class="line-num">42</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -312,34 +312,32 @@ ddl</p>
 
         <div class="method-description">
           
-          <p>Creates instances of the <a href="Aggregate.html">Aggregate</a> functions
-and stores them in the function array. All aggregate call and summarize
-method calls operate on these function as a batch.</p>
+          <p>Creates instances of the <a href="Aggregate.html"><code>Aggregate</code></a> functions and stores them in the function array. All aggregate call and summarize method calls operate on these function as a batch.</p>
           
           
 
           
           <div class="method-source-code" id="create_functions-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 19</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">create_functions</span>
-  <span class="ruby-ivar">@ddl</span>[<span class="ruby-value">:aggregate</span>].<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agg</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">output</span> = <span class="ruby-identifier">agg</span>[<span class="ruby-value">:args</span>][<span class="ruby-value">0</span>]
-
-    <span class="ruby-keyword">if</span> <span class="ruby-identifier">contains_output?</span>(<span class="ruby-identifier">output</span>)
-      <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">agg</span>[<span class="ruby-value">:args</span>][<span class="ruby-value">1</span>]
-      <span class="ruby-identifier">format</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:format</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">arguments</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword">nil</span>
-      <span class="ruby-keyword">begin</span>
-        <span class="ruby-ivar">@functions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">load_function</span>(<span class="ruby-identifier">agg</span>[<span class="ruby-value">:function</span>]).<span class="ruby-identifier">new</span>(<span class="ruby-identifier">output</span>, <span class="ruby-identifier">arguments</span>, <span class="ruby-identifier">format</span>, <span class="ruby-ivar">@action</span>)
-      <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-        <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Cannot create aggregate function '#{output}'. #{e.to_s}&quot;</span>)
-        <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">output</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:startup</span>}
-      <span class="ruby-keyword">end</span>
-    <span class="ruby-keyword">else</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Cannot create aggregate function '#{output}'. '#{output}' has not been specified as a valid ddl output.&quot;</span>)
-      <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">output</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:create</span>}
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num">19</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">create_functions</span>
+<span class="line-num">20</span>   <span class="ruby-ivar">@ddl</span>[<span class="ruby-value">:aggregate</span>].<span class="ruby-identifier">each_with_index</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">agg</span>, <span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">21</span>     <span class="ruby-identifier">output</span> = <span class="ruby-identifier">agg</span>[<span class="ruby-value">:args</span>][<span class="ruby-value">0</span>]
+<span class="line-num">22</span> 
+<span class="line-num">23</span>     <span class="ruby-keyword">if</span> <span class="ruby-identifier">contains_output?</span>(<span class="ruby-identifier">output</span>)
+<span class="line-num">24</span>       <span class="ruby-identifier">arguments</span> = <span class="ruby-identifier">agg</span>[<span class="ruby-value">:args</span>][<span class="ruby-value">1</span>]
+<span class="line-num">25</span>       <span class="ruby-identifier">format</span> = (<span class="ruby-identifier">arguments</span>.<span class="ruby-identifier">delete</span>(<span class="ruby-value">:format</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">arguments</span>) <span class="ruby-operator">||</span> <span class="ruby-keyword">nil</span>
+<span class="line-num">26</span>       <span class="ruby-keyword">begin</span>
+<span class="line-num">27</span>         <span class="ruby-ivar">@functions</span> <span class="ruby-operator">&lt;&lt;</span> <span class="ruby-identifier">load_function</span>(<span class="ruby-identifier">agg</span>[<span class="ruby-value">:function</span>]).<span class="ruby-identifier">new</span>(<span class="ruby-identifier">output</span>, <span class="ruby-identifier">arguments</span>, <span class="ruby-identifier">format</span>, <span class="ruby-ivar">@action</span>)
+<span class="line-num">28</span>       <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">29</span>         <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Cannot create aggregate function &#39;#{output}&#39;. #{e.to_s}&quot;</span>)
+<span class="line-num">30</span>         <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">output</span>, <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:startup</span>}
+<span class="line-num">31</span>       <span class="ruby-keyword">end</span>
+<span class="line-num">32</span>     <span class="ruby-keyword">else</span>
+<span class="line-num">33</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Cannot create aggregate function &#39;#{output}&#39;. &#39;#{output}&#39; has not been specified as a valid ddl output.&quot;</span>)
+<span class="line-num">34</span>       <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">output</span>, <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:create</span>}
+<span class="line-num">35</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">36</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">37</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -369,15 +367,15 @@ method calls operate on these function as a batch.</p>
 
           
           <div class="method-source-code" id="load_function-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 76</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">load_function</span>(<span class="ruby-identifier">function_name</span>)
-  <span class="ruby-identifier">function_name</span> = <span class="ruby-identifier">function_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
-
-  <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-node">&quot;MCollective::Aggregate::#{function_name}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Aggregate</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">function_name</span>)
-  <span class="ruby-constant">Aggregate</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">function_name</span>)
-<span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Aggregate function file '#{function_name.downcase}.rb' cannot be loaded&quot;</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num">76</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">load_function</span>(<span class="ruby-identifier">function_name</span>)
+<span class="line-num">77</span>   <span class="ruby-identifier">function_name</span> = <span class="ruby-identifier">function_name</span>.<span class="ruby-identifier">to_s</span>.<span class="ruby-identifier">capitalize</span>
+<span class="line-num">78</span> 
+<span class="line-num">79</span>   <span class="ruby-constant">PluginManager</span>.<span class="ruby-identifier">loadclass</span>(<span class="ruby-node">&quot;MCollective::Aggregate::#{function_name}&quot;</span>) <span class="ruby-keyword">unless</span> <span class="ruby-constant">Aggregate</span>.<span class="ruby-identifier">const_defined?</span>(<span class="ruby-identifier">function_name</span>)
+<span class="line-num">80</span>   <span class="ruby-constant">Aggregate</span>.<span class="ruby-identifier">const_get</span>(<span class="ruby-identifier">function_name</span>)
+<span class="line-num">81</span> <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span>
+<span class="line-num">82</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Aggregate function file &#39;#{function_name.downcase}.rb&#39; cannot be loaded&quot;</span>
+<span class="line-num">83</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -407,22 +405,22 @@ method calls operate on these function as a batch.</p>
 
           
           <div class="method-source-code" id="summarize-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/aggregate.rb, line 59</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">summarize</span>
-  <span class="ruby-identifier">summary</span> = <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">function</span><span class="ruby-operator">|</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">function</span>.<span class="ruby-identifier">summarize</span>
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">e</span>
-      <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Could not summarize aggregate result for '#{function.output_name}'. #{e.to_s}&quot;</span>)
-      <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>, <span class="ruby-value">:type</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-value">:summarize</span>}
-      <span class="ruby-keyword">nil</span>
-    <span class="ruby-keyword">end</span>
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">summary</span>.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">nil?</span>}.<span class="ruby-identifier">sort</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">x</span>.<span class="ruby-identifier">result</span>[<span class="ruby-value">:output</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">result</span>[<span class="ruby-value">:output</span>]
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/aggregate.rb</span>
+<span class="line-num">59</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">summarize</span>
+<span class="line-num">60</span>   <span class="ruby-identifier">summary</span> = <span class="ruby-ivar">@functions</span>.<span class="ruby-identifier">map</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">function</span><span class="ruby-operator">|</span>
+<span class="line-num">61</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">62</span>       <span class="ruby-identifier">function</span>.<span class="ruby-identifier">summarize</span>
+<span class="line-num">63</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">Exception</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">e</span>
+<span class="line-num">64</span>       <span class="ruby-constant">Log</span>.<span class="ruby-identifier">error</span>(<span class="ruby-node">&quot;Could not summarize aggregate result for &#39;#{function.output_name}&#39;. #{e.to_s}&quot;</span>)
+<span class="line-num">65</span>       <span class="ruby-ivar">@failed</span> <span class="ruby-operator">&lt;&lt;</span> {<span class="ruby-value">:name</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">function</span>.<span class="ruby-identifier">output_name</span>, <span class="ruby-value">:type</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-value">:summarize</span>}
+<span class="line-num">66</span>       <span class="ruby-keyword">nil</span>
+<span class="line-num">67</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">68</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">69</span> 
+<span class="line-num">70</span>   <span class="ruby-identifier">summary</span>.<span class="ruby-identifier">reject</span>{<span class="ruby-operator">|</span><span class="ruby-identifier">x</span><span class="ruby-operator">|</span> <span class="ruby-identifier">x</span>.<span class="ruby-identifier">nil?</span>}.<span class="ruby-identifier">sort</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">x</span>,<span class="ruby-identifier">y</span><span class="ruby-operator">|</span>
+<span class="line-num">71</span>     <span class="ruby-identifier">x</span>.<span class="ruby-identifier">result</span>[<span class="ruby-value">:output</span>] <span class="ruby-operator">&lt;=&gt;</span> <span class="ruby-identifier">y</span>.<span class="ruby-identifier">result</span>[<span class="ruby-value">:output</span>]
+<span class="line-num">72</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">73</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -440,8 +438,8 @@ method calls operate on these function as a batch.</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 

@@ -4,14 +4,18 @@
 <head>
 <meta charset="UTF-8">
 
-<title>class MCollective::SSL - mcollective version 2.12.1</title>
+<title>class MCollective::SSL - mcollective version 2.12.5</title>
 
 <script type="text/javascript">
   var rdoc_rel_prefix = "../";
+  var index_rel_prefix = "../";
 </script>
 
-<script src="../js/jquery.js"></script>
-<script src="../js/darkfish.js"></script>
+<script src="../js/navigation.js" defer></script>
+<script src="../js/search.js" defer></script>
+<script src="../js/search_index.js" defer></script>
+<script src="../js/searcher.js" defer></script>
+<script src="../js/darkfish.js" defer></script>
 
 <link href="../css/fonts.css" rel="stylesheet">
 <link href="../css/rdoc.css" rel="stylesheet">
@@ -125,11 +129,9 @@
 
   <section class="description">
     
-<p>A class that assists in encrypting and decrypting data using a combination
-of RSA and AES</p>
+<p>A class that assists in encrypting and decrypting data using a combination of RSA and AES</p>
 
-<p><a href="Data.html">Data</a> will be AES encrypted for speed, the Key used
-in # the AES stage will be encrypted using RSA</p>
+<p><a href="Data.html"><code>Data</code></a> will be AES encrypted for speed, the Key used in # the AES stage will be encrypted using RSA</p>
 
 <pre class="ruby"><span class="ruby-identifier">ssl</span> = <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">public_key</span>, <span class="ruby-identifier">private_key</span>, <span class="ruby-identifier">passphrase</span>)
 
@@ -142,25 +144,18 @@ in # the AES stage will be encrypted using RSA</p>
 
 <p>This will result in a hash of data like:</p>
 
-<pre class="ruby"><span class="ruby-identifier">crypted</span> = {:<span class="ruby-identifier">key</span>  =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;crd4NHvG....=&quot;</span>,
-           :<span class="ruby-identifier">data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-string">&quot;XWXlqN+i...==&quot;</span>}
+<pre class="ruby"><span class="ruby-identifier">crypted</span> = {<span class="ruby-value">:key</span>  <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;crd4NHvG....=&quot;</span>,
+           <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-string">&quot;XWXlqN+i...==&quot;</span>}
 </pre>
 
-<p>The key and data will all be base 64 encoded already by default you can
-pass a 2nd parameter as false to <a
-href="SSL.html#method-i-encrypt_with_private">#encrypt_with_private</a> and
-counterparts that will prevent the base 64 encoding</p>
+<p>The key and data will all be base 64 encoded already by default you can pass a 2nd parameter as false to <a href="SSL.html#method-i-encrypt_with_private"><code>encrypt_with_private</code></a> and counterparts that will prevent the base 64 encoding</p>
 
-<p>You can pass the data hash into ssl.decrypt_with_public which should return
-your original data</p>
+<p>You can pass the data hash into ssl.decrypt_with_public which should return your original data</p>
 
-<p>There are matching methods for using a public key to encrypt data to be
-decrypted using a private key</p>
+<p>There are matching methods for using a public key to encrypt data to be decrypted using a private key</p>
 
   </section>
 
-  
-  
   
   <section id="5Buntitled-5D" class="documentation-section">
     
@@ -244,15 +239,15 @@ decrypted using a private key</p>
 
           
           <div class="method-source-code" id="base64_decode-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 195</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-comment"># The Base 64 character set is A-Z a-z 0-9 + / =</span>
-  <span class="ruby-comment"># Also allow for whitespace, but raise if we get anything else</span>
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">string</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/^[A-Za-z0-9+\/=\s]+$/</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">'invalid base64'</span>
-  <span class="ruby-keyword">end</span>
-  <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">195</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">base64_decode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">196</span>   <span class="ruby-comment"># The Base 64 character set is A-Z a-z 0-9 + / =</span>
+<span class="line-num">197</span>   <span class="ruby-comment"># Also allow for whitespace, but raise if we get anything else</span>
+<span class="line-num">198</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">string</span> <span class="ruby-operator">!~</span> <span class="ruby-regexp">/^[A-Za-z0-9+\/=\s]+$/</span>
+<span class="line-num">199</span>     <span class="ruby-identifier">raise</span> <span class="ruby-constant">ArgumentError</span>, <span class="ruby-string">&#39;invalid base64&#39;</span>
+<span class="line-num">200</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">201</span>   <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">decode64</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">202</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -282,10 +277,10 @@ decrypted using a private key</p>
 
           
           <div class="method-source-code" id="base64_encode-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 186</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">186</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">base64_encode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">187</span>   <span class="ruby-constant">Base64</span>.<span class="ruby-identifier">encode64</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">188</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -315,10 +310,10 @@ decrypted using a private key</p>
 
           
           <div class="method-source-code" id="md5-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 208</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">208</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">md5</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">209</span>   <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">MD5</span>.<span class="ruby-identifier">hexdigest</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">210</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -348,20 +343,20 @@ decrypted using a private key</p>
 
           
           <div class="method-source-code" id="new-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 37</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">initialize</span>(<span class="ruby-identifier">pubkey</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">privkey</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">cipher</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-ivar">@public_key_file</span> = <span class="ruby-identifier">pubkey</span>
-  <span class="ruby-ivar">@private_key_file</span> = <span class="ruby-identifier">privkey</span>
-
-  <span class="ruby-ivar">@public_key</span>  = <span class="ruby-identifier">read_key</span>(<span class="ruby-value">:public</span>, <span class="ruby-identifier">pubkey</span>)
-  <span class="ruby-ivar">@private_key</span> = <span class="ruby-identifier">read_key</span>(<span class="ruby-value">:private</span>, <span class="ruby-identifier">privkey</span>, <span class="ruby-identifier">passphrase</span>)
-
-  <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-string">&quot;aes-256-cbc&quot;</span>
-  <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span>
-  <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-identifier">cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cipher</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher '#{@ssl_cipher}' is not supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">37</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">initialize</span>(<span class="ruby-identifier">pubkey</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">privkey</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">cipher</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">38</span>   <span class="ruby-ivar">@public_key_file</span> = <span class="ruby-identifier">pubkey</span>
+<span class="line-num">39</span>   <span class="ruby-ivar">@private_key_file</span> = <span class="ruby-identifier">privkey</span>
+<span class="line-num">40</span> 
+<span class="line-num">41</span>   <span class="ruby-ivar">@public_key</span>  = <span class="ruby-identifier">read_key</span>(<span class="ruby-value">:public</span>, <span class="ruby-identifier">pubkey</span>)
+<span class="line-num">42</span>   <span class="ruby-ivar">@private_key</span> = <span class="ruby-identifier">read_key</span>(<span class="ruby-value">:private</span>, <span class="ruby-identifier">privkey</span>, <span class="ruby-identifier">passphrase</span>)
+<span class="line-num">43</span> 
+<span class="line-num">44</span>   <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-string">&quot;aes-256-cbc&quot;</span>
+<span class="line-num">45</span>   <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Config</span>.<span class="ruby-identifier">instance</span>.<span class="ruby-identifier">ssl_cipher</span>
+<span class="line-num">46</span>   <span class="ruby-ivar">@ssl_cipher</span> = <span class="ruby-identifier">cipher</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">cipher</span>
+<span class="line-num">47</span> 
+<span class="line-num">48</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;The supplied cipher &#39;#{@ssl_cipher}&#39; is not supported&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">ciphers</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-ivar">@ssl_cipher</span>)
+<span class="line-num">49</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -385,46 +380,44 @@ decrypted using a private key</p>
 
         <div class="method-description">
           
-          <p>Creates a RFC 4122 version 5 UUID. If string is supplied it will produce
-repeatable UUIDs for that string else a random 128bit string will be used
-from OpenSSL::BN</p>
+          <p>Creates a RFC 4122 version 5 UUID. If string is supplied it will produce repeatable UUIDs for that string else a random 128bit string will be used from OpenSSL::BN</p>
 
 <p>Code used with permission from:</p>
 
-<pre class="ruby"><span class="ruby-identifier">https</span>:<span class="ruby-operator">/</span><span class="ruby-regexp">/github.com/</span><span class="ruby-identifier">kwilczynski</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">-</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">blob</span><span class="ruby-operator">/</span><span class="ruby-identifier">master</span><span class="ruby-operator">/</span><span class="ruby-identifier">lib</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">/</span><span class="ruby-identifier">parser</span><span class="ruby-operator">/</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">rb</span>
+<pre class="ruby"><span class="ruby-identifier">https</span><span class="ruby-value">:/</span><span class="ruby-operator">/</span><span class="ruby-identifier">github</span>.<span class="ruby-identifier">com</span><span class="ruby-operator">/</span><span class="ruby-identifier">kwilczynski</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">-</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">blob</span><span class="ruby-operator">/</span><span class="ruby-identifier">master</span><span class="ruby-operator">/</span><span class="ruby-identifier">lib</span><span class="ruby-operator">/</span><span class="ruby-identifier">puppet</span><span class="ruby-operator">/</span><span class="ruby-identifier">parser</span><span class="ruby-operator">/</span><span class="ruby-identifier">functions</span><span class="ruby-operator">/</span><span class="ruby-identifier">uuid</span>.<span class="ruby-identifier">rb</span>
 </pre>
           
           
 
           
           <div class="method-source-code" id="uuid-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 218</span>
-<span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier">uuid</span>(<span class="ruby-identifier">string</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-identifier">string</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Random</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'H*'</span>).<span class="ruby-identifier">shift</span>
-
-  <span class="ruby-identifier">uuid_name_space_dns</span> = [<span class="ruby-value">0x6b</span>, <span class="ruby-value">0xa7</span>, <span class="ruby-value">0xb8</span>, <span class="ruby-value">0x10</span>, <span class="ruby-value">0x9d</span>, <span class="ruby-value">0xad</span>, <span class="ruby-value">0x11</span>, <span class="ruby-value">0xd1</span>, <span class="ruby-value">0x80</span>, <span class="ruby-value">0xb4</span>, <span class="ruby-value">0x00</span>, <span class="ruby-value">0xc0</span>, <span class="ruby-value">0x4f</span>, <span class="ruby-value">0xd4</span>, <span class="ruby-value">0x30</span>, <span class="ruby-value">0xc8</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">chr</span>}.<span class="ruby-identifier">join</span>
-
-  <span class="ruby-identifier">sha1</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>
-  <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uuid_name_space_dns</span>)
-  <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">string</span>)
-
-  <span class="ruby-comment"># first 16 bytes..</span>
-  <span class="ruby-identifier">bytes</span> = <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">digest</span>[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>].<span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">to_a</span>
-
-  <span class="ruby-comment"># version 5 adjustments</span>
-  <span class="ruby-identifier">bytes</span>[<span class="ruby-value">6</span>] <span class="ruby-operator">&amp;=</span> <span class="ruby-value">0x0f</span>
-  <span class="ruby-identifier">bytes</span>[<span class="ruby-value">6</span>] <span class="ruby-operator">|=</span> <span class="ruby-value">0x50</span>
-
-  <span class="ruby-comment"># variant is DCE 1.1</span>
-  <span class="ruby-identifier">bytes</span>[<span class="ruby-value">8</span>] <span class="ruby-operator">&amp;=</span> <span class="ruby-value">0x3f</span>
-  <span class="ruby-identifier">bytes</span>[<span class="ruby-value">8</span>] <span class="ruby-operator">|=</span> <span class="ruby-value">0x80</span>
-
-  <span class="ruby-identifier">bytes</span> = [<span class="ruby-value">4</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">6</span>].<span class="ruby-identifier">collect</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
-    <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-string">'C*'</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">'H*'</span>)
-  <span class="ruby-keyword">end</span>
-
-  <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">'-'</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">218</span> <span class="ruby-keyword">def</span> <span class="ruby-keyword">self</span>.<span class="ruby-identifier ruby-title">uuid</span>(<span class="ruby-identifier">string</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">219</span>   <span class="ruby-identifier">string</span> <span class="ruby-operator">||=</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Random</span>.<span class="ruby-identifier">random_bytes</span>(<span class="ruby-value">16</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&#39;H*&#39;</span>).<span class="ruby-identifier">shift</span>
+<span class="line-num">220</span> 
+<span class="line-num">221</span>   <span class="ruby-identifier">uuid_name_space_dns</span> = [<span class="ruby-value">0x6b</span>, <span class="ruby-value">0xa7</span>, <span class="ruby-value">0xb8</span>, <span class="ruby-value">0x10</span>, <span class="ruby-value">0x9d</span>, <span class="ruby-value">0xad</span>, <span class="ruby-value">0x11</span>, <span class="ruby-value">0xd1</span>, <span class="ruby-value">0x80</span>, <span class="ruby-value">0xb4</span>, <span class="ruby-value">0x00</span>, <span class="ruby-value">0xc0</span>, <span class="ruby-value">0x4f</span>, <span class="ruby-value">0xd4</span>, <span class="ruby-value">0x30</span>, <span class="ruby-value">0xc8</span>].<span class="ruby-identifier">map</span> {<span class="ruby-operator">|</span><span class="ruby-identifier">b</span><span class="ruby-operator">|</span> <span class="ruby-identifier">b</span>.<span class="ruby-identifier">chr</span>}.<span class="ruby-identifier">join</span>
+<span class="line-num">222</span> 
+<span class="line-num">223</span>   <span class="ruby-identifier">sha1</span> = <span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>
+<span class="line-num">224</span>   <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">uuid_name_space_dns</span>)
+<span class="line-num">225</span>   <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">226</span> 
+<span class="line-num">227</span>   <span class="ruby-comment"># first 16 bytes..</span>
+<span class="line-num">228</span>   <span class="ruby-identifier">bytes</span> = <span class="ruby-identifier">sha1</span>.<span class="ruby-identifier">digest</span>[<span class="ruby-value">0</span>, <span class="ruby-value">16</span>].<span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">to_a</span>
+<span class="line-num">229</span> 
+<span class="line-num">230</span>   <span class="ruby-comment"># version 5 adjustments</span>
+<span class="line-num">231</span>   <span class="ruby-identifier">bytes</span>[<span class="ruby-value">6</span>] <span class="ruby-operator">&amp;=</span> <span class="ruby-value">0x0f</span>
+<span class="line-num">232</span>   <span class="ruby-identifier">bytes</span>[<span class="ruby-value">6</span>] <span class="ruby-operator">|=</span> <span class="ruby-value">0x50</span>
+<span class="line-num">233</span> 
+<span class="line-num">234</span>   <span class="ruby-comment"># variant is DCE 1.1</span>
+<span class="line-num">235</span>   <span class="ruby-identifier">bytes</span>[<span class="ruby-value">8</span>] <span class="ruby-operator">&amp;=</span> <span class="ruby-value">0x3f</span>
+<span class="line-num">236</span>   <span class="ruby-identifier">bytes</span>[<span class="ruby-value">8</span>] <span class="ruby-operator">|=</span> <span class="ruby-value">0x80</span>
+<span class="line-num">237</span> 
+<span class="line-num">238</span>   <span class="ruby-identifier">bytes</span> = [<span class="ruby-value">4</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">2</span>, <span class="ruby-value">6</span>].<span class="ruby-identifier">collect</span> <span class="ruby-keyword">do</span> <span class="ruby-operator">|</span><span class="ruby-identifier">i</span><span class="ruby-operator">|</span>
+<span class="line-num">239</span>     <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">slice!</span>(<span class="ruby-value">0</span>, <span class="ruby-identifier">i</span>).<span class="ruby-identifier">pack</span>(<span class="ruby-string">&#39;C*&#39;</span>).<span class="ruby-identifier">unpack</span>(<span class="ruby-string">&#39;H*&#39;</span>)
+<span class="line-num">240</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">241</span> 
+<span class="line-num">242</span>   <span class="ruby-identifier">bytes</span>.<span class="ruby-identifier">join</span>(<span class="ruby-string">&#39;-&#39;</span>)
+<span class="line-num">243</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -462,15 +455,15 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="aes_decrypt-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 158</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypt_string</span>)
-  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
-
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">decrypt</span>
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">decrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">crypt_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">158</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypt_string</span>)
+<span class="line-num">159</span>   <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+<span class="line-num">160</span> 
+<span class="line-num">161</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">decrypt</span>
+<span class="line-num">162</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
+<span class="line-num">163</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">164</span>   <span class="ruby-identifier">decrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">crypt_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
+<span class="line-num">165</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -500,19 +493,19 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="aes_encrypt-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 144</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-  <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">encrypt</span>
-
-  <span class="ruby-identifier">key</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">random_key</span>
-
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
-  <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">encrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">plain_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
-
-  {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">encrypted_data</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">144</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">aes_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+<span class="line-num">145</span>   <span class="ruby-identifier">cipher</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Cipher</span>.<span class="ruby-identifier">new</span>(<span class="ruby-identifier">ssl_cipher</span>)
+<span class="line-num">146</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">encrypt</span>
+<span class="line-num">147</span> 
+<span class="line-num">148</span>   <span class="ruby-identifier">key</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">random_key</span>
+<span class="line-num">149</span> 
+<span class="line-num">150</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">key</span> = <span class="ruby-identifier">key</span>
+<span class="line-num">151</span>   <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">pkcs5_keyivgen</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">152</span>   <span class="ruby-identifier">encrypted_data</span> = <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">update</span>(<span class="ruby-identifier">plain_string</span>) <span class="ruby-operator">+</span> <span class="ruby-identifier">cipher</span>.<span class="ruby-identifier">final</span>
+<span class="line-num">153</span> 
+<span class="line-num">154</span>   {<span class="ruby-value">:key</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">encrypted_data</span>}
+<span class="line-num">155</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -542,10 +535,10 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="base64_decode-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 191</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">191</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">base64_decode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">192</span>   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">193</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -575,10 +568,10 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="base64_encode-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 182</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">182</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">base64_encode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">183</span>   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">184</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -608,19 +601,19 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="decrypt_with_private-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 88</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:key</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:data</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
-    <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]))
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
-    <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">88</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">89</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:key</span>)
+<span class="line-num">90</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:data</span>)
+<span class="line-num">91</span> 
+<span class="line-num">92</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
+<span class="line-num">93</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
+<span class="line-num">94</span>     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]))
+<span class="line-num">95</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">96</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
+<span class="line-num">97</span>     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
+<span class="line-num">98</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">99</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -650,19 +643,19 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="decrypt_with_public-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 102</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:key</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:data</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
-    <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]))
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
-    <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">102</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">103</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include a key&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:key</span>)
+<span class="line-num">104</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Crypted data should include data&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-identifier">crypted</span>.<span class="ruby-identifier">include?</span>(<span class="ruby-value">:data</span>)
+<span class="line-num">105</span> 
+<span class="line-num">106</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
+<span class="line-num">107</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
+<span class="line-num">108</span>     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]))
+<span class="line-num">109</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">110</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
+<span class="line-num">111</span>     <span class="ruby-identifier">aes_decrypt</span>(<span class="ruby-identifier">key</span>, <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
+<span class="line-num">112</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">113</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -694,20 +687,20 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="encrypt_with_private-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 73</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt_with_private</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
-    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
-    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]
-  <span class="ruby-keyword">end</span>
-
-  {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">73</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encrypt_with_private</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">74</span>   <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
+<span class="line-num">75</span> 
+<span class="line-num">76</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
+<span class="line-num">77</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
+<span class="line-num">78</span>     <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
+<span class="line-num">79</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">80</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
+<span class="line-num">81</span>     <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">82</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">83</span> 
+<span class="line-num">84</span>   {<span class="ruby-value">:key</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">data</span>}
+<span class="line-num">85</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -739,20 +732,20 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="encrypt_with_public-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 55</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">encrypt_with_public</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
-  <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
-    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
-    <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]
-  <span class="ruby-keyword">end</span>
-
-  {<span class="ruby-value">:key</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> =<span class="ruby-operator">&gt;</span> <span class="ruby-identifier">data</span>}
-<span class="ruby-keyword">end</span></pre>
+            <pre>   <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">55</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">encrypt_with_public</span>(<span class="ruby-identifier">plain_text</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">true</span>)
+<span class="line-num">56</span>   <span class="ruby-identifier">crypted</span> = <span class="ruby-identifier">aes_encrypt</span>(<span class="ruby-identifier">plain_text</span>)
+<span class="line-num">57</span> 
+<span class="line-num">58</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
+<span class="line-num">59</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>]))
+<span class="line-num">60</span>     <span class="ruby-identifier">data</span> = <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>])
+<span class="line-num">61</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">62</span>     <span class="ruby-identifier">key</span> = <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">crypted</span>[<span class="ruby-value">:key</span>])
+<span class="line-num">63</span>     <span class="ruby-identifier">data</span> = <span class="ruby-identifier">crypted</span>[<span class="ruby-value">:data</span>]
+<span class="line-num">64</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">65</span> 
+<span class="line-num">66</span>   {<span class="ruby-value">:key</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">key</span>, <span class="ruby-value">:data</span> <span class="ruby-operator">=&gt;</span> <span class="ruby-identifier">data</span>}
+<span class="line-num">67</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -782,10 +775,10 @@ from OpenSSL::BN</p>
 
           
           <div class="method-source-code" id="md5-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 204</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
-  <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">204</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">md5</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">205</span>   <span class="ruby-constant">SSL</span>.<span class="ruby-identifier">md5</span>(<span class="ruby-identifier">string</span>)
+<span class="line-num">206</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -809,50 +802,49 @@ from OpenSSL::BN</p>
 
         <div class="method-description">
           
-          <p>Reads either a :public or :private key from disk, uses an optional
-passphrase to read the private key</p>
+          <p>Reads either a :public or :private key from disk, uses an optional passphrase to read the private key</p>
           
           
 
           
           <div class="method-source-code" id="read_key-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 247</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">read_key</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword">nil</span>)
-  <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
-
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find key #{key}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">key</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{type} key file '#{key}' is empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">zero?</span>(<span class="ruby-identifier">key</span>)
-
-  <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:public</span>
-    <span class="ruby-keyword">begin</span>
-      <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>))
-    <span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSAError</span>
-      <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>)).<span class="ruby-identifier">public_key</span>
-    <span class="ruby-keyword">end</span>
-
-    <span class="ruby-comment"># Ruby &lt; 1.9.3 had a bug where it does not correctly clear the</span>
-    <span class="ruby-comment"># queue of errors while reading a key.  It tries various ways</span>
-    <span class="ruby-comment"># to read the key and each failing attempt pushes an error onto</span>
-    <span class="ruby-comment"># the queue.  With pubkeys only the 3rd attempt pass leaving 2</span>
-    <span class="ruby-comment"># stale errors on the error queue.</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># In 1.9.3 they fixed this by simply discarding the errors after</span>
-    <span class="ruby-comment"># every attempt.  So we simulate this fix here for older rubies</span>
-    <span class="ruby-comment"># as without it we get SSL_read errors from the Stomp+TLS sessions</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># We do this only on 1.8 relying on 1.9.3 to do the right thing</span>
-    <span class="ruby-comment"># and we do not support 1.9 less than 1.9.3</span>
-    <span class="ruby-comment">#</span>
-    <span class="ruby-comment"># See  http://bugs.ruby-lang.org/issues/4550</span>
-    <span class="ruby-constant">OpenSSL</span>.<span class="ruby-identifier">errors</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">ruby_version</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^1.8/</span>
-
-    <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span>
-  <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:private</span>
-    <span class="ruby-keyword">return</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">passphrase</span>)
-  <span class="ruby-keyword">else</span>
-    <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only load :public or :private keys&quot;</span>
-  <span class="ruby-keyword">end</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">247</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">read_key</span>(<span class="ruby-identifier">type</span>, <span class="ruby-identifier">key</span>=<span class="ruby-keyword">nil</span>, <span class="ruby-identifier">passphrase</span>=<span class="ruby-keyword">nil</span>)
+<span class="line-num">248</span>   <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span> <span class="ruby-keyword">if</span> <span class="ruby-identifier">key</span>.<span class="ruby-identifier">nil?</span>
+<span class="line-num">249</span> 
+<span class="line-num">250</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;Could not find key #{key}&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">exist?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">251</span>   <span class="ruby-identifier">raise</span> <span class="ruby-node">&quot;#{type} key file &#39;#{key}&#39; is empty&quot;</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">File</span>.<span class="ruby-identifier">zero?</span>(<span class="ruby-identifier">key</span>)
+<span class="line-num">252</span> 
+<span class="line-num">253</span>   <span class="ruby-keyword">if</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:public</span>
+<span class="line-num">254</span>     <span class="ruby-keyword">begin</span>
+<span class="line-num">255</span>       <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>))
+<span class="line-num">256</span>     <span class="ruby-keyword">rescue</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSAError</span>
+<span class="line-num">257</span>       <span class="ruby-identifier">key</span> = <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">X509</span><span class="ruby-operator">::</span><span class="ruby-constant">Certificate</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>)).<span class="ruby-identifier">public_key</span>
+<span class="line-num">258</span>     <span class="ruby-keyword">end</span>
+<span class="line-num">259</span> 
+<span class="line-num">260</span>     <span class="ruby-comment"># Ruby &lt; 1.9.3 had a bug where it does not correctly clear the</span>
+<span class="line-num">261</span>     <span class="ruby-comment"># queue of errors while reading a key.  It tries various ways</span>
+<span class="line-num">262</span>     <span class="ruby-comment"># to read the key and each failing attempt pushes an error onto</span>
+<span class="line-num">263</span>     <span class="ruby-comment"># the queue.  With pubkeys only the 3rd attempt pass leaving 2</span>
+<span class="line-num">264</span>     <span class="ruby-comment"># stale errors on the error queue.</span>
+<span class="line-num">265</span>     <span class="ruby-comment">#</span>
+<span class="line-num">266</span>     <span class="ruby-comment"># In 1.9.3 they fixed this by simply discarding the errors after</span>
+<span class="line-num">267</span>     <span class="ruby-comment"># every attempt.  So we simulate this fix here for older rubies</span>
+<span class="line-num">268</span>     <span class="ruby-comment"># as without it we get SSL_read errors from the Stomp+TLS sessions</span>
+<span class="line-num">269</span>     <span class="ruby-comment">#</span>
+<span class="line-num">270</span>     <span class="ruby-comment"># We do this only on 1.8 relying on 1.9.3 to do the right thing</span>
+<span class="line-num">271</span>     <span class="ruby-comment"># and we do not support 1.9 less than 1.9.3</span>
+<span class="line-num">272</span>     <span class="ruby-comment">#</span>
+<span class="line-num">273</span>     <span class="ruby-comment"># See  http://bugs.ruby-lang.org/issues/4550</span>
+<span class="line-num">274</span>     <span class="ruby-constant">OpenSSL</span>.<span class="ruby-identifier">errors</span> <span class="ruby-keyword">if</span> <span class="ruby-constant">Util</span>.<span class="ruby-identifier">ruby_version</span> <span class="ruby-operator">=~</span> <span class="ruby-regexp">/^1.8/</span>
+<span class="line-num">275</span> 
+<span class="line-num">276</span>     <span class="ruby-keyword">return</span> <span class="ruby-identifier">key</span>
+<span class="line-num">277</span>   <span class="ruby-keyword">elsif</span> <span class="ruby-identifier">type</span> <span class="ruby-operator">==</span> <span class="ruby-value">:private</span>
+<span class="line-num">278</span>     <span class="ruby-keyword">return</span> <span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">PKey</span><span class="ruby-operator">::</span><span class="ruby-constant">RSA</span>.<span class="ruby-identifier">new</span>(<span class="ruby-constant">File</span>.<span class="ruby-identifier">read</span>(<span class="ruby-identifier">key</span>), <span class="ruby-identifier">passphrase</span>)
+<span class="line-num">279</span>   <span class="ruby-keyword">else</span>
+<span class="line-num">280</span>     <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;Can only load :public or :private keys&quot;</span>
+<span class="line-num">281</span>   <span class="ruby-keyword">end</span>
+<span class="line-num">282</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -882,12 +874,12 @@ passphrase to read the private key</p>
 
           
           <div class="method-source-code" id="rsa_decrypt_with_private-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 123</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypt_string</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No private key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@private_key</span>
-
-  <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">123</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rsa_decrypt_with_private</span>(<span class="ruby-identifier">crypt_string</span>)
+<span class="line-num">124</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No private key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@private_key</span>
+<span class="line-num">125</span> 
+<span class="line-num">126</span>   <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
+<span class="line-num">127</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -917,12 +909,12 @@ passphrase to read the private key</p>
 
           
           <div class="method-source-code" id="rsa_decrypt_with_public-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 137</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypt_string</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No public key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@public_key</span>
-
-  <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">137</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rsa_decrypt_with_public</span>(<span class="ruby-identifier">crypt_string</span>)
+<span class="line-num">138</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No public key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@public_key</span>
+<span class="line-num">139</span> 
+<span class="line-num">140</span>   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_decrypt</span>(<span class="ruby-identifier">crypt_string</span>)
+<span class="line-num">141</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -952,12 +944,12 @@ passphrase to read the private key</p>
 
           
           <div class="method-source-code" id="rsa_encrypt_with_private-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 130</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rsa_encrypt_with_private</span>(<span class="ruby-identifier">plain_string</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No private key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@private_key</span>
-
-  <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">130</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rsa_encrypt_with_private</span>(<span class="ruby-identifier">plain_string</span>)
+<span class="line-num">131</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No private key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@private_key</span>
+<span class="line-num">132</span> 
+<span class="line-num">133</span>   <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">private_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+<span class="line-num">134</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -987,12 +979,12 @@ passphrase to read the private key</p>
 
           
           <div class="method-source-code" id="rsa_encrypt_with_public-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 116</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">rsa_encrypt_with_public</span>(<span class="ruby-identifier">plain_string</span>)
-  <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No public key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@public_key</span>
-
-  <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">116</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">rsa_encrypt_with_public</span>(<span class="ruby-identifier">plain_string</span>)
+<span class="line-num">117</span>   <span class="ruby-identifier">raise</span> <span class="ruby-string">&quot;No public key set&quot;</span> <span class="ruby-keyword">unless</span> <span class="ruby-ivar">@public_key</span>
+<span class="line-num">118</span> 
+<span class="line-num">119</span>   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">public_encrypt</span>(<span class="ruby-identifier">plain_string</span>)
+<span class="line-num">120</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1022,12 +1014,12 @@ passphrase to read the private key</p>
 
           
           <div class="method-source-code" id="sign-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 168</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">sign</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">sig</span> = <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">sign</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">string</span>)
-
-  <span class="ruby-identifier">base64</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">sig</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">sig</span>
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">168</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">sign</span>(<span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">false</span>)
+<span class="line-num">169</span>   <span class="ruby-identifier">sig</span> = <span class="ruby-ivar">@private_key</span>.<span class="ruby-identifier">sign</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">string</span>)
+<span class="line-num">170</span> 
+<span class="line-num">171</span>   <span class="ruby-identifier">base64</span> <span class="ruby-operator">?</span> <span class="ruby-identifier">base64_encode</span>(<span class="ruby-identifier">sig</span>) <span class="ruby-operator">:</span> <span class="ruby-identifier">sig</span>
+<span class="line-num">172</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1051,19 +1043,18 @@ passphrase to read the private key</p>
 
         <div class="method-description">
           
-          <p>Using the public key verifies that a string was signed using the private
-key</p>
+          <p>Using the public key verifies that a string was signed using the private key</p>
           
           
 
           
           <div class="method-source-code" id="verify_signature-source">
-            <pre><span class="ruby-comment"># File lib/mcollective/ssl.rb, line 175</span>
-<span class="ruby-keyword">def</span> <span class="ruby-identifier">verify_signature</span>(<span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">false</span>)
-  <span class="ruby-identifier">signature</span> = <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">signature</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
-
-  <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>)
-<span class="ruby-keyword">end</span></pre>
+            <pre>    <span class="ruby-comment"># File lib/mcollective/ssl.rb</span>
+<span class="line-num">175</span> <span class="ruby-keyword">def</span> <span class="ruby-identifier ruby-title">verify_signature</span>(<span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>, <span class="ruby-identifier">base64</span>=<span class="ruby-keyword">false</span>)
+<span class="line-num">176</span>   <span class="ruby-identifier">signature</span> = <span class="ruby-identifier">base64_decode</span>(<span class="ruby-identifier">signature</span>) <span class="ruby-keyword">if</span> <span class="ruby-identifier">base64</span>
+<span class="line-num">177</span> 
+<span class="line-num">178</span>   <span class="ruby-ivar">@public_key</span>.<span class="ruby-identifier">verify</span>(<span class="ruby-constant">OpenSSL</span><span class="ruby-operator">::</span><span class="ruby-constant">Digest</span><span class="ruby-operator">::</span><span class="ruby-constant">SHA1</span>.<span class="ruby-identifier">new</span>, <span class="ruby-identifier">signature</span>, <span class="ruby-identifier">string</span>)
+<span class="line-num">179</span> <span class="ruby-keyword">end</span></pre>
           </div>
           
         </div>
@@ -1081,8 +1072,8 @@ key</p>
 
 
 <footer id="validator-badges" role="contentinfo">
-  <p><a href="http://validator.w3.org/check/referer">Validate</a>
-  <p>Generated by <a href="http://docs.seattlerb.org/rdoc/">RDoc</a> 4.2.0.
+  <p><a href="https://validator.w3.org/check/referer">Validate</a>
+  <p>Generated by <a href="https://ruby.github.io/rdoc/">RDoc</a> 6.2.0.
   <p>Based on <a href="http://deveiate.org/projects/Darkfish-RDoc/">Darkfish</a> by <a href="http://deveiate.org">Michael Granger</a>.
 </footer>
 
