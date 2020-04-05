@@ -3,15 +3,14 @@ Author: Sebastien Badia <sbadia@debian.org>
 Forwarded: not-needed
 Last-Update: 2018-04-05
 
---- mcollective-2.12.0+dfsg.orig/doc/acceptance/README_md.html
-+++ mcollective-2.12.0+dfsg/doc/acceptance/README_md.html
-@@ -273,9 +273,6 @@ href="../MCollective.html">MCollective</
-
+--- a/doc/acceptance/README_md.html
++++ b/doc/acceptance/README_md.html
+@@ -280,8 +280,6 @@
+ 
  <h1 id="label-WARNING">WARNING<span><a href="#label-WARNING">&para;</a> <a href="#top">&uarr;</a></span></h1>
-
--<p><img
--src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Chinese_black_dragon.svg/235px-Chinese_black_dragon.svg.png"></p>
+ 
+-<p><img src="http://upload.wikimedia.org/wikipedia/commons/thumb/b/bc/Chinese_black_dragon.svg/235px-Chinese_black_dragon.svg.png"></p>
 -
- <p><strong>WARNING:</strong> Under NO circumstances should you use
- <strong>any</strong> of the certificate files located in the /acceptance
- directory or any of its subdirectories in a production system. The private
+ <p><strong>WARNING:</strong> Under NO circumstances should you use <strong>any</strong> of the certificate files located in the /acceptance directory or any of its subdirectories in a production system. The private keys are publicly available and <strong>will</strong> result in an insecure environment</p>
+ 
+ <h1 id="label-Files+directory">Files directory<span><a href="#label-Files+directory">&para;</a> <a href="#top">&uarr;</a></span></h1>
