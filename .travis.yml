@@ -5,4 +5,5 @@ arch: arm64
 dist: xenial
 install: skip
 script:
-  - TRAVIS_DEBIAN_DISTRIBUTION=testing sh \.travis-script.sh 
+  - export TRAVIS_DEBIAN_DISTRIBUTION=testing
+  - sh \.travis-script.sh 
