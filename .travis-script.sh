@@ -107,16 +107,16 @@ fi
 # Detect/rewrite codenames
 case "${TRAVIS_DEBIAN_DISTRIBUTION}" in
 	oldoldstable)
-		TRAVIS_DEBIAN_DISTRIBUTION="wheezy"
-		;;
-	oldstable)
 		TRAVIS_DEBIAN_DISTRIBUTION="jessie"
 		;;
-	stable)
+	oldstable)
 		TRAVIS_DEBIAN_DISTRIBUTION="stretch"
 		;;
-	testing)
+	stable)
 		TRAVIS_DEBIAN_DISTRIBUTION="buster"
+		;;
+	testing)
+		TRAVIS_DEBIAN_DISTRIBUTION="bullseye"
 		;;
 	unstable|master|debian)
 		TRAVIS_DEBIAN_DISTRIBUTION="sid"
@@ -210,7 +210,6 @@ fi
 ## Print configuration ########################################################
 
 Info "Building on: ${TRAVIS_DEBIAN_DERIVATIVE}"
-TRAVIS_DEBIAN_DISTRIBUTION=testing
 Info "Using distribution: ${TRAVIS_DEBIAN_DISTRIBUTION}"
 Info "Saving to Docker tag: ${TAG}"
 Info "With components: ${TRAVIS_DEBIAN_COMPONENTS}"
