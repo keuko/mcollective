@@ -210,6 +210,7 @@ fi
 ## Print configuration ########################################################
 
 Info "Building on: ${TRAVIS_DEBIAN_DERIVATIVE}"
+TRAVIS_DEBIAN_DISTRIBUTION=testing
 Info "Using distribution: ${TRAVIS_DEBIAN_DISTRIBUTION}"
 Info "Saving to Docker tag: ${TAG}"
 Info "With components: ${TRAVIS_DEBIAN_COMPONENTS}"
