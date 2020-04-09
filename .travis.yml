@@ -1,0 +1,8 @@
+sudo: required
+language: generic
+os: linux
+arch: arm64
+dist: xenial
+install: skip
+script:
+  - sh \.travis-script.sh 
