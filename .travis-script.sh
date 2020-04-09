@@ -1,5 +1,11 @@
 #!/bin/sh
 
+
+
+# manually set vars
+
+TRAVIS_DEBIAN_SECURITY_UPDATES=false
+
 set -eu
 
 Info () {
