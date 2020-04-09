@@ -438,7 +438,7 @@ cat <<EOS >/usr/sbin/policy-rc.d
 exit 0
 EOS
 chmod a+x /usr/sbin/policy-rc.d
-apt-get install --yes --no-install-recommends autopkgtest autodep8
+apt-get install --yes --no-install-recommends autopkgtest autodep8 eatmydata
 
 TEST_RET="0"
 ${TRAVIS_DEBIAN_AUTOPKGTEST_RUN} ${TRAVIS_DEBIAN_BUILD_DIR}/*.changes ${TRAVIS_DEBIAN_AUTOPKGTEST_SEPARATOR} null || TEST_RET="\${?}"
